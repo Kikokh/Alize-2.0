@@ -1,0 +1,51 @@
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    .header {
+        .title {
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            height: 30px;
+            font-size: 30px;
+            color: white;
+        }
+
+        .subtitle {
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            height: 30px;
+            font-size: 15px;
+            color: #7F969F;
+        }
+    }
+
+    .profile {
+        display: flex;
+        flex-direction: row;
+        .logo {
+            width: 30%;
+            margin: 15px 10px auto; 
+            img {
+                width: 100%;
+            }
+        }
+
+        .user-profile {
+            width: 100%;
+            margin-left: 10px;
+            .welcome {
+                color: #7F969F;
+                font-weight: 700;
+                font-size: 17px;
+            }
+
+            .user-name {
+                color: aliceblue;
+                font-size: 15px;
+            }
+        }
+    }
+}

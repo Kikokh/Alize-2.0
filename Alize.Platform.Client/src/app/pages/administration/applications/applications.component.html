@@ -1,0 +1,15 @@
+<div class="main-container">
+    <div class="breadcrumb">
+        <app-breadcrumb [componentName]="'Aplicaciones'"></app-breadcrumb>
+    </div>
+    <!-- <div class="search-layout">
+        <div class="search-layout-complementary"></div>
+        <div class="search">
+            <app-search ></app-search>
+        </div>
+    </div> -->
+
+    <div class="grid">
+        <app-grid [columns]="displayedColumns" [elementData]="elementData" [table]="'Applications'" ></app-grid>
+    </div>
+</div>

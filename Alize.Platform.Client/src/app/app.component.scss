@@ -4,13 +4,12 @@
     border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.example-sidenav-content {
-    // display: flex;
-    // height: 100%;
-    // align-items: center;
-    // justify-content: center;
+.side-bar-expanded {
+    width: 10%;
+    background-color: #2A3F54;
 }
 
-.example-sidenav {
-    padding: 20px;
+.side-bar-collapsed {
+    width: 7%;
+    background-color: #2A3F54;
 }

@@ -1,5 +1,2 @@
-<p>Auto-resizing sidenav</p>
-<p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-<button (click)="showFiller = !showFiller" mat-raised-button>
-    Toggle extra text
-</button>
+<app-side-bar-expanded *ngIf="isSideBarExpander"></app-side-bar-expanded>
+<app-side-bar-collapsed *ngIf="!isSideBarExpander"></app-side-bar-collapsed>

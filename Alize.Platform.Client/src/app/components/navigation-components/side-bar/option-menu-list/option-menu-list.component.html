@@ -1,0 +1,36 @@
+<ng-container *ngIf="isSideBarExpanded">
+    <mat-list class="mat-list-expanded" *ngFor="let opt of optionList; let i = index">
+        <mat-list-item>
+            <button mat-menu-item (click)="showSubMenu(i, opt.name)" routerLink="/{{opt.route}}">
+                <mat-icon class="menu-icon">{{opt.icon}}</mat-icon>
+                <span class="span-opt-name">{{opt.name}}</span>
+                <mat-icon class="arrow-icon" *ngIf="opt.name !== 'Inicio'" mat-list-icon>expand_more</mat-icon>
+            </button>
+        </mat-list-item>
+        <!-- <pre>{{opt | json}}</pre> -->
+        <div *ngIf="opt.isVisible">
+            <mat-list class="sub-menu" *ngFor="let subOpt of  opt.subMenu">
+                <div *ngIf="subOpt.isVisible">
+                    <mat-list-item>
+                        <button routerLink="/{{subOpt.route}}" mat-menu-item>
+                            <mat-icon class="menu-icon">circle</mat-icon>
+                            <span>{{subOpt.name}}</span>
+                        </button>
+                    </mat-list-item>
+                </div>
+            </mat-list>
+        </div>
+    </mat-list>
+</ng-container>
+
+<ng-container *ngIf="!isSideBarExpanded">
+    <mat-selection-list #shoes [multiple]="false" class="mat-list-collapsed">
+        <mat-list-option *ngFor="let opt of optionList; let i = index" [value]="opt" (click)="showSubMenu(i, opt.name)"
+            routerLink="/{{opt.route}}">
+            <div>
+                <mat-icon class="menu-icon">{{opt.icon}}</mat-icon>
+                <span class="span-opt-name">{{opt.name}}</span>
+            </div>
+        </mat-list-option>
+    </mat-selection-list>
+</ng-container>

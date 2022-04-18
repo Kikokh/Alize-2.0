@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationService } from '../services/navigation.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -7,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
   showFiller = false;
-
-  constructor() { }
+  isSideBarExpander = true;
+  constructor(private _navigationService: NavigationService) { }
 
   ngOnInit(): void {
-    console.log('info');
+    this._navigationService.isSideBarExpanded.subscribe(isSideBarExpander => {
+      this.isSideBarExpander = isSideBarExpander;
+    });
   }
 
 }

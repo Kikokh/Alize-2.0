@@ -1,0 +1,61 @@
+.grid-container {
+    display: flex;
+    flex-direction: column;
+
+    .filter {
+        display: flex;
+        flex-direction: row;
+
+        button {
+            margin: 25px auto;
+            height: 50%;
+        }
+
+        div {
+            width: 90%;
+            height: 100px;
+        }
+    }
+
+    .table-container {
+        table {
+            width: 100%;
+        }
+    }
+}
+
+.column-id {
+    width: 3%;
+}
+
+.column-name {
+    width: 15%;
+}
+
+.column-description {
+    width: 50%;
+}
+
+.column-company {
+    width: 13%;
+}
+
+
+.column-active {
+    width: 3%;
+}
+
+
+td {
+    mat-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        width: 30%;
+        padding: 0;
+        width: fit-content;
+        mat-list-item {
+            padding: 0;
+        }
+    }
+}

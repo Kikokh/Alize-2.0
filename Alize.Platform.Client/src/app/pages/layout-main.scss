@@ -1,0 +1,26 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    // border: 1px solid orange;
+    .breadcrumb {
+    }
+
+    .search-layout {
+        height: 80px;
+        width: 100%;
+        display: flex;
+        
+        .search-layout-complementary {
+            width: 80%;
+        }
+
+        .search {
+            width: 20%;
+        }
+    }
+
+    .grid {
+        width: 90%;
+        margin: 10px auto;
+    }
+}
