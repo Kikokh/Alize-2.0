@@ -1,4 +1,5 @@
 ﻿using Alize.Platform.Api.Requests.Applications;
+using Alize.Platform.Api.Responses.Applications;
 using Alize.Platform.Data.Models;
 using Alize.Platform.Data.Repositories;
 using AutoMapper;
@@ -10,6 +11,7 @@ namespace Alize.Platform.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
+    [Produces("application/json")]
     public class ApplicationsController : ControllerBase
     {
         private readonly IApplicationRepository _applicationRepository;
@@ -23,15 +25,18 @@ namespace Alize.Platform.Api.Controllers
 
         // GET: api/<ApplicationsController>
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<ApplicationResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
             var apps = await _applicationRepository.GetApplicationsAsync();
 
-            return Ok(apps);
+            return Ok(_mapper.Map<IEnumerable<ApplicationResponse>>(apps));
         }
 
         // GET api/<ApplicationsController>/4B900A74-E2D9-4837-B9A4-9E828752716E
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ApplicationResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(Guid id)
         {
             var app = await _applicationRepository.GetApplicationAsync(id);
@@ -39,27 +44,34 @@ namespace Alize.Platform.Api.Controllers
             if (app is null)
                 return NotFound();
 
-            return Ok(app);
+            return Ok(_mapper.Map<ApplicationResponse>(app));
         }
 
         // POST api/<ApplicationsController>
         [HttpPost]
+        [ProducesResponseType(typeof(ApplicationResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Post([FromBody] CreateApplicationRequest request)
         {
 
             var app = await _applicationRepository.AddApplicationAsync(_mapper.Map<Application>(request));
 
-            return CreatedAtAction(nameof(Get), new { id = app.Id }, app);
+            return CreatedAtAction(nameof(Get), new { id = app.Id }, _mapper.Map<ApplicationResponse>(app));
         }
 
         // PUT api/<ApplicationsController>/4B900A74-E2D9-4837-B9A4-9E828752716E
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put(Guid id, [FromBody] Application application)
         {
             if (id != application.Id)
             {
                 return BadRequest();
             }
+
+            if (await _applicationRepository.GetApplicationAsync(id) is null)
+                return NotFound();
 
             await _applicationRepository.UpdateApplicationAsync(application);
 
@@ -68,6 +80,8 @@ namespace Alize.Platform.Api.Controllers
 
         // DELETE api/<ApplicationsController>/4B900A74-E2D9-4837-B9A4-9E828752716E
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(Guid id)
         {
             var app = await _applicationRepository.GetApplicationAsync(id);

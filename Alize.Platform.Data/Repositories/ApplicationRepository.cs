@@ -24,7 +24,7 @@ namespace Alize.Platform.Data.Repositories
 
         public async Task<Application> UpdateApplicationAsync(Application application)
         {
-            _dbContext.Entry(application).State = EntityState.Modified;
+            _dbContext.Update(application);
             await _dbContext.SaveChangesAsync();
             return application;
         }
