@@ -12,6 +12,7 @@
         "project": [
           "tsconfig.json"
         ],
+        "tsconfigRootDir": "__dirname",
         "createDefaultProgram": true
       },
       "extends": [

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ManagementRoutingModule } from './management/management-routing.module';
-import { ManagementComponent } from './management/management.component';
+import { ManagementRoutingModule } from './management-routing.module';
+import { ManagementComponent } from './management.component';
 import { SharedModule } from 'src/app/components/shared.module';
 
 
@@ -15,4 +15,4 @@ import { SharedModule } from 'src/app/components/shared.module';
   ]
 })
 
-export class ManagementModule { }
+export class HomeModule { }

@@ -10,7 +10,8 @@ import { RouterModule } from '@angular/router';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { GridComponent } from './grid/grid.component';
 import { SearchComponent } from './search/search.component';
-
+import { ApplicationPopUpComponent } from './pop-up/application-pop-up/application-pop-up.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,12 +23,15 @@ import { SearchComponent } from './search/search.component';
     OptionMenuListComponent,
     BreadcrumbComponent,
     GridComponent,
-    SearchComponent
+    SearchComponent,
+    ApplicationPopUpComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavBarComponent,

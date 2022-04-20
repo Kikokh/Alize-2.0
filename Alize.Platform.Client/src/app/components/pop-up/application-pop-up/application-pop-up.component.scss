@@ -1,0 +1,40 @@
+.header {
+    width: 100%;
+    h1 {
+        padding-bottom: 20px;
+        border-bottom: 1px solid grey;
+    }
+}
+
+.subtitle {
+    display: flex;
+    max-width: 600px;
+
+    mat-icon {
+        padding-top: 5px;
+    }
+
+    h3 {
+        font-size: 14px;
+    }
+}
+
+.mat-dialog-content {
+    height: 350px;
+    form {
+        display: flex;
+        flex-direction: column;
+
+        mat-checkbox {
+            margin-top: 20px;
+        }
+    }
+}
+
+.mat-dialog-actions {
+    display: flex;
+    .fill {
+        width: 70%;
+        height: 50px;
+    }
+}

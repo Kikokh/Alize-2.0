@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ManagementComponent } from '../management/management/management.component';
 import { ApplicationsComponent } from './applications/applications.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { GroupsComponent } from './groups/groups.component';
-import { ManagementComponent } from '../management/management.component';
 import { ModulesComponent } from './modules/modules.component';
 import { UsersComponent } from './users/users.component';
 

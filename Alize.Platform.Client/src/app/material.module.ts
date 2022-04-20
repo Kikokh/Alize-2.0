@@ -11,6 +11,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   imports: [
@@ -25,7 +29,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
   ],
   exports: [
     MatButtonModule,
@@ -39,7 +47,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatInputModule,
     MatTableModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule 
   ]
 })
 export class MaterialModule { }
