@@ -24,7 +24,7 @@
 </ng-container>
 
 <ng-container *ngIf="!isSideBarExpanded">
-    <mat-selection-list #shoes [multiple]="false" class="mat-list-collapsed">
+    <mat-selection-list [multiple]="false" class="mat-list-collapsed">
         <mat-list-option *ngFor="let opt of optionList; let i = index" [value]="opt" (click)="showSubMenu(i, opt.name)"
             routerLink="/{{opt.route}}">
             <div>

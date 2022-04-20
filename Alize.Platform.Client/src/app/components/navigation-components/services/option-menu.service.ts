@@ -17,7 +17,7 @@ export class OptionMenuService {
         isVisible: false,
         route: 'home/index',
         breadcrumb: 'inicio',
-        icon: 'home',
+        icon: 'house',
         subMenu: []
       },
       {
@@ -27,7 +27,7 @@ export class OptionMenuService {
         menuName: 'Aplicaciones',
         route: 'administration/applications',
         breadcrumb: 'Administracion > Aplicaciones',
-        icon: 'home',
+        icon: 'settings',
         subMenu: [
           {
             name: 'Aplicaciones',
@@ -88,7 +88,7 @@ export class OptionMenuService {
         isVisible: false,
         route: 'management/requests',
         breadcrumb: 'Administracion > Consultas',
-        icon: 'home',
+        icon: 'edit_note',
         subMenu: [
           {
             name: 'Consultas',
