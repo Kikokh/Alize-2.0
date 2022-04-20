@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alize.Platform.Data.Models
 {
@@ -15,6 +16,9 @@ namespace Alize.Platform.Data.Models
         public string? Description { get; set; }
 
         public Company? Company { get; set; }
+
+        [ForeignKey("Company")]
+        public Guid? CompanyId { get; set; }
 
         public bool IsActive { get; set; }
 

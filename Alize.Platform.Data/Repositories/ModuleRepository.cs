@@ -21,5 +21,12 @@ namespace Alize.Platform.Data.Repositories
         {
             return await _context.Modules.ToListAsync();
         }
+
+        public async Task<Module> UpdateModuleAsync(Module module)
+        {
+            _context.Update(module);
+            await _context.SaveChangesAsync();
+            return module;
+        }
     }
 }
