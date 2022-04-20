@@ -3,6 +3,7 @@
     flex-direction: column;
 
     .filter {
+        background-color: transparent;
         display: flex;
         flex-direction: row;
 
@@ -12,14 +13,65 @@
         }
 
         div {
+            background-color: transparent;
+
             width: 90%;
             height: 100px;
         }
     }
 
-    .table-container {
-        table {
-            width: 100%;
+    div {
+        background-color: white;
+
+        .toolbar {
+            width: 95%;
+            margin: 0 auto;
+            
+            div {
+                display: flex;
+                .title {
+                    font-weight: bold;
+                }
+
+                .sub-title {
+                    margin-left: 20px;
+                }
+            }
+        }
+
+        .table-container {
+            margin: 40px auto;
+
+            table {
+                margin: 40px;
+                width: 95%;
+
+                th {
+                    background-color: #2A3F54;
+                    color: aliceblue;
+                }
+
+                td {
+                    mat-list {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        width: 30%;
+                        padding: 0;
+                        width: fit-content;
+                
+                        mat-list-item {
+                            padding: 0;
+                            button {
+                                cursor: pointer;
+                                mat-icon {
+                                    color: #2A3F54;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -43,19 +95,4 @@
 
 .column-active {
     width: 3%;
-}
-
-
-td {
-    mat-list {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        width: 30%;
-        padding: 0;
-        width: fit-content;
-        mat-list-item {
-            padding: 0;
-        }
-    }
 }
