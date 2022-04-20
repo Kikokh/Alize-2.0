@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { RequestApplication } from '../../models/application.model';
+import { IUser } from '../models/IUser';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-application-pop-up',
@@ -12,10 +14,15 @@ export class ApplicationPopUpComponent {
 
   title = '';
   subtitle = '';
+  infoText = '';
 
   applicationForm: FormGroup;
 
-  constructor(public dialogRef: MatDialogRef<ApplicationPopUpComponent>,
+  userList: IUser[];
+
+  constructor(
+    private _userService: UserService,
+    public dialogRef: MatDialogRef<ApplicationPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       nombre: string;
       description: string;
@@ -43,10 +50,19 @@ export class ApplicationPopUpComponent {
       this.title = 'Ver Aplicación'
     } if (data.mode === 'EDIT') { 
       this.title = 'Editar Aplicación'
+    }
+    if (data.mode === 'GROUP') { 
+      this.title = 'Usuarios con permiso de consulta'
+      this.subtitle = 'Selecciona los usuarios que tendrán acceso a la consulta Calidad mapex';
+      this.infoText = 'Los administradores tienen permiso implicito a la consulta'
     } else {
       this.title = 'Nueva petición de aplicación';
       this.subtitle = 'Explicanos brevemente en que consiste la aplicación que quieres, nos pondremos en contacto contigo tan pronto sea posible para hacerla realidad.';
     }
+
+    this._userService.getUserPopUp().subscribe(userList => {
+      this.userList = userList;
+    });
   }
 
   onClick() {

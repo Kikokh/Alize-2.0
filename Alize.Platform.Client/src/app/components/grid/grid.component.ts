@@ -133,8 +133,18 @@ export class GridComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onDisplayGroup() {
-
+  onDisplayGroup(application: PeriodicElement) {
+    const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
+      width: '600px',
+      data: {
+        nombre: application.Nombre, 
+        description: application.Descripcion,
+        importantInfo: '',
+        mode: 'GROUP',
+        date: new Date(),
+        isActive: application.Activo
+      },
+    });
   }
 
 }

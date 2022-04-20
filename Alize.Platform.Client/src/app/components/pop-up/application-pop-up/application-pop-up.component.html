@@ -1,16 +1,25 @@
 <div class="header">
   <h1 mat-dialog-title>{{title}}</h1>
 </div>
-<div class="subtitle">
+
+<div class="subtitle" *ngIf="data.mode !== 'GROUP'">
   <mat-icon *ngIf="data.mode === 'ADD'">info</mat-icon>
   <h3 mat-dialog-title>{{subtitle}}</h3>
 </div>
-<div class="mat-dialog-content" mat-dialog-content>
+
+<div class="subtitle-groups" *ngIf="data.mode === 'GROUP'">
+  <p mat-dialog-title>{{subtitle}}</p>
+  <div>
+    <mat-icon>info</mat-icon>
+    <p mat-dialog-title>{{infoText}}</p>
+  </div>
+</div>
+
+<div class="mat-dialog-content" mat-dialog-content *ngIf="data.mode !== 'GROUP'">
   <form [formGroup]="applicationForm">
     <mat-form-field appearance="outline">
       <mat-label>Nombre</mat-label>
-      <input matInput name="name" 
-      formControlName="name">
+      <input matInput name="name" formControlName="name">
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Descripción</mat-label>
@@ -27,9 +36,20 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <mat-checkbox class="example-margin" *ngIf="data.mode === 'Display' || data.mode === 'EDIT'"  name="active" formControlName="active" [checked]="data.isActive">Activo</mat-checkbox>
+    <mat-checkbox class="example-margin" *ngIf="data.mode === 'Display' || data.mode === 'EDIT'" name="active"
+      formControlName="active" [checked]="data.isActive">Activo</mat-checkbox>
   </form>
 </div>
+
+<div class="mat-dialog-content-group" mat-dialog-content *ngIf="data.mode === 'GROUP'">
+  <ng-container *ngFor="let user of userList">
+  <!-- <pre>{{userList | json}}</pre> -->
+    <mat-checkbox class="example-margin" name="active" formControlName="active" [disabled]="user.status === 'Disabled'" [checked]="user.status === 'Active'">
+      {{user.name}}
+    </mat-checkbox>
+  </ng-container>
+</div>
+
 <div class="mat-dialog-actions" mat-dialog-actions>
   <div class="fill"></div>
   <div class="buttons">
