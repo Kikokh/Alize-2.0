@@ -1,6 +1,5 @@
 .mat-list-expanded {
     mat-list-item {
-
         button {
             color: #E5E5E5;
 
@@ -21,7 +20,6 @@
         mat-list-item {
             margin-left: 10%;
 
-            // width: 90%;
             button {
                 .menu-icon {
                     font-size: 10px;
@@ -41,27 +39,19 @@
     }
 }
 
-.mat-list-collapsed {
-    width: max-content;
-    align-items: center;
-    margin: 0 auto;
+.menu-collapsed {
+    display: flex;
 
-    mat-list-option {
-        max-height: fit-content;
-        margin: 5px auto;
+    button {
+        margin: 0 auto;
         width: 100%;
-        
-        // justify-content: center;
-        align-items: center;
-        // text-align: center;
+        height: fit-content;
+        color: #E5E5E5;
 
         div {
-            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            width: max-content;
-            height: fit-content;
-            color: #E5E5E5;
+            align-items: center;
 
             .menu-icon {
                 height: min-content;
@@ -71,32 +61,23 @@
             }
         }
     }
-}
 
-.sub-menu {
-    cursor: pointer;
-
-    mat-list-item {
-        margin-left: 10%;
-
-        // width: 90%;
+    .right-menu {
+        background-color: white;
+        position: absolute;
+        width: 170px;
+        margin-top: 60px;
+        z-index: 1000;
         button {
-            // background-color: red;
-
-            .menu-icon {
+            .sub-menu-icon {
                 font-size: 10px;
+                padding-top: 10px;
             }
 
             span {
+                color: black;
                 display: inline-block;
             }
         }
     }
-
-    // }
 }
-
-// :host :ng-deep .mat-list-base .mat-list-item .mat-list-item-content-reverse, .mat-list-base .mat-list-option .mat-list-item-content-reverse
-//  {
-//     width: inherit;
-// }

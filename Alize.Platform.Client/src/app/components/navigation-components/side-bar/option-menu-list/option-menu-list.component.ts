@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { Router } from '@angular/router';
 import { IMenu } from '../../models/menu';
 import { OptionMenuService } from '../../services/option-menu.service';
 
@@ -13,7 +15,10 @@ export class OptionMenuListComponent implements OnInit {
   isShowSubMenuVisible = false;
   @Input() isSideBarExpanded: boolean = false;
 
-  constructor(private optionMenuService: OptionMenuService) { }
+  constructor(
+    private _router: Router,
+    private optionMenuService: OptionMenuService
+  ) { }
 
   ngOnInit(): void {
     this.optionMenuService.getMenu().subscribe(menuList => {
@@ -21,7 +26,7 @@ export class OptionMenuListComponent implements OnInit {
     });
   }
 
-  showSubMenu(i: number, name: string) {
+  showSubMenu(i: number, name: string, route: any) {
 
     this.optionList.forEach(menu => {
       menu.isVisible = false;
@@ -33,8 +38,16 @@ export class OptionMenuListComponent implements OnInit {
 
     var currentOpt =this.optionList.filter(opt => opt.name === name);
     currentOpt[0].isVisible = true;
+    currentOpt[0].isSelected = true;
     currentOpt[0].subMenu.forEach(opt => opt.isVisible = true);
+
+    if (name === 'Inicio') {
+      this._router.navigate([route]);
+    }
   }
 
+  navigate(module: any) {
+    this._router.navigate([module]);
+  }
   
 }

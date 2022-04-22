@@ -1,3 +1,10 @@
-<app-breadcrumb class="breadcrumb" [componentName]="'Empresas'"></app-breadcrumb>
-<app-search class="search"></app-search>
-<app-grid class="grid"></app-grid>
+<div class="main-container">
+    <div class="page-container">
+        <div class="breadcrumb">
+            <app-breadcrumb [componentName]="'Empresas'"></app-breadcrumb>
+        </div>
+        <div class="grid">
+            <app-grid [columns]="displayedColumns" [elementData]="elementData" [table]="'Companies'"></app-grid>
+        </div>
+    </div>
+</div>
