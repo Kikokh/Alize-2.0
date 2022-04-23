@@ -18,8 +18,8 @@
         cursor: pointer;
 
         mat-list-item {
-            margin-left: 10%;
-
+            margin-left: 5%;
+            width: 95%;
             button {
                 .menu-icon {
                     font-size: 10px;
@@ -68,6 +68,7 @@
         width: 170px;
         margin-top: 60px;
         z-index: 1000;
+
         button {
             .sub-menu-icon {
                 font-size: 10px;
@@ -80,4 +81,13 @@
             }
         }
     }
+}
+
+.active {
+    opacity: 0.6;
+    border-right: 4px solid aqua;
+}
+
+.active-text {
+    opacity: 1;
 }

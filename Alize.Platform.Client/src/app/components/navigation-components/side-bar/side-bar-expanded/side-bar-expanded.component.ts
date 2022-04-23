@@ -6,6 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./side-bar-expanded.component.scss']
 })
 export class SideBarExpandedComponent {
+  welcome = 'Bienvenido';
+  user = 'Oscar Valente';
+
   constructor() { }
 
 }

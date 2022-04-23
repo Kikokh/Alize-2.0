@@ -31,7 +31,7 @@ export class OptionMenuService {
         subMenu: [
           {
             name: 'Aplicaciones',
-            menuName: 'Inicio',
+            menuName: 'Aplicaciones',
             isSelected: false,
             isVisible: false,
             route: 'administration/applications',

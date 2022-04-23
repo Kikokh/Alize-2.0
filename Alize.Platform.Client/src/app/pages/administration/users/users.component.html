@@ -1,3 +1,10 @@
-<app-breadcrumb [componentName]="'Usuarios'"></app-breadcrumb>
-<app-search></app-search>
-<app-grid></app-grid>
+<div class="main-container">
+    <div class="page-container">
+        <div class="breadcrumb">
+            <app-breadcrumb [componentName]="'Usuarios'"></app-breadcrumb>
+        </div>
+        <div class="grid">
+            <app-grid [columns]="displayedColumns" [elementData]="elementData" [table]="'Usuarios'"></app-grid>
+        </div>
+    </div>
+</div>
