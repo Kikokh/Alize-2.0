@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { IMenu } from '../../models/menu';
 import { OptionMenuService } from '../../services/option-menu.service';
 
@@ -17,7 +18,7 @@ export class OptionMenuListComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private optionMenuService: OptionMenuService
+    private optionMenuService: OptionMenuService,
   ) { }
 
   ngOnInit(): void {
