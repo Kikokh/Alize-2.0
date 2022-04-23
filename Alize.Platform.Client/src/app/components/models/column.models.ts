@@ -16,6 +16,25 @@ export interface IElementDataCompanies {
     Operaciones: IOperationsModel[];
 }
 
+export interface IElementDataModules {
+    Id: number;
+    Nombre: string;
+    Descripcion: string;
+    Grupo: string;
+    Activo: boolean;
+    Operaciones: IOperationsModel[];
+}
+
+export interface IElementDataUsers {
+    Id: number;
+    Nombre: string;
+    Email: string;
+    Empresa: string;
+    Grupo: string;
+    Activo: boolean;
+    Operaciones: IOperationsModel[];
+}
+
 export interface IOperationsModel {
     optionName: string;
     icon: string;
@@ -35,4 +54,14 @@ export class GridData {
 export class GridDataCompanies {
     columnDef: IColumnDef[];
     data: IElementDataCompanies[];
+}
+
+export class GridDataModules {
+    columnDef: IColumnDef[];
+    data: IElementDataModules[];
+}
+
+export class GridDataUsers {
+    columnDef: IColumnDef[];
+    data: IElementDataUsers[];
 }

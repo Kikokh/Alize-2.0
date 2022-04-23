@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IColumnDef, IElementDataCompanies } from 'src/app/components/models/column.models';
+import { IColumnDef, IElementDataCompanies, IElementDataUsers } from 'src/app/components/models/column.models';
+import { ColumnBuilderService } from '../../services/column-builder.service';
 
 @Component({
   selector: 'app-users',
@@ -8,7 +9,11 @@ import { IColumnDef, IElementDataCompanies } from 'src/app/components/models/col
 })
 export class UsersComponent {
   displayedColumns: IColumnDef[];
-  elementData: IElementDataCompanies[];
-  constructor() { }
-
+  elementData: IElementDataUsers[];
+  constructor(private _columnBuilderService: ColumnBuilderService) {
+    this._columnBuilderService.getUsersData().subscribe(gridData => {
+      this.elementData = gridData.data;
+      this.displayedColumns = gridData.columnDef;
+    });
+  }
 }
