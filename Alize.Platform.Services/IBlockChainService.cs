@@ -4,7 +4,7 @@ namespace Alize.Platform.Services
 {
     public interface IBlockChainService
     {
-        Task<Asset> GetAssetAsync(Application app, Guid assetId);
-        Task<Asset> CreateAssetAsync(Application app, string content);
+        Task<Asset> GetAssetAsync(Guid assetId);
+        Task<Asset> CreateAssetAsync(string content);
     }
 }

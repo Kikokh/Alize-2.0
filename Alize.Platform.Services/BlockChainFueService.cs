@@ -1,28 +1,27 @@
 ﻿using Alize.Platform.Data.Models;
+using Alize.Platform.Data.Repositories;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using System.Text.Json;
-using Xpander.Shared.ThirdParty.BCLibrary;
-using Xpander.Shared.ThirdParty.BCLibrary.Messages.HistoryAsset;
-using Xpander.Shared.ThirdParty.BCLibrary.Messages.RetrieveAsset;
 
 namespace Alize.Platform.Services
 {
     public class BlockChainFueService : IBlockChainService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IApplicationRepository _applicationRepository;
+        private readonly IConfiguration _configuration;
 
-        public BlockChainFueService(HttpClient httpClient, IConfiguration configuration)
+        public BlockChainFueService(IConfiguration configuration, IApplicationRepository applicationRepository)
         {
-            _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri(configuration["ApiUrls:BlockChainFUE"]);
+            _applicationRepository = applicationRepository;
+            _configuration = configuration;
         }
 
-        public async Task<Asset> CreateAssetAsync(Application app, string content)
+        public async Task<Asset> CreateAssetAsync(string content)
         {
-            app.ApiId = "60ffbe3ef24524680871dc75";
-            app.ApiKey = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436";
-            app.DataType = "bc_calidad_mapex";
+            var apiId = "60ffbe3ef24524680871dc75";
+            var apiKey = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436";
+            var dataType = "bc_calidad_mapex";
 
             var body = new
             {
@@ -30,7 +29,7 @@ namespace Alize.Platform.Services
                 {
                     data = new
                     {
-                        type = app.DataType,
+                        type = dataType,
                         content = content
                     },
                     from = new
@@ -45,41 +44,44 @@ namespace Alize.Platform.Services
 
             var stringContent = new StringContent(foo, Encoding.UTF8, "application/json");
 
-            SetHeaders(app.ApiId, app.ApiKey);
-            var response = await _httpClient.PostAsync("asset", stringContent); 
+            var response = await GetHttpClient(apiId, apiKey).PostAsync("asset", stringContent);
 
-            if (response.IsSuccessStatusCode)
+            return await ReadResponse<Asset>(response);
+        }
+
+        public async Task<Asset> GetAssetAsync(Guid assetId)
+        {
+            var apiId = "60ffbe3ef24524680871dc75";
+            var apiKey = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436";
+
+            var response = await GetHttpClient(apiId, apiKey).GetAsync("asset");
+
+            return await ReadResponse<Asset>(response);            
+        }
+
+        private HttpClient GetHttpClient(string id, string key)
+        {
+            var httpClient = new HttpClient()
             {
-                var result = await response.Content.ReadAsAsync<dynamic>();
-                return new Asset { Id = result.id, Content = content };
+                BaseAddress = new Uri(_configuration["ApiUrls:BlockChainFUE"])
+            };
+
+            httpClient.DefaultRequestHeaders.Add("X-App-Id", id);
+            httpClient.DefaultRequestHeaders.Add("X-App-Key", key);
+
+            return httpClient;
+        }
+
+        private async Task<T> ReadResponse<T>(HttpResponseMessage responseMessage) where T : class
+        {
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return await responseMessage.Content.ReadAsAsync<T>();
             }
             else
             {
-                throw new Exception(response.StatusCode.ToString());
+                throw new Exception(responseMessage.StatusCode.ToString());
             }
-        }
-
-        public async Task<Asset> GetAssetAsync(Application app, Guid assetId)
-        {
-            var key = "a2f0be170eca423cfa305126da9b190ea6e99b25eee33ef3a7226d86e748920d";
-            app.ApiId = "60ffbe3ef24524680871dc75";
-            app.ApiKey = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436";
-            app.DataType = "bc_calidad_mapex";
-
-            Processor.SetHeaders(app.ApiId, app.ApiKey, app.DataType);
-
-            RetrieveAssetResponse response = await Processor.RetrieveAssetAsync(key);
-            RetrieveAssetHistoryResponse historyResponse = await Processor.RetriveAssetHistoryAsync(key);
-
-            return new Asset { Id = response.Asset.Id, Content = response.Asset.Data };
-        }
-
-        private void SetHeaders(string id, string key)
-        {
-            _httpClient.DefaultRequestHeaders.Remove("X-App-Id");
-            _httpClient.DefaultRequestHeaders.Remove("X-App-Key");
-            _httpClient.DefaultRequestHeaders.Add("X-App-Id", id);
-            _httpClient.DefaultRequestHeaders.Add("X-App-Key", key);
         }
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alize.Platform.Api.Controllers
 {
-    [Route("api/Applications/{applicationId}/[controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class AssetsController : ControllerBase
@@ -20,10 +20,9 @@ namespace Alize.Platform.Api.Controllers
         }
 
         [HttpGet("{assetId}")]
-        public async Task<IActionResult> Get(Guid applicationId, Guid assetId)
+        public async Task<IActionResult> Get(Guid assetId)
         {
-            var app = await _applicationRepository.GetApplicationAsync(applicationId);
-            var asset = await _libraryService.GetAssetAsync(app, assetId);
+            var asset = await _libraryService.GetAssetAsync(assetId);
 
             return Ok(asset);
         }
@@ -31,8 +30,7 @@ namespace Alize.Platform.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(Guid applicationId, string content)
         {
-            var app = await _applicationRepository.GetApplicationAsync(applicationId);
-            var asset = await _libraryService.CreateAssetAsync(app, content);
+            var asset = await _libraryService.CreateAssetAsync(content);
 
             return CreatedAtAction(nameof(Get), new { assetId = asset.Id }, asset);
         }

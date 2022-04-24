@@ -128,5 +128,18 @@ namespace Alize.Platform.Api.Controllers
 
             return BadRequest(result.Errors);
         }
+
+        [Authorize(Roles = Roles.Admin )]
+        [HttpPost("{id}/Roles")]
+        public async Task<IActionResult> AddToRoles(string id, IEnumerable<string> roles)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            await _userManager.UpdateSecurityStampAsync(user);
+            await _userManager.RemoveFromRolesAsync(user, userRoles.Where(r => !roles.Contains(r)));
+            await _userManager.AddToRolesAsync(user, roles.Where(r => !userRoles.Contains(r)));
+
+            return NoContent();
+        }
     }
 }
