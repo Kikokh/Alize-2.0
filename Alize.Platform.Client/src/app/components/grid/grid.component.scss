@@ -1,6 +1,7 @@
 .grid-container {
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     .filter {
         background-color: transparent;
@@ -14,7 +15,6 @@
 
         div {
             background-color: transparent;
-
             width: 90%;
             height: 100px;
         }
@@ -76,23 +76,23 @@
     }
 }
 
-.column-id {
-    width: 3%;
-}
+// .column-id {
+//     width: 3%;
+// }
 
-.column-name {
-    width: 15%;
-}
+// .column-name {
+//     width: 15%;
+// }
 
-.column-description {
-    width: 50%;
-}
+// .column-description {
+//     width: 50%;
+// }
 
-.column-company {
-    width: 13%;
-}
+// .column-company {
+//     width: 13%;
+// }
 
 
-.column-active {
-    width: 3%;
-}
+// .column-active {
+//     width: 3%;
+// }

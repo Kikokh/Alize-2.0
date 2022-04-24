@@ -2,26 +2,20 @@
     display: flex;
     flex-direction: column;
     background-color: #F7F7F7;
-    // border: 1px solid orange;
-    .breadcrumb {
-    }
 
-    .search-layout {
-        height: 80px;
-        width: 100%;
-        display: flex;
-        
-        .search-layout-complementary {
-            width: 80%;
-        }
-
-        .search {
-            width: 20%;
-        }
-    }
-
-    .grid {
+    .page-container {
         width: 90%;
-        margin: 10px auto;
+        margin: 20px auto;
+        padding-bottom: 100px;
+        .breadcrumb {
+            width: 90%;
+            margin: 0 auto;
+            padding: 10px 10px 10px 10px;
+        }
+
+        .grid  {
+            width: 90%;
+            margin: 0 auto;
+        }
     }
 }

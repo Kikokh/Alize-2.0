@@ -15,4 +15,4 @@ import { SharedModule } from 'src/app/components/shared.module';
   ]
 })
 
-export class HomeModule { }
+export class ManagmentModule { }

@@ -1,11 +1,12 @@
+import { DataSource } from '@angular/cdk/collections';
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { PeriodicElement } from 'src/app/pages/administration/applications/applications.component';
 import { RequestApplication } from '../models/application.model';
+import { IColumnDef, IElementDataApp, IElementDataCompanies } from '../models/column.models';
 import { ApplicationPopUpComponent } from '../pop-up/application-pop-up/application-pop-up.component';
 
 export interface UserData {
@@ -22,14 +23,14 @@ export interface UserData {
 })
 export class GridComponent implements OnInit, AfterViewInit {
 
-  @Input() columns: string[];
-  @Input() elementData: PeriodicElement[];
+  @Input() columns: IColumnDef[];
+  @Input() elementData: any;
   @Input() table: string;
 
   title: string;
   subTitle: string;
 
-  dataSource: MatTableDataSource<PeriodicElement>;
+  dataSource: MatTableDataSource<IElementDataApp>;
   displayedColumns: string[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -64,12 +65,15 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.displayedColumns = this.columns;
+    this.displayedColumns = this.columns.map(c => c.columnDef);;
     this.dataSource = new MatTableDataSource(this.elementData);
 
     if (this.table === 'Applications') {
       this.title = 'Administrción'
       this.subTitle = 'Listado de aplicaciones'
+    } else if (this.table === 'Companies') {
+      this.title = 'Administrción'
+      this.subTitle = 'Listado de empresas'
     }
   }
 
@@ -105,7 +109,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onDisplay(application: PeriodicElement) {
+  onDisplay(application: IElementDataApp) {
     const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
       width: '600px',
       data: {
@@ -119,7 +123,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onEdit(application: PeriodicElement) {
+  onEdit(application: IElementDataApp) {
     const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
       width: '600px',
       data: {
@@ -133,7 +137,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onDisplayGroup(application: PeriodicElement) {
+  onDisplayGroup(application: IElementDataApp) {
     const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
       width: '600px',
       data: {

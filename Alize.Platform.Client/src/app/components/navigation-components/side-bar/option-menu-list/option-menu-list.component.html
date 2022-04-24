@@ -1,20 +1,20 @@
 <ng-container *ngIf="isSideBarExpanded">
     <mat-list class="mat-list-expanded" *ngFor="let opt of optionList; let i = index">
         <mat-list-item>
-            <button mat-menu-item (click)="showSubMenu(i, opt.name)" routerLink="/{{opt.route}}">
+            <button mat-menu-item (click)="showSubMenu(i, opt.name, opt.route)" [ngClass]="{'active': opt.isSelected}">
                 <mat-icon class="menu-icon">{{opt.icon}}</mat-icon>
-                <span class="span-opt-name">{{opt.name}}</span>
+                <span class="span-opt-name">{{opt.name | translate}}</span>
                 <mat-icon class="arrow-icon" *ngIf="opt.name !== 'Inicio'" mat-list-icon>expand_more</mat-icon>
             </button>
         </mat-list-item>
-        <!-- <pre>{{opt | json}}</pre> -->
         <div *ngIf="opt.isVisible">
             <mat-list class="sub-menu" *ngFor="let subOpt of  opt.subMenu">
                 <div *ngIf="subOpt.isVisible">
                     <mat-list-item>
-                        <button routerLink="/{{subOpt.route}}" mat-menu-item>
+                        <button routerLink="/{{subOpt.route}}" (click)="activateSubMenu(subOpt)" mat-menu-item
+                            [ngClass]="{'active': subOpt.isSelected}">
                             <mat-icon class="menu-icon">circle</mat-icon>
-                            <span>{{subOpt.name}}</span>
+                            <span [ngClass]="{'active-text': subOpt.isSelected}">{{subOpt.name}}</span>
                         </button>
                     </mat-list-item>
                 </div>
@@ -24,13 +24,19 @@
 </ng-container>
 
 <ng-container *ngIf="!isSideBarExpanded">
-    <mat-selection-list [multiple]="false" class="mat-list-collapsed">
-        <mat-list-option *ngFor="let opt of optionList; let i = index" [value]="opt" (click)="showSubMenu(i, opt.name)"
-            routerLink="/{{opt.route}}">
+    <div *ngFor="let opt of optionList; let i = index" class="menu-collapsed">
+        <button mat-button (click)="showSubMenu(i, opt.name, opt.route)" [ngClass]="{'active': opt.isSelected}">
             <div>
                 <mat-icon class="menu-icon">{{opt.icon}}</mat-icon>
                 <span class="span-opt-name">{{opt.name}}</span>
             </div>
-        </mat-list-option>
-    </mat-selection-list>
+        </button>
+        <div *ngIf="opt.isVisible" class="right-menu">
+            <button (click)="activateSubMenu(subOpt)" mat-menu-item } [ngClass]="{'active': subOpt.isSelected}"
+                class="sub-item-button" routerLink="/{{subOpt.route}}" mat-menu-item *ngFor="let subOpt of opt.subMenu">
+                <mat-icon class="sub-menu-icon">circle</mat-icon>
+                <span [ngClass]="{'active-text': subOpt.isSelected}">{{subOpt.name}}</span>
+            </button>
+        </div>
+    </div>
 </ng-container>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IColumnDef, IElementDataCompanies } from 'src/app/components/models/column.models';
 
 @Component({
   selector: 'app-management',
@@ -6,7 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./management.component.scss']
 })
 export class ManagementComponent {
-
+  displayedColumns: IColumnDef[];
+  elementData: IElementDataCompanies[];
   constructor() { }
 
 }

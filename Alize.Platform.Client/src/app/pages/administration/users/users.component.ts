@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { IColumnDef, IElementDataCompanies, IElementDataUsers } from 'src/app/components/models/column.models';
+import { ColumnBuilderService } from '../../services/column-builder.service';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss', '../../layout-main.scss']
 })
 export class UsersComponent {
-
-  constructor() { }
-
+  displayedColumns: IColumnDef[];
+  elementData: IElementDataUsers[];
+  constructor(private _columnBuilderService: ColumnBuilderService) {
+    this._columnBuilderService.getUsersData().subscribe(gridData => {
+      this.elementData = gridData.data;
+      this.displayedColumns = gridData.columnDef;
+    });
+  }
 }
