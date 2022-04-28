@@ -12,9 +12,22 @@ namespace Alize.Platform.Data.Repositories
             _context = context;
         }
 
+        public async Task<Module> AddModuleAsync(Module module)
+        {
+            await _context.Modules.AddAsync(module);
+            await _context.SaveChangesAsync();
+            return module;
+        }
+
+        public async Task DeleteModuleAsync(Module module)
+        {
+            _context.Modules.Remove(module);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<Module> GetModuleAsync(Guid id)
         {
-            return await _context.Modules.SingleOrDefaultAsync(m => m.Id == id);
+            return await _context.Modules.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
         }
 
         public async Task<IEnumerable<Module>> GetModulesAsync()
