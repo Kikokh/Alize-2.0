@@ -44,7 +44,7 @@ namespace Alize.Platform.Api.Requests.Companies
         [StringLength(50)]
         public string? ContactName { get; set; }
 
-        public string? Logo { get; set; }
+        public byte[]? Logo { get; set; }
 
         [StringLength(50)]
         public string? ImageTypeMime { get; set; }
