@@ -41,7 +41,7 @@
 
 .menu-collapsed {
     display: flex;
-
+    
     button {
         margin: 0 auto;
         width: 100%;
@@ -63,7 +63,8 @@
     }
 
     .right-menu {
-        background-color: white;
+        background-color: #fff;
+        opacity: 0.9;
         position: absolute;
         width: 170px;
         margin-top: 60px;

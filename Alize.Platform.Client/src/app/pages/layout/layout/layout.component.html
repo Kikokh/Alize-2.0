@@ -1,0 +1,15 @@
+<div class="app-container" [style.height]="innerHeight">
+    <mat-drawer-container class="example-container" autosize>
+        <mat-drawer #drawer [ngClass]="getSideBarStyles()" mode="side">
+            <app-side-bar></app-side-bar>
+        </mat-drawer>
+
+        <div class="example-sidenav-content">
+            <app-nav-bar></app-nav-bar>
+            <div class="main-container-page">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+
+    </mat-drawer-container>
+</div>

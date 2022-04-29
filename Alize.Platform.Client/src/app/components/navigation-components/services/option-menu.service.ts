@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { IMenu } from '../models/menu';
 
 @Injectable({
@@ -7,6 +7,8 @@ import { IMenu } from '../models/menu';
 })
 export class OptionMenuService {
   optionList: IMenu[];
+  subMenuItemListSelected = new BehaviorSubject<IMenu[]>(new Array<IMenu>());  
+
   constructor() {
 
     this.optionList = [
@@ -132,5 +134,9 @@ export class OptionMenuService {
     });
 
     return of(menuSelected);
+  }
+
+  showSubMenuCollapsed(itemListSelected: IMenu[]) {
+    this.subMenuItemListSelected.next(itemListSelected);
   }
 }

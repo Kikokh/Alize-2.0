@@ -6,47 +6,47 @@ import { GridData, GridDataCompanies, GridDataModules, GridDataUsers, IColumnDef
 const ELEMENT_DATA_APPLICATION: IElementData[] = [
   {
     Id: 1, Nombre: 'Hydrogen', Descripcion: 'Descripcion 1', Empresa: 'Com A', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 2, Nombre: 'Helium', Descripcion: 'Descripcion 2', Empresa: 'Com B', Activo: false,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 3, Nombre: 'Lithium', Descripcion: 'Descripcion 3', Empresa: 'Com C', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 4, Nombre: 'Beryllium', Descripcion: 'Descripcion 4', Empresa: 'Com D', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 5, Nombre: 'Boron', Descripcion: 'Descripcion 5', Empresa: 'Com E', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 6, Nombre: 'Carbon', Descripcion: 'Descripcion 6', Empresa: 'Com F', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 7, Nombre: 'Nitrogen', Descripcion: 'Descripcion 7', Empresa: 'Com G', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 8, Nombre: 'Oxygen', Descripcion: 'Descripcion 8', Empresa: 'Com H', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 9, Nombre: 'Fluorine', Descripcion: 'Descripcion 9', Empresa: 'Com I', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 10, Nombre: 'Neon', Descripcion: 'Descripcion 9', Empresa: 'Com J', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 11, Nombre: 'Nacho', Descripcion: 'Descripcion 10', Empresa: 'Com O', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
 ];
 
@@ -54,141 +54,141 @@ const ELEMENT_DATA_APPLICATION: IElementData[] = [
 const ELEMENT_DATA_COMPANIES: IElementDataCompanies[] = [
   {
     Id: 1, Nombre: 'Hydrogen', Descripcion: 'Descripcion 1', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 2, Nombre: 'Helium', Descripcion: 'Descripcion 2', Activo: false,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 3, Nombre: 'Lithium', Descripcion: 'Descripcion 3', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 4, Nombre: 'Beryllium', Descripcion: 'Descripcion 4', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 5, Nombre: 'Boron', Descripcion: 'Descripcion 5', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 6, Nombre: 'Carbon', Descripcion: 'Descripcion 6', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 7, Nombre: 'Nitrogen', Descripcion: 'Descripcion 7', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 8, Nombre: 'Oxygen', Descripcion: 'Descripcion 8', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 9, Nombre: 'Fluorine', Descripcion: 'Descripcion 9', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 10, Nombre: 'Neon', Descripcion: 'Descripcion 9', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 11, Nombre: 'Nacho', Descripcion: 'Descripcion 10', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
 ];
 
 const ELEMENT_DATA_GROUPS: IElementDataCompanies[] = [
   {
     Id: 1, Nombre: 'Hydrogen', Descripcion: 'Descripcion 1', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 2, Nombre: 'Helium', Descripcion: 'Descripcion 2', Activo: false,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 3, Nombre: 'Lithium', Descripcion: 'Descripcion 3', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 4, Nombre: 'Beryllium', Descripcion: 'Descripcion 4', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 5, Nombre: 'Boron', Descripcion: 'Descripcion 5', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 6, Nombre: 'Carbon', Descripcion: 'Descripcion 6', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 7, Nombre: 'Nitrogen', Descripcion: 'Descripcion 7', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 8, Nombre: 'Oxygen', Descripcion: 'Descripcion 8', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 9, Nombre: 'Fluorine', Descripcion: 'Descripcion 9', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 10, Nombre: 'Neon', Descripcion: 'Descripcion 9', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 11, Nombre: 'Nacho', Descripcion: 'Descripcion 10', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
 ];
 
 const ELEMENT_DATA_MODULES: IElementDataModules[] = [
   {
     Id: 1, Nombre: 'Hydrogen', Descripcion: 'Descripcion 1', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 2, Nombre: 'Helium', Descripcion: 'Descripcion 2', Grupo: 'Administracion', Activo: false,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 3, Nombre: 'Lithium', Descripcion: 'Descripcion 3', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 4, Nombre: 'Beryllium', Descripcion: 'Descripcion 4', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 5, Nombre: 'Boron', Descripcion: 'Descripcion 5', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 6, Nombre: 'Carbon', Descripcion: 'Descripcion 6', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 7, Nombre: 'Nitrogen', Descripcion: 'Descripcion 7', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 8, Nombre: 'Oxygen', Descripcion: 'Descripcion 8', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 9, Nombre: 'Fluorine', Descripcion: 'Descripcion 9', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 10, Nombre: 'Neon', Descripcion: 'Descripcion 9', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 11, Nombre: 'Nacho', Descripcion: 'Descripcion 10', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
 ];
 
@@ -196,47 +196,47 @@ const ELEMENT_DATA_MODULES: IElementDataModules[] = [
 const ELEMENT_DATA_USERS: IElementDataUsers[] = [
   {
     Id: 1, Nombre: 'Hydrogen', Email: 'Descripcion 1', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 2, Nombre: 'Helium', Email: 'Descripcion 2', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: false,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 3, Nombre: 'Lithium', Email: 'Descripcion 3', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 4, Nombre: 'Beryllium', Email: 'Descripcion 4', Empresa: 'Descripcion 1', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 5, Nombre: 'Boron', Email: 'Descripcion 5', Empresa: 'Descripcion 1', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 6, Nombre: 'Carbon', Email: 'Descripcion 6', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 7, Nombre: 'Nitrogen', Email: 'Descripcion 7', Empresa: 'Descripcion 1', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 8, Nombre: 'Oxygen', Email: 'Descripcion 8', Empresa: 'Descripcion 1', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 9, Nombre: 'Fluorine', Email: 'Descripcion 9', Empresa: 'Descripcion 1', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 10, Nombre: 'Neon', Email: 'Descripcion 9', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
   {
     Id: 11, Nombre: 'Nacho', Email: 'Descripcion 10', Empresa: 'Descripcion 1', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Delete', icon: 'groups' }, { optionName: 'Group', icon: 'delete_outline' }]
+    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
   },
 ];
 

@@ -1,10 +1,7 @@
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer [ngClass]="getSideBarStyles()" mode="side">
-    <app-side-bar></app-side-bar>
-  </mat-drawer>
+<div *ngIf="isUserLoggued; else login_template">
+  <app-layout></app-layout>
+</div>
 
-  <div class="example-sidenav-content">
-    <app-nav-bar></app-nav-bar>
-    <router-outlet></router-outlet>
-  </div>
-</mat-drawer-container>
+<ng-template #login_template>
+  <app-login></app-login>
+</ng-template>

@@ -109,6 +109,29 @@ export class GridComponent implements OnInit, AfterViewInit {
     });
   }
 
+
+  showDialog(application: IElementDataApp, optionName: string) {
+    switch (optionName) {
+      case 'Display': {
+        this.onDisplay(application);
+        break;
+      }
+      case 'Edit': {
+        this.onEdit(application);
+        break;
+      }
+      case 'Group': {
+        this.onDisplayGroup(application);
+        break;
+      }
+      case 'Delete': {
+        this.onDisplay(application);
+        break;
+      }
+    }
+    console.log(optionName);
+  }
+
   onDisplay(application: IElementDataApp) {
     const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
       width: '600px',

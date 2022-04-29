@@ -30,7 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BreadcrumbComponent,
     GridComponent,
     SearchComponent,
-    ApplicationPopUpComponent
+    ApplicationPopUpComponent,
   ],
   imports: [
     CommonModule,
@@ -55,7 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     OptionMenuListComponent,
     BreadcrumbComponent,
     GridComponent,
-    SearchComponent
+    SearchComponent,
   ]
 })
 export class SharedModule { }

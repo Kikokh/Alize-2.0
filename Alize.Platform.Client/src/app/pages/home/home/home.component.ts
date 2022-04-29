@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
-  constructor() { }
+  public innerHeight: string;
+  constructor() { 
+    this.innerHeight = (window.innerHeight - 70).toString() + 'px';
+    console.log('La altura es: ' + this.innerHeight);
+  }
 
 }
