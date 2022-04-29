@@ -59,13 +59,13 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(Guid id, [FromBody] Company request)
+        public async Task<IActionResult> Put(Guid id, [FromBody] UpdateCompanyRequest request)
         {
             if (id != request.Id) return BadRequest();
 
             if (await _companyRepository.GetCompanyAsync(id) is null) return NotFound();
 
-            await _companyRepository.UpdateCompanyAsync(request);
+            await _companyRepository.UpdateCompanyAsync(_mapper.Map<Company>(request));
 
             return NoContent();
         }
