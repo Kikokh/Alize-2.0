@@ -31,7 +31,7 @@
                                 <ng-container *ngFor="let optItem of row.Operaciones">
                                     <mat-list-item>
                                         <button mat-mini-fab disabled>
-                                            <mat-icon (click)="onDisplay(row)">{{optItem.icon}}</mat-icon>
+                                            <mat-icon (click)="showDialog(row, optItem.optionName)">{{optItem.icon}}</mat-icon>
                                         </button>
                                     </mat-list-item>
                                 </ng-container>

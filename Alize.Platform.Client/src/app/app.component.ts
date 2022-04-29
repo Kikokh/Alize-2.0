@@ -8,30 +8,11 @@ import { NavigationService } from './components/navigation-components/services/n
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'alize-fe';
-  isSideBarExpander = true;
+  isUserLoggued = true;
 
-  @ViewChild('drawer', { static: true }) public sideBar!: MatDrawer;
-  constructor(private _navigationService: NavigationService, public translate: TranslateService) {
-    this.translate.addLangs(['es', 'en']);
-
-    const lang = localStorage.getItem('lang');
-    if (lang !== null) {
-      this.translate.setDefaultLang(lang);
-    } else {
-      this.translate.setDefaultLang('en');
-    }
-  }
-
-  ngOnInit(): void {
-    this.sideBar.toggle();
-    this._navigationService.isSideBarExpanded.subscribe(isSideBarExpander => {
-      this.isSideBarExpander = isSideBarExpander;
-    });
-  }
-
-  getSideBarStyles(): string {
-    return (this.isSideBarExpander) ? 'side-bar-expanded' : 'side-bar-collapsed';
+  constructor() {
+  
   }
 }

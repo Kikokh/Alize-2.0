@@ -11,8 +11,9 @@ import { OptionMenuService } from '../../services/option-menu.service';
   styleUrls: ['./option-menu-list.component.scss']
 })
 export class OptionMenuListComponent implements OnInit {
- 
+
   optionList: IMenu[] = [];
+  itemMenuList: IMenu[];
   isShowSubMenuVisible = false;
   @Input() isSideBarExpanded: boolean = false;
 
@@ -27,30 +28,34 @@ export class OptionMenuListComponent implements OnInit {
     });
   }
 
-  showSubMenu(i: number, name: string, route: any) {
+  showSubMenu(i: number, name: string, route: any, menuType: string) {
 
-    this.optionList.forEach(menu => {
-      menu.isVisible = false;
-      menu.subMenu.forEach(sub => {
-        sub.isVisible = false;
-        sub.isSelected = false
-      })
-    });
+    this.resetMainMenuStatesVisibleAndEnable();
 
-
-    var currentOpt =this.optionList.filter(opt => opt.name === name);
-    currentOpt[0].isVisible = true;
-    currentOpt[0].isSelected = true;
-    currentOpt[0].subMenu.forEach(opt =>  {
-      opt.isVisible = true;
-    });
-
+    // If menu is Inicio just root to the component, no sub menu needed
     if (name === 'Inicio') {
       this._router.navigate([route]);
     }
 
-    this.selectSubMenuActive(currentOpt[0]);
+    // Get selected option
+    var currentOpt = this.optionList.filter(opt => opt.name === name);
 
+    // Make the option visible 
+    currentOpt[0].isVisible = true;
+    currentOpt[0].isSelected = true;
+
+
+    // Show sub menu option selected
+    currentOpt[0].subMenu.forEach(opt => {
+      opt.isVisible = true;
+    });
+
+
+
+    this.selectMenuActive(currentOpt[0]);
+
+    if (menuType === 'COLLAPSED')
+      this.itemMenuList = currentOpt[0].subMenu;
   }
 
   navigate(module: any) {
@@ -58,7 +63,7 @@ export class OptionMenuListComponent implements OnInit {
   }
 
   activateSubMenu(option: IMenu) {
-  
+
     this.optionList.forEach(menu => {
       menu.isSelected = false;
       menu.subMenu.forEach(sub => {
@@ -70,23 +75,44 @@ export class OptionMenuListComponent implements OnInit {
     this.selectSubMenuActive(option);
   }
 
-  selectSubMenuActive(option: IMenu) {
+  selectMenuActive(option: IMenu) {
 
-    this.resetMenuItemSelected();
+    this.resetMenuItem();
+
+    if (option.name === 'Administracion') {
+      this.optionList[1].isSelected = true;
+    } else if (option.name === 'Inicio') {
+      this.optionList[0].isSelected = true;
+    } else {
+      this.optionList[2].isSelected = true;
+    }
+  }
+
+  selectSubMenuActive(option: IMenu) {
     const adminitrationList = ['Aplicaciones', 'Empresas', 'Grupos', 'Modulos', 'Usuarios']
     if (adminitrationList.includes(option.name)) {
       this.optionList[1].isSelected = true;    
     } else if (option.name === 'Inicio') {
       this.optionList[0].isSelected = true;   
     } else {
-      this.optionList[3].isSelected = true;   
+      this.optionList[2].isSelected = true;   
     }
   }
 
 
-  resetMenuItemSelected() {
+  resetMenuItem() {
     this.optionList.forEach(menu => {
       menu.isSelected = false;
+    });
+  }
+
+  resetMainMenuStatesVisibleAndEnable() {
+    this.optionList.forEach(menu => {
+      menu.isVisible = false;
+      menu.subMenu.forEach(sub => {
+        sub.isVisible = false;
+        sub.isSelected = false;
+      });
     });
   }
 
