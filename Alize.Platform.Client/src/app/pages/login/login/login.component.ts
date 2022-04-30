@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoginService } from '../services/login.service';
+import { FormValidation } from 'src/app/models/validation.model';
+import { LoginData, LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,21 @@ import { LoginService } from '../services/login.service';
 })
 export class LoginComponent implements OnInit {
   @ViewChild('myIdentifier') myIdentifier: ElementRef;
-  constructor(private router: Router, private _loginService: LoginService, private el:ElementRef) { }
+  formValidation = new FormValidation();
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+  })
+
+  get emailFormControls() {
+    return this.loginForm.get('email');
+  }
+
+  get passwordFormControls() {
+    return this.loginForm.get('password');
+  }
+
+  constructor(private router: Router, private _loginService: LoginService, private el: ElementRef) { }
 
   ngOnInit(): void {
     const height = this.el.nativeElement.offsetHeight;
@@ -27,5 +43,16 @@ export class LoginComponent implements OnInit {
     } else {
       await this.router.navigateByUrl('/home')
     }
+  }
+
+  onSubmit() {
+    this._loginService.login(
+      {
+        username: this.emailFormControls!.value,
+        password: this.passwordFormControls!.value
+      }
+    ).subscribe(isLoogued => {
+      (isLoogued) ? this.router.navigate(['/home/index']) : this.loginError = true;
+    });
   }
 }
