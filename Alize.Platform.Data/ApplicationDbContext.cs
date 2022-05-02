@@ -48,21 +48,21 @@ namespace Alize.Platform.Data
         private void SeedModules(ModelBuilder builder)
         {
             builder.Entity<Module>().HasData(
-                new Module { Id = Guid.Parse("ac5e174e-3b0e-446f-86af-483d56fd7210"), Name = "CompanyAdministration" },
-                new Module { Id = Guid.Parse("ae445865-a24d-4543-a6c6-9443d048cdb9"), Name = "ApplicationAdministration" },
-                new Module { Id = Guid.Parse("aaddad05-120f-48a8-b659-ff4528e5df97"), Name = "ModuleAdministration" },
-                new Module { Id = Guid.Parse("a3dde250-ddde-42db-a4b9-5a2355082391"), Name = "UserAdministration" },
-                new Module { Id = Guid.Parse("ad3de250-d2de-421b-b4c9-5a5355024392"), Name = "RoleAdministration" }
+                new Module { Id = Guid.Parse("ac5e174e-3b0e-446f-86af-483d56fd7210"), Name = "CompanyAdministration", Description = "Company Administration" },
+                new Module { Id = Guid.Parse("ae445865-a24d-4543-a6c6-9443d048cdb9"), Name = "ApplicationAdministration", Description = "Application Administration" },
+                new Module { Id = Guid.Parse("aaddad05-120f-48a8-b659-ff4528e5df97"), Name = "ModuleAdministration", Description = "Module Administration" },
+                new Module { Id = Guid.Parse("a3dde250-ddde-42db-a4b9-5a2355082391"), Name = "UserAdministration", Description = "User Administration" },
+                new Module { Id = Guid.Parse("ad3de250-d2de-421b-b4c9-5a5355024392"), Name = "RoleAdministration", Description = "Role Administration" }
             );
         }
 
         private void SeedUsersAndRoles(ModelBuilder builder)
         {
             builder.Entity<Role>().HasData(
-                new Role { Id = Guid.Parse("2c5e174e-3b0e-446f-86af-483d56fd7210"), Name = "Admin", NormalizedName = "ADMIN" },
-                new Role { Id = Guid.Parse("8e445865-a24d-4543-a6c6-9443d048cdb9"), Name = "User", NormalizedName = "USER" },
-                new Role { Id = Guid.Parse("caddad05-120f-48a8-b659-ff4528e5df97"), Name = "CompanyAdmin", NormalizedName = "COMPANYADMIN" },
-                new Role { Id = Guid.Parse("33dde250-ddde-42db-a4b9-5a2355082391"), Name = "CompanyUser", NormalizedName = "COMPANYUSER" }
+                new Role { Id = Guid.Parse("2c5e174e-3b0e-446f-86af-483d56fd7210"), Name = "Admin", NormalizedName = "ADMIN", Description = "Admin" },
+                new Role { Id = Guid.Parse("8e445865-a24d-4543-a6c6-9443d048cdb9"), Name = "User", NormalizedName = "USER", Description = "User" },
+                new Role { Id = Guid.Parse("caddad05-120f-48a8-b659-ff4528e5df97"), Name = "CompanyAdmin", NormalizedName = "COMPANYADMIN", Description = "Company Admin" },
+                new Role { Id = Guid.Parse("33dde250-ddde-42db-a4b9-5a2355082391"), Name = "CompanyUser", NormalizedName = "COMPANYUSER", Description = "Company User" }
 
             );
 

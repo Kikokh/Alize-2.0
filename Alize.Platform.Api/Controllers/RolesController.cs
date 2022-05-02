@@ -1,4 +1,6 @@
-﻿using Alize.Platform.Data.Models;
+﻿using Alize.Platform.Api.Responses.Roles;
+using Alize.Platform.Data.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,53 +14,48 @@ namespace Alize.Platform.Api.Controllers
     public class RolesController : ControllerBase
     {
         private readonly RoleManager<Role> _roleManager;
-        private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
-        public RolesController(RoleManager<Role> roleManager, UserManager<User> userManager)
+        public RolesController(RoleManager<Role> roleManager, IMapper mapper)
         {
             _roleManager = roleManager;
-            _userManager = userManager;
+            _mapper = mapper;
         }
 
-        //[HttpPost("Users/{userId}")]
-        //[Authorize(Roles = Roles.Admin)]
-        //public async Task<IActionResult> AddUserToRole(Guid userId,  Guid roleId)
-        //{
-        //    var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);
-        //    var role = await _roleManager.Roles.SingleOrDefaultAsync(r => r.Id == roleId);
-
-        //    if (user is null || role is null)
-        //        return NotFound();
-
-        //    var result = await _userManager.AddToRoleAsync(user, role.Name);
-
-        //    if (result.Succeeded)
-        //        return NoContent();
-
-        //    return BadRequest(result.Errors);
-        //}
-
-        //[HttpDelete("{roleId}")]
-        //[Authorize(Roles = Roles.Admin)]
-        //public async Task<IActionResult> RemoveUserFromRole(Guid userId, Guid roleId)
-        //{
-        //    var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == userId);
-        //    var role = await _roleManager.Roles.SingleOrDefaultAsync(r => r.Id == roleId);
-
-        //    if (user is null || role is null)
-        //        return NotFound();
-
-        //    await _userManager.RemoveFromRoleAsync(user, role.Name);
-
-        //    return NoContent();
-        //}
-
         [HttpGet]
+        [ProducesResponseType(typeof(IEnumerable<RoleResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
             var roles = await _roleManager.Roles.ToListAsync();
 
-            return Ok(roles);
+            return Ok(_mapper.Map<IEnumerable<RoleResponse>>(roles));
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(RoleResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var role = await _roleManager.Roles.SingleOrDefaultAsync(r => r.Id == id);
+
+            return role is null ? NotFound() : Ok(_mapper.Map<RoleResponse>(role));
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Put(Guid id, bool enabled)
+        {
+            var role = await _roleManager.Roles.SingleOrDefaultAsync(r => r.Id == id);
+
+            if (role is null) 
+                return NotFound();
+
+            role.IsActive = enabled;
+
+            await _roleManager.UpdateAsync(role);
+
+            return NoContent();
         }
     }
 }

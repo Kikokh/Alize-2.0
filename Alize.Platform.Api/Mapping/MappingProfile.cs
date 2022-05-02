@@ -6,6 +6,7 @@ using Alize.Platform.Api.Responses;
 using Alize.Platform.Api.Responses.Applications;
 using Alize.Platform.Api.Responses.Companies;
 using Alize.Platform.Api.Responses.Modules;
+using Alize.Platform.Api.Responses.Roles;
 using Alize.Platform.Data.Models;
 using AutoMapper;
 
@@ -32,6 +33,7 @@ namespace Alize.Platform.Api.Mapping
             CreateMap<UpdateCompanyRequest, Company>();
             CreateMap<Company, CompanyResponse>();
 
+            CreateMap<Role, RoleResponse>();
         }
     }
 }
