@@ -19,7 +19,7 @@ namespace Alize.Platform.Data.Repositories
 
         public async Task<Company> GetCompanyAsync(Guid id)
         {
-            return await _dbContext.Companies.FindAsync(id);
+            return await _dbContext.Companies.AsNoTracking().FirstOrDefaultAsync( c => c.Id == id);
         }
 
         public async Task<Company> UpdateCompanyAsync(Company company)
