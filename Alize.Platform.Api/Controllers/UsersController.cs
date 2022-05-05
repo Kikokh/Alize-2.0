@@ -69,7 +69,7 @@ namespace Alize.Platform.Api.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var user = await _userManager.FindByNameAsync(request.UserName);
+            var user = await _userManager.FindByEmailAsync(request.Email);
 
             if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
             {
@@ -81,7 +81,7 @@ namespace Alize.Platform.Api.Controllers
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.GivenName, $"{user.FirstName} {user.LastName}")
             };
 

@@ -5,7 +5,8 @@ namespace Alize.Platform.Api.Requests.Users
     public class RegisterRequest
     {
         [Required]
-        public string UserName { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
 
         [Required]
         [MinLength(8)]

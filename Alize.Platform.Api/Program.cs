@@ -1,9 +1,9 @@
+using Alize.Platform.Api.Extensions;
 using Alize.Platform.Data;
 using Alize.Platform.Data.Models;
 using Alize.Platform.Data.Repositories;
 using Alize.Platform.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -37,6 +37,7 @@ builder.Services
         };
     });
 
+builder.Services.InitializeCosmosClientInstance(builder.Configuration.GetSection("CosmosDb"));
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
