@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alize.Platform.Data.Models
 {
@@ -13,5 +14,14 @@ namespace Alize.Platform.Data.Models
 
         [StringLength(100)]
         public string? Description { get; set; }
+
+        [Required]
+        [ForeignKey("ModuleType")]
+        public Guid ModuleTypeId { get; set; }
+
+        [Required]
+        public string ModuleGroup { get; set; }
+
+        public ICollection<Role> Roles { get; set; }
     }
 }

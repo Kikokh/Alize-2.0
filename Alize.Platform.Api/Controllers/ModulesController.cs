@@ -1,5 +1,6 @@
 ﻿using Alize.Platform.Api.Requests.Modules;
 using Alize.Platform.Api.Responses.Modules;
+using Alize.Platform.Data.Constants;
 using Alize.Platform.Data.Models;
 using Alize.Platform.Data.Repositories;
 using AutoMapper;
@@ -11,7 +12,7 @@ namespace Alize.Platform.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Produces("application/json")]
-    [Authorize]
+    [Authorize(Policy = Modules.ModuleAdmin)]
     public class ModulesController : ControllerBase
     {
         private readonly IModuleRepository _moduleRepository;

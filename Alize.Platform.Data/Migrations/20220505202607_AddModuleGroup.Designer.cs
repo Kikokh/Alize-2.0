@@ -4,6 +4,7 @@ using Alize.Platform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alize.Platform.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220505202607_AddModuleGroup")]
+    partial class AddModuleGroup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,7 +262,12 @@ namespace Alize.Platform.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<Guid?>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
 
                     b.ToTable("Modules");
 
@@ -398,7 +405,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"),
-                            ConcurrencyStamp = "c7160f18-e6f6-4562-9277-ba931da32512",
+                            ConcurrencyStamp = "570bc1ad-a383-458d-a6c1-01021387cddf",
                             Description = "Los administradores pro tienen acceso completo y sin restricciones a la plataforma",
                             IsActive = true,
                             Name = "Administrador Pro",
@@ -407,7 +414,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"),
-                            ConcurrencyStamp = "31817712-4496-4cc0-84ae-9412ae473b7b",
+                            ConcurrencyStamp = "9628378a-f5e3-450c-b6b3-33ac4032076f",
                             Description = "Los distribuidores tienen acceso completo y sin restricciones en su empresa y empresas clientes que haya dado de alta",
                             IsActive = true,
                             Name = "Distribuidor",
@@ -416,7 +423,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("caddad05-120f-48a8-b659-ff4528e5df97"),
-                            ConcurrencyStamp = "bfab4c27-ee90-4645-9399-37a2da03a702",
+                            ConcurrencyStamp = "26fd3d10-a3ef-42fc-9336-964f409ab378",
                             Description = "Los administradores tienen acceso completo y sin restricciones dentro de su empresa",
                             IsActive = true,
                             Name = "Administrador",
@@ -425,7 +432,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("33dde250-ddde-42db-a4b9-5a2355082391"),
-                            ConcurrencyStamp = "44e37170-69f0-4f9c-81ca-51a50bace591",
+                            ConcurrencyStamp = "bf9fd20c-d6ae-473f-b89c-7c268c8efb5b",
                             Description = "Los usuarios pueden acceder a la mayoria de opciones de la plataforma y no pueden hacer cambios accidentales o intencionados",
                             IsActive = true,
                             Name = "Usuario",
@@ -434,7 +441,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("33dde740-ddde-42db-a4b9-5a2355082391"),
-                            ConcurrencyStamp = "25fdf193-2cc3-483f-a1a5-2f43fa77ba8d",
+                            ConcurrencyStamp = "82fc702f-aeaf-4ce9-aca7-69ae2190d47f",
                             Description = "Los invitados tienen el acceso limitado a las consultas que se le han asignado",
                             IsActive = true,
                             Name = "Invitado",
@@ -538,7 +545,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("95ada776-f3e1-42db-aa39-382f91b74cd4"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d47940d9-c44d-4a43-b422-c702c66c4849",
+                            ConcurrencyStamp = "9fe0b767-2f13-4052-b3eb-ecd97269a576",
                             Email = "test@user.com",
                             EmailConfirmed = true,
                             FirstName = "Test",
@@ -547,7 +554,7 @@ namespace Alize.Platform.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@USER.COM",
                             NormalizedUserName = "TESTUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDKNhiDb69oPOyR7TE0a7Z67bq8fyGjN/EBTjKS3Nyk3FdfrOJMKGI3A/Yexvi0+Yg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHxh8gSN85bb+0hlYUoWKzQEV/AZ9AaZh5KBtZNONNx7KdysNQgcdi9C7M4FhbUBJQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "testuser"
@@ -556,7 +563,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("1c822965-eb67-4092-9cf7-cf62806d5395"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8521ea73-98d1-4ba7-a220-775602465627",
+                            ConcurrencyStamp = "41a7bbbd-b626-4a84-a393-895b933acb6b",
                             Email = "test@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Test",
@@ -565,7 +572,7 @@ namespace Alize.Platform.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMIN.COM",
                             NormalizedUserName = "TESTADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENPmUD6FwbFIVxG3cALhigCDdyQR4Tpn05BmGWJReqOyg4AXoVrfvfamD0Isrh77tw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK/4jwHMRT93/NbPHIlErIiFWibZu2D4xHmq3Npb+F7P77KDUIrpVT9g7nDXyzDcTA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "testadmin"
@@ -702,143 +709,6 @@ namespace Alize.Platform.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ModuleRole", b =>
-                {
-                    b.Property<Guid>("ModulesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RolesId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ModulesId", "RolesId");
-
-                    b.HasIndex("RolesId");
-
-                    b.ToTable("ModuleRole");
-
-                    b.HasData(
-                        new
-                        {
-                            ModulesId = new Guid("a8befaf9-807a-4f7d-aad2-9380f79bc364"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("4112d229-b379-447e-bf37-fb57dd19d5d8"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("9141e022-2833-4a18-a7b9-7f20a6b39768"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("87da1e2c-f36e-4490-bfc8-e75fff9b5510"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("31932e4d-00cd-46b2-afb1-a9e9a1464bd8"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("1254e6da-49d4-4ba5-9cd4-cff7c10f9304"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("da12c25e-ea5c-4867-a0c4-e82746010507"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("ab9d236a-0ee4-4b10-b445-96af2db9188e"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("57ca62f5-a0ec-4dbd-9e06-cc2904ac944e"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("0c75b5f5-f868-43b0-9af0-c45442d9479e"),
-                            RolesId = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("a8befaf9-807a-4f7d-aad2-9380f79bc364"),
-                            RolesId = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("4112d229-b379-447e-bf37-fb57dd19d5d8"),
-                            RolesId = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("9141e022-2833-4a18-a7b9-7f20a6b39768"),
-                            RolesId = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("87da1e2c-f36e-4490-bfc8-e75fff9b5510"),
-                            RolesId = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("31932e4d-00cd-46b2-afb1-a9e9a1464bd8"),
-                            RolesId = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("da12c25e-ea5c-4867-a0c4-e82746010507"),
-                            RolesId = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("a8befaf9-807a-4f7d-aad2-9380f79bc364"),
-                            RolesId = new Guid("caddad05-120f-48a8-b659-ff4528e5df97")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("4112d229-b379-447e-bf37-fb57dd19d5d8"),
-                            RolesId = new Guid("caddad05-120f-48a8-b659-ff4528e5df97")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("9141e022-2833-4a18-a7b9-7f20a6b39768"),
-                            RolesId = new Guid("caddad05-120f-48a8-b659-ff4528e5df97")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("87da1e2c-f36e-4490-bfc8-e75fff9b5510"),
-                            RolesId = new Guid("caddad05-120f-48a8-b659-ff4528e5df97")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("31932e4d-00cd-46b2-afb1-a9e9a1464bd8"),
-                            RolesId = new Guid("caddad05-120f-48a8-b659-ff4528e5df97")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("da12c25e-ea5c-4867-a0c4-e82746010507"),
-                            RolesId = new Guid("caddad05-120f-48a8-b659-ff4528e5df97")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("da12c25e-ea5c-4867-a0c4-e82746010507"),
-                            RolesId = new Guid("33dde250-ddde-42db-a4b9-5a2355082391")
-                        },
-                        new
-                        {
-                            ModulesId = new Guid("da12c25e-ea5c-4867-a0c4-e82746010507"),
-                            RolesId = new Guid("33dde740-ddde-42db-a4b9-5a2355082391")
-                        });
-                });
-
             modelBuilder.Entity("Alize.Platform.Data.Models.Application", b =>
                 {
                     b.HasOne("Alize.Platform.Data.Models.Company", "Company")
@@ -855,6 +725,13 @@ namespace Alize.Platform.Data.Migrations
                         .HasForeignKey("ParentCompanyId");
 
                     b.Navigation("ParentCompany");
+                });
+
+            modelBuilder.Entity("Alize.Platform.Data.Models.Module", b =>
+                {
+                    b.HasOne("Alize.Platform.Data.Models.Role", null)
+                        .WithMany("Modules")
+                        .HasForeignKey("RoleId");
                 });
 
             modelBuilder.Entity("Alize.Platform.Data.Models.Role", b =>
@@ -941,19 +818,9 @@ namespace Alize.Platform.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ModuleRole", b =>
+            modelBuilder.Entity("Alize.Platform.Data.Models.Role", b =>
                 {
-                    b.HasOne("Alize.Platform.Data.Models.Module", null)
-                        .WithMany()
-                        .HasForeignKey("ModulesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Alize.Platform.Data.Models.Role", null)
-                        .WithMany()
-                        .HasForeignKey("RolesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Modules");
                 });
 
             modelBuilder.Entity("Alize.Platform.Data.Models.User", b =>

@@ -1,5 +1,6 @@
 ﻿using Alize.Platform.Api.Requests.Companies;
 using Alize.Platform.Api.Responses.Companies;
+using Alize.Platform.Data.Constants;
 using Alize.Platform.Data.Models;
 using Alize.Platform.Data.Repositories;
 using AutoMapper;
@@ -10,7 +11,7 @@ namespace Alize.Platform.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = Modules.Companies)]
     public class CompaniesController : ControllerBase
     {
         private readonly ICompanyRepository _companyRepository;

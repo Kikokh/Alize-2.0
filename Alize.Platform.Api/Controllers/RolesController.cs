@@ -1,4 +1,5 @@
 ﻿using Alize.Platform.Api.Responses.Roles;
+using Alize.Platform.Data.Constants;
 using Alize.Platform.Data.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +11,7 @@ namespace Alize.Platform.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = Modules.Groups)]
     public class RolesController : ControllerBase
     {
         private readonly RoleManager<Role> _roleManager;

@@ -1,9 +1,12 @@
 using Alize.Platform.Api.Extensions;
+using Alize.Platform.Api.Policies;
 using Alize.Platform.Data;
+using Alize.Platform.Data.Constants;
 using Alize.Platform.Data.Models;
 using Alize.Platform.Data.Repositories;
 using Alize.Platform.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -21,7 +24,20 @@ builder.Services.AddSqlServer<ApplicationDbContext>(connectionString)
 
 builder.Services
     .AddHttpContextAccessor()
-    .AddAuthorization()
+    .AddAuthorization(options =>
+    {
+        options.AddPolicy(Modules.Applications, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Applications)));
+        options.AddPolicy(Modules.Companies, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Companies)));
+        options.AddPolicy(Modules.Groups, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Groups)));
+        options.AddPolicy(Modules.ModuleAdmin, policy => policy.Requirements.Add(new ModuleRequirement(Modules.ModuleAdmin)));
+        options.AddPolicy(Modules.Users, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Users)));
+        options.AddPolicy(Modules.Alerts, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Alerts)));
+        options.AddPolicy(Modules.Queries, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Queries)));
+        options.AddPolicy(Modules.ControlPanel, policy => policy.Requirements.Add(new ModuleRequirement(Modules.ControlPanel)));
+        options.AddPolicy(Modules.UserAudit, policy => policy.Requirements.Add(new ModuleRequirement(Modules.UserAudit)));
+        options.AddPolicy(Modules.TransactionLog, policy => policy.Requirements.Add(new ModuleRequirement(Modules.TransactionLog)));
+        options.AddPolicy(Modules.Help, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Help)));
+    })
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -40,6 +56,7 @@ builder.Services
 builder.Services.InitializeCosmosClientInstance(builder.Configuration.GetSection("CosmosDb"));
 builder.Services.AddHttpClient();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddScoped<IAuthorizationHandler, ModuleHandler>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();

@@ -1,5 +1,6 @@
 ﻿using Alize.Platform.Api.Requests.Applications;
 using Alize.Platform.Api.Responses.Applications;
+using Alize.Platform.Data.Constants;
 using Alize.Platform.Data.Models;
 using Alize.Platform.Data.Repositories;
 using AutoMapper;
@@ -10,7 +11,7 @@ namespace Alize.Platform.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = Modules.Applications)]
     [Produces("application/json")]
     public class ApplicationsController : ControllerBase
     {

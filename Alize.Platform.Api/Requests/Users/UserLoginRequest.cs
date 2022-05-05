@@ -2,7 +2,7 @@
 
 namespace Alize.Platform.Api.Requests
 {
-    public class LoginRequest
+    public class UserLoginRequest
     {
         [Required]
         public string Email { get; set; }

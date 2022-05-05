@@ -19,11 +19,11 @@ namespace Alize.Platform.Api.Mapping
             CreateMap<CreateApplicationRequest, Application>();
             CreateMap<Application, ApplicationResponse>();
 
-            CreateMap<RegisterRequest, User>()
+            CreateMap<UserUpdateRequest, User>();
+            CreateMap<UserCreateRequest, User>()
                 .ForMember(d => d.UserName, o => o.MapFrom(s => s.Email))
                 .ForMember(d => d.IsActive, o => o.MapFrom(s => true))
                 .ForMember(d => d.EmailConfirmed, o => o.MapFrom(s => true));
-
             CreateMap<User, UserResponse>();
 
             CreateMap<CreateModuleRequest, Module>();
