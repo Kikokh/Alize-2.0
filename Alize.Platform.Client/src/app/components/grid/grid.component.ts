@@ -4,6 +4,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MaterialTheme } from 'src/app/models/theme.model';
+import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { RequestApplication } from '../models/application.model';
 import { IColumnDef, IElementDataApp, IElementDataCompanies } from '../models/column.models';
 import { ApplicationPopUpComponent } from '../pop-up/application-pop-up/application-pop-up.component';
@@ -49,6 +51,8 @@ export class GridComponent implements OnInit, AfterViewInit {
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
 
+  materialTheme = new MaterialTheme();
+
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
@@ -56,7 +60,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, private _globalStylesService: GlobalStylesService, private _snackBar: MatSnackBar) {
   }
 
   ngAfterViewInit(): void {
@@ -74,7 +78,31 @@ export class GridComponent implements OnInit, AfterViewInit {
       this.title = 'Administrción'
       this.subTitle = 'Listado de empresas'
     }
+
+    this._globalStylesService.theme.subscribe(value => {
+      this.materialTheme.isDarkMode = (value === 'dark-theme');
+      this.materialTheme.isPrimaryMain = (value === 'main-theme');
+    });
   }
+
+
+  getContentStyles(): string {
+      if (this.materialTheme.isPrimaryMain) {
+        return 'main-theme-background-grid';
+      } else {
+        return '';
+      }
+  }
+
+
+  getColorHeaderTable(): string {
+    if (this.materialTheme.isPrimaryMain) {
+      return 'main-theme-header';
+    } else {
+      return '';
+    }
+}
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -87,7 +115,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
     const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
       data: {
-        nombre: '', 
+        nombre: '',
         description: '',
         importantInfo: '',
         mode: requestApplication.mode,
@@ -98,9 +126,9 @@ export class GridComponent implements OnInit, AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: RequestApplication) => {
       if (result) {
-        console.log('The dialog was closed with: ' , result);
+        console.log('The dialog was closed with: ', result);
         this.requestApplication = result;
-        this._snackBar.open('Peticion realizada con exito!','', {
+        this._snackBar.open('Peticion realizada con exito!', '', {
           horizontalPosition: this.horizontalPosition,
           verticalPosition: this.verticalPosition,
         });
@@ -135,7 +163,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
       width: '600px',
       data: {
-        nombre: application.Nombre, 
+        nombre: application.Nombre,
         description: application.Descripcion,
         importantInfo: '',
         mode: 'Display',
@@ -149,7 +177,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
       width: '600px',
       data: {
-        nombre: application.Nombre, 
+        nombre: application.Nombre,
         description: application.Descripcion,
         importantInfo: '',
         mode: 'EDIT',
@@ -163,7 +191,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
       width: '600px',
       data: {
-        nombre: application.Nombre, 
+        nombre: application.Nombre,
         description: application.Descripcion,
         importantInfo: '',
         mode: 'GROUP',

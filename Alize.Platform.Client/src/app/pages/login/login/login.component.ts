@@ -1,8 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MaterialTheme } from 'src/app/models/theme.model';
 import { FormValidation } from 'src/app/models/validation.model';
-import { LoginData, LoginService } from '../services/login.service';
+import { ThemeEnum } from 'src/app/scss-variables/models/theme.enum';
+import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +15,11 @@ import { LoginData, LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit {
   @ViewChild('myIdentifier') myIdentifier: ElementRef;
   formValidation = new FormValidation();
+
+  materialTheme = new MaterialTheme();
+
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required]),
     password: new FormControl('', Validators.required),
   })
 
@@ -25,25 +31,35 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  constructor(private router: Router, private _loginService: LoginService, private el: ElementRef) { }
+  constructor(
+    private router: Router,
+    private _loginService: LoginService,
+    private el: ElementRef,
+    private _globalStylesService: GlobalStylesService) { }
 
   ngOnInit(): void {
     const height = this.el.nativeElement.offsetHeight;
-    console.log('El height es: ' + height)
+    console.log('El height es: ' + height);
+
+    this._globalStylesService.changeColor('red');
+
+    this._globalStylesService.theme.subscribe(theme => {
+      this.materialTheme.isDarkMode =  (theme === 'dark-theme');
+      this.materialTheme.isPrimaryMain =  (theme === 'main-theme');
+    });
   }
 
   username: string
   password: string
   loginError: boolean = false
 
-
-  async handleLogin(): Promise<void> {
-    if (!this._loginService.login({ username: this.username, password: this.password })) {
-      this.loginError = true
+  getBackgroundColor() {
+    if (this.materialTheme.isDarkMode) {
+      return 'dark-theme-background';
     } else {
-      await this.router.navigateByUrl('/home')
-    }
+      return 'main-theme-background';    }
   }
+
 
   onSubmit() {
     this._loginService.login(
@@ -55,4 +71,8 @@ export class LoginComponent implements OnInit {
       (isLoogued) ? this.router.navigate(['/home/index']) : this.loginError = true;
     });
   }
+
+  // changeTheme() {
+  //   this.isTrue = !this.isTrue;
+  // }
 }

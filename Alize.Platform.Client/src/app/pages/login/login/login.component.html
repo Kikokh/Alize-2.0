@@ -1,4 +1,4 @@
-<div #myIdentifier class="main-login">
+<div #myIdentifier class="main-login" [ngClass]="getBackgroundColor()">
     <div class="login-form">
         <mat-card>
             <mat-card-header>
@@ -30,10 +30,11 @@
                 </mat-card-content>
                 <mat-card-actions>
                     <div>
-                        <button [disabled]="!loginForm.valid" mat-raised-button color="primary"
-                            (click)="handleLogin()">Iniciar sesion</button>
-                        <a mat-raised-button href="https://www.google.com/" target="_blank">Olvidaste la contrasena
-                            ?</a>
+                        <!-- <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="warn">Iniciar sesion</button> -->
+                        <button type="submit" [disabled]="!loginForm.valid" class="login-btn" mat-raised-button
+                            color="primary">Iniciar sesion</button>
+                        <button type="button" mat-flat-button>Olvidaste la contrasena
+                            ?</button>
                         <div class="error-form-message" *ngIf="loginError">
                             email or password incorrectos
                         </div>

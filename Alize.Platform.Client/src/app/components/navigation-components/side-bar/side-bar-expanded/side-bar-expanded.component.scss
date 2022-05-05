@@ -1,33 +1,29 @@
+@import '~@angular/material/theming';
+@import '../../../../scss-variables/variables.scss';
+
 .sidebar-container {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
-    .header {
-        .title {
-            text-align: center;
-            padding: 0;
-            margin: 0;
-            height: 30px;
-            font-size: 30px;
-            color: white;
-        }
 
-        .subtitle {
-            text-align: center;
-            padding: 0;
-            margin: 0;
-            height: 30px;
-            font-size: 15px;
-            color: #7F969F;
+    .logo {
+        width: 60%;
+        height: 50px;
+        margin: 0 auto;
+
+        img {
+            margin: 10px auto;
+            height: 100%;
         }
     }
 
     .profile {
         display: flex;
         flex-direction: row;
+        margin-top: 50px;
         .logo {
             width: 30%;
-            margin: 15px 10px auto; 
+            margin: 15px 10px auto;
+
             img {
                 width: 100%;
             }
@@ -36,16 +32,34 @@
         .user-profile {
             width: 100%;
             margin-left: 10px;
+
             .welcome {
-                color: #7F969F;
                 font-weight: 700;
                 font-size: 17px;
+                opacity: 0.5;
             }
 
             .user-name {
-                color: aliceblue;
                 font-size: 15px;
             }
         }
     }
+}
+
+.dark-theme-title {
+    color:  mat-color($my-accent-dark);
+}
+
+.main-theme-title {
+    color:  mat-color($my-primary);
+
+}
+
+.dark-theme-subtitle {
+    color:  mat-color($my-accent-dark);
+}
+
+.main-theme-subtitle {
+    color:  mat-color($my-primary);
+
 }

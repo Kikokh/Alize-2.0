@@ -1,7 +1,26 @@
-<div *ngIf="isUserLoggued; else login_template">
+<div *ngIf="isUserLoggued; else login_template" [style.height]="innerHeight" [style.width]="innerWidth">
   <app-layout></app-layout>
 </div>
 
 <ng-template #login_template>
-  <app-login></app-login>
+  <div [style.height]="innerHeight" [style.width]="innerWidth">
+    <app-login></app-login>
+  </div>
 </ng-template>
+
+<div class="float-btn" *ngIf="isMultiThemeEnabled">
+  
+  <div *ngIf="showMenu" class="menu-container" [ngClass]="getBackgroundFloatButton()">
+    <h3 [ngClass]="getFontColor()"> Change configuration theme</h3>
+    <mat-slide-toggle (click)="setThemeToggle($event)" class="example-margin" color="accent">
+      <p [ngClass]="getFontColor()">Dark mode</p>
+    </mat-slide-toggle>
+
+    <button mat-button color="accent" (click)="setTheme($event, 'dark-theme')">Set Alternative theme</button>
+    <button mat-button color="accent" (click)="setTheme($event, 'main-theme')">Set Alternative 2 theme</button>
+  </div>
+
+  <button color="primary" mat-fab (click)="showMenu = !showMenu">
+    <mat-icon>settings</mat-icon>
+  </button>
+</div>

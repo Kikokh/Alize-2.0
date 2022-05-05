@@ -1,19 +1,19 @@
 <div class="grid-container">
     <div class="filter">
         <div></div>
-        <mat-form-field appearance="standard">
+        <mat-form-field appearance="standard" color="primary">
             <mat-label>Filter</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
         </mat-form-field>
     </div>
 
-    <div>
+    <div class="main-grid" [ngClass]="getContentStyles()">
         <div class="toolbar">
             <div>
-                <p class="title">{{title}}</p>
+                <p class="title" color="primary">{{title}}</p>
                 <p class="sub-title">{{subTitle}}</p>
             </div>
-            <button mat-raised-button (click)="openDialog()">
+            <button mat-stroked-button color="accent" (click)="openDialog()">
                 <mat-icon>add</mat-icon>
                 Nuevo
             </button>
@@ -23,15 +23,16 @@
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
                 <ng-container *ngFor="let column of columns" matColumnDef="{{column.columnDef}}">
-                    <th mat-header-cell *matHeaderCellDef>{{column.header}}</th>
+                    <th [ngClass]="getColorHeaderTable()" mat-header-cell *matHeaderCellDef>{{column.header}}</th>
 
                     <td mat-cell *matCellDef="let row">
                         <div *ngIf="column.header === 'Operaciones';else common_row">
                             <mat-list>
                                 <ng-container *ngFor="let optItem of row.Operaciones">
                                     <mat-list-item>
-                                        <button mat-mini-fab disabled>
-                                            <mat-icon (click)="showDialog(row, optItem.optionName)">{{optItem.icon}}</mat-icon>
+                                        <button mat-mini-fab color="primary">
+                                            <mat-icon (click)="showDialog(row, optItem.optionName)">{{optItem.icon}}
+                                            </mat-icon>
                                         </button>
                                     </mat-list-item>
                                 </ng-container>
