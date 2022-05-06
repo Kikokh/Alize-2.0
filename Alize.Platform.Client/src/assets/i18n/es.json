@@ -1,7 +1,26 @@
 {
     "HELLO": "Hola",
     "Inicio": "Inicio",
-    "Administracion": "Administracion",
+    "Administracion": "Administración",
     "Gestion": "Consultas",
-    "welcome": "Bienvenido"
+    "welcome": "Bienvenido",
+    "filtro": "Filtro",
+    "Aplicaciones": "Aplicaciones",
+    "Empresas": "Empresas",
+    "Grupos": "Grupos",
+    "Modulos": "Modulos",
+    "Usuarios": "Usuarios",
+    "Consultas": "Consultas",
+    "nuevo": "Nuevo",
+    "Nombre": "Nombre",
+    "Descripcion": "Descripción",
+    "Empresa": "Empresa",
+    "Activo": "Activo",
+    "Operaciones": "Operaciones",
+    "Datos relevantes": "Datos relevantes",
+    "Seleccionar Fecha": "Seleccionar Fecha",
+    "Cerrar": "Cerrar",
+    "Guardar": "Guardar",
+    "Espanol": "Español",
+    "Ingles": "Ingles"
 }
