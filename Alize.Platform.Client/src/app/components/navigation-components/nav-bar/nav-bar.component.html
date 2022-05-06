@@ -9,8 +9,8 @@
     <mat-icon>language</mat-icon> {{currentLang}}
   </button>
   <mat-menu #afterMenu="matMenu" xPosition="before">
-    <button (click)="ChangeLanguaje('es')" mat-menu-item>Espanol</button>
-    <button (click)="ChangeLanguaje('en')" mat-menu-item>Ingles</button>
+    <button (click)="ChangeLanguaje('es')" mat-menu-item>{{"Espanol" | translate}}</button>
+    <button (click)="ChangeLanguaje('en')" mat-menu-item>{{"Ingles" | translate}}</button>
   </mat-menu>
 
 
