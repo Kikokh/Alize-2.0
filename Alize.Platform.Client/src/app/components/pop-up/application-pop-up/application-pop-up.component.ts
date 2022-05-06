@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from '../../models/application.model';
 import { IUser } from '../models/IUser';
 import { UserService } from '../services/user.service';
@@ -30,7 +31,8 @@ export class ApplicationPopUpComponent {
       mode: string;
       date: Date;
       isActive: boolean;
-    }) {
+    }, 
+    public translate: TranslateService) {
 
     this.applicationForm = new FormGroup({
       name: new FormControl({ value: data.nombre, disabled: (data.mode === 'Display') }),
@@ -63,6 +65,13 @@ export class ApplicationPopUpComponent {
     this._userService.getUserPopUp().subscribe(userList => {
       this.userList = userList;
     });
+
+    const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
+    }
   }
 
   onClick() {
