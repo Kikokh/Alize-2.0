@@ -14,7 +14,7 @@
                         <button routerLink="/{{subOpt.route}}" (click)="activateSubMenu(subOpt)" mat-menu-item
                             [ngClass]="{'active': subOpt.isSelected}">
                             <mat-icon class="menu-icon">circle</mat-icon>
-                            <span [ngClass]="{'active-text': subOpt.isSelected}">{{subOpt.name}}</span>
+                            <span [ngClass]="{'active-text': subOpt.isSelected}">{{subOpt.name | translate}}</span>
                         </button>
                     </mat-list-item>
                 </div>
@@ -28,14 +28,14 @@
         <button mat-button (click)="showSubMenu(i, opt.name, opt.route, 'COLLAPSED')" [ngClass]="{'active': opt.isSelected}">
             <div>
                 <mat-icon class="menu-icon">{{opt.icon}}</mat-icon>
-                <span class="span-opt-name">{{opt.name}}</span>
+                <span class="span-opt-name">{{opt.name | translate}}</span>
             </div>
         </button>
         <div *ngIf="opt.isVisible" class="right-menu">
             <button (click)="activateSubMenu(subOpt)" mat-menu-item [ngClass]="{'active': subOpt.isSelected}"
                 class="sub-item-button" routerLink="/{{subOpt.route}}" mat-menu-item *ngFor="let subOpt of opt.subMenu">
                 <mat-icon class="sub-menu-icon">circle</mat-icon>
-                <span [ngClass]="{'active-text': subOpt.isSelected}">{{subOpt.name}}</span>
+                <span [ngClass]="{'active-text': subOpt.isSelected}">{{subOpt.name | translate}}</span>
             </button>
         </div>
     </div>
