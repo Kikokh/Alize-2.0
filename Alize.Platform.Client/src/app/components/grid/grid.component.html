@@ -2,7 +2,7 @@
     <div class="filter">
         <div></div>
         <mat-form-field appearance="standard">
-            <mat-label>Filter</mat-label>
+            <mat-label><span>{{ "filtro" | translate }}</span></mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
         </mat-form-field>
     </div>
@@ -10,12 +10,12 @@
     <div>
         <div class="toolbar">
             <div>
-                <p class="title">{{title}}</p>
+                <p class="title">{{title | translate}}</p>
                 <p class="sub-title">{{subTitle}}</p>
             </div>
             <button mat-raised-button (click)="openDialog()">
                 <mat-icon>add</mat-icon>
-                Nuevo
+                <span>{{ "nuevo" | translate }}</span>
             </button>
         </div>
 
@@ -23,7 +23,7 @@
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
                 <ng-container *ngFor="let column of columns" matColumnDef="{{column.columnDef}}">
-                    <th mat-header-cell *matHeaderCellDef>{{column.header}}</th>
+                    <th mat-header-cell *matHeaderCellDef>{{column.header | translate}}</th>
 
                     <td mat-cell *matCellDef="let row">
                         <div *ngIf="column.header === 'Operaciones';else common_row">

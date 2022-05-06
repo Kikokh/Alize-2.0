@@ -4,6 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from '../models/application.model';
 import { IColumnDef, IElementDataApp, IElementDataCompanies } from '../models/column.models';
 import { ApplicationPopUpComponent } from '../pop-up/application-pop-up/application-pop-up.component';
@@ -56,7 +57,14 @@ export class GridComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar, public translate: TranslateService) {
+
+    const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
+    }
   }
 
   ngAfterViewInit(): void {
@@ -68,10 +76,10 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource(this.elementData);
 
     if (this.table === 'Applications') {
-      this.title = 'Administrción'
+      this.title = 'Administracion'
       this.subTitle = 'Listado de aplicaciones'
     } else if (this.table === 'Companies') {
-      this.title = 'Administrción'
+      this.title = 'Administracion'
       this.subTitle = 'Listado de empresas'
     }
   }
