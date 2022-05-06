@@ -1,9 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ProgressSpinnerComponent } from 'src/app/components/progress-spinner/progress-spinner.component';
+import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { FormValidation } from 'src/app/models/validation.model';
-import { ThemeEnum } from 'src/app/scss-variables/models/theme.enum';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { LoginService } from '../services/login.service';
 
@@ -32,6 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(
+    public dialog: MatDialog,
     private router: Router,
     private _loginService: LoginService,
     private el: ElementRef,
@@ -44,8 +47,8 @@ export class LoginComponent implements OnInit {
     this._globalStylesService.changeColor('red');
 
     this._globalStylesService.theme.subscribe(theme => {
-      this.materialTheme.isDarkMode =  (theme === 'dark-theme');
-      this.materialTheme.isPrimaryMain =  (theme === 'main-theme');
+      this.materialTheme.isDarkMode = (theme === 'dark-theme');
+      this.materialTheme.isPrimaryMain = (theme === 'main-theme');
     });
   }
 
@@ -57,7 +60,8 @@ export class LoginComponent implements OnInit {
     if (this.materialTheme.isDarkMode) {
       return 'dark-theme-background';
     } else {
-      return 'main-theme-background';    }
+      return 'main-theme-background';
+    }
   }
 
 
@@ -68,7 +72,7 @@ export class LoginComponent implements OnInit {
         password: this.passwordFormControls!.value
       }
     ).subscribe(isLoogued => {
-      (isLoogued) ? this.router.navigate(['/home/index']) : this.loginError = true;
+      (isLoogued) ? this.router.navigate(['/home']) : this.loginError = true;
     });
   }
 

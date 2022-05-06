@@ -14,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { FloatButtonComponent } from './float-button/float-button.component';
+import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -29,6 +31,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     GridComponent,
     SearchComponent,
     ApplicationPopUpComponent,
+    FloatButtonComponent,
+    ProgressSpinnerComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -53,6 +58,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BreadcrumbComponent,
     GridComponent,
     SearchComponent,
+    FloatButtonComponent,
+    ProgressSpinnerComponent
   ]
 })
 export class SharedModule { }

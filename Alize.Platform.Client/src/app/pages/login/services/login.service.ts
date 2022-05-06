@@ -1,13 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-
-
-const credentials: LoginData = {
-  username: 'ad@ad.com',
-  password: '123',
-}
-
+import { BehaviorSubject, of } from 'rxjs';
+import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { finalize, map } from 'rxjs/operators';
 export class LoginData {
   username: string;
   password: string;
@@ -23,8 +19,13 @@ export interface ILoginData {
   providedIn: 'root'
 })
 export class LoginService {
-  isLoggued = new Subject<boolean>();
-  constructor(private http: HttpClient) { }
+  private _isLogguedIn$ = new BehaviorSubject<boolean>(false);
+  isLogguedIn$ = this._isLogguedIn$.asObservable();
+
+  constructor(
+    public _progressSpinnerService: ProgressSpinnerService,
+    private http: HttpClient, 
+    private _localStorageService: LocalStorageService) { }
 
   login(loginData: LoginData) {
     // if (loginData.username === credentials.username
@@ -43,12 +44,26 @@ export class LoginService {
         // Authorization: 'my-auth-token'
       })
     };
+    this._progressSpinnerService.open();
 
-    this.http.post<string>('https://alize-platform-api-dev.azurewebsites.net/api/Users/Login'
-      , { "userName": loginData.username, "password": loginData.password }, httpOptions).subscribe(data => {
-        console.log(data);
+    this.http.post<any>('https://alize-platform-api-dev.azurewebsites.net/api/Users/Login'
+      , { "email": loginData.username, "password": loginData.password }, httpOptions)
+      .pipe(
+        finalize(() => {
+          this._progressSpinnerService.close();
+        })
+      )
+      .subscribe(data => {
+        // console.log(data);
+        this._localStorageService.addItem('token', data.accessToken);
+        this._isLogguedIn$.next(true);
+
       });
     return of(true);
+  }
+
+  onInit() {
+    this._isLogguedIn$.next(true);
   }
 }
 
