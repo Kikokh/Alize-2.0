@@ -24,5 +24,7 @@
     "Espanol": "Spanish",
     "Ingles": "English",
     "Usuario": "User",
-    "Password": "Password"
+    "Password": "Password",
+    "IniciarSesion": "Log in",
+    "OlvidoPassword": "Forgot password ?"
 }

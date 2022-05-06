@@ -8,19 +8,19 @@
             <mat-card-content>
                 <form class="example-form">
                     <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Username</mat-label>
+                        <mat-label>{{ "Usuario" | translate }}</mat-label>
                         <input matInput placeholder="Username" ng-model="username">
                     </mat-form-field>
                     <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Password</mat-label>
+                        <mat-label>{{ "Password" | translate }}</mat-label>
                         <input matInput placeholder="Password" ng-model="password" type="password">
                     </mat-form-field>
                 </form>
             </mat-card-content>
             <mat-card-actions>
                 <div>
-                    <button mat-raised-button color="primary" (click)="handleLogin()">Iniciar sesion</button>
-                    <a mat-raised-button href="https://www.google.com/" target="_blank">Olvidaste la contrasena ?</a>
+                    <button mat-raised-button color="primary" (click)="handleLogin()">{{ "IniciarSesion" | translate }}</button>
+                    <a mat-raised-button href="https://www.google.com/" target="_blank">{{ "OlvidoPassword" | translate }}</a>
                 </div>
             </mat-card-actions>
             <mat-card-footer>
