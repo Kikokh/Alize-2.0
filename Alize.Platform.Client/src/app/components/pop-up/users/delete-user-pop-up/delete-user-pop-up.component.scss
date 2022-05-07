@@ -1,0 +1,37 @@
+.main {
+    width: 600px;
+    height: auto;
+
+    .header {
+       
+        .subtitle {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: stretch;
+            justify-content: flex-start;
+            align-items: baseline;
+            p {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .mat-dialog-content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow: hidden;
+        padding: 20px 20px 20px 20px;
+
+        .password-field {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .mat-dialog-actions {
+        display: flex;
+        justify-content: end;
+    }
+}
