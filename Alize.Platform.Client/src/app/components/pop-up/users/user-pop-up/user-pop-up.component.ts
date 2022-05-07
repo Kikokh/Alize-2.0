@@ -29,7 +29,9 @@ export class UserPopUpComponent implements OnInit {
       isActive: boolean;
       mode: ModePopUpType;
     }
-  ) { 
+  ) {
+    
+    this.title = (this.data.mode === ModePopUpType.ADD) ? 'Nuevo Usuario' : (this.data.mode === ModePopUpType.DISPLAY) ? 'Ver Usuario' : 'Editar Usuario';
     this.userForm = new FormGroup({
       name: new FormControl({ value: (this.data?.nombre) ? data.nombre : '', disabled: (data.mode === ModePopUpType.DISPLAY) }),
       lastName: new FormControl({ value: (this.data?.apellidos) ? data.apellidos : '', disabled: (data.mode === ModePopUpType.DISPLAY) }),

@@ -8,14 +8,9 @@ import { MaterialTheme } from 'src/app/models/theme.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { RequestApplication } from '../models/application.model';
 import { IColumnDef, IElementDataApp, IElementDataCompanies } from '../models/column.models';
-import { ApplicationPopUpComponent } from '../pop-up/application-pop-up/application-pop-up.component';
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
+import { ApplicationPopUpComponent } from '../pop-up/applications/application-pop-up/application-pop-up.component';
+import { EntityType, ModePopUpType } from '../pop-up/modules/entity-type.enum';
+import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
 
 @Component({
   selector: 'app-grid',
@@ -26,7 +21,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   @Input() columns: IColumnDef[];
   @Input() elementData: any;
-  @Input() table: string;
+  @Input() entity: EntityType;
 
   title: string;
   subTitle: string;
@@ -50,7 +45,6 @@ export class GridComponent implements OnInit, AfterViewInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'end';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
-
   materialTheme = new MaterialTheme();
 
 
@@ -60,7 +54,11 @@ export class GridComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(public dialog: MatDialog, private _globalStylesService: GlobalStylesService, private _snackBar: MatSnackBar) {
+  constructor(
+    public dialog: MatDialog,
+    private _globalStylesService: GlobalStylesService,
+    private _openPopUpService: OpenPopUpService,
+    private _snackBar: MatSnackBar) {
   }
 
   ngAfterViewInit(): void {
@@ -71,12 +69,15 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.displayedColumns = this.columns.map(c => c.columnDef);;
     this.dataSource = new MatTableDataSource(this.elementData);
 
-    if (this.table === 'Applications') {
-      this.title = 'Administrción'
+    if (this.entity === EntityType.APPLICATIONS) {
+      this.title = 'Administración'
       this.subTitle = 'Listado de aplicaciones'
-    } else if (this.table === 'Companies') {
-      this.title = 'Administrción'
+    } else if (this.entity === EntityType.COMPANIES) {
+      this.title = 'Empresas'
       this.subTitle = 'Listado de empresas'
+    } else if (this.entity === EntityType.USERS) {
+      this.title = 'Usuarios'
+      this.subTitle = 'Listado de Usuarios'
     }
 
     this._globalStylesService.theme.subscribe(value => {
@@ -87,11 +88,11 @@ export class GridComponent implements OnInit, AfterViewInit {
 
 
   getContentStyles(): string {
-      if (this.materialTheme.isPrimaryMain) {
-        return 'main-theme-background-grid';
-      } else {
-        return '';
-      }
+    if (this.materialTheme.isPrimaryMain) {
+      return 'main-theme-background-grid';
+    } else {
+      return '';
+    }
   }
 
 
@@ -101,7 +102,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     } else {
       return '';
     }
-}
+  }
 
 
   applyFilter(event: Event) {
@@ -110,95 +111,26 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   openDialog() {
-    let requestApplication = new RequestApplication();
-    requestApplication.mode = 'ADD';
-
-    const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
-      data: {
-        nombre: '',
-        description: '',
-        importantInfo: '',
-        mode: requestApplication.mode,
-        date: '',
-        isActive: ''
-      }
-    });
-
-    dialogRef.afterClosed().subscribe((result: RequestApplication) => {
-      if (result) {
-        console.log('The dialog was closed with: ', result);
-        this.requestApplication = result;
-        this._snackBar.open('Peticion realizada con exito!', '', {
-          horizontalPosition: this.horizontalPosition,
-          verticalPosition: this.verticalPosition,
-        });
-      }
+    this._openPopUpService.open(this.entity, ModePopUpType.ADD);
+    this._openPopUpService.afterClosed().subscribe(val => {
+      this.requestApplication = val;
+      // this._snackBar.open('Peticion realizada con exito!', '', {
+      //   horizontalPosition: this.horizontalPosition,
+      //   verticalPosition: this.verticalPosition,
+      // });
     });
   }
 
 
-  showDialog(application: IElementDataApp, optionName: string) {
-    switch (optionName) {
-      case 'Display': {
-        this.onDisplay(application);
-        break;
-      }
-      case 'Edit': {
-        this.onEdit(application);
-        break;
-      }
-      case 'Group': {
-        this.onDisplayGroup(application);
-        break;
-      }
-      case 'Delete': {
-        this.onDisplay(application);
-        break;
-      }
-    }
-    console.log(optionName);
-  }
+  showDialog(data: any, optionName: ModePopUpType) {
 
-  onDisplay(application: IElementDataApp) {
-    const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
-      width: '600px',
-      data: {
-        nombre: application.Nombre,
-        description: application.Descripcion,
-        importantInfo: '',
-        mode: 'Display',
-        date: new Date(),
-        isActive: application.Activo
-      },
+    this._openPopUpService.open(this.entity, optionName, data);
+    this._openPopUpService.afterClosed().subscribe(val => {
+      this.requestApplication = val;
+      // this._snackBar.open('Peticion realizada con exito!', '', {
+      //   horizontalPosition: this.horizontalPosition,
+      //   verticalPosition: this.verticalPosition,
+      // });
     });
   }
-
-  onEdit(application: IElementDataApp) {
-    const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
-      width: '600px',
-      data: {
-        nombre: application.Nombre,
-        description: application.Descripcion,
-        importantInfo: '',
-        mode: 'EDIT',
-        date: new Date(),
-        isActive: application.Activo
-      },
-    });
-  }
-
-  onDisplayGroup(application: IElementDataApp) {
-    const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
-      width: '600px',
-      data: {
-        nombre: application.Nombre,
-        description: application.Descripcion,
-        importantInfo: '',
-        mode: 'GROUP',
-        date: new Date(),
-        isActive: application.Activo
-      },
-    });
-  }
-
 }

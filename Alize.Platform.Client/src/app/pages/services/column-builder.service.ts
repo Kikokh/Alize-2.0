@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { GridComponent } from 'src/app/components/grid/grid.component';
 import { GridData, GridDataCompanies, GridDataModules, GridDataUsers, IColumnDef, IElementDataApp as IElementData, IElementDataCompanies, IElementDataModules, IElementDataUsers } from 'src/app/components/models/column.models';
+import { ModePopUpType } from 'src/app/components/pop-up/modules/entity-type.enum';
 
 const ELEMENT_DATA_APPLICATION: IElementData[] = [
   {
@@ -195,48 +196,48 @@ const ELEMENT_DATA_MODULES: IElementDataModules[] = [
 
 const ELEMENT_DATA_USERS: IElementDataUsers[] = [
   {
-    Id: 1, Nombre: 'Hydrogen', Email: 'Descripcion 1', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 1, Nombre: 'Hydrogen', Email: 'Descripcion 1', Empresa: 'Descripcion 1', Grupo: 'Administrador', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 2, Nombre: 'Helium', Email: 'Descripcion 2', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: false,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 2, Nombre: 'Helium', Email: 'Descripcion 2', Empresa: 'Descripcion 1', Grupo: 'Administrador', Activo: false,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 3, Nombre: 'Lithium', Email: 'Descripcion 3', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 3, Nombre: 'Lithium', Email: 'Descripcion 3', Empresa: 'Descripcion 1', Grupo: 'Administrador', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 4, Nombre: 'Beryllium', Email: 'Descripcion 4', Empresa: 'Descripcion 1', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 4, Nombre: 'Beryllium', Email: 'Descripcion 4', Empresa: 'Descripcion 1', Grupo: 'Usuario', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 5, Nombre: 'Boron', Email: 'Descripcion 5', Empresa: 'Descripcion 1', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 5, Nombre: 'Boron', Email: 'Descripcion 5', Empresa: 'Descripcion 1', Grupo: 'Usuario', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 6, Nombre: 'Carbon', Email: 'Descripcion 6', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 6, Nombre: 'Carbon', Email: 'Descripcion 6', Empresa: 'Descripcion 1', Grupo: 'Administrador', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 7, Nombre: 'Nitrogen', Email: 'Descripcion 7', Empresa: 'Descripcion 1', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 7, Nombre: 'Nitrogen', Email: 'Descripcion 7', Empresa: 'Descripcion 1', Grupo: 'Usuario', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 8, Nombre: 'Oxygen', Email: 'Descripcion 8', Empresa: 'Descripcion 1', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 8, Nombre: 'Oxygen', Email: 'Descripcion 8', Empresa: 'Descripcion 1', Grupo: 'Invitado', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 9, Nombre: 'Fluorine', Email: 'Descripcion 9', Empresa: 'Descripcion 1', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 9, Nombre: 'Fluorine', Email: 'Descripcion 9', Empresa: 'Descripcion 1', Grupo: 'Invitado', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 10, Nombre: 'Neon', Email: 'Descripcion 9', Empresa: 'Descripcion 1', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 10, Nombre: 'Neon', Email: 'Descripcion 9', Empresa: 'Descripcion 1', Grupo: 'Administrador', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
   {
-    Id: 11, Nombre: 'Nacho', Email: 'Descripcion 10', Empresa: 'Descripcion 1', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }, { optionName: 'Edit', icon: 'edit_note' }, { optionName: 'Group', icon: 'groups' }, { optionName: 'Delete', icon: 'delete_outline' }]
+    Id: 11, Nombre: 'Nacho', Email: 'Descripcion 10', Empresa: 'Descripcion 1', Grupo: 'Invitado', Activo: true,
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }, { optionName: ModePopUpType.EDIT, icon: 'edit_note' }, { optionName: ModePopUpType.GROUP, icon: 'groups' }, { optionName: ModePopUpType.PASSWORD, icon: 'key' }, { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }]
   },
 ];
 

@@ -20,6 +20,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSelectModule } from '@angular/material/select';
+
+
 @NgModule({
   imports: [
     MatButtonModule,
@@ -42,7 +45,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSlideToggleModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -65,7 +69,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSlideToggleModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule { }

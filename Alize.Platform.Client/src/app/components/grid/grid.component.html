@@ -27,16 +27,12 @@
 
                     <td mat-cell *matCellDef="let row">
                         <div *ngIf="column.header === 'Operaciones';else common_row">
-                            <mat-list>
-                                <ng-container *ngFor="let optItem of row.Operaciones">
-                                    <mat-list-item>
-                                        <button mat-mini-fab color="primary">
-                                            <mat-icon (click)="showDialog(row, optItem.optionName)">{{optItem.icon}}
-                                            </mat-icon>
-                                        </button>
-                                    </mat-list-item>
-                                </ng-container>
-                            </mat-list>
+                            <ng-container *ngFor="let optItem of row.Operaciones">
+                                <button mat-mini-fab color="primary" (click)="showDialog(row, optItem.optionName)">
+                                    <mat-icon>{{optItem.icon}}
+                                    </mat-icon>
+                                </button>
+                            </ng-container>
                         </div>
 
                         <ng-template #common_row>

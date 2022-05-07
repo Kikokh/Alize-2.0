@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IColumnDef, IElementDataApp } from 'src/app/components/models/column.models';
+import { EntityType } from 'src/app/components/pop-up/modules/entity-type.enum';
 import { ColumnBuilderService } from '../../services/column-builder.service';
 
 
@@ -12,6 +13,12 @@ import { ColumnBuilderService } from '../../services/column-builder.service';
 export class ApplicationsComponent {
   displayedColumns: IColumnDef[];
   elementData: IElementDataApp[];
+
+  public get Entity(): typeof EntityType {
+    return EntityType; 
+  }
+
+  
   constructor(private _columnBuilderService: ColumnBuilderService) {
 
     this._columnBuilderService.getApplicationData().subscribe(gridData => {

@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { RequestApplication } from '../../models/application.model';
-import { IUser } from '../models/IUser';
-import { UserService } from '../services/user.service';
+import { RequestApplication } from '../../../models/application.model';
+import { IUser } from '../../models/IUser';
+import { EntityType } from '../../modules/entity-type.enum';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-application-pop-up',
@@ -19,7 +20,7 @@ export class ApplicationPopUpComponent {
   applicationForm: FormGroup;
 
   userList: IUser[];
-
+  
   constructor(
     private _userService: UserService,
     public dialogRef: MatDialogRef<ApplicationPopUpComponent>,
