@@ -26,5 +26,11 @@
     "Usuario": "Usuario",
     "Password": "Contraseña",
     "IniciarSesion": "Iniciar sesión",
-    "OlvidoPassword": "Olvidaste la contraseña ?"
+    "OlvidoPassword": "Olvidaste la contraseña ?",
+    "BreadcrumbAplicaciones": "Administración > Aplicaciones",
+    "BreadcrumbEmpresas": "Administración > Empresas",
+    "BreadcrumbGrupos": "Administración > Grupos",
+    "BreadcrumbModulos": "Administración > Modulos",
+    "BreadcrumbUsuarios": "Administración > Usuarios",
+    "BreadcrumbConsultas": "Gestión > Consultas"
 }

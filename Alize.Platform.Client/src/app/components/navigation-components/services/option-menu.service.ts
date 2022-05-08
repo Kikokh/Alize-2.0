@@ -28,7 +28,7 @@ export class OptionMenuService {
         isVisible: false,
         menuName: 'Aplicaciones',
         route: 'administration/applications',
-        breadcrumb: 'Administracion > Aplicaciones',
+        breadcrumb: 'BreadcrumbAplicaciones',
         icon: 'settings',
         subMenu: [
           {
@@ -37,7 +37,7 @@ export class OptionMenuService {
             isSelected: false,
             isVisible: false,
             route: 'administration/applications',
-            breadcrumb: 'Administracion > Aplicaciones',
+            breadcrumb: 'BreadcrumbAplicaciones',
             icon: 'home',
             subMenu: []
           },
@@ -47,7 +47,7 @@ export class OptionMenuService {
             isSelected: false,
             isVisible: false,
             route: 'administration/companies',
-            breadcrumb: 'Administracion > Empresas',
+            breadcrumb: 'BreadcrumbEmpresas',
             icon: 'home',
             subMenu: []
           },
@@ -57,7 +57,7 @@ export class OptionMenuService {
             isSelected: false,
             isVisible: false,
             route: 'administration/groups',
-            breadcrumb: 'Administracion > Grupos',
+            breadcrumb: 'BreadcrumbGrupos',
             icon: 'home',
             subMenu: []
           },
@@ -67,7 +67,7 @@ export class OptionMenuService {
             isSelected: false,
             isVisible: false,
             route: 'administration/modules',
-            breadcrumb: 'Administracion > Modulos',
+            breadcrumb: 'BreadcrumbModulos',
             icon: 'home',
             subMenu: []
           },
@@ -77,7 +77,7 @@ export class OptionMenuService {
             isSelected: false,
             isVisible: false,
             route: 'administration/users',
-            breadcrumb: 'Administracion > Usuarios',
+            breadcrumb: 'BreadcrumbUsuarios',
             icon: 'home',
             subMenu: []
           },
@@ -89,7 +89,7 @@ export class OptionMenuService {
         isSelected: false,
         isVisible: false,
         route: 'management/requests',
-        breadcrumb: 'Administracion > Consultas',
+        breadcrumb: 'BreadcrumbConsultas',
         icon: 'edit_note',
         subMenu: [
           {
@@ -98,7 +98,7 @@ export class OptionMenuService {
             isSelected: false,
             isVisible: false,
             route: 'management/requests',
-            breadcrumb: 'Administracion > Consultas',
+            breadcrumb: 'BreadcrumbConsultas',
             icon: 'home',
             subMenu: []
           }

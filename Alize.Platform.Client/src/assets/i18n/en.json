@@ -10,7 +10,7 @@
     "Grupos": "Groups",
     "Modulos": "Modules",
     "Usuarios": "Users",
-    "Consultas": "Searchs",
+    "Consultas": "Requests",
     "nuevo": "Add",
     "Nombre": "Name",
     "Descripcion": "Description",
@@ -26,5 +26,11 @@
     "Usuario": "User",
     "Password": "Password",
     "IniciarSesion": "Log in",
-    "OlvidoPassword": "Forgot password ?"
+    "OlvidoPassword": "Forgot password ?",
+    "BreadcrumbAplicaciones": "Administration > Applications",
+    "BreadcrumbEmpresas": "Administration > Companies",
+    "BreadcrumbGrupos": "Administration > Groups",
+    "BreadcrumbModulos": "Administration > Modules",
+    "BreadcrumbUsuarios": "Administration > Users",
+    "BreadcrumbConsultas": "Management > Requests"
 }
