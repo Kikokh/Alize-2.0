@@ -32,5 +32,14 @@
     "BreadcrumbGrupos": "Administration > Groups",
     "BreadcrumbModulos": "Administration > Modules",
     "BreadcrumbUsuarios": "Administration > Users",
-    "BreadcrumbConsultas": "Management > Requests"
+    "BreadcrumbConsultas": "Management > Requests",
+    "DisplayTitulo": "View Application",
+    "EditTitulo": "Edit Application",
+    "GrupoTitulo": "Users with requests permission",
+    "GrupoSubTitulo": "Select the users who will have access to the Mapex Quality request",
+    "GrupoInfoText": "Admins have implicit permission to request",
+    "OtrosTitulo": "New application request",
+    "OtrosSubTitulo": "Explain briefly what the application you want consists of, we will contact you as soon as possible to make it a reality.",
+    "ListadoAplicaciones": "Application List",
+    "ListadoEmpresas": "Company List"
 }

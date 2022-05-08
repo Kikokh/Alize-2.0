@@ -77,10 +77,10 @@ export class GridComponent implements OnInit, AfterViewInit {
 
     if (this.table === 'Applications') {
       this.title = 'Administracion'
-      this.subTitle = 'Listado de aplicaciones'
+      this.subTitle = 'ListadoAplicaciones'
     } else if (this.table === 'Companies') {
       this.title = 'Administracion'
-      this.subTitle = 'Listado de empresas'
+      this.subTitle = 'ListadoEmpresas'
     }
   }
 

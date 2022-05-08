@@ -1,17 +1,17 @@
 <div class="header">
-  <h1 mat-dialog-title>{{title}}</h1>
+  <h1 mat-dialog-title>{{title | translate}}</h1>
 </div>
 
 <div class="subtitle" *ngIf="data.mode !== 'GROUP'">
   <mat-icon *ngIf="data.mode === 'ADD'">info</mat-icon>
-  <h3 mat-dialog-title>{{subtitle}}</h3>
+  <h3 mat-dialog-title>{{subtitle | translate}}</h3>
 </div>
 
 <div class="subtitle-groups" *ngIf="data.mode === 'GROUP'">
-  <p mat-dialog-title>{{subtitle}}</p>
+  <p mat-dialog-title>{{subtitle | translate}}</p>
   <div>
     <mat-icon>info</mat-icon>
-    <p mat-dialog-title>{{infoText}}</p>
+    <p mat-dialog-title>{{infoText | translate}}</p>
   </div>
 </div>
 

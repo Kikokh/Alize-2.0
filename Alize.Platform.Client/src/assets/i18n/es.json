@@ -32,5 +32,14 @@
     "BreadcrumbGrupos": "Administración > Grupos",
     "BreadcrumbModulos": "Administración > Modulos",
     "BreadcrumbUsuarios": "Administración > Usuarios",
-    "BreadcrumbConsultas": "Gestión > Consultas"
+    "BreadcrumbConsultas": "Gestión > Consultas",
+    "DisplayTitulo": "Ver Aplicación",
+    "EditTitulo": "Editar Aplicación",
+    "GrupoTitulo": "Usuarios con permiso de consulta",
+    "GrupoSubTitulo": "Selecciona los usuarios que tendrán acceso a la consulta Calidad mapex",
+    "GrupoInfoText": "Los administradores tienen permiso implicito a la consulta",
+    "OtrosTitulo": "Nueva petición de aplicación",
+    "OtrosSubTitulo": "Explicanos brevemente en que consiste la aplicación que quieres, nos pondremos en contacto contigo tan pronto sea posible para hacerla realidad.",
+    "ListadoAplicaciones": "Listado de aplicaciones",
+    "ListadoEmpresas": "Listado de empresas"
 }

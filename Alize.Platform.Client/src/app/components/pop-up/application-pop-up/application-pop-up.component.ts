@@ -49,17 +49,17 @@ export class ApplicationPopUpComponent {
     requestApplication.mode = data.mode;
 
     if (data.mode === 'Display') {
-      this.title = 'Ver Aplicación'
+      this.title = 'DisplayTitulo'
     } if (data.mode === 'EDIT') { 
-      this.title = 'Editar Aplicación'
+      this.title = 'EditTitulo'
     }
     if (data.mode === 'GROUP') { 
-      this.title = 'Usuarios con permiso de consulta'
-      this.subtitle = 'Selecciona los usuarios que tendrán acceso a la consulta Calidad mapex';
-      this.infoText = 'Los administradores tienen permiso implicito a la consulta'
+      this.title = 'GrupoTitulo'
+      this.subtitle = 'GrupoSubTitulo';
+      this.infoText = 'GrupoInfoText'
     } else {
-      this.title = 'Nueva petición de aplicación';
-      this.subtitle = 'Explicanos brevemente en que consiste la aplicación que quieres, nos pondremos en contacto contigo tan pronto sea posible para hacerla realidad.';
+      this.title = 'OtrosTitulo';
+      this.subtitle = 'OtrosSubTitulo';
     }
 
     this._userService.getUserPopUp().subscribe(userList => {
