@@ -9,7 +9,6 @@ export class HomeComponent {
   public innerHeight: string;
   constructor() { 
     this.innerHeight = (window.innerHeight - 70).toString() + 'px';
-    console.log('La altura es: ' + this.innerHeight);
   }
 
 }

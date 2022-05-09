@@ -1,7 +1,6 @@
 <div class="sidebar-container">
-    <div class="header">
-        <p class="title">ALIZE</p>
-        <p class="subtitle">Trust Builder Hub</p>
+    <div class="logo">
+        <img src="../../../../../assets/logo-alice-blanco.png" alt="">
     </div>
 
     <div class="profile">
@@ -9,8 +8,8 @@
             <img src="../../../../../assets/kh.png" alt="">
         </div>
         <div class="user-profile">
-            <p class="welcome">{{"welcome" | translate}}</p>
-            <p class="user-name">{{user}}</p>
+            <p class="welcome" [ngClass]="getThemeTitle()">{{"welcome" | translate}}</p>
+            <p class="user-name" [ngClass]="getThemeSubtitle()">{{user}}</p>
         </div>
     </div>
 

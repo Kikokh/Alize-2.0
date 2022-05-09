@@ -1,0 +1,30 @@
+<div class="main">
+    <div class="header">
+        <h1 mat-dialog-title>{{title}}</h1>
+        <div class="subtitle">
+            <h1 mat-dialog-title>{{subtitle}} </h1>
+            <p style="font-weight:bold; font-size: 20px;">{{data.nombre}}</p>
+        </div>
+    </div>
+    <form [formGroup]="userForm">
+        <div class="mat-dialog-content" mat-dialog-content>
+            <p>
+                <mat-checkbox formControlName="administrador">Administrador</mat-checkbox>
+            </p>
+            <p>
+                <mat-checkbox formControlName="usuario">Usuario</mat-checkbox>
+            </p>
+            <p>
+                <mat-checkbox formControlName="invitado">Invitado</mat-checkbox>
+            </p>
+        </div>
+
+        <div class="mat-dialog-actions" mat-dialog-actions>
+            <div class="fill"></div>
+            <div class="buttons">
+                <button mat-raised-button color="accent" (click)="onClick()">Guardar</button>
+                <button mat-raised-button (click)="close()">Close</button>
+            </div>
+        </div>
+    </form>
+</div>

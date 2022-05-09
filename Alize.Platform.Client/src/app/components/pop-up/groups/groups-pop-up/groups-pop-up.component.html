@@ -1,0 +1,38 @@
+<!-- <pre color="accent">{{groupForm | json}}</pre> -->
+<div class="main">
+    <div class="header">
+        <h1 class="title" mat-dialog-title>{{title}}</h1>
+    </div>
+    
+    <div class="mat-dialog-content" mat-dialog-content>
+        <form [formGroup]="form">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput name="name" formControlName="name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Descripción</mat-label>
+                <input matInput name="description" formControlName="description">
+            </mat-form-field>
+            <mat-slide-toggle color="accent" formControlName="active">Activo</mat-slide-toggle>
+            <div *ngIf="data.mode !== 'ADD'" style="margin-top: 30px; display: flex; flex-direction: column;">
+                <h1 class="modules" mat-dialog-title>{{availableModules}}</h1>
+                <ng-container *ngFor="let module of moduleList">
+                    <p>{{module.moduleName}}</p>
+                    <ng-container *ngFor="let mod of module.menu">
+                        <mat-checkbox class="example-margin" disabled [checked]="mod.isChecked">{{mod.moduleOpt}}</mat-checkbox>
+                    </ng-container>
+                </ng-container>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="mat-dialog-actions" mat-dialog-actions>
+        <div class="fill"></div>
+        <div class="buttons">
+            <button mat-raised-button (click)="close()">Close</button>
+            <button mat-raised-button color="accent" (click)="onClick()">Guardar</button>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { LoginRoutingModule } from './login-routing.module';
-import { SharedModule } from 'src/app/components/shared.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material.module';
 
 
@@ -12,9 +12,11 @@ import { MaterialModule } from 'src/app/material.module';
   imports: [
     CommonModule,
     LoginRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule
   ], exports: [
-      LoginComponent
+    LoginComponent
   ]
 })
 

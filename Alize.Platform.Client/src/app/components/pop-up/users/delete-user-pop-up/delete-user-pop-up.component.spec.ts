@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SideBarComponent } from './side-bar.component';
+import { DeleteUserPopUpComponent } from './delete-user-pop-up.component';
 
-describe('SideBarComponent', () => {
-  let component: SideBarComponent;
-  let fixture: ComponentFixture<SideBarComponent>;
+describe('DeleteUserPopUpComponent', () => {
+  let component: DeleteUserPopUpComponent;
+  let fixture: ComponentFixture<DeleteUserPopUpComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SideBarComponent ]
+      declarations: [ DeleteUserPopUpComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SideBarComponent);
+    fixture = TestBed.createComponent(DeleteUserPopUpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
