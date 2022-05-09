@@ -1,12 +1,7 @@
-<div *ngIf="_loginService.isLogguedIn$ | async; else login_template" [style.height]="innerHeight" [style.width]="innerWidth">
-  <app-layout></app-layout>
-</div>
-
+<app-layout *ngIf="_loginService.isLogguedIn$ | async; else login_template"></app-layout>
 
 <ng-template #login_template>
-  <div [style.height]="innerHeight" [style.width]="innerWidth">
-    <app-login></app-login>
-  </div>
+  <app-login></app-login>
 </ng-template>
 
 <app-float-button></app-float-button>
