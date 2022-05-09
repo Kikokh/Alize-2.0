@@ -3,9 +3,11 @@ using Alize.Platform.Api.Responses.Companies;
 using Alize.Platform.Data.Constants;
 using Alize.Platform.Data.Models;
 using Alize.Platform.Data.Repositories;
+using Alize.Platform.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Alize.Platform.Api.Controllers
 {
@@ -15,11 +17,13 @@ namespace Alize.Platform.Api.Controllers
     public class CompaniesController : ControllerBase
     {
         private readonly ICompanyRepository _companyRepository;
+        private readonly ISecurityService _securityService;
         private readonly IMapper _mapper;
 
-        public CompaniesController(ICompanyRepository companyRepository, IMapper mapper)
+        public CompaniesController(ICompanyRepository companyRepository, ISecurityService securityService, IMapper mapper)
         {
             _companyRepository = companyRepository;
+            _securityService = securityService;
             _mapper = mapper;
         }
 
@@ -28,7 +32,9 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<CompanyResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var companies = await _companyRepository.GetCompaniesAsync();
+            var user = await _securityService.GetUserWithRolesAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+
+            var companies = await _companyRepository.GetCompaniesForUserAsync(user);
 
             return Ok(_mapper.Map<IEnumerable<CompanyResponse>>(companies));
         }

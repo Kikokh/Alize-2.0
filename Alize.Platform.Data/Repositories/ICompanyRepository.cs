@@ -6,7 +6,7 @@ namespace Alize.Platform.Data.Repositories
     {
         Task<Company> AddCompanyAsync(Company company);
         Task<Company> GetCompanyAsync(Guid id);
-        Task<IEnumerable<Company>> GetCompaniesAsync();
+        Task<IEnumerable<Company>> GetCompaniesForUserAsync(User user);
         Task<Company> UpdateCompanyAsync(Company company);
         Task DeleteCompanyAsync(Company company);
     }

@@ -22,6 +22,8 @@ namespace Alize.Platform.Data.Models
         [Required]
         public string ModuleGroup { get; set; }
 
+        public bool IsActive { get; set; }
+
         public ICollection<Role> Roles { get; set; }
     }
 }

@@ -3,9 +3,11 @@ using Alize.Platform.Api.Responses.Applications;
 using Alize.Platform.Data.Constants;
 using Alize.Platform.Data.Models;
 using Alize.Platform.Data.Repositories;
+using Alize.Platform.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Alize.Platform.Api.Controllers
 {
@@ -16,11 +18,13 @@ namespace Alize.Platform.Api.Controllers
     public class ApplicationsController : ControllerBase
     {
         private readonly IApplicationRepository _applicationRepository;
+        private readonly ISecurityService _securityService;
         private readonly IMapper _mapper;
 
-        public ApplicationsController(IApplicationRepository applicationRepository, IMapper mapper)
+        public ApplicationsController(IApplicationRepository applicationRepository, ISecurityService securityService, IMapper mapper)
         {
             _applicationRepository = applicationRepository;
+            _securityService = securityService;
             _mapper = mapper;
         }
 
@@ -29,7 +33,9 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<ApplicationResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var apps = await _applicationRepository.GetApplicationsAsync();
+            var user = await _securityService.GetUserWithRolesAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+
+            var apps = await _applicationRepository.GetApplicationsForUserAsync(user);
 
             return Ok(_mapper.Map<IEnumerable<ApplicationResponse>>(apps));
         }
