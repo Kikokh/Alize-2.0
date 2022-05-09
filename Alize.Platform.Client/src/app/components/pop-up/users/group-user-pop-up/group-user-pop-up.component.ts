@@ -32,8 +32,7 @@ export class GroupUserPopUpComponent {
         usuario: (this.data.grupos === 'Usuario'? true : false),
         invitado: (this.data.grupos === 'Invitado'? true : false),
     })
-    group: new FormControl({ value: (this.data?.grupos) ? this.data.grupos : '' }),
-    console.log(this.data);
+    group: new FormControl({ value: (this.data?.grupos) ? this.data.grupos : '' })
   }
 
   onClick() {

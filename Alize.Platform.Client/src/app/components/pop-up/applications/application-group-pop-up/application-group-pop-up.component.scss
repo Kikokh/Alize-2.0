@@ -1,0 +1,42 @@
+.header {
+    .title {
+        border-bottom: 1px solid grey;
+        height: 40px;
+    }
+    .infoText-main {
+        display: flex;
+        height: 30px;
+        mat-icon {
+            padding-top: 5px;
+            font-size: 15px;
+        }
+    }
+}
+
+.mat-dialog-content {
+    height: auto;
+    overflow: hidden;
+    form {
+        display: flex;
+        flex-direction: column;
+
+        mat-checkbox {
+            margin-top: 20px;
+        }
+    }
+}
+
+.mat-dialog-content-group {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    .fill {
+        width: 70%;
+        height: 50px;
+    }
+}

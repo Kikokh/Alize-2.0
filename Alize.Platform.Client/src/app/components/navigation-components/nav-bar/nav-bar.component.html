@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <button color="accent" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+  <button *ngIf="isSideBarCollapsedEnabler" color="accent" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon aria-hidden="false" (click)="handleSideBarToggle()" aria-label="Example reorder icon">reorder</mat-icon>
   </button>
   <span class="example-spacer"></span>

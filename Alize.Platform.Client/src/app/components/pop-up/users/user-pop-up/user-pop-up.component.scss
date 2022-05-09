@@ -2,6 +2,11 @@
     width: 600px;
     height: auto;
 
+    .header {
+        height: 50px;
+        border-bottom: 1px solid grey;
+    }
+
     .mat-dialog-content {
         form {
             display: flex;

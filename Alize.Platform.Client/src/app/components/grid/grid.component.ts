@@ -68,7 +68,6 @@ export class GridComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.displayedColumns = this.columns.map(c => c.columnDef);;
     this.dataSource = new MatTableDataSource(this.elementData);
-
     if (this.entity === EntityType.APPLICATIONS) {
       this.title = 'Administración'
       this.subTitle = 'Listado de aplicaciones'
@@ -103,6 +102,18 @@ export class GridComponent implements OnInit, AfterViewInit {
       return '';
     }
   }
+
+  // getRowStyle(row: number) {
+  //   let rowStyle: string;
+
+  //   switch (row) {
+  //     case 0 : {
+  //       rowStyle = 'id'
+  //     }
+  //   }
+
+  //   return '';
+  // }
 
 
   applyFilter(event: Event) {

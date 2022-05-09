@@ -54,7 +54,6 @@ export class LoginService {
         })
       )
       .subscribe(data => {
-        // console.log(data);
         this._localStorageService.addItem('token', data.accessToken);
         this._isLogguedIn$.next(true);
 

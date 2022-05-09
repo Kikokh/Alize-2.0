@@ -17,7 +17,7 @@ export class GroupsComponent {
   }
   
   constructor(private _columnBuilderService: ColumnBuilderService) { 
-    this._columnBuilderService.getCompaniesData().subscribe(gridData => {
+    this._columnBuilderService.getGroupsData().subscribe(gridData => {
       this.elementData = gridData.data;
       this.displayedColumns = gridData.columnDef;
     });

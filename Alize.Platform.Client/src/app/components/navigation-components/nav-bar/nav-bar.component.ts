@@ -14,14 +14,14 @@ export class NavBarComponent {
   currentLang: string;
   isExpanded = true;
   materialTheme = new MaterialTheme();
-
+  isSideBarCollapsedEnabler = false;
   constructor(
     private _navigationService: NavigationService,
     public translate: TranslateService,
     private _globalStylesService: GlobalStylesService) {
 
     const currentLang = localStorage.getItem('lang');
-    
+
     this.currentLang = (currentLang !== null) ? currentLang : 'es';
   }
 
@@ -39,7 +39,7 @@ export class NavBarComponent {
     window.location.reload();
   }
 
-  getTheme() :string {
+  getTheme(): string {
     if (this.materialTheme.isPrimaryMain) {
       return 'main-theme-subtitle';
     } else {

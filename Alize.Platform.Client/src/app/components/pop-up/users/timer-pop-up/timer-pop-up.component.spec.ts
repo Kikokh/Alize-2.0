@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditUserPopUpComponent } from './edit-user-pop-up.component';
+import { TimerPopUpComponent } from './timer-pop-up.component';
 
-describe('EditUserPopUpComponent', () => {
-  let component: EditUserPopUpComponent;
-  let fixture: ComponentFixture<EditUserPopUpComponent>;
+describe('TimerPopUpComponent', () => {
+  let component: TimerPopUpComponent;
+  let fixture: ComponentFixture<TimerPopUpComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EditUserPopUpComponent ]
+      declarations: [ TimerPopUpComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditUserPopUpComponent);
+    fixture = TestBed.createComponent(TimerPopUpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,5 +12,6 @@ export enum ModePopUpType {
     'GROUP' = 'GROUP',
     'DELETE' = 'DELETE',
     'PASSWORD' = 'PASSWORD',
-    'ADD' = 'ADD'
+    'ADD' = 'ADD',
+    'TIMER' = 'TIMER'
 }

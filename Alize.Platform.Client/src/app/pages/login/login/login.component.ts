@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     const height = this.el.nativeElement.offsetHeight;
-    console.log('El height es: ' + height);
 
     this._globalStylesService.changeColor('red');
 

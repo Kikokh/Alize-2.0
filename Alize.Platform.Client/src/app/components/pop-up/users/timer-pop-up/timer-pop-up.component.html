@@ -1,0 +1,19 @@
+<div class="main">
+    <div class="header">
+        <h1 mat-dialog-title>{{title}}</h1>
+        <div class="subtitle">
+            <h5 mat-dialog-title>{{subtitle}} </h5>
+        </div>
+    </div>
+    <div class="mat-dialog-content" mat-dialog-content>
+        <h5 mat-dialog-title>{{textInfo}} </h5>
+
+        <div class="mat-dialog-actions" mat-dialog-actions>
+            <div class="fill"></div>
+            <div class="buttons">
+                <button mat-raised-button color="accent" (click)="onClick()">Si</button>
+                <button mat-raised-button (click)="close()">No</button>
+            </div>
+        </div>
+    </div>
+</div>

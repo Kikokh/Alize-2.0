@@ -17,10 +17,12 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { FloatButtonComponent } from './float-button/float-button.component';
 import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
 import { UserPopUpComponent } from './pop-up/users/user-pop-up/user-pop-up.component';
-import { EditUserPopUpComponent } from './pop-up/users/edit-user-pop-up/edit-user-pop-up.component';
 import { GroupUserPopUpComponent } from './pop-up/users/group-user-pop-up/group-user-pop-up.component';
 import { PasswordUserPopUpComponent } from './pop-up/users/password-user-pop-up/password-user-pop-up.component';
 import { DeleteUserPopUpComponent } from './pop-up/users/delete-user-pop-up/delete-user-pop-up.component';
+import { TimerPopUpComponent } from './pop-up/users/timer-pop-up/timer-pop-up.component';
+import { ApplicationGroupPopUpComponent } from './pop-up/applications/application-group-pop-up/application-group-pop-up.component';
+import { GroupsPopUpComponent } from './pop-up/groups/groups-pop-up/groups-pop-up.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -39,11 +41,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     FloatButtonComponent,
     ProgressSpinnerComponent,
     UserPopUpComponent,
-    EditUserPopUpComponent,
     GroupUserPopUpComponent,
     PasswordUserPopUpComponent,
     DeleteUserPopUpComponent,
-    
+    TimerPopUpComponent,
+    ApplicationGroupPopUpComponent,
+    GroupsPopUpComponent,
   ],
   imports: [
     CommonModule,

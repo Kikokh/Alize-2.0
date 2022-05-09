@@ -9,7 +9,7 @@ import { ModePopUpType } from '../../modules/entity-type.enum';
   templateUrl: './user-pop-up.component.html',
   styleUrls: ['./user-pop-up.component.scss']
 })
-export class UserPopUpComponent implements OnInit {
+export class UserPopUpComponent {
   title ='Nuevo Usuario';
   userForm: FormGroup;
   
@@ -33,17 +33,13 @@ export class UserPopUpComponent implements OnInit {
     
     this.title = (this.data.mode === ModePopUpType.ADD) ? 'Nuevo Usuario' : (this.data.mode === ModePopUpType.DISPLAY) ? 'Ver Usuario' : 'Editar Usuario';
     this.userForm = new FormGroup({
-      name: new FormControl({ value: (this.data?.nombre) ? data.nombre : '', disabled: (data.mode === ModePopUpType.DISPLAY) }),
-      lastName: new FormControl({ value: (this.data?.apellidos) ? data.apellidos : '', disabled: (data.mode === ModePopUpType.DISPLAY) }),
-      email: new FormControl({ value: (this.data?.email) ? data.email : '', disabled: (data.mode === ModePopUpType.DISPLAY) }),
-      company: new FormControl({ value: (this.data.empresa) ? data.empresa : '', disabled: true }),
-      groups: new FormControl({ value: (this.data?.grupos) ? data.grupos : '', disabled: true }),
-      active: new FormControl({ value: this.data?.isActive, disabled: (data.mode === ModePopUpType.DISPLAY) }),
+      name: new FormControl({ value: (this.data?.nombre) ? this.data.nombre : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      lastName: new FormControl({ value: (this.data?.apellidos) ? this.data.apellidos : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      email: new FormControl({ value: (this.data?.email) ? this.data.email : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      company: new FormControl({ value: (this.data.empresa) ? this.data.empresa : '', disabled: true }),
+      groups: new FormControl({ value: (this.data?.grupos) ? this.data.grupos : '', disabled: true }),
+      active: new FormControl({ value: this.data?.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
     });
-  }
-
-  ngOnInit(): void {
-    console.log();
   }
 
   onClick() {

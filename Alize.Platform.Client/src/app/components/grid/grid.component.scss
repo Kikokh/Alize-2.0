@@ -53,26 +53,20 @@
                 }
 
                 td {
-                    mat-list {
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: center;
-                        // width: 30%;
-                        padding: 0;
-                        height: 50px;
-                        width: fit-content;
-
-                        mat-list-item {
-                            padding: 0;
-
-                            button {
-                                cursor: pointer;
-
-                                mat-icon {
-                                    // color: #2A3F54;
-                                }
-                            }
+                    height: 60px;
+                    .operation-column {
+                        .icon-button {
+                           margin-left: 20px;
                         }
+                        //    width: 35%;
+                         width: 100%;
+                        //    text-align: end;
+                    }
+
+                    .common-row {
+                        // background-color: grey;
+                        // padding: 5px 5px 5px 5px;
+                        // width: 95%;
                     }
                 }
             }
@@ -89,6 +83,7 @@
     background-color: $blue-background;
     color: mat-color($my-primary) !important;
 }
+
 // .column-id {
 //     width: 3%;
 // }

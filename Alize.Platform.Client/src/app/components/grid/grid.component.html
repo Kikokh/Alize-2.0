@@ -21,23 +21,25 @@
 
         <div class="table-container">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-                <ng-container *ngFor="let column of columns" matColumnDef="{{column.columnDef}}">
+                <ng-container *ngFor="let column of columns; let i = index" matColumnDef="{{column.columnDef}}">
                     <th [ngClass]="getColorHeaderTable()" mat-header-cell *matHeaderCellDef>{{column.header}}</th>
 
                     <td mat-cell *matCellDef="let row">
-                        <div *ngIf="column.header === 'Operaciones';else common_row">
+                        <div class="operation-column" *ngIf="column.header === 'Operaciones'">
                             <ng-container *ngFor="let optItem of row.Operaciones">
-                                <button mat-mini-fab color="primary" (click)="showDialog(row, optItem.optionName)">
+                                <button class="icon-button" mat-mini-fab color="primary"
+                                    (click)="showDialog(row, optItem.optionName)">
                                     <mat-icon>{{optItem.icon}}
                                     </mat-icon>
                                 </button>
                             </ng-container>
                         </div>
-
-                        <ng-template #common_row>
+                        <div *ngIf="column.header === 'Activo'">
+                            <mat-slide-toggle color="accent" disabled [ngModel]="row.Activo === true">Activo</mat-slide-toggle>
+                        </div>
+                        <div class="common-row" *ngIf="column.header !== 'Operaciones' && column.header !== 'Activo'">
                             {{column.cell(row)}}
-                        </ng-template>
+                        </div>
                     </td>
                 </ng-container>
 
