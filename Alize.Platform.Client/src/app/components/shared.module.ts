@@ -23,6 +23,7 @@ import { DeleteUserPopUpComponent } from './pop-up/users/delete-user-pop-up/dele
 import { TimerPopUpComponent } from './pop-up/users/timer-pop-up/timer-pop-up.component';
 import { ApplicationGroupPopUpComponent } from './pop-up/applications/application-group-pop-up/application-group-pop-up.component';
 import { GroupsPopUpComponent } from './pop-up/groups/groups-pop-up/groups-pop-up.component';
+import { ModulesPopUpComponent } from './pop-up/modules/modules-pop-up/modules-pop-up.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TimerPopUpComponent,
     ApplicationGroupPopUpComponent,
     GroupsPopUpComponent,
+    ModulesPopUpComponent,
   ],
   imports: [
     CommonModule,

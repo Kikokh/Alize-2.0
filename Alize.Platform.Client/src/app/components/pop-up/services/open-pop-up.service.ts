@@ -7,8 +7,9 @@ import { ProgressSpinnerComponent } from '../../progress-spinner/progress-spinne
 import { ApplicationGroupPopUpComponent } from '../applications/application-group-pop-up/application-group-pop-up.component';
 import { ApplicationPopUpComponent } from '../applications/application-pop-up/application-pop-up.component';
 import { GroupsPopUpComponent } from '../groups/groups-pop-up/groups-pop-up.component';
-import { EntityType, ModePopUpType } from '../modules/entity-type.enum';
-import { MatDialogConfigModel } from '../modules/request-pop-up.model';
+import { EntityType, ModePopUpType } from '../models/entity-type.enum';
+import { MatDialogConfigModel } from '../models/request-pop-up.model';
+import { ModulesPopUpComponent } from '../modules/modules-pop-up/modules-pop-up.component';
 import { DeleteUserPopUpComponent } from '../users/delete-user-pop-up/delete-user-pop-up.component';
 import { GroupUserPopUpComponent } from '../users/group-user-pop-up/group-user-pop-up.component';
 import { PasswordUserPopUpComponent } from '../users/password-user-pop-up/password-user-pop-up.component';
@@ -62,6 +63,10 @@ export class OpenPopUpService {
         this.resolveGroupsPopUp(mode, matDialogConfigModel, data);
         break;
       }
+      case EntityType.MODULES: {
+        this.resolveModulesPopUp(mode, matDialogConfigModel, data);
+        break;
+      }
       default: {
         const any: any = null;
         return any;
@@ -71,6 +76,23 @@ export class OpenPopUpService {
     }
 
     return matDialogConfigModel;
+  }
+
+
+  resolveModulesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
+    switch (mode) {
+      case ModePopUpType.DISPLAY: {
+        matDialogConfigModel.component = ModulesPopUpComponent;
+        matDialogConfigModel.data = {
+          nombre: data.Nombre,
+          description: data.Descripcion,
+          grupo: data.Grupo,
+          activo: data.Activo,
+          mode: mode
+        }
+        break;
+      }
+    }
   }
 
   resolveGroupsPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
@@ -87,7 +109,9 @@ export class OpenPopUpService {
       }
       case ModePopUpType.ADD: {
         matDialogConfigModel.component = GroupsPopUpComponent;
-        matDialogConfigModel.data = {}
+        matDialogConfigModel.data = {
+          mode: mode
+        }
         break;
       }
     }

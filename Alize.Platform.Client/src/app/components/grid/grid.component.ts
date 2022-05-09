@@ -9,7 +9,7 @@ import { GlobalStylesService } from 'src/app/scss-variables/services/global-styl
 import { RequestApplication } from '../models/application.model';
 import { IColumnDef, IElementDataApp, IElementDataCompanies } from '../models/column.models';
 import { ApplicationPopUpComponent } from '../pop-up/applications/application-pop-up/application-pop-up.component';
-import { EntityType, ModePopUpType } from '../pop-up/modules/entity-type.enum';
+import { EntityType, ModePopUpType } from '../pop-up/models/entity-type.enum';
 import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
 
 @Component({
@@ -22,6 +22,12 @@ export class GridComponent implements OnInit, AfterViewInit {
   @Input() columns: IColumnDef[];
   @Input() elementData: any;
   @Input() entity: EntityType;
+
+
+  public get Entity(): typeof EntityType {
+    return EntityType; 
+  }
+
 
   title: string;
   subTitle: string;
@@ -70,13 +76,19 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.dataSource = new MatTableDataSource(this.elementData);
     if (this.entity === EntityType.APPLICATIONS) {
       this.title = 'Administración'
-      this.subTitle = 'Listado de aplicaciones'
+      this.subTitle = 'Listado de Aplicaciones'
     } else if (this.entity === EntityType.COMPANIES) {
-      this.title = 'Empresas'
-      this.subTitle = 'Listado de empresas'
+      this.title = 'Administracion'
+      this.subTitle = 'Listado de Empresas'
     } else if (this.entity === EntityType.USERS) {
-      this.title = 'Usuarios'
+      this.title = 'Administracion'
       this.subTitle = 'Listado de Usuarios'
+    } else if (this.entity === EntityType.GROUPS) {
+      this.title = 'Administracion'
+      this.subTitle = 'Listado de Grupos'
+    } else if (this.entity === EntityType.MODULES) {
+      this.title = 'Administracion'
+      this.subTitle = 'Listado de Módulos'
     }
 
     this._globalStylesService.theme.subscribe(value => {

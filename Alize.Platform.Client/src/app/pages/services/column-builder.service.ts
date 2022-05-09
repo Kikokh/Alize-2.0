@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { GridComponent } from 'src/app/components/grid/grid.component';
 import { GridData, GridDataCompanies, GridDataModules, GridDataUsers, IColumnDef, IElementDataApp as IElementDataApplications, IElementDataCompanies, IElementDataGroup, IElementDataModules, IElementDataUsers } from 'src/app/components/models/column.models';
-import { ModePopUpType } from 'src/app/components/pop-up/modules/entity-type.enum';
+import { ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 
 const ELEMENT_DATA_APPLICATION: IElementDataApplications[] = [
   {
@@ -76,43 +76,43 @@ const ELEMENT_DATA_GROUPS: IElementDataGroup[] = [
 const ELEMENT_DATA_MODULES: IElementDataModules[] = [
   {
     Id: 1, Nombre: 'Aplicaciones', Descripcion: 'Permite la gestión de aplicaciones (consultas)	', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
   {
     Id: 2, Nombre: 'Empresas', Descripcion: 'Permite la gestión de empresas', Grupo: 'Administracion', Activo: false,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
   {
     Id: 3, Nombre: 'Grupos', Descripcion: 'Permite la gestión de grupos de usuarios', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
   {
     Id: 4, Nombre: 'Módulos', Descripcion: 'Permite la gestión de módulos	', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
   {
     Id: 5, Nombre: 'Usuarios', Descripcion: 'Permite la gestión de usuarios', Grupo: 'Gestion', Activo: false,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
   {
     Id: 6, Nombre: 'Alertas', Descripcion: 'Permite la gestión de alertas', Grupo: 'Administracion', Activo: false,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
   {
     Id: 7, Nombre: 'Consultas', Descripcion: 'Permite la visualización de consultas de la empresa', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
   {
     Id: 8, Nombre: 'Panel de control	', Descripcion: 'Permite la visualización de KPI y parámetros de interés para el usuario', Grupo: 'Gestion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
   {
     Id: 9, Nombre: 'Auditoría usuarios	', Descripcion: 'Permite la visualización de las operaciones de los usuarios en la plataforma.', Grupo: 'Informes', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
   {
     Id: 10, Nombre: 'Registro transacciones	', Descripcion: 'Permite la visualización de toso los registros de operaciones realizadas sobre la base de datos', Grupo: 'Administracion', Activo: true,
-    Operaciones: [{ optionName: 'Display', icon: 'search' }]
+    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
 ];
 

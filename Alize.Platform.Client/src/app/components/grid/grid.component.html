@@ -13,7 +13,7 @@
                 <p class="title" color="primary">{{title}}</p>
                 <p class="sub-title">{{subTitle}}</p>
             </div>
-            <button mat-stroked-button color="accent" (click)="openDialog()">
+            <button *ngIf="entity === Entity.APPLICATIONS || entity === Entity.USERS" mat-stroked-button color="accent" (click)="openDialog()">
                 <mat-icon>add</mat-icon>
                 Nuevo
             </button>

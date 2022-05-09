@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { RequestApplication } from '../../../models/application.model';
 import { IUser } from '../../models/IUser';
-import { EntityType, ModePopUpType } from '../../modules/entity-type.enum';
+import { EntityType, ModePopUpType } from '../../models/entity-type.enum';
 import { UserService } from '../../services/user.service';
 
 @Component({

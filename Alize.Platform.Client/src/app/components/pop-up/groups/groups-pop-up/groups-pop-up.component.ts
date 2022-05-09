@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RequestApplication } from 'src/app/components/models/application.model';
-import { ModePopUpType } from '../../modules/entity-type.enum';
+import { ModePopUpType } from '../../models/entity-type.enum';
 
 export interface IMenuItem {
   isChecked: boolean;
@@ -39,6 +39,7 @@ export class GroupsPopUpComponent {
       date: Date;
       activo: boolean;
     }) {
+      console.log(this.data);
     this.form = new FormGroup({
       name: new FormControl({ value: (this.data.nombre) ? this.data.nombre : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       description: new FormControl({ value: (this.data.grupos) ? this.data.grupos : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),

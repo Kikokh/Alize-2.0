@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RequestApplication } from 'src/app/components/models/application.model';
-import { ModePopUpType } from '../../modules/entity-type.enum';
+import { ModePopUpType } from '../../models/entity-type.enum';
 
 @Component({
   selector: 'app-user-pop-up',
