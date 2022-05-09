@@ -73,11 +73,17 @@ namespace Alize.Platform.Services
 
         public async Task UpdateUserPasswordAsync(Guid userId, string newPassword) => await this.UpdateUserPasswordAsync(userId.ToString(), newPassword);
 
-        public async Task<IEnumerable<User>> GetUsersAsync() => await _userManager.Users.ToListAsync();
+        public async Task<IEnumerable<User>> GetUsersAsync() => await _userManager.Users
+            .Include(u => u.Company)
+            .Include(u => u.Roles)
+            .ToListAsync();
 
-        public async Task<User> GetUserAsync(string id) => await _userManager.FindByIdAsync(id);
+        public async Task<User?> GetUserAsync(string id) => await _userManager.Users
+            .Include(u => u.Company)
+            .Include(u => u.Roles)
+            .SingleOrDefaultAsync(u => u.Id.ToString() == id);
 
-        public async Task<User> GetUserAsync(Guid id) => await this.GetUserAsync(id.ToString());
+        public async Task<User?> GetUserAsync(Guid id) => await this.GetUserAsync(id.ToString());
 
         public async Task<User> RegisterUserAsync(User user, string password)
         {
@@ -100,22 +106,12 @@ namespace Alize.Platform.Services
 
         public async Task UpdateUserAsync(User user) => await _userManager.UpdateAsync(user);
 
-        public async Task<User> GetUserWithRolesAsync(string guid) => await GetUserWithRolesAsync(Guid.Parse(guid));
-
-        public async Task<User> GetUserWithRolesAsync(Guid guid)
-        {
-            return await _userManager
-                .Users
-                .Include(u => u.Roles)
-                .SingleAsync(u => u.Id == guid);
-        }
-
         public async Task<IEnumerable<Role>> GetRolesAsync()
         {
             return await _roleManager.Roles.ToListAsync();
         }
 
-        public async Task<Role> GetRoleAsync(Guid guid)
+        public async Task<Role?> GetRoleAsync(Guid guid)
         {
             return await _roleManager.Roles.Include(r => r.Modules).SingleOrDefaultAsync(r => r.Id == guid);
         }

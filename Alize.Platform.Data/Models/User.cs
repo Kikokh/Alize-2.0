@@ -24,6 +24,8 @@ namespace Alize.Platform.Data.Models
         [StringLength(10)]
         public string? Pin { get; set; }
 
+        public Role? Role => this.Roles?.SingleOrDefault();
+
         public ICollection<Role>? Roles { get; set; }
 
         public ICollection<Application>? Applications { get; set; }

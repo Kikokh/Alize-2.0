@@ -15,7 +15,7 @@ namespace Alize.Platform.Data.Repositories
 
         public async Task<IEnumerable<Company>> GetCompaniesForUserAsync(User user)
         {
-            var userRole = user.Roles.Single().Name;
+            var userRole = user.Role?.Name;
 
             return await _dbContext
                     .Companies
@@ -23,7 +23,7 @@ namespace Alize.Platform.Data.Repositories
                     .ToListAsync();
         }
 
-        public async Task<Company> GetCompanyAsync(Guid id)
+        public async Task<Company?> GetCompanyAsync(Guid id)
         {
             return await _dbContext.Companies.AsNoTracking().FirstOrDefaultAsync( c => c.Id == id);
         }

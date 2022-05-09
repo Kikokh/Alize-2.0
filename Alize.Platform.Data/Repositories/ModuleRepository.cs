@@ -25,7 +25,7 @@ namespace Alize.Platform.Data.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Module> GetModuleAsync(Guid id)
+        public async Task<Module?> GetModuleAsync(Guid id)
         {
             return await _context.Modules.AsNoTracking().SingleOrDefaultAsync(m => m.Id == id);
         }

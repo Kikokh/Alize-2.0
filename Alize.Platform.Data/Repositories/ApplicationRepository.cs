@@ -15,7 +15,7 @@ namespace Alize.Platform.Data.Repositories
 
         public async Task<IEnumerable<Application>> GetApplicationsForUserAsync(User user)
         {
-            var userRole = user.Roles.Single().Name;
+            var userRole = user.Role?.Name;
 
             return await _dbContext
                     .Companies
@@ -24,12 +24,7 @@ namespace Alize.Platform.Data.Repositories
                     .ToListAsync();
         }
 
-        public async Task<Application> GetApplicationAsync(Guid id)
-        {
-
-
-            return await _dbContext.Applications.FindAsync(id);
-        }
+        public async Task<Application?> GetApplicationAsync(Guid id) => await _dbContext.Applications.FindAsync(id);
 
         public async Task<Application> UpdateApplicationAsync(Application application)
         {

@@ -25,7 +25,7 @@ namespace Alize.Platform.Services
             await this._container.DeleteItemAsync<T>(id, new PartitionKey(id));
         }
 
-        public async Task<T> GetItemAsync<T>(string id) where T : Entity
+        public async Task<T?> GetItemAsync<T>(string id) where T : Entity
         {
             try
             {

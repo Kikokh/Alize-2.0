@@ -35,7 +35,7 @@ namespace Alize.Platform.Api.Controllers
 
         [HttpGet("Me")]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetMe()
+        public IActionResult GetMe()
         {
             var user = HttpContext.User;
 
@@ -46,9 +46,9 @@ namespace Alize.Platform.Api.Controllers
                     s.Type,
                     s.Value
                 }).ToList(),
-                user.Identity.Name,
-                user.Identity.IsAuthenticated,
-                user.Identity.AuthenticationType
+                user.Identity?.Name,
+                user.Identity?.IsAuthenticated,
+                user.Identity?.AuthenticationType
             });
         }
 

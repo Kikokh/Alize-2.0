@@ -8,11 +8,10 @@ namespace Alize.Platform.Data
 {
     public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
     {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
             : base(options)
         {
+            if (options is null) throw new ArgumentNullException(nameof(options));
         }
 
         public virtual DbSet<Application> Applications { get; set; }
@@ -42,103 +41,17 @@ namespace Alize.Platform.Data
                         .OnDelete(DeleteBehavior.NoAction)
                 );
 
+            builder.Entity<User>()
+                .HasMany(u => u.Roles)
+                .WithMany(r => r.Users)
+                .UsingEntity<IdentityUserRole<Guid>>();
+
             SeedCompanies(builder);
             var modules = SeedModules(builder);
             var roles = SeedRoles(builder);
             SeedRoleModule(builder, roles, modules);
             var users = SeedUsers(builder);
             SeedUserRoles(builder);
-        }
-
-        private void SeedRoleModule(ModelBuilder builder, ICollection<Role> roles, ICollection<Module> modules)
-        {
-            var adminProModules = modules
-                .Where(m => 
-                    new[]
-                    {
-                        Constants.Modules.Applications,
-                        Constants.Modules.Companies,
-                        Constants.Modules.Groups,
-                        Constants.Modules.ModuleAdmin,
-                        Constants.Modules.Users,
-                        Constants.Modules.Alerts,
-                        Constants.Modules.Queries,
-                        Constants.Modules.ControlPanel,
-                        Constants.Modules.UserAudit,
-                        Constants.Modules.TransactionLog
-                    }.Contains(m.Name)
-                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.AdminPro).Id });
-
-            var distributorModules = modules
-                .Where(m => 
-                    new[]
-                    {
-                        Constants.Modules.Applications,
-                        Constants.Modules.Companies,
-                        Constants.Modules.Groups,
-                        Constants.Modules.ModuleAdmin,
-                        Constants.Modules.Users,
-                        Constants.Modules.Queries
-                    }.Contains(m.Name)
-                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.Distributor).Id });
-
-            var adminModules = modules
-                .Where(m => 
-                    new[]
-                    {
-                        Constants.Modules.Applications,
-                        Constants.Modules.Companies,
-                        Constants.Modules.Groups,
-                        Constants.Modules.ModuleAdmin,
-                        Constants.Modules.Users,
-                        Constants.Modules.Queries
-                    }.Contains(m.Name)
-                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.Admin).Id });
-
-            var userModules = modules
-                .Where(m =>
-                    new[]
-                    {
-                        Constants.Modules.Queries
-                    }.Contains(m.Name)
-                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.User).Id });
-
-            var guestModules = modules
-                .Where(m =>
-                    new[]
-                    {
-                        Constants.Modules.Queries
-                    }.Contains(m.Name)
-                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.Guest).Id });
-
-            builder.Entity<Module>()
-               .HasMany(p => p.Roles)
-               .WithMany(r => r.Modules).UsingEntity(
-                    "ModuleRole",
-                    j => j.HasData(
-                        adminProModules
-                        .Concat(distributorModules)
-                        .Concat(adminModules)
-                        .Concat(userModules)
-                        .Concat(guestModules)
-                    )
-                );
-        }
-
-        private void SeedUserRoles(ModelBuilder builder)
-        {
-            builder.Entity<IdentityUserRole<Guid>>().HasData(
-                new IdentityUserRole<Guid>
-                {
-                    RoleId = Guid.Parse("2c5e174e-3b0e-446f-86af-483d56fd7210"),
-                    UserId = Guid.Parse("1c822965-eb67-4092-9cf7-cf62806d5395")
-                },
-                new IdentityUserRole<Guid>
-                {
-                    RoleId = Guid.Parse("8e445865-a24d-4543-a6c6-9443d048cdb9"),
-                    UserId = Guid.Parse("95ada776-f3e1-42db-aa39-382f91b74cd4")
-                }
-            );
         }
 
         #region Seeds
@@ -230,7 +143,6 @@ namespace Alize.Platform.Data
                 }
             );
         }
-
         private ICollection<Module> SeedModules(ModelBuilder builder)
         {
             var modules = new List<Module>()
@@ -318,7 +230,6 @@ namespace Alize.Platform.Data
 
             return modules;
         }
-
         private ICollection<Role> SeedRoles(ModelBuilder builder)
         {
             var roles = new List<Role>()
@@ -401,6 +312,95 @@ namespace Alize.Platform.Data
             builder.Entity<User>().HasData(users);
 
             return users;
+        }
+        private void SeedRoleModule(ModelBuilder builder, ICollection<Role> roles, ICollection<Module> modules)
+        {
+            var adminProModules = modules
+                .Where(m =>
+                    new[]
+                    {
+                        Constants.Modules.Applications,
+                        Constants.Modules.Companies,
+                        Constants.Modules.Groups,
+                        Constants.Modules.ModuleAdmin,
+                        Constants.Modules.Users,
+                        Constants.Modules.Alerts,
+                        Constants.Modules.Queries,
+                        Constants.Modules.ControlPanel,
+                        Constants.Modules.UserAudit,
+                        Constants.Modules.TransactionLog
+                    }.Contains(m.Name)
+                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.AdminPro).Id });
+
+            var distributorModules = modules
+                .Where(m =>
+                    new[]
+                    {
+                        Constants.Modules.Applications,
+                        Constants.Modules.Companies,
+                        Constants.Modules.Groups,
+                        Constants.Modules.ModuleAdmin,
+                        Constants.Modules.Users,
+                        Constants.Modules.Queries
+                    }.Contains(m.Name)
+                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.Distributor).Id });
+
+            var adminModules = modules
+                .Where(m =>
+                    new[]
+                    {
+                        Constants.Modules.Applications,
+                        Constants.Modules.Companies,
+                        Constants.Modules.Groups,
+                        Constants.Modules.ModuleAdmin,
+                        Constants.Modules.Users,
+                        Constants.Modules.Queries
+                    }.Contains(m.Name)
+                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.Admin).Id });
+
+            var userModules = modules
+                .Where(m =>
+                    new[]
+                    {
+                        Constants.Modules.Queries
+                    }.Contains(m.Name)
+                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.User).Id });
+
+            var guestModules = modules
+                .Where(m =>
+                    new[]
+                    {
+                        Constants.Modules.Queries
+                    }.Contains(m.Name)
+                ).Select(m => new { ModulesId = m.Id, RolesId = roles.Single(r => r.Name == Constants.Roles.Guest).Id });
+
+            builder.Entity<Module>()
+               .HasMany(p => p.Roles)
+               .WithMany(r => r.Modules).UsingEntity(
+                    "ModuleRole",
+                    j => j.HasData(
+                        adminProModules
+                        .Concat(distributorModules)
+                        .Concat(adminModules)
+                        .Concat(userModules)
+                        .Concat(guestModules)
+                    )
+                );
+        }
+        private void SeedUserRoles(ModelBuilder builder)
+        {
+            builder.Entity<IdentityUserRole<Guid>>().HasData(
+                new IdentityUserRole<Guid>
+                {
+                    RoleId = Guid.Parse("2c5e174e-3b0e-446f-86af-483d56fd7210"),
+                    UserId = Guid.Parse("1c822965-eb67-4092-9cf7-cf62806d5395")
+                },
+                new IdentityUserRole<Guid>
+                {
+                    RoleId = Guid.Parse("8e445865-a24d-4543-a6c6-9443d048cdb9"),
+                    UserId = Guid.Parse("95ada776-f3e1-42db-aa39-382f91b74cd4")
+                }
+            );
         }
         #endregion Seeds
     }

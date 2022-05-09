@@ -33,7 +33,10 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<ApplicationResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var user = await _securityService.GetUserWithRolesAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+
+            if (user == null)
+                return NotFound();
 
             var apps = await _applicationRepository.GetApplicationsForUserAsync(user);
 
