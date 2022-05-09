@@ -1,7 +1,14 @@
-<div *ngIf="isUserLoggued; else login_template">
+<div *ngIf="_loginService.isLogguedIn$ | async; else login_template" [style.height]="innerHeight" [style.width]="innerWidth">
   <app-layout></app-layout>
 </div>
 
+
 <ng-template #login_template>
-  <app-login></app-login>
+  <div [style.height]="innerHeight" [style.width]="innerWidth">
+    <app-login></app-login>
+  </div>
 </ng-template>
+
+<app-float-button></app-float-button>
+
+<!-- <app-progress-spinner></app-progress-spinner> -->

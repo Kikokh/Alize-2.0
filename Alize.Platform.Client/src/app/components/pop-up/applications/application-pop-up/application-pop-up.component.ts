@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { RequestApplication } from '../../models/application.model';
-import { IUser } from '../models/IUser';
-import { UserService } from '../services/user.service';
+import { RequestApplication } from '../../../models/application.model';
+import { IUser } from '../../models/IUser';
+import { EntityType, ModePopUpType } from '../../models/entity-type.enum';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-application-pop-up',
@@ -20,6 +21,12 @@ export class ApplicationPopUpComponent {
 
   userList: IUser[];
 
+
+
+  public get _modePopUpType(): typeof ModePopUpType {
+    return ModePopUpType;
+  }
+
   constructor(
     private _userService: UserService,
     public dialogRef: MatDialogRef<ApplicationPopUpComponent>,
@@ -30,14 +37,19 @@ export class ApplicationPopUpComponent {
       mode: string;
       date: Date;
       isActive: boolean;
+
     }) {
 
+    const today = new Date();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+
     this.applicationForm = new FormGroup({
-      name: new FormControl({ value: data.nombre, disabled: (data.mode === 'Display') }),
-      description: new FormControl({ value: data.description, disabled: (data.mode === 'Display') }),
-      importantInfo: new FormControl({ value: data.importantInfo, disabled: (data.mode === 'Display') }),
-      date: new FormControl({ value: data.date, disabled: true }),
-      active: new FormControl({ value: data.isActive, disabled: (data.mode === 'Display') }),
+      name: new FormControl({ value: this.data.nombre, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      description: new FormControl({ value: this.data.description, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      importantInfo: new FormControl({ value: this.data.importantInfo, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      date: new FormControl({ value:new Date(year, month, 13), disabled: true }),
+      active: new FormControl({ value: this.data.isActive, disabled: (this.data.mode === 'Display') }),
     });
 
     let requestApplication = new RequestApplication();
@@ -46,16 +58,11 @@ export class ApplicationPopUpComponent {
     requestApplication.importantInfo = data.importantInfo;
     requestApplication.mode = data.mode;
 
-    if (data.mode === 'Display') {
+    if (data.mode === ModePopUpType.DISPLAY) {
       this.title = 'Ver Aplicación'
-    } if (data.mode === 'EDIT') { 
+    } if (data.mode === ModePopUpType.EDIT) {
       this.title = 'Editar Aplicación'
-    }
-    if (data.mode === 'GROUP') { 
-      this.title = 'Usuarios con permiso de consulta'
-      this.subtitle = 'Selecciona los usuarios que tendrán acceso a la consulta Calidad mapex';
-      this.infoText = 'Los administradores tienen permiso implicito a la consulta'
-    } else {
+    } else if (data.mode === ModePopUpType.ADD) {
       this.title = 'Nueva petición de aplicación';
       this.subtitle = 'Explicanos brevemente en que consiste la aplicación que quieres, nos pondremos en contacto contigo tan pronto sea posible para hacerla realidad.';
     }

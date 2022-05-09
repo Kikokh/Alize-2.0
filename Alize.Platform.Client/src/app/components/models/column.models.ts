@@ -16,6 +16,14 @@ export interface IElementDataCompanies {
     Operaciones: IOperationsModel[];
 }
 
+export interface IElementDataGroup {
+    Id: number;
+    Nombre: string;
+    Descripcion: string;
+    Activo: boolean;
+    Operaciones: IOperationsModel[];
+}
+
 export interface IElementDataModules {
     Id: number;
     Nombre: string;

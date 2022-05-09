@@ -1,52 +1,21 @@
 .header {
-    width: 100%;
-
-    h1 {
-        padding-bottom: 20px;
+    .title {
         border-bottom: 1px solid grey;
+        height: 40px;
     }
-}
-
-.subtitle {
-    display: flex;
-    max-width: 600px;
-
-    mat-icon {
-        padding-top: 5px;
-    }
-
-    h3 {
-        font-size: 14px;
-    }
-}
-
-.subtitle-groups {
-    display: flex;
-    flex-direction: column;
-
-    p {
-        font-size: 14px;
-    }
-
-    div {
-        margin-top: -20px;
+    .infoText-main {
         display: flex;
         height: 30px;
-        flex-direction: row;
-
         mat-icon {
             padding-top: 5px;
-        }
-
-        p {
-            font-size: 14px;
+            font-size: 15px;
         }
     }
 }
 
 .mat-dialog-content {
-    height: 350px;
-
+    height: auto;
+    overflow: hidden;
     form {
         display: flex;
         flex-direction: column;
@@ -65,7 +34,7 @@
 
 .mat-dialog-actions {
     display: flex;
-
+    justify-content: flex-end;
     .fill {
         width: 70%;
         height: 50px;

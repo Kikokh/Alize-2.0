@@ -1,28 +1,44 @@
-<div #myIdentifier class="main-login">
+<div #myIdentifier class="main-login" [ngClass]="getBackgroundColor()">
     <div class="login-form">
         <mat-card>
             <mat-card-header>
                 <a href="https://www.khxpander.com/">
                     <img src="../../../../assets/logo-alice-negro_250.png" class="img-fluid" /></a>
             </mat-card-header>
-            <mat-card-content>
-                <form class="example-form">
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Username</mat-label>
-                        <input matInput placeholder="Username" ng-model="username">
-                    </mat-form-field>
-                    <mat-form-field class="example-full-width" appearance="fill">
-                        <mat-label>Password</mat-label>
-                        <input matInput placeholder="Password" ng-model="password" type="password">
-                    </mat-form-field>
-                </form>
-            </mat-card-content>
-            <mat-card-actions>
-                <div>
-                    <button mat-raised-button color="primary" (click)="handleLogin()">Iniciar sesion</button>
-                    <a mat-raised-button href="https://www.google.com/" target="_blank">Olvidaste la contrasena ?</a>
-                </div>
-            </mat-card-actions>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <mat-card-content>
+                    <div class="example-form">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="email" ng-model="email" formControlName="email">
+                        </mat-form-field>
+                        <div class="error-form-message" *ngIf="formValidation.isValidInput(emailFormControls)">
+                            El email tiene un formato incorrecto
+                        </div>
+                        <div class="error-form-message" *ngIf="formValidation.isEmptyField(emailFormControls)">
+                            El campo email no puede estar vacio
+                        </div>
+                        <mat-form-field type="password" class="example-full-width" appearance="fill">
+                            <mat-label>Password</mat-label>
+                            <input matInput placeholder="Password" ng-model="password" type="password"
+                                formControlName="password">
+                        </mat-form-field>
+                        <div class="error-form-message" *ngIf="formValidation.isEmptyField(passwordFormControls)">
+                            El campo password no puede estar vacio
+                        </div>
+                    </div>
+                </mat-card-content>
+                <mat-card-actions>
+                    <div>
+                        <!-- <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="warn">Iniciar sesion</button> -->
+                        <button type="submit" [disabled]="!loginForm.valid" class="login-btn" mat-raised-button
+                            color="primary">Iniciar sesion</button>
+                        <div class="error-form-message" *ngIf="loginError">
+                            email or password incorrectos
+                        </div>
+                    </div>
+                </mat-card-actions>
+            </form>
             <mat-card-footer>
                 ©2021 All Rights Reserved. Alize Trust Builder Hub by Xpander. Privacy and Terms
             </mat-card-footer>
