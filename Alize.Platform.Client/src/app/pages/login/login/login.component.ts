@@ -42,14 +42,14 @@ export class LoginComponent implements OnInit {
     private _globalStylesService: GlobalStylesService,
     public translate: TranslateService) {
 
-      const lang = localStorage.getItem('lang');
-      if (lang !== null) {
-        this.translate.setDefaultLang(lang);
-      } else {
-        this.translate.setDefaultLang('en');
-      }
+  const lang = localStorage.getItem('lang');
+  if (lang !== null) {
+    this.translate.setDefaultLang(lang);
+  } else {
+    this.translate.setDefaultLang('en');
     }
-
+  }
+  
   ngOnInit(): void {
     const height = this.el.nativeElement.offsetHeight;
 
