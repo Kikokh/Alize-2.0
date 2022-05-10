@@ -26,7 +26,6 @@ namespace Alize.Platform.Api.Mapping
                 .ForMember(d => d.EmailConfirmed, o => o.MapFrom(s => true));
             CreateMap<User, UserResponse>()
                 .ForMember(d => d.CompanyName, o => o.MapFrom(s => s.Company != null ? s.Company.Name :  string.Empty))
-                .ForMember(d => d.CompanyLogo, o => o.MapFrom(s => s.Company != null ? s.Company.Logo : string.Empty))
                 .ForMember(d => d.RoleName, o => o.MapFrom(s => s.Role != null ? s.Role.Name : string.Empty));
 
             CreateMap<CreateModuleRequest, Module>();
