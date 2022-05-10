@@ -25,9 +25,6 @@ export class AppComponent implements OnInit {
   showMenu = false;
   isDarkMode = false;
 
-
-  public innerHeight: string;
-  public innerWidth: string;
   activatedRoute: any;
 
   @HostBinding('class') componentCssClass: any;
@@ -69,9 +66,6 @@ export class AppComponent implements OnInit {
     //     this.isUserLoggued;
     //   }
     // });
-
-    this.innerHeight = (window.innerHeight).toString() + 'px';
-    this.innerWidth = (window.innerWidth).toString() + 'px';
 
     this.overlayContainer.getContainerElement().classList.add('main-theme');
     this.componentCssClass = 'main-theme';

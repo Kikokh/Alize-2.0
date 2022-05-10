@@ -3,16 +3,17 @@
 
 .app-container {
     height: 100%;
+    width: 100%;
 
     mat-drawer-container {
         height: 100%;
 
         .side-bar-expanded {
-            width: 12%;
+            min-width: 220px;
         }
 
         .side-bar-collapsed {
-            width: 7%;
+            min-width: 220px;
         }
 
         mat-drawer-content {
