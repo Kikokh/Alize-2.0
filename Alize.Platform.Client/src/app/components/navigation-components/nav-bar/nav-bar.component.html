@@ -1,21 +1,21 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+  <button *ngIf="isSideBarCollapsedEnabler" color="accent" mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon aria-hidden="false" (click)="handleSideBarToggle()" aria-label="Example reorder icon">reorder</mat-icon>
   </button>
   <span class="example-spacer"></span>
   
   
-  <button mat-button [matMenuTriggerFor]="afterMenu">
+  <button color="accent" mat-button [matMenuTriggerFor]="afterMenu">
     <mat-icon>language</mat-icon> {{currentLang}}
   </button>
-  <mat-menu #afterMenu="matMenu" xPosition="before">
+  <mat-menu  color="accent" #afterMenu="matMenu" xPosition="before">
     <button (click)="ChangeLanguaje('es')" mat-menu-item>{{"Espanol" | translate}}</button>
     <button (click)="ChangeLanguaje('en')" mat-menu-item>{{"Ingles" | translate}}</button>
   </mat-menu>
 
 
   <img src="../../../../assets/kh.png" alt="">
-  <button mat-button [matMenuTriggerFor]="afterMenu">
+  <button color="accent" mat-button [matMenuTriggerFor]="afterMenu">
     oscar.valente@kardumtech.es
   </button>
   <mat-menu #afterMenu="matMenu" xPosition="before">

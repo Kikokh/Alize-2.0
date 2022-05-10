@@ -1,0 +1,29 @@
+.main {
+    width: 600px;
+    height: auto;
+
+    .header {
+        height: 50px;
+        border-bottom: 1px solid grey;
+    }
+
+    .mat-dialog-content {
+        form {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            padding: 20px 20px 20px 20px;
+
+            .password-field {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+
+    .mat-dialog-actions {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

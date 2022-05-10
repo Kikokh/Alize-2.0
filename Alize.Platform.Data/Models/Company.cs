@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alize.Platform.Data.Models
 {
@@ -72,6 +73,11 @@ namespace Alize.Platform.Data.Models
 
         [Url]
         public string? GoogleMapsUrl { get; set; }
+
+        [ForeignKey(nameof(ParentCompany))]
+        public Guid? ParentCompanyId { get; set; }
+
+        public ICollection<Application> Applications { get; set; }
 
         public Company? ParentCompany { get; set; }
     }

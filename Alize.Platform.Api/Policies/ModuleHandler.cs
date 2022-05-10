@@ -17,11 +17,12 @@ namespace Alize.Platform.Api.Policies
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, ModuleRequirement requirement)
         {
-            var roleNames = context.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value);
+            var userRoleName = context.User.Claims.Single(c => c.Type == ClaimTypes.Role).Value;
+            var userRole = await _roleManager.Roles
+                .Include(r => r.Modules)
+                .SingleAsync(r => userRoleName == r.Name);
 
-            var userModules = await _roleManager.Roles.Where(r => roleNames.Contains(r.Name)).SelectMany(r => r.Modules).ToListAsync();
-
-            if (userModules.Any(m => m.Name == requirement.Module))
+            if (userRole.Modules.Any(m => m.Name == requirement.Module))
                 context.Succeed(requirement);
             else
                 context.Fail();

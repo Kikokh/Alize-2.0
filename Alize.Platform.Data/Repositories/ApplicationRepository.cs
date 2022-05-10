@@ -1,4 +1,5 @@
-﻿using Alize.Platform.Data.Models;
+﻿using Alize.Platform.Data.Constants;
+using Alize.Platform.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Alize.Platform.Data.Repositories
@@ -12,15 +13,18 @@ namespace Alize.Platform.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Application>> GetApplicationsAsync()
+        public async Task<IEnumerable<Application>> GetApplicationsForUserAsync(User user)
         {
-            return await _dbContext.Applications.ToListAsync();
+            var userRole = user.Role?.Name;
+
+            return await _dbContext
+                    .Companies
+                    .Where(c => userRole == Roles.AdminPro || c.Id == user.CompanyId || (userRole == Roles.Distributor && c.ParentCompanyId == user.CompanyId))
+                    .SelectMany(c => c.Applications)
+                    .ToListAsync();
         }
 
-        public async Task<Application> GetApplicationAsync(Guid id)
-        {
-            return await _dbContext.Applications.FindAsync(id);
-        }
+        public async Task<Application?> GetApplicationAsync(Guid id) => await _dbContext.Applications.FindAsync(id);
 
         public async Task<Application> UpdateApplicationAsync(Application application)
         {

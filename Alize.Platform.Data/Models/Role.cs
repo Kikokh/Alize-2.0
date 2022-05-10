@@ -9,5 +9,7 @@ namespace Alize.Platform.Data.Models
         public bool IsActive { get; set; } = true;
 
         public ICollection<Module> Modules { get; set; }
+
+        public ICollection<User> Users { get; set; }
     }
 }

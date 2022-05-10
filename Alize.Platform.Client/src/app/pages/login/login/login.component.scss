@@ -1,66 +1,96 @@
+@use 'src/app/scss-variables/variables'as c;
+
 .main-login {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(../../../../assets/backgroudImage.png);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+
+
+    // Activate tis styles to put image background
+    // background-image: url(../../../../assets/backgroudImage.png);
+    // background-position: center;
+    // background-size: cover;
+    // background-repeat: no-repeat;
 
 
 
     .login-form {
-        width: 25%;
-        height: auto;
+        width: 30%;
+        height: 40%;
         background-color: transparent;
         display: flex;
         justify-content: center;
         align-items: center;
 
         mat-card {
-            width: 90%;
-            height: 90%;
+            width: 100%;
+            height: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 50px 50px 50px 50px;
+            border-radius: 8px 8px 8px 8px;
 
             mat-card-header {
                 display: flex;
                 flex-direction: column;
             }
 
-            mat-card-content {
-                margin-top: 20px;
-                width: 90%;
+            form {
+                width: 100%;
 
-                form {
-                    display: flex;
-                    flex-direction: column;
-                }
-
-            }
-
-            mat-card-actions {
-                width: 90%;
-                div {
+                mat-card-content {
+                    margin-top: 20px;
                     width: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
 
-                    button {
-                        width: 100%;
+                    div {
+                        display: flex;
+                        flex-direction: column;
+
+                        mat-form-field {
+                            margin-top: 40px;
+                            width: 100%;
+                        }
                     }
 
-                    a {
-                        margin-top: 10px;
-                        width: 100%;
-                    }
                 }
 
+                mat-card-actions {
+                    width: 100%;
+                    margin-top: 50px;
+
+                    div {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        button {
+                            margin-top: 10px;
+                            // background-color: c.$primary-color;
+                            width: 50%;
+                            height: 60px;
+                            font-size: 15px;
+                            border-radius: 30px 30px 30px 30px;
+                        }
+
+                        .login-btn {
+                            margin-top: 10px;
+                            // background-color: c.$primary-color;
+                            width: 50%;
+                            height: 60px;
+                            font-size: 20px;
+                        }
+
+                        a {
+                            margin-top: 10px;
+                            width: 100%;
+                        }
+                    }
+
+                }
             }
 
             mat-card-footer {
@@ -69,6 +99,12 @@
             }
         }
     }
+}
 
+.dark-theme-background {
+    background-color: #222;
+}
 
+.main-theme-background {
+    background-color: #f0f0f0;
 }

@@ -7,7 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alize.Platform.Api", "Alize
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alize.Platform.Data", "Alize.Platform.Data\Alize.Platform.Data.csproj", "{DFC17438-A945-4468-AF08-5E9912DD7B6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alize.Platform.Services", "Alize.Platform.Services\Alize.Platform.Services.csproj", "{723DED9D-3BD7-4E51-9D1B-1DADB37B222D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Alize.Platform.Services", "Alize.Platform.Services\Alize.Platform.Services.csproj", "{723DED9D-3BD7-4E51-9D1B-1DADB37B222D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0688E327-84C2-4762-931C-79231E9D0D40}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

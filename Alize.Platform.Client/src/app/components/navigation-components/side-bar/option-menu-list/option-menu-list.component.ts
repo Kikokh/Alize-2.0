@@ -2,6 +2,8 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { MaterialTheme } from 'src/app/models/theme.model';
+import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { IMenu } from '../../models/menu';
 import { OptionMenuService } from '../../services/option-menu.service';
 
@@ -15,17 +17,46 @@ export class OptionMenuListComponent implements OnInit {
   optionList: IMenu[] = [];
   itemMenuList: IMenu[];
   isShowSubMenuVisible = false;
+
+  materialTheme = new MaterialTheme();
+
   @Input() isSideBarExpanded: boolean = false;
 
   constructor(
     private _router: Router,
     private optionMenuService: OptionMenuService,
+    private _globalStylesService: GlobalStylesService
   ) { }
 
   ngOnInit(): void {
     this.optionMenuService.getMenu().subscribe(menuList => {
       this.optionList = menuList;
     });
+
+    this._globalStylesService.theme.subscribe(value => {
+      this.materialTheme.isDarkMode = (value === 'dark-theme');
+      this.materialTheme.isPrimaryMain = (value === 'main-theme');
+    });
+  }
+  
+  getTheme() :string {
+    if (this.materialTheme.isDarkMode) {
+      return 'dark-theme';
+    } else {
+      return 'main-theme';
+    }
+  }
+
+  getActiveMenuItem(optionSelected: boolean, isToolbar: boolean) :string {
+    // if (!isToolbar) {
+      return (optionSelected) ? 'active' : ''; 
+    // } else {
+    //   if (this.materialTheme.isDarkMode) {
+    //     return (optionSelected) ? 'active dark-toolbar' : 'dark-toolbar';
+    //   } else {
+    //     return (optionSelected) ? 'active main-toolbar' : 'main-toolbar';
+    //   }
+    // }
   }
 
   showSubMenu(i: number, name: string, route: any, menuType: string) {
@@ -91,11 +122,11 @@ export class OptionMenuListComponent implements OnInit {
   selectSubMenuActive(option: IMenu) {
     const adminitrationList = ['Aplicaciones', 'Empresas', 'Grupos', 'Modulos', 'Usuarios']
     if (adminitrationList.includes(option.name)) {
-      this.optionList[1].isSelected = true;    
+      this.optionList[1].isSelected = true;
     } else if (option.name === 'Inicio') {
-      this.optionList[0].isSelected = true;   
+      this.optionList[0].isSelected = true;
     } else {
-      this.optionList[2].isSelected = true;   
+      this.optionList[2].isSelected = true;
     }
   }
 

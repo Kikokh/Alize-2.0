@@ -39,8 +39,15 @@
     "GrupoTitulo": "Users with requests permission",
     "GrupoSubTitulo": "Select the users who will have access to the Mapex Quality request",
     "GrupoInfoText": "Admins have implicit permission to request",
-    "OtrosTitulo": "New application request",
-    "OtrosSubTitulo": "Explain briefly what the application you want consists of, we will contact you as soon as possible to make it a reality.",
+    "AddTitulo": "New application request",
+    "AddSubTitulo": "Explain briefly what the application you want consists of, we will contact you as soon as possible to make it a reality.",
     "ListadoAplicaciones": "Application List",
-    "ListadoEmpresas": "Company List"
+    "ListadoEmpresas": "Company List",
+    "ListadoUsuarios": "User List",
+    "ListadoGrupos": "Group List",
+    "ListadoModulos": "Module List",
+    "EmailIncorrecto": "The email has an incorrect format",
+    "EmailVacio": "The email field cannot be empty",
+    "PasswordVacio": "The password field cannot be empty",
+    "EmailPassIncorrecto": "wrong email or password"
 }

@@ -248,6 +248,9 @@ namespace Alize.Platform.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ModuleGroup")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -269,6 +272,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("a8befaf9-807a-4f7d-aad2-9380f79bc364"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Aplicaciones"
@@ -277,6 +281,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("4112d229-b379-447e-bf37-fb57dd19d5d8"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Empresas"
@@ -285,6 +290,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("9141e022-2833-4a18-a7b9-7f20a6b39768"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Grupos"
@@ -293,6 +299,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("87da1e2c-f36e-4490-bfc8-e75fff9b5510"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Módulos"
@@ -301,6 +308,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("31932e4d-00cd-46b2-afb1-a9e9a1464bd8"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Usuarios"
@@ -309,6 +317,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("1254e6da-49d4-4ba5-9cd4-cff7c10f9304"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Management",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Alertas"
@@ -317,6 +326,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("da12c25e-ea5c-4867-a0c4-e82746010507"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Management",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Consultas"
@@ -325,6 +335,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("ab9d236a-0ee4-4b10-b445-96af2db9188e"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Management",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Panel de control"
@@ -333,6 +344,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("57ca62f5-a0ec-4dbd-9e06-cc2904ac944e"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Informes",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Auditoría usuarios"
@@ -341,6 +353,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("0c75b5f5-f868-43b0-9af0-c45442d9479e"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Informes",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Registro transacciones"
@@ -349,6 +362,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("ae49dbc2-e899-4003-9ea8-0e0471f638d6"),
                             Description = "",
+                            IsActive = false,
                             ModuleGroup = "Ayuda",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Ayuda"
@@ -398,7 +412,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"),
-                            ConcurrencyStamp = "c7160f18-e6f6-4562-9277-ba931da32512",
+                            ConcurrencyStamp = "5b64f86c-2c00-4691-8fb5-035d9a9929e9",
                             Description = "Los administradores pro tienen acceso completo y sin restricciones a la plataforma",
                             IsActive = true,
                             Name = "Administrador Pro",
@@ -407,7 +421,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"),
-                            ConcurrencyStamp = "31817712-4496-4cc0-84ae-9412ae473b7b",
+                            ConcurrencyStamp = "362df50d-71be-4d04-ab47-9d2c2ab79a4e",
                             Description = "Los distribuidores tienen acceso completo y sin restricciones en su empresa y empresas clientes que haya dado de alta",
                             IsActive = true,
                             Name = "Distribuidor",
@@ -416,7 +430,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("caddad05-120f-48a8-b659-ff4528e5df97"),
-                            ConcurrencyStamp = "bfab4c27-ee90-4645-9399-37a2da03a702",
+                            ConcurrencyStamp = "ca223330-fe8e-48b2-9b4f-752e5a9d8f08",
                             Description = "Los administradores tienen acceso completo y sin restricciones dentro de su empresa",
                             IsActive = true,
                             Name = "Administrador",
@@ -425,7 +439,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("33dde250-ddde-42db-a4b9-5a2355082391"),
-                            ConcurrencyStamp = "44e37170-69f0-4f9c-81ca-51a50bace591",
+                            ConcurrencyStamp = "d272446e-5df2-4b29-9ee2-177207eaca2a",
                             Description = "Los usuarios pueden acceder a la mayoria de opciones de la plataforma y no pueden hacer cambios accidentales o intencionados",
                             IsActive = true,
                             Name = "Usuario",
@@ -434,7 +448,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("33dde740-ddde-42db-a4b9-5a2355082391"),
-                            ConcurrencyStamp = "25fdf193-2cc3-483f-a1a5-2f43fa77ba8d",
+                            ConcurrencyStamp = "de7169f8-72b1-4ddc-9c71-68e180f08d6e",
                             Description = "Los invitados tienen el acceso limitado a las consultas que se le han asignado",
                             IsActive = true,
                             Name = "Invitado",
@@ -538,7 +552,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("95ada776-f3e1-42db-aa39-382f91b74cd4"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d47940d9-c44d-4a43-b422-c702c66c4849",
+                            ConcurrencyStamp = "ab2a9924-c540-4316-a1ce-3acc1b3e1fe4",
                             Email = "test@user.com",
                             EmailConfirmed = true,
                             FirstName = "Test",
@@ -547,7 +561,7 @@ namespace Alize.Platform.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@USER.COM",
                             NormalizedUserName = "TESTUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDKNhiDb69oPOyR7TE0a7Z67bq8fyGjN/EBTjKS3Nyk3FdfrOJMKGI3A/Yexvi0+Yg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAMeKHDMeBvz/+0JSY8WkarhOdKyfxYKHaKhovI6bAWwM1JtIMe3DAbSrxoq9UZNmA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "testuser"
@@ -556,7 +570,7 @@ namespace Alize.Platform.Data.Migrations
                         {
                             Id = new Guid("1c822965-eb67-4092-9cf7-cf62806d5395"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8521ea73-98d1-4ba7-a220-775602465627",
+                            ConcurrencyStamp = "110e797b-39a5-4985-bf1d-5e555daa18af",
                             Email = "test@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Test",
@@ -565,7 +579,7 @@ namespace Alize.Platform.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMIN.COM",
                             NormalizedUserName = "TESTADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAENPmUD6FwbFIVxG3cALhigCDdyQR4Tpn05BmGWJReqOyg4AXoVrfvfamD0Isrh77tw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED0C7qbMitWL5AEmuul9yjzQEyBm4JbUxGprTmzx9EeU6nHgcStrwMQNlr5RUdJ0gQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "testadmin"
@@ -842,7 +856,7 @@ namespace Alize.Platform.Data.Migrations
             modelBuilder.Entity("Alize.Platform.Data.Models.Application", b =>
                 {
                     b.HasOne("Alize.Platform.Data.Models.Company", "Company")
-                        .WithMany()
+                        .WithMany("Applications")
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
@@ -954,6 +968,11 @@ namespace Alize.Platform.Data.Migrations
                         .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Alize.Platform.Data.Models.Company", b =>
+                {
+                    b.Navigation("Applications");
                 });
 
             modelBuilder.Entity("Alize.Platform.Data.Models.User", b =>

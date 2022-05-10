@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alize.Platform.Data.Models
 {
@@ -15,10 +16,15 @@ namespace Alize.Platform.Data.Models
 
         public DateTime? LeavingDate { get; set; }
 
+        [ForeignKey(nameof(Company))]
+        public Guid? CompanyId { get; set; }
+
         public Company? Company { get; set; }
 
         [StringLength(10)]
         public string? Pin { get; set; }
+
+        public Role? Role => this.Roles?.SingleOrDefault();
 
         public ICollection<Role>? Roles { get; set; }
 

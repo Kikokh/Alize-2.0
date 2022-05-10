@@ -18,7 +18,7 @@ export class BreadcrumbComponent implements OnInit {
     } else {
       this.translate.setDefaultLang('en');
     }
-   }
+  }
 
   ngOnInit(): void {
     this._optionMenuService.getBreadCrumb(this.componentName).subscribe(breadcrumb => {

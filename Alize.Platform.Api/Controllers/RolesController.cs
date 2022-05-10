@@ -1,11 +1,9 @@
 ﻿using Alize.Platform.Api.Responses.Roles;
 using Alize.Platform.Data.Constants;
-using Alize.Platform.Data.Models;
+using Alize.Platform.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Alize.Platform.Api.Controllers
 {
@@ -14,12 +12,12 @@ namespace Alize.Platform.Api.Controllers
     [Authorize(Policy = Modules.Groups)]
     public class RolesController : ControllerBase
     {
-        private readonly RoleManager<Role> _roleManager;
+        private readonly ISecurityService _securityService;
         private readonly IMapper _mapper;
 
-        public RolesController(RoleManager<Role> roleManager, IMapper mapper)
+        public RolesController(ISecurityService securityService, IMapper mapper)
         {
-            _roleManager = roleManager;
+            _securityService = securityService;
             _mapper = mapper;
         }
 
@@ -27,7 +25,7 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<RoleResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var roles = await _roleManager.Roles.ToListAsync();
+            var roles = await _securityService.GetRolesAsync();
 
             return Ok(_mapper.Map<IEnumerable<RoleResponse>>(roles));
         }
@@ -37,7 +35,7 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(Guid id)
         {
-            var role = await _roleManager.Roles.SingleOrDefaultAsync(r => r.Id == id);
+            var role = await _securityService.GetRoleAsync(id);
 
             return role is null ? NotFound() : Ok(_mapper.Map<RoleResponse>(role));
         }
@@ -47,14 +45,14 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Put(Guid id, bool enabled)
         {
-            var role = await _roleManager.Roles.SingleOrDefaultAsync(r => r.Id == id);
+            var role = await _securityService.GetRoleAsync(id);
 
             if (role is null) 
                 return NotFound();
 
             role.IsActive = enabled;
 
-            await _roleManager.UpdateAsync(role);
+            await _securityService.UpdateRoleAsync(role); 
 
             return NoContent();
         }

@@ -11,5 +11,11 @@
         public string LastName { get; set; }
 
         public string Email { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public string RoleName { get; set; }
+
+        public string CompanyName { get; set; }
     }
 }

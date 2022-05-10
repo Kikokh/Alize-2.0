@@ -39,8 +39,15 @@
     "GrupoTitulo": "Usuarios con permiso de consulta",
     "GrupoSubTitulo": "Selecciona los usuarios que tendrán acceso a la consulta Calidad mapex",
     "GrupoInfoText": "Los administradores tienen permiso implicito a la consulta",
-    "OtrosTitulo": "Nueva petición de aplicación",
-    "OtrosSubTitulo": "Explicanos brevemente en que consiste la aplicación que quieres, nos pondremos en contacto contigo tan pronto sea posible para hacerla realidad.",
+    "AddTitulo": "Nueva petición de aplicación",
+    "AddSubTitulo": "Explicanos brevemente en que consiste la aplicación que quieres, nos pondremos en contacto contigo tan pronto sea posible para hacerla realidad.",
     "ListadoAplicaciones": "Listado de aplicaciones",
-    "ListadoEmpresas": "Listado de empresas"
+    "ListadoEmpresas": "Listado de empresas",
+    "ListadoUsuarios": "Listado de Usuarios",
+    "ListadoGrupos": "Listado de Grupos",
+    "ListadoModulos": "Listado de Módulos",
+    "EmailIncorrecto": "El email tiene un formato incorrecto",
+    "EmailVacio": "El campo email no puede estar vacio",
+    "PasswordVacio": "El campo password no puede estar vacio",
+    "EmailPassIncorrecto": "email or password incorrectos"
 }
