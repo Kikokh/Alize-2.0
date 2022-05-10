@@ -9,7 +9,6 @@ import { MaterialTheme } from 'src/app/models/theme.model';
 import { FormValidation } from 'src/app/models/validation.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { LoginService } from '../services/login.service';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -36,23 +35,22 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private router: Router,
+    private _router: Router,
     private _loginService: LoginService,
-    private el: ElementRef,
+    private _el: ElementRef,
     private _globalStylesService: GlobalStylesService,
     public translate: TranslateService) {
 
-      const lang = localStorage.getItem('lang');
-      if (lang !== null) {
-        this.translate.setDefaultLang(lang);
-      } else {
-        this.translate.setDefaultLang('en');
-      }
+  const lang = localStorage.getItem('lang');
+  if (lang !== null) {
+    this.translate.setDefaultLang(lang);
+  } else {
+    this.translate.setDefaultLang('en');
     }
-
+  }
+  
   ngOnInit(): void {
-    const height = this.el.nativeElement.offsetHeight;
-
+    const height = this._el.nativeElement.offsetHeight;
     this._globalStylesService.changeColor('red');
 
     this._globalStylesService.theme.subscribe(theme => {
@@ -61,8 +59,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  username: string
-  password: string
   loginError: boolean = false
 
   getBackgroundColor() {
@@ -75,14 +71,12 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
-    this._loginService.login(
-      {
-        username: this.emailFormControls!.value,
-        password: this.passwordFormControls!.value
-      }
-    ).subscribe(isLoogued => {
-      (isLoogued) ? this.router.navigate(['/home']) : this.loginError = true;
-    });
+    if (this.loginForm.valid) {
+      this._loginService.login(this.loginForm.value).subscribe(
+        success => this._router.navigate(['/home']),
+        err => this.loginError = true
+      );
+    }
   }
 
   // changeTheme() {

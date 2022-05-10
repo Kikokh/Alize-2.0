@@ -22,6 +22,17 @@ builder.Services.AddSqlServer<ApplicationDbContext>(connectionString)
     .AddRoles<Role>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Default",
+    builder =>
+    {
+        builder.AllowAnyOrigin();
+        builder.AllowAnyMethod();
+        builder.AllowAnyHeader();
+    });
+});
+
 builder.Services
     .AddHttpContextAccessor()
     .AddAuthorization(options =>
@@ -112,7 +123,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseCors("Default");
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
