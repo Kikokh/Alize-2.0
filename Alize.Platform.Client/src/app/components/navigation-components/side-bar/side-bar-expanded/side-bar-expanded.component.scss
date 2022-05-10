@@ -1,15 +1,16 @@
-@import "~@angular/material/theming";
-@import "../../../../scss-variables/variables.scss";
+@import '~@angular/material/theming';
+@import '../../../../scss-variables/variables.scss';
 
 .sidebar-container {
     display: flex;
     flex-direction: column;
 
-    & > .logo {
+    .logo {
+        width: 60%;
         height: 50px;
         margin: 0 auto;
 
-        & > img {
+        img {
             margin: 10px auto;
             height: 100%;
         }
@@ -18,18 +19,18 @@
     .profile {
         display: flex;
         flex-direction: row;
-        margin-top: 30px;
-        & > .logo {
-            margin: 0 10px;
-            align-self: center;
+        margin-top: 50px;
+        .logo {
+            width: 30%;
+            margin: 15px 10px auto;
 
-            & > img {
-                height: 60px;
-                margin: auto;
+            img {
+                width: 100%;
             }
         }
 
         .user-profile {
+            width: 100%;
             margin-left: 10px;
 
             .welcome {
@@ -46,17 +47,19 @@
 }
 
 .dark-theme-title {
-    color: mat-color($my-accent-dark);
+    color:  mat-color($my-accent-dark);
 }
 
 .main-theme-title {
-    color: mat-color($my-primary);
+    color:  mat-color($my-primary);
+
 }
 
 .dark-theme-subtitle {
-    color: mat-color($my-accent-dark);
+    color:  mat-color($my-accent-dark);
 }
 
 .main-theme-subtitle {
-    color: mat-color($my-primary);
+    color:  mat-color($my-primary);
+
 }

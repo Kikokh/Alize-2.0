@@ -1,5 +1,5 @@
 <div class="app-container">
-    <mat-drawer-container autosize>
+    <mat-drawer-container class="example-container" autosize>
         <mat-drawer #drawer [ngClass]="getSideBarStyles()" mode="side">
             <app-side-bar-collapsed *ngIf="!isSideBarExpander"></app-side-bar-collapsed>
             <app-side-bar-expanded *ngIf="isSideBarExpander"></app-side-bar-expanded>
