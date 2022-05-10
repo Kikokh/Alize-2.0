@@ -7,12 +7,13 @@ using Alize.Platform.Services;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Alize.Platform.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = Modules.Users)]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly ISecurityService _securityService;
@@ -25,6 +26,7 @@ namespace Alize.Platform.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(typeof(IEnumerable<UserResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
@@ -35,24 +37,15 @@ namespace Alize.Platform.Api.Controllers
 
         [HttpGet("Me")]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
-        public IActionResult GetMe()
+        public async Task<IActionResult> GetMe()
         {
-            var user = HttpContext.User;
+            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
 
-            return Ok(new
-            {
-                Claims = user.Claims.Select(s => new
-                {
-                    s.Type,
-                    s.Value
-                }).ToList(),
-                user.Identity?.Name,
-                user.Identity?.IsAuthenticated,
-                user.Identity?.AuthenticationType
-            });
+            return Ok(_mapper.Map<UserResponse>(user));
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(Guid id)
@@ -65,8 +58,8 @@ namespace Alize.Platform.Api.Controllers
             return Ok(_mapper.Map<UserResponse>(user));
         }
 
-        [AllowAnonymous]
         [HttpPost("Login")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> Login(UserLoginRequest request)
@@ -84,9 +77,10 @@ namespace Alize.Platform.Api.Controllers
             }
         }
 
-        [ProducesResponseType(typeof(UserResponse), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost("Register")]
+        [Authorize(Policy = Modules.Users)]
+        [ProducesResponseType(typeof(UserResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]        
         public async Task<IActionResult> Register(UserCreateRequest request)
         {
             var user = _mapper.Map<User>(request);
@@ -104,6 +98,7 @@ namespace Alize.Platform.Api.Controllers
         }
 
         [HttpPut("{id}/Role")]
+        [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> SetRole(string id, string roleId)
@@ -122,6 +117,7 @@ namespace Alize.Platform.Api.Controllers
 
 
         [HttpPut("{id}")]
+        [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateUser(Guid id, UserUpdateRequest userUpdate)
@@ -142,6 +138,7 @@ namespace Alize.Platform.Api.Controllers
         }
 
         [HttpPut("{id}/Password")]
+        [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateUserPassword(Guid id, UserUpdatePasswordRequest userPasswordUpdate)
@@ -156,6 +153,14 @@ namespace Alize.Platform.Api.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpPut("Me/Password")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateCurrentUserPassword(UserUpdatePasswordRequest userPasswordUpdate)
+        {
+            return await UpdateUserPassword(Guid.Parse(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value), userPasswordUpdate);
         }
     }
 }
