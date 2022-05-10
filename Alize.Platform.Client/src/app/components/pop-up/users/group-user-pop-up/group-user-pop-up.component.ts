@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from 'src/app/components/models/application.model';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
@@ -10,8 +11,8 @@ import { ModePopUpType } from '../../models/entity-type.enum';
   styleUrls: ['./group-user-pop-up.component.scss']
 })
 export class GroupUserPopUpComponent {
-  title ='Grupos de Usuarios';
-  subtitle = 'Selecciona los grupos para el usuario';
+  title ='GrupoUserPopUpTitulo';
+  subtitle = 'GrupoUserPopUpSubTitulo';
   userForm: FormGroup;
 
   constructor(
@@ -21,8 +22,16 @@ export class GroupUserPopUpComponent {
       grupos: string;
       mode: ModePopUpType;
     },
-    fb: FormBuilder
-  ) { 
+    fb: FormBuilder,
+    public translate: TranslateService
+  ) {
+
+    const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
+    }
     this.userForm = new FormGroup({
       name: new FormControl({ value: (this.data?.nombre) ? this.data.nombre : '' }),
     });

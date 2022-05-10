@@ -1,6 +1,7 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from 'src/app/components/models/application.model';
 
 @Component({
@@ -10,14 +11,23 @@ import { RequestApplication } from 'src/app/components/models/application.model'
 })
 export class DeleteUserPopUpComponent {
 
-  title = 'Borrado de usuario';
-  subtitle: string;
+  title = 'BorrarUsuarioTitulo';
+  subtitle1: string;
+  subtitle2: string;
 
   constructor(public dialogRef: MatDialogRef<DeleteUserPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       nombre: string;
-    }) {
-      this.subtitle = 'Va a proceder al borrado del usuario ' + this.data.nombre + '¿desea continuar con la operación?';
+    },
+    public translate: TranslateService) {
+      const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
+    }
+    this.subtitle1 = 'BorrarUsuarioSubTitulo1';
+    this.subtitle2 = 'BorrarUsuarioSubTitulo2';
   }
 
   onClick() {

@@ -1,16 +1,16 @@
 <div class="main">
     <div class="header">
-        <h1 class="title" mat-dialog-title>{{title}}</h1>
+        <h1 class="title" mat-dialog-title>{{title | translate}}</h1>
     </div>
 
     <div class="mat-dialog-content" mat-dialog-content>
         <form [formGroup]="modulesForm">
             <mat-form-field appearance="outline">
-                <mat-label>Nombre</mat-label>
+                <mat-label>{{"Nombre" | translate}}</mat-label>
                 <input matInput name="name" formControlName="name">
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label>Descripción</mat-label>
+                <mat-label>{{"Descripcion" | translate}}</mat-label>
                 <input matInput name="description" formControlName="description">
             </mat-form-field>
             <mat-form-field appearance="outline">
@@ -18,10 +18,10 @@
                 <input matInput name="grupo" formControlName="grupo">
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label>Controlador</mat-label>
+                <mat-label>{{"Controlador" | translate}}</mat-label>
                 <input matInput name="controlador" formControlName="controlador">
             </mat-form-field>
-            <mat-slide-toggle color="accent" formControlName="active">Activo</mat-slide-toggle>
+            <mat-slide-toggle color="accent" formControlName="active">{{"Activo" | translate}}</mat-slide-toggle>
         </form>
     </div>
 
@@ -29,8 +29,8 @@
     <div class="mat-dialog-actions" mat-dialog-actions>
         <div class="fill"></div>
         <div class="buttons">
-            <button mat-raised-button (click)="close()">Close</button>
-            <button mat-raised-button color="accent" (click)="onClick()">Guardar</button>
+            <button mat-raised-button (click)="close()">{{"Cerrar" | translate}}</button>
+            <button mat-raised-button color="accent" (click)="onClick()">{{"Guardar" | translate}}</button>
         </div>
     </div>
 </div>
