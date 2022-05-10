@@ -50,7 +50,7 @@ namespace Alize.Platform.Data.Models
         public string? ContactName { get; set; }
 
         //Imagen empresa
-        public byte[]? Logo { get; set; }
+        public string? Logo { get; set; }
 
         [StringLength(50)]
         public string? ImageTypeMime { get; set; }
