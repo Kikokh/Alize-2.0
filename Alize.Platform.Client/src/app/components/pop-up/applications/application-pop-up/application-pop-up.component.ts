@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from '../../../models/application.model';
 import { IUser } from '../../models/IUser';
 import { EntityType, ModePopUpType } from '../../models/entity-type.enum';
@@ -38,7 +39,8 @@ export class ApplicationPopUpComponent {
       date: Date;
       isActive: boolean;
 
-    }) {
+    }, 
+    public translate: TranslateService) {
 
     const today = new Date();
     const month = today.getMonth();
@@ -59,17 +61,24 @@ export class ApplicationPopUpComponent {
     requestApplication.mode = data.mode;
 
     if (data.mode === ModePopUpType.DISPLAY) {
-      this.title = 'Ver Aplicación'
+      this.title = 'DisplayTitulo'
     } if (data.mode === ModePopUpType.EDIT) {
-      this.title = 'Editar Aplicación'
+      this.title = 'EditTitulo'
     } else if (data.mode === ModePopUpType.ADD) {
-      this.title = 'Nueva petición de aplicación';
-      this.subtitle = 'Explicanos brevemente en que consiste la aplicación que quieres, nos pondremos en contacto contigo tan pronto sea posible para hacerla realidad.';
+      this.title = 'AddTitulo';
+      this.subtitle = 'AddSubTitulo';
     }
 
     this._userService.getUserPopUp().subscribe(userList => {
       this.userList = userList;
     });
+
+    const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
+    }
   }
 
   onClick() {

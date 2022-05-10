@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
 import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { catchError, finalize, map, tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { finalize, map } from 'rxjs/operators';
 export class LoginData {
-  email: string;
+  username: string;
   password: string;
 }
 
@@ -21,31 +20,45 @@ export interface ILoginData {
 })
 export class LoginService {
   private _isLogguedIn$ = new BehaviorSubject<boolean>(false);
-  private _baseUrl = environment.apiUrl;
   isLogguedIn$ = this._isLogguedIn$.asObservable();
 
   constructor(
-    public progressSpinnerService: ProgressSpinnerService,
-    private _http: HttpClient,
+    public _progressSpinnerService: ProgressSpinnerService,
+    private http: HttpClient, 
     private _localStorageService: LocalStorageService) { }
 
   login(loginData: LoginData) {
+    // if (loginData.username === credentials.username
+    //   && loginData.password === credentials.password) {
+    //   this.isLoggued.next(true);
+    //   return of(true);
+    // } else {
+    //   return of(false);
+    // }
+
+
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
+        'Content-Type':  'application/json',
         'accept': '*/*'
+        // Authorization: 'my-auth-token'
       })
     };
+    this._progressSpinnerService.open();
 
-    this.progressSpinnerService.open();
-
-    return this._http.post<any>(`${this._baseUrl}/Users/Login`, loginData, httpOptions).pipe(
-      tap(data => {
+    this.http.post<any>('https://alize-platform-api-dev.azurewebsites.net/api/Users/Login'
+      , { "email": loginData.username, "password": loginData.password }, httpOptions)
+      .pipe(
+        finalize(() => {
+          this._progressSpinnerService.close();
+        })
+      )
+      .subscribe(data => {
         this._localStorageService.addItem('token', data.accessToken);
         this._isLogguedIn$.next(true);
-      }),
-      finalize(() => this.progressSpinnerService.close())
-    );
+
+      });
+    return of(true);
   }
 
   onInit() {

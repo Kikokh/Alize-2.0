@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from 'src/app/components/models/application.model';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
@@ -10,7 +11,7 @@ import { ModePopUpType } from '../../models/entity-type.enum';
   styleUrls: ['./user-pop-up.component.scss']
 })
 export class UserPopUpComponent {
-  title ='Nuevo Usuario';
+  title ='NuevoUsuario';
   userForm: FormGroup;
   
 
@@ -28,10 +29,11 @@ export class UserPopUpComponent {
       grupos: Date;
       isActive: boolean;
       mode: ModePopUpType;
-    }
+    },
+    public translate: TranslateService
   ) {
     
-    this.title = (this.data.mode === ModePopUpType.ADD) ? 'Nuevo Usuario' : (this.data.mode === ModePopUpType.DISPLAY) ? 'Ver Usuario' : 'Editar Usuario';
+    this.title = (this.data.mode === ModePopUpType.ADD) ? 'NuevoUsuario' : (this.data.mode === ModePopUpType.DISPLAY) ? 'VerUsuario' : 'EditarUsuario';
     this.userForm = new FormGroup({
       name: new FormControl({ value: (this.data?.nombre) ? this.data.nombre : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       lastName: new FormControl({ value: (this.data?.apellidos) ? this.data.apellidos : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),

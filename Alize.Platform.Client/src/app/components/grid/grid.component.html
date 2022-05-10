@@ -2,7 +2,7 @@
     <div class="filter">
         <div></div>
         <mat-form-field appearance="standard" color="primary">
-            <mat-label>Filter</mat-label>
+            <mat-label>{{ "filtro" | translate }}</mat-label>
             <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
         </mat-form-field>
     </div>
@@ -10,19 +10,19 @@
     <div class="main-grid" [ngClass]="getContentStyles()">
         <div class="toolbar">
             <div>
-                <p class="title" color="primary">{{title}}</p>
-                <p class="sub-title">{{subTitle}}</p>
+                <p class="title" color="primary">{{title | translate}}</p>
+                <p class="sub-title">{{subTitle | translate}}</p>
             </div>
             <button *ngIf="entity === Entity.APPLICATIONS || entity === Entity.USERS" mat-stroked-button color="accent" (click)="openDialog()">
                 <mat-icon>add</mat-icon>
-                Nuevo
+                <span>{{ "nuevo" | translate }}</span>
             </button>
         </div>
 
         <div class="table-container">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                 <ng-container *ngFor="let column of columns; let i = index" matColumnDef="{{column.columnDef}}">
-                    <th [ngClass]="getColorHeaderTable()" mat-header-cell *matHeaderCellDef>{{column.header}}</th>
+                    <th [ngClass]="getColorHeaderTable()" mat-header-cell *matHeaderCellDef>{{column.header | translate}}</th>
 
                     <td mat-cell *matCellDef="let row">
                         <div class="operation-column" *ngIf="column.header === 'Operaciones'">
@@ -35,7 +35,7 @@
                             </ng-container>
                         </div>
                         <div *ngIf="column.header === 'Activo'">
-                            <mat-slide-toggle color="accent" disabled [ngModel]="row.Activo === true">Activo</mat-slide-toggle>
+                            <mat-slide-toggle color="accent" disabled [ngModel]="row.Activo === true">{{"Activo" | translate}}</mat-slide-toggle>
                         </div>
                         <div class="common-row" *ngIf="column.header !== 'Operaciones' && column.header !== 'Activo'">
                             {{column.cell(row)}}

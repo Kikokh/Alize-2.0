@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from 'src/app/components/models/application.model';
 import { IUser } from '../../models/IUser';
 import { UserService } from '../../services/user.service';
@@ -26,10 +27,18 @@ export class ApplicationGroupPopUpComponent {
       mode: string;
       date: Date;
       isActive: boolean;
-    }) {
-    this.title = 'Usuarios con permiso de consulta'
-    this.subtitle = 'Selecciona los usuarios que tendrán acceso a la consulta Calidad mapex';
-    this.infoText = 'Los administradores tienen permiso implicito a la consulta';
+    },
+    public translate: TranslateService) {
+      
+    const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
+    }
+    this.title = 'GrupoPopUpTitulo'
+    this.subtitle = 'GrupoPopUpSubTitulo';
+    this.infoText = 'GrupoPopUpInfoText';
 
     this._userService.getUserPopUp().subscribe(userList => {
       this.userList = userList;

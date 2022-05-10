@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from 'src/app/components/models/application.model';
 
 @Component({
@@ -10,18 +11,24 @@ import { RequestApplication } from 'src/app/components/models/application.model'
 export class TimerPopUpComponent {
 
 
-  title = 'Acceso temporal';
-  subtitle: string;
-  textInfo = '¿Desea continuar con la operación?';
+  title = 'TimerPopUpTitulo';
+  subtitle1: string;
+  subtitle2: string;
+  textInfo = 'TimerPopUpTextInfo';
 
-    ; constructor(public dialogRef: MatDialogRef<TimerPopUpComponent>,
+  constructor(public dialogRef: MatDialogRef<TimerPopUpComponent>,
       @Inject(MAT_DIALOG_DATA) public data: {
         nombre: string;
-      }) {
-    this.subtitle = 'Va a proceder a establecer una caducidad en la cuenta del usuario '
-      + this.data.nombre +
-      ', el usuario se deshabilitará pasadas 24H.';
-      
+      },
+      public translate: TranslateService) {
+        const lang = localStorage.getItem('lang');
+        if (lang !== null) {
+          this.translate.setDefaultLang(lang);
+        } else {
+          this.translate.setDefaultLang('en');
+        }
+        this.subtitle1 = 'TimerPopUpSubTitulo1';
+        this.subtitle2 = 'TimerPopUpSubTitulo2';
   }
 
   onClick() {

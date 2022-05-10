@@ -1,9 +1,9 @@
 <div class="header">
-    <h1 class="title" mat-dialog-title>{{title}}</h1>
-    <h1 class="subTitle" mat-dialog-title>{{subtitle}}</h1>
+    <h1 class="title" mat-dialog-title>{{title | translate}}</h1>
+    <h1 class="subTitle" mat-dialog-title>{{subtitle | translate}}</h1>
     <div class="infoText-main">
         <mat-icon>info</mat-icon>
-        <h3 class="infoText" mat-dialog-title>{{infoText}}</h3>
+        <h3 class="infoText" mat-dialog-title>{{infoText | translate}}</h3>
     </div>
 </div>
 
@@ -20,7 +20,7 @@
 <div class="mat-dialog-actions" mat-dialog-actions>
     <div class="fill"></div>
     <div class="buttons">
-        <button mat-raised-button (click)="close()">Close</button>
-        <button mat-raised-button color="accent" (click)="onClick()">Guardar</button>
+        <button mat-raised-button (click)="close()">{{"Cerrar" | translate}}</button>
+        <button mat-raised-button color="accent" (click)="onClick()">{{"Guardar" | translate}}</button>
     </div>
 </div>

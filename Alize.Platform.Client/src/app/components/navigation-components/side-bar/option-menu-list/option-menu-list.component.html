@@ -17,7 +17,7 @@
                         <button color="primary" routerLink="/{{subOpt.route}}" (click)="activateSubMenu(subOpt)" mat-button
                             [ngClass]="getActiveMenuItem(subOpt.isSelected, false)">
                             <mat-icon class="menu-icon">circle</mat-icon>
-                            <span>{{subOpt.name}}</span>
+                            <span>{{subOpt.name | translate}}</span>
                         </button>
                     </mat-list-item>
                 </mat-list>
@@ -32,7 +32,7 @@
             [ngClass]="getActiveMenuItem(opt.isSelected, false)">
             <div>
                 <mat-icon class="menu-icon">{{opt.icon}}</mat-icon>
-                <span class="span-opt-name">{{opt.name}}</span>
+                <span class="span-opt-name">{{opt.name | translate}}</span>
             </div>
         </button>
         <div *ngIf="opt.isVisible" class="right-menu">
@@ -40,7 +40,7 @@
                 [ngClass]="getActiveMenuItem(subOpt.isSelected, false)" class="sub-item-button"
                 routerLink="/{{subOpt.route}}" mat-menu-item *ngFor="let subOpt of opt.subMenu">
                 <mat-icon class="sub-menu-icon">circle</mat-icon>
-                <span>{{subOpt.name}}</span>
+                <span>{{subOpt.name | translate}}</span>
             </button>
         </div>
     </div>

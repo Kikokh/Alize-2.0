@@ -4,6 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { TranslateService } from '@ngx-translate/core';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { RequestApplication } from '../models/application.model';
@@ -64,7 +65,15 @@ export class GridComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private _globalStylesService: GlobalStylesService,
     private _openPopUpService: OpenPopUpService,
-    private _snackBar: MatSnackBar) {
+    private _snackBar: MatSnackBar,
+    public translate: TranslateService) {
+
+      const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
+    }
   }
 
   ngAfterViewInit(): void {
@@ -75,20 +84,20 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.displayedColumns = this.columns.map(c => c.columnDef);;
     this.dataSource = new MatTableDataSource(this.elementData);
     if (this.entity === EntityType.APPLICATIONS) {
-      this.title = 'Administración'
-      this.subTitle = 'Listado de Aplicaciones'
+      this.title = 'Administracion'
+      this.subTitle = 'ListadoAplicaciones'
     } else if (this.entity === EntityType.COMPANIES) {
       this.title = 'Administracion'
-      this.subTitle = 'Listado de Empresas'
+      this.subTitle = 'ListadoEmpresas'
     } else if (this.entity === EntityType.USERS) {
       this.title = 'Administracion'
-      this.subTitle = 'Listado de Usuarios'
+      this.subTitle = 'ListadoUsuarios'
     } else if (this.entity === EntityType.GROUPS) {
       this.title = 'Administracion'
-      this.subTitle = 'Listado de Grupos'
+      this.subTitle = 'ListadoGrupos'
     } else if (this.entity === EntityType.MODULES) {
       this.title = 'Administracion'
-      this.subTitle = 'Listado de Módulos'
+      this.subTitle = 'ListadoModulos'
     }
 
     this._globalStylesService.theme.subscribe(value => {
