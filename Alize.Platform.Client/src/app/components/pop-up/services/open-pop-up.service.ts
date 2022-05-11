@@ -2,6 +2,7 @@ import { Component, ComponentRef, Injectable, Type } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
+import { Module } from 'src/app/models/module.model';
 import { IElementDataApp } from '../../models/column.models';
 import { ProgressSpinnerComponent } from '../../progress-spinner/progress-spinner.component';
 import { ApplicationGroupPopUpComponent } from '../applications/application-group-pop-up/application-group-pop-up.component';
@@ -79,15 +80,15 @@ export class OpenPopUpService {
   }
 
 
-  resolveModulesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
+  resolveModulesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: Module) {
     switch (mode) {
       case ModePopUpType.DISPLAY: {
         matDialogConfigModel.component = ModulesPopUpComponent;
         matDialogConfigModel.data = {
-          nombre: data.Nombre,
-          description: data.Descripcion,
-          grupo: data.Grupo,
-          activo: data.Activo,
+          nombre: data?.name,
+          description: data?.description,
+          grupo: data?.moduleGroup,
+          activo: data?.isActive,
           mode: mode
         }
         break;

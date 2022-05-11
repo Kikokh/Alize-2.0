@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -38,15 +38,6 @@ export class ModulesPopUpComponent {
         controlador: new FormControl({value: 'Alerts', disabled: (this.data.mode === ModePopUpType.DISPLAY)}),
         active: new FormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       });
-    }
-
-
-    onClick() {
-      let requestApplication = new RequestApplication();
-      requestApplication.name = 'Nombre';
-      requestApplication.importantInfo = 'Important Info';
-      requestApplication.description = 'description';
-      this.dialogRef.close(requestApplication);
     }
   
     close() {

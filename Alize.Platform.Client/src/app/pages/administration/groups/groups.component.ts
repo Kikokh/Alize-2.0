@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IColumnDef, IElementDataCompanies } from 'src/app/components/models/column.models';
-import { EntityType } from 'src/app/components/pop-up/models/entity-type.enum';
+import { IColumnDef, IElementDataCompanies, IOperationsModel } from 'src/app/components/models/column.models';
+import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { ColumnBuilderService } from '../../services/column-builder.service';
 
 @Component({
@@ -11,6 +11,9 @@ import { ColumnBuilderService } from '../../services/column-builder.service';
 export class GroupsComponent {
   displayedColumns: IColumnDef[];
   elementData: IElementDataCompanies[];
+  actions: IOperationsModel[] = [
+    { optionName: ModePopUpType.DISPLAY, icon: 'search' }
+  ]
 
   public get Entity(): typeof EntityType {
     return EntityType; 

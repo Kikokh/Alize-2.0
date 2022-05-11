@@ -152,78 +152,89 @@ namespace Alize.Platform.Data
                 {
                     Id = Guid.Parse("a8befaf9-807a-4f7d-aad2-9380f79bc364"),
                     Name = Constants.Modules.Applications,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Administration
+                    Description = "Permite la gestión de aplicaciones (consultas)",
+                    ModuleGroup = ModuleGroups.Administration,
+                    IsActive = true
                 },
                 new Module
                 {
                     Id = Guid.Parse("4112d229-b379-447e-bf37-fb57dd19d5d8"),
                     Name = Constants.Modules.Companies,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Administration
+                    Description = "Permite la gestión de empresas",
+                    ModuleGroup = ModuleGroups.Administration,
+                    IsActive = true
                 },
                 new Module
                 {
                     Id = Guid.Parse("9141e022-2833-4a18-a7b9-7f20a6b39768"),
                     Name = Constants.Modules.Groups,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Administration
+                    Description = "Permite la gestión de grupos de usuarios",
+                    ModuleGroup = ModuleGroups.Administration,
+                    IsActive = true
                 },
                 new Module
                 {
                     Id = Guid.Parse("87da1e2c-f36e-4490-bfc8-e75fff9b5510"),
                     Name = Constants.Modules.ModuleAdmin,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Administration
+                    Description = "Permite la gestión de módulos",
+                    ModuleGroup = ModuleGroups.Administration,
+                    IsActive = true
                 },
                 new Module
                 {
                     Id = Guid.Parse("31932e4d-00cd-46b2-afb1-a9e9a1464bd8"),
                     Name = Constants.Modules.Users,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Administration
+                    Description = "Permite la gestión de usuarios",
+                    ModuleGroup = ModuleGroups.Administration,
+                    IsActive = true
                 },
                 new Module
                 {
                     Id = Guid.Parse("1254e6da-49d4-4ba5-9cd4-cff7c10f9304"),
                     Name = Constants.Modules.Alerts,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Management
+                    Description = "Permite la gestión de alertas",
+                    ModuleGroup = ModuleGroups.Management,
+                    IsActive = false
                 },
                 new Module
                 {
                     Id = Guid.Parse("da12c25e-ea5c-4867-a0c4-e82746010507"),
                     Name = Constants.Modules.Queries,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Management
+                    Description = "Permite la visualización de consultas de la empresa",
+                    ModuleGroup = ModuleGroups.Management,
+                    IsActive = true
                 },
                 new Module
                 {
                     Id = Guid.Parse("ab9d236a-0ee4-4b10-b445-96af2db9188e"),
                     Name = Constants.Modules.ControlPanel,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Management
+                    Description = "Permite la visualización de KPI y parámetros de interés para el usuario",
+                    ModuleGroup = ModuleGroups.Management,
+                    IsActive = false
                 },
                 new Module
                 {
                     Id = Guid.Parse("57ca62f5-a0ec-4dbd-9e06-cc2904ac944e"),
                     Name = Constants.Modules.UserAudit,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Reports
+                    Description = "Permite la visualización de las operaciones de los usuarios en la plataforma",
+                    ModuleGroup = ModuleGroups.Reports,
+                    IsActive = false
                 },
                 new Module
                 {
                     Id = Guid.Parse("0c75b5f5-f868-43b0-9af0-c45442d9479e"),
                     Name = Constants.Modules.TransactionLog,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Reports
+                    Description = "Permite la visualización de toso los registros de operaciones realizadas sobre la base de datos",
+                    ModuleGroup = ModuleGroups.Reports,
+                    IsActive = false
                 },
                 new Module
                 {
                     Id = Guid.Parse("ae49dbc2-e899-4003-9ea8-0e0471f638d6"),
                     Name = Constants.Modules.Help,
-                    Description = "",
-                    ModuleGroup = ModuleGroups.Help
+                    Description = "Información de ayuda sobre la plataforma Alize",
+                    ModuleGroup = ModuleGroups.Help,
+                    IsActive = false
                 }
             };
 

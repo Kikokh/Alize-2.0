@@ -4,7 +4,10 @@
             <app-breadcrumb [componentName]="'Modulos'"></app-breadcrumb>
         </div>
         <div class="grid">
-            <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.MODULES"></app-grid>
+            <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions"
+                title="Administracion"
+                subTitle="ListadoModulos">
+            </app-grid>
         </div>
     </div>
 </div>
