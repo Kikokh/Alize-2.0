@@ -19,7 +19,7 @@ namespace Alize.Platform.Api.Attributes
             if (value is null || value is not string)
                 return false;
 
-            return Regex.IsMatch((string)value, @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$");
+            return Regex.IsMatch((string)value, @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
         }
     }
 }
