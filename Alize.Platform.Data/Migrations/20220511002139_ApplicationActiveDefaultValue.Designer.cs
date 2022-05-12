@@ -4,6 +4,7 @@ using Alize.Platform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alize.Platform.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220511002139_ApplicationActiveDefaultValue")]
+    partial class ApplicationActiveDefaultValue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,8 +47,7 @@ namespace Alize.Platform.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -273,8 +274,8 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("a8befaf9-807a-4f7d-aad2-9380f79bc364"),
-                            Description = "Permite la gestión de aplicaciones (consultas)",
-                            IsActive = true,
+                            Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Aplicaciones"
@@ -282,8 +283,8 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("4112d229-b379-447e-bf37-fb57dd19d5d8"),
-                            Description = "Permite la gestión de empresas",
-                            IsActive = true,
+                            Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Empresas"
@@ -291,8 +292,8 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("9141e022-2833-4a18-a7b9-7f20a6b39768"),
-                            Description = "Permite la gestión de grupos de usuarios",
-                            IsActive = true,
+                            Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Grupos"
@@ -300,8 +301,8 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("87da1e2c-f36e-4490-bfc8-e75fff9b5510"),
-                            Description = "Permite la gestión de módulos",
-                            IsActive = true,
+                            Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Módulos"
@@ -309,8 +310,8 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("31932e4d-00cd-46b2-afb1-a9e9a1464bd8"),
-                            Description = "Permite la gestión de usuarios",
-                            IsActive = true,
+                            Description = "",
+                            IsActive = false,
                             ModuleGroup = "Administración",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Usuarios"
@@ -318,7 +319,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("1254e6da-49d4-4ba5-9cd4-cff7c10f9304"),
-                            Description = "Permite la gestión de alertas",
+                            Description = "",
                             IsActive = false,
                             ModuleGroup = "Management",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -327,8 +328,8 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("da12c25e-ea5c-4867-a0c4-e82746010507"),
-                            Description = "Permite la visualización de consultas de la empresa",
-                            IsActive = true,
+                            Description = "",
+                            IsActive = false,
                             ModuleGroup = "Management",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
                             Name = "Consultas"
@@ -336,7 +337,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("ab9d236a-0ee4-4b10-b445-96af2db9188e"),
-                            Description = "Permite la visualización de KPI y parámetros de interés para el usuario",
+                            Description = "",
                             IsActive = false,
                             ModuleGroup = "Management",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -345,7 +346,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("57ca62f5-a0ec-4dbd-9e06-cc2904ac944e"),
-                            Description = "Permite la visualización de las operaciones de los usuarios en la plataforma",
+                            Description = "",
                             IsActive = false,
                             ModuleGroup = "Informes",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -354,7 +355,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("0c75b5f5-f868-43b0-9af0-c45442d9479e"),
-                            Description = "Permite la visualización de toso los registros de operaciones realizadas sobre la base de datos",
+                            Description = "",
                             IsActive = false,
                             ModuleGroup = "Informes",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
@@ -363,7 +364,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("ae49dbc2-e899-4003-9ea8-0e0471f638d6"),
-                            Description = "Información de ayuda sobre la plataforma Alize",
+                            Description = "",
                             IsActive = false,
                             ModuleGroup = "Ayuda",
                             ModuleTypeId = new Guid("00000000-0000-0000-0000-000000000000"),
