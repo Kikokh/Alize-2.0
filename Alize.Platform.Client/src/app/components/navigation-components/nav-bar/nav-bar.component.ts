@@ -1,7 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { ModePopUpType } from '../../pop-up/models/entity-type.enum';
+import { OpenPopUpService } from '../../pop-up/services/open-pop-up.service';
+import { PasswordUserPopUpComponent } from '../../pop-up/users/password-user-pop-up/password-user-pop-up.component';
 import { NavigationService } from '../services/navigation.service';
 
 @Component({
@@ -15,7 +20,11 @@ export class NavBarComponent {
   isExpanded = true;
   materialTheme = new MaterialTheme();
   isSideBarCollapsedEnabler = false;
+  private dialogRef: MatDialogRef<PasswordUserPopUpComponent>;
+
   constructor(
+    private _dialog: MatDialog,
+    private _localStorageService : LocalStorageService,
     private _navigationService: NavigationService,
     public translate: TranslateService,
     private _globalStylesService: GlobalStylesService) {
@@ -45,5 +54,19 @@ export class NavBarComponent {
     } else {
       return 'dark-theme';
     }
+  }
+
+  showPasswordPopUp(nombre: string) {
+    this.dialogRef = this._dialog.open(PasswordUserPopUpComponent, {
+      data: {
+       nombre: nombre,
+       mode: ModePopUpType.EDIT
+      }
+    });
+  }
+
+  closeSession() {
+    this._localStorageService.removeItem('token');
+    window.location.reload();
   }
 }

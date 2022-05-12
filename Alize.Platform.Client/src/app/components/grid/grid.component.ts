@@ -26,7 +26,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
   @Input() entity: EntityType;
   @Input() actions?: IOperationsModel[];
-  @Input() title: string = '';
+  @Input() title: string = 'Administracion';
   @Input() subTitle: string = '';
 
   public get Entity(): typeof EntityType {
@@ -83,17 +83,13 @@ export class GridComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.displayedColumns = [ ...this.columns.map(c => c.columnDef), 'Operaciones' ];;
     if (this.entity === EntityType.APPLICATIONS) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoAplicaciones'
+      this.subTitle = 'Listado de Aplicaciones';
     } else if (this.entity === EntityType.COMPANIES) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoEmpresas'
+      this.subTitle = 'Listado de Empresas';
     } else if (this.entity === EntityType.USERS) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoUsuarios'
+      this.subTitle = 'Listado de Usuarios';
     } else if (this.entity === EntityType.GROUPS) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoGrupos'
+      this.subTitle = 'Listado de Grupos';
     }
 
     this._globalStylesService.theme.subscribe(value => {
@@ -119,18 +115,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       return '';
     }
   }
-
-  // getRowStyle(row: number) {
-  //   let rowStyle: string;
-
-  //   switch (row) {
-  //     case 0 : {
-  //       rowStyle = 'id'
-  //     }
-  //   }
-
-  //   return '';
-  // }
 
 
   applyFilter(event: Event) {
