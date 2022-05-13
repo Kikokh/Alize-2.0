@@ -7,7 +7,7 @@ import { IMenu } from '../models/menu';
 })
 export class OptionMenuService {
   optionList: IMenu[];
-  subMenuItemListSelected = new BehaviorSubject<IMenu[]>(new Array<IMenu>());  
+  subMenuItemListSelected = new BehaviorSubject<IMenu[]>(new Array<IMenu>());
 
   constructor() {
 
@@ -52,12 +52,12 @@ export class OptionMenuService {
             subMenu: []
           },
           {
-            name: 'Grupos',
-            menuName: 'Grupos',
+            name: 'Roles',
+            menuName: 'Roles',
             isSelected: false,
             isVisible: false,
-            route: 'administration/groups',
-            breadcrumb: 'BreadcrumbGrupos',
+            route: 'administration/roles',
+            breadcrumb: 'BreadcrumbRoles',
             icon: 'home',
             subMenu: []
           },
@@ -78,6 +78,16 @@ export class OptionMenuService {
             isVisible: false,
             route: 'administration/users',
             breadcrumb: 'BreadcrumbUsuarios',
+            icon: 'home',
+            subMenu: []
+          },
+          {
+            name: 'Roles',
+            menuName: 'Roles',
+            isSelected: false,
+            isVisible: false,
+            route: 'administration/roles',
+            breadcrumb: 'BreadcrumbRoles',
             icon: 'home',
             subMenu: []
           },

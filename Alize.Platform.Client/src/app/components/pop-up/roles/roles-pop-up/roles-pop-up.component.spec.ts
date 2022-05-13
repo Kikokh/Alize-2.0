@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GroupsPopUpComponent } from './groups-pop-up.component';
+import { RolesPopUpComponent } from './roles-pop-up.component';
 
 describe('GroupsPopUpComponent', () => {
-  let component: GroupsPopUpComponent;
-  let fixture: ComponentFixture<GroupsPopUpComponent>;
+  let component: RolesPopUpComponent;
+  let fixture: ComponentFixture<RolesPopUpComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GroupsPopUpComponent ]
+      declarations: [ RolesPopUpComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GroupsPopUpComponent);
+    fixture = TestBed.createComponent(RolesPopUpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

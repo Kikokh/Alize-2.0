@@ -33,6 +33,13 @@ export interface IElementDataModules {
     Operaciones: IOperationsModel[];
 }
 
+export interface IElementDataRoles {
+  id: number;
+  name: string;
+  description: string;
+  isActive: boolean;
+}
+
 export interface IElementDataUsers {
     Id: number;
     Nombre: string;
@@ -72,4 +79,9 @@ export class GridDataModules {
 export class GridDataUsers {
     columnDef: IColumnDef[];
     data: IElementDataUsers[];
+}
+
+export class GridDataRoles {
+    columnDef: IColumnDef[];
+    data: IElementDataRoles[];
 }

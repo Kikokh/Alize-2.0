@@ -26,7 +26,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
 
   public get Entity(): typeof EntityType {
-    return EntityType; 
+    return EntityType;
   }
 
 
@@ -92,12 +92,12 @@ export class GridComponent implements OnInit, AfterViewInit {
     } else if (this.entity === EntityType.USERS) {
       this.title = 'Administracion'
       this.subTitle = 'ListadoUsuarios'
-    } else if (this.entity === EntityType.GROUPS) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoGrupos'
     } else if (this.entity === EntityType.MODULES) {
       this.title = 'Administracion'
       this.subTitle = 'ListadoModulos'
+    } else if (this.entity === EntityType.ROLES) {
+      this.title = 'Administracion'
+      this.subTitle = 'ListadoRoles'
     }
 
     this._globalStylesService.theme.subscribe(value => {

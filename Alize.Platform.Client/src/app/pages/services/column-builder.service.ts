@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { GridComponent } from 'src/app/components/grid/grid.component';
-import { GridData, GridDataCompanies, GridDataModules, GridDataUsers, IColumnDef, IElementDataApp as IElementDataApplications, IElementDataCompanies, IElementDataGroup, IElementDataModules, IElementDataUsers } from 'src/app/components/models/column.models';
+import { GridData, GridDataCompanies, GridDataModules, GridDataUsers, GridDataRoles, IColumnDef, IElementDataApp as IElementDataApplications, IElementDataCompanies, IElementDataGroup, IElementDataModules, IElementDataUsers, IElementDataRoles } from 'src/app/components/models/column.models';
 import { ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 
 const ELEMENT_DATA_APPLICATION: IElementDataApplications[] = [
@@ -47,29 +47,6 @@ const ELEMENT_DATA_COMPANIES: IElementDataCompanies[] = [
       { optionName: ModePopUpType.DISPLAY, icon: 'search' },
       { optionName: ModePopUpType.EDIT, icon: 'edit_note' }
     ]
-  },
-];
-
-const ELEMENT_DATA_GROUPS: IElementDataGroup[] = [
-  {
-    Id: 1, Nombre: 'Administrador Pro', Descripcion: 'Los administradores pro tienen acceso completo y sin restricciones a la plataforma', Activo: true,
-    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
-  },
-  {
-    Id: 2, Nombre: 'Distribuidor', Descripcion: 'Los distribuidores tienen acceso completo y sin restricciones en su empresa y empresas clientes que haya dado de alta	', Activo: false,
-    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
-  },
-  {
-    Id: 3, Nombre: 'Administrador', Descripcion: 'Los administradores tienen acceso completo y sin restricciones dentro de su empresa	', Activo: true,
-    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
-  },
-  {
-    Id: 4, Nombre: 'Usuario', Descripcion: 'Los usuarios pueden acceder a la mayoria de opciones de la plataforma y no pueden hacer cambios accidentales o intencionados	', Activo: true,
-    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
-  },
-  {
-    Id: 5, Nombre: 'Invitado', Descripcion: 'Los invitados tienen el acceso limitado a las consultas que se le han asignado	', Activo: true,
-    Operaciones: [{ optionName: ModePopUpType.DISPLAY, icon: 'search' }]
   },
 ];
 
@@ -347,6 +324,14 @@ const COLUMN_DEFINITION_COMPANIES: IColumnDef[] = [
   { columnDef: 'Operaciones', header: 'Operaciones', cell: (element: any) => `${element.Operaciones}` },
 ]
 
+const COLUMN_DEFINITION_ROLES: IColumnDef[] = [
+  { columnDef: 'Id', header: 'No.', cell: (element: any) => `${element.id}` },
+  { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.name}` },
+  { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: any) => `${element.description}` },
+  { columnDef: 'Activo', header: 'Activo', cell: (element: any) => `${element.isActive}` },
+  { columnDef: 'Operaciones', header: 'Operaciones', cell: (element: any) => `${element.Operaciones}` },
+]
+
 const COLUMN_DEFINITION_MODULOS: IColumnDef[] = [
   { columnDef: 'Id', header: 'No.', cell: (element: any) => `${element.Id}` },
   { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.Nombre}` },
@@ -387,10 +372,9 @@ export class ColumnBuilderService {
     return of(gridData);
   }
 
-  getGroupsData(): Observable<GridDataCompanies> {
-    let gridData = new GridDataCompanies();
-    gridData.columnDef = COLUMN_DEFINITION_COMPANIES;
-    gridData.data = ELEMENT_DATA_GROUPS;
+  getRolesData(): Observable<GridDataRoles> {
+    let gridData = new GridDataRoles();
+    gridData.columnDef = COLUMN_DEFINITION_ROLES;
     return of(gridData);
   }
 

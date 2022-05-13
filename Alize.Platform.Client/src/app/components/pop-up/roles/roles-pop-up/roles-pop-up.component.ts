@@ -17,11 +17,11 @@ export interface IAvailablesModules {
 
 @Component({
   selector: 'app-groups-pop-up',
-  templateUrl: './groups-pop-up.component.html',
-  styleUrls: ['./groups-pop-up.component.scss']
+  templateUrl: './roles-pop-up.component.html',
+  styleUrls: ['./roles-pop-up.component.scss']
 })
-export class GroupsPopUpComponent {
-  title = 'GruposPopUpTitulo';
+export class RolesPopUpComponent {
+  title = 'RolesPopUpTitulo';
   availableModules = 'GruposModulosHabilitados';
   form: FormGroup;
 
@@ -32,7 +32,7 @@ export class GroupsPopUpComponent {
   }
 
   constructor(
-    public dialogRef: MatDialogRef<GroupsPopUpComponent>,
+    public dialogRef: MatDialogRef<RolesPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       nombre: string;
       grupos: string;

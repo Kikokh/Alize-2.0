@@ -22,7 +22,7 @@ import { PasswordUserPopUpComponent } from './pop-up/users/password-user-pop-up/
 import { DeleteUserPopUpComponent } from './pop-up/users/delete-user-pop-up/delete-user-pop-up.component';
 import { TimerPopUpComponent } from './pop-up/users/timer-pop-up/timer-pop-up.component';
 import { ApplicationGroupPopUpComponent } from './pop-up/applications/application-group-pop-up/application-group-pop-up.component';
-import { GroupsPopUpComponent } from './pop-up/groups/groups-pop-up/groups-pop-up.component';
+import { RolesPopUpComponent } from './pop-up/roles/roles-pop-up/roles-pop-up.component';
 import { ModulesPopUpComponent } from './pop-up/modules/modules-pop-up/modules-pop-up.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -47,7 +47,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     DeleteUserPopUpComponent,
     TimerPopUpComponent,
     ApplicationGroupPopUpComponent,
-    GroupsPopUpComponent,
+    RolesPopUpComponent,
     ModulesPopUpComponent,
   ],
   imports: [

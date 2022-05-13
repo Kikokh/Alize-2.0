@@ -6,7 +6,7 @@ import { IElementDataApp } from '../../models/column.models';
 import { ProgressSpinnerComponent } from '../../progress-spinner/progress-spinner.component';
 import { ApplicationGroupPopUpComponent } from '../applications/application-group-pop-up/application-group-pop-up.component';
 import { ApplicationPopUpComponent } from '../applications/application-pop-up/application-pop-up.component';
-import { GroupsPopUpComponent } from '../groups/groups-pop-up/groups-pop-up.component';
+import { RolesPopUpComponent } from '../roles/roles-pop-up/roles-pop-up.component';
 import { EntityType, ModePopUpType } from '../models/entity-type.enum';
 import { MatDialogConfigModel } from '../models/request-pop-up.model';
 import { ModulesPopUpComponent } from '../modules/modules-pop-up/modules-pop-up.component';
@@ -59,7 +59,7 @@ export class OpenPopUpService {
         this.resolveApplicationPopUp(mode, matDialogConfigModel, data);
         break;
       }
-      case EntityType.GROUPS: {
+      case EntityType.ROLES: {
         this.resolveGroupsPopUp(mode, matDialogConfigModel, data);
         break;
       }
@@ -70,7 +70,7 @@ export class OpenPopUpService {
       default: {
         const any: any = null;
         return any;
-        //statements; 
+        //statements;
         break;
       }
     }
@@ -98,7 +98,7 @@ export class OpenPopUpService {
   resolveGroupsPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
     switch (mode) {
       case ModePopUpType.DISPLAY: {
-        matDialogConfigModel.component = GroupsPopUpComponent;
+        matDialogConfigModel.component = RolesPopUpComponent;
         matDialogConfigModel.data = {
           nombre: data.Nombre,
           grupos: data.Descripcion,
@@ -108,7 +108,7 @@ export class OpenPopUpService {
         break;
       }
       case ModePopUpType.ADD: {
-        matDialogConfigModel.component = GroupsPopUpComponent;
+        matDialogConfigModel.component = RolesPopUpComponent;
         matDialogConfigModel.data = {
           mode: mode
         }
@@ -224,6 +224,29 @@ export class OpenPopUpService {
         matDialogConfigModel.component = TimerPopUpComponent;
         matDialogConfigModel.data = {
           nombre: data.Nombre,
+        }
+        break;
+      }
+    }
+  }
+
+  resolveRolesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
+    switch (mode) {
+      case ModePopUpType.ADD: {
+        matDialogConfigModel.data = { mode: mode }
+        matDialogConfigModel.component = UserPopUpComponent;
+        break;
+      }
+      case ModePopUpType.EDIT: {
+        matDialogConfigModel.component = UserPopUpComponent;
+        matDialogConfigModel.data = {
+          nombre: data.Nombre,
+          apellidos: data.Email,
+          email: data.Email,
+          empresa: data.Empresa,
+          grupos: data.Grupo,
+          isActive: data.Activo,
+          mode: mode
         }
         break;
       }

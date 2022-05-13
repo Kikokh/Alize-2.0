@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ManagementComponent } from '../management/management/management.component';
 import { ApplicationsComponent } from './applications/applications.component';
 import { CompaniesComponent } from './companies/companies.component';
-import { GroupsComponent } from './groups/groups.component';
+import { RolesComponent } from './roles/roles.component';
 import { ModulesComponent } from './modules/modules.component';
 import { UsersComponent } from './users/users.component';
 
@@ -13,7 +13,7 @@ const routes: Routes = [
     children: [
       { path: 'applications', component: ApplicationsComponent },
       { path: 'companies', component: CompaniesComponent },
-      { path: 'groups', component: GroupsComponent },
+      { path: 'roles', component: RolesComponent },
       { path: 'modules', component: ModulesComponent },
       { path: 'users', component: UsersComponent },
       { path: 'requests', component: ManagementComponent },
