@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { GridData, GridDataCompanies, GridDataUsers, IColumnDef, IElementDataApp as IElementDataApplications, IElementDataCompanies, IElementDataGroup, IElementDataModules, IElementDataUsers } from 'src/app/components/models/column.models';
+import { GridData, GridDataCompanies, GridDataUsers, GridDataRoles, IColumnDef, IElementDataApp as IElementDataApplications, IElementDataCompanies, IElementDataGroup, IElementDataModules, IElementDataUsers } from 'src/app/components/models/column.models';
 
 const ELEMENT_DATA_APPLICATION: IElementDataApplications[] = [
   {
@@ -232,12 +232,6 @@ export class ColumnBuilderService {
     let gridData = new GridDataCompanies();
     gridData.columnDef = COLUMN_DEFINITION_COMPANIES;
     gridData.data = ELEMENT_DATA_COMPANIES;
-    return of(gridData);
-  }
-
-  getRolesData(): Observable<GridDataRoles> {
-    let gridData = new GridDataRoles();
-    gridData.columnDef = COLUMN_DEFINITION_ROLES;
     return of(gridData);
   }
 

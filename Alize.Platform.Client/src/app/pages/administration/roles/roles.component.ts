@@ -1,8 +1,8 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {IColumnDef, IElementDataRoles} from 'src/app/components/models/column.models';
-import { EntityType } from 'src/app/components/pop-up/models/entity-type.enum';
+import {Component, OnInit} from '@angular/core';
+import {IColumnDef, IElementDataRoles, IOperationsModel} from 'src/app/components/models/column.models';
+import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { ColumnBuilderService } from '../../services/column-builder.service';
-import { RolesService} from "./services/roles.service";
+import { RolesService } from "./services/roles.service";
 
 @Component({
   selector: 'app-roles',
@@ -11,12 +11,19 @@ import { RolesService} from "./services/roles.service";
 })
 
 
-export class RolesComponent {
-  @ViewChild('dataTable')
-  dataTable: ElementRef
+export class RolesComponent implements OnInit {
 
-  displayedColumns: IColumnDef[];
+  displayedColumns: IColumnDef[] = [
+    { columnDef: 'Id', header: 'No.', cell: (element: any) => `${element.id}` },
+    { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.name}` },
+    { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: any) => `${element.description}` },
+    { columnDef: 'Activo', header: 'Activo', cell: (element: any) => `${element.isActive}` },
+  ];
+
   elementData: IElementDataRoles[] = [];
+  actions: IOperationsModel[] = [
+    { optionName: ModePopUpType.DISPLAY, icon: 'search' }
+  ]
 
   public get Entity(): typeof EntityType {
     return EntityType;
@@ -25,16 +32,14 @@ export class RolesComponent {
   constructor(
     private _columnBuilderService: ColumnBuilderService,
     private _rolesService: RolesService
-  ) {
-    this._columnBuilderService.getRolesData().subscribe(gridData => {
-      this.displayedColumns = gridData.columnDef;
-      this._rolesService.getRoles().subscribe(
-        (data) => {
-          this.elementData = data
-          console.log(this.dataTable)
-        }
-      )
-    });
+  ) {}
+
+  ngOnInit() {
+    this._rolesService.getRoles().subscribe(
+      (roles) => {
+        this.elementData = roles
+      }
+    )
   }
 
 }
