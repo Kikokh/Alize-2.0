@@ -27,10 +27,6 @@ export class RolesPopUpComponent {
 
   public moduleList: IAvailablesModules[];
 
-  public get _modePopUpType(): typeof ModePopUpType {
-    return ModePopUpType;
-  }
-
   constructor(
     public dialogRef: MatDialogRef<RolesPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
@@ -41,7 +37,6 @@ export class RolesPopUpComponent {
       activo: boolean;
     },
     public translate: TranslateService) {
-      console.log(this.data);
     const lang = localStorage.getItem('lang');
     if (lang !== null) {
       this.translate.setDefaultLang(lang);
@@ -51,7 +46,7 @@ export class RolesPopUpComponent {
     this.form = new FormGroup({
       name: new FormControl({ value: (this.data.nombre) ? this.data.nombre : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       description: new FormControl({ value: (this.data.grupos) ? this.data.grupos : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      active: new FormControl({ value: (this.data.activo) ? this.data.activo : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      isActive: new FormControl({ value: (this.data.activo) ? this.data.activo : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
     });
 
     this.moduleList = [

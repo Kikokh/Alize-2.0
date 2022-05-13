@@ -61,7 +61,7 @@ export class OpenPopUpService {
         break;
       }
       case EntityType.ROLES: {
-        this.resolveGroupsPopUp(mode, matDialogConfigModel, data);
+        this.resolveRolesPopUp(mode, matDialogConfigModel, data);
         break;
       }
       case EntityType.MODULES: {
@@ -96,14 +96,15 @@ export class OpenPopUpService {
     }
   }
 
-  resolveGroupsPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
+  resolveRolesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
     switch (mode) {
       case ModePopUpType.DISPLAY: {
         matDialogConfigModel.component = RolesPopUpComponent;
         matDialogConfigModel.data = {
-          nombre: data.Nombre,
-          grupos: data.Descripcion,
-          activo: data.Activo,
+          nombre: data?.name,
+          grupos: data?.groups,
+          descripcion: data?.descripcion,
+          activo: data?.isActive,
           mode: mode
         }
         break;
@@ -225,29 +226,6 @@ export class OpenPopUpService {
         matDialogConfigModel.component = TimerPopUpComponent;
         matDialogConfigModel.data = {
           nombre: data.Nombre,
-        }
-        break;
-      }
-    }
-  }
-
-  resolveRolesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
-    switch (mode) {
-      case ModePopUpType.ADD: {
-        matDialogConfigModel.data = { mode: mode }
-        matDialogConfigModel.component = UserPopUpComponent;
-        break;
-      }
-      case ModePopUpType.EDIT: {
-        matDialogConfigModel.component = UserPopUpComponent;
-        matDialogConfigModel.data = {
-          nombre: data.Nombre,
-          apellidos: data.Email,
-          email: data.Email,
-          empresa: data.Empresa,
-          grupos: data.Grupo,
-          isActive: data.Activo,
-          mode: mode
         }
         break;
       }
