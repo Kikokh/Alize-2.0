@@ -1,3 +1,5 @@
+import { ModePopUpType } from "../pop-up/models/entity-type.enum";
+
 /** Constants used to fill up our data base. */
 export interface IElementDataApp {
     Id: number;
@@ -5,7 +7,6 @@ export interface IElementDataApp {
     Descripcion: string;
     Empresa: string;
     Activo: boolean;
-    Operaciones: IOperationsModel[];
 }
 
 export interface IElementDataCompanies {
@@ -13,7 +14,6 @@ export interface IElementDataCompanies {
     Nombre: string;
     Descripcion: string;
     Activo: boolean;
-    Operaciones: IOperationsModel[];
 }
 
 export interface IElementDataGroup {
@@ -21,7 +21,6 @@ export interface IElementDataGroup {
     Nombre: string;
     Descripcion: string;
     Activo: boolean;
-    Operaciones: IOperationsModel[];
 }
 
 export interface IElementDataModules {
@@ -30,7 +29,6 @@ export interface IElementDataModules {
     Descripcion: string;
     Grupo: string;
     Activo: boolean;
-    Operaciones: IOperationsModel[];
 }
 
 export interface IElementDataRoles {
@@ -47,11 +45,10 @@ export interface IElementDataUsers {
     Empresa: string;
     Grupo: string;
     Activo: boolean;
-    Operaciones: IOperationsModel[];
 }
 
 export interface IOperationsModel {
-    optionName: string;
+    optionName: ModePopUpType;
     icon: string;
 }
 

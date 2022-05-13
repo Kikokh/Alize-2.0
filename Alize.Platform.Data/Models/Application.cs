@@ -20,7 +20,7 @@ namespace Alize.Platform.Data.Models
         [ForeignKey("Company")]
         public Guid? CompanyId { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = false;
 
         public string? ApiId { get; set; }
 

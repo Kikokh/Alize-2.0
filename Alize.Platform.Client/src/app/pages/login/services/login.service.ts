@@ -1,10 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, of } from 'rxjs';
-import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
 export class LoginData {
   email: string;
   password: string;
@@ -43,8 +43,11 @@ export class LoginService {
       tap(data => {
         this._localStorageService.addItem('token', data.accessToken);
         this._isLogguedIn$.next(true);
+        console.log(data.accessToken);
       }),
-      finalize(() => this.progressSpinnerService.close())
+      finalize(() => {
+        this.progressSpinnerService.close();
+      })
     );
   }
 

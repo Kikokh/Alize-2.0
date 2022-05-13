@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
@@ -8,8 +8,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { RequestApplication } from '../models/application.model';
-import { IColumnDef, IElementDataApp, IElementDataCompanies } from '../models/column.models';
-import { ApplicationPopUpComponent } from '../pop-up/applications/application-pop-up/application-pop-up.component';
+import { IColumnDef, IElementDataApp, IOperationsModel } from '../models/column.models';
 import { EntityType, ModePopUpType } from '../pop-up/models/entity-type.enum';
 import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
 
@@ -21,19 +20,20 @@ import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
 export class GridComponent implements OnInit, AfterViewInit {
 
   @Input() columns: IColumnDef[];
-  @Input() elementData: any;
+  @Input()
+  set elementData(value: any) {
+    this.dataSource.data = value;
+  }
   @Input() entity: EntityType;
-
+  @Input() actions?: IOperationsModel[];
+  @Input() title: string = 'Administracion';
+  @Input() subTitle: string = '';
 
   public get Entity(): typeof EntityType {
     return EntityType;
   }
 
-
-  title: string;
-  subTitle: string;
-
-  dataSource: MatTableDataSource<IElementDataApp>;
+  dataSource: MatTableDataSource<IElementDataApp> = new MatTableDataSource();
   displayedColumns: string[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -81,14 +81,11 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.displayedColumns = this.columns.map(c => c.columnDef);;
-    this.dataSource = new MatTableDataSource(this.elementData);
+    this.displayedColumns = [ ...this.columns.map(c => c.columnDef), 'Operaciones' ];;
     if (this.entity === EntityType.APPLICATIONS) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoAplicaciones'
+      this.subTitle = 'Listado de Aplicaciones';
     } else if (this.entity === EntityType.COMPANIES) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoEmpresas'
+      this.subTitle = 'Listado de Empresas';
     } else if (this.entity === EntityType.USERS) {
       this.title = 'Administracion'
       this.subTitle = 'ListadoUsuarios'
@@ -123,18 +120,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       return '';
     }
   }
-
-  // getRowStyle(row: number) {
-  //   let rowStyle: string;
-
-  //   switch (row) {
-  //     case 0 : {
-  //       rowStyle = 'id'
-  //     }
-  //   }
-
-  //   return '';
-  // }
 
 
   applyFilter(event: Event) {

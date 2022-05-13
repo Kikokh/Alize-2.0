@@ -4,6 +4,7 @@ using Alize.Platform.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alize.Platform.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220510155512_AddModulesDescription2")]
+    partial class AddModulesDescription2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,8 +47,7 @@ namespace Alize.Platform.Data.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -409,7 +410,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"),
-                            ConcurrencyStamp = "874f18f9-8246-41b4-8b3c-f073d8f1b442",
+                            ConcurrencyStamp = "18f8cf86-b58a-4c28-890b-28a47bc4351a",
                             Description = "Los administradores pro tienen acceso completo y sin restricciones a la plataforma",
                             IsActive = true,
                             Name = "Administrador Pro",
@@ -418,7 +419,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"),
-                            ConcurrencyStamp = "d6a92493-1328-4bff-8a71-0d39fc1e6cc3",
+                            ConcurrencyStamp = "92c369a2-787c-47cb-b13d-4d36f34508eb",
                             Description = "Los distribuidores tienen acceso completo y sin restricciones en su empresa y empresas clientes que haya dado de alta",
                             IsActive = true,
                             Name = "Distribuidor",
@@ -427,7 +428,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("caddad05-120f-48a8-b659-ff4528e5df97"),
-                            ConcurrencyStamp = "2f031ed9-4c6d-4d34-9509-fe5505f63960",
+                            ConcurrencyStamp = "55f6a923-7285-4073-a70e-2f1d03a9ec47",
                             Description = "Los administradores tienen acceso completo y sin restricciones dentro de su empresa",
                             IsActive = true,
                             Name = "Administrador",
@@ -436,7 +437,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("33dde250-ddde-42db-a4b9-5a2355082391"),
-                            ConcurrencyStamp = "0b0b2a81-0466-49e2-901a-47925c45dcf8",
+                            ConcurrencyStamp = "df9994f8-8ff1-4ee1-8a68-2e4ee98fe5f0",
                             Description = "Los usuarios pueden acceder a la mayoria de opciones de la plataforma y no pueden hacer cambios accidentales o intencionados",
                             IsActive = true,
                             Name = "Usuario",
@@ -445,7 +446,7 @@ namespace Alize.Platform.Data.Migrations
                         new
                         {
                             Id = new Guid("33dde740-ddde-42db-a4b9-5a2355082391"),
-                            ConcurrencyStamp = "b5f46a63-261e-4788-b0b4-66153e43d868",
+                            ConcurrencyStamp = "d21e14e4-3987-4f0f-84f4-def4b48278aa",
                             Description = "Los invitados tienen el acceso limitado a las consultas que se le han asignado",
                             IsActive = true,
                             Name = "Invitado",
@@ -550,7 +551,7 @@ namespace Alize.Platform.Data.Migrations
                             Id = new Guid("95ada776-f3e1-42db-aa39-382f91b74cd4"),
                             AccessFailedCount = 0,
                             CompanyId = new Guid("554bc4f7-46a9-4a87-a52e-6ca79e24986c"),
-                            ConcurrencyStamp = "eedbde8a-9b9c-42a6-b4b1-1b49d895509e",
+                            ConcurrencyStamp = "30ab2544-7b68-4dfd-bc52-540944364d6e",
                             Email = "test@user.com",
                             EmailConfirmed = true,
                             FirstName = "Test",
@@ -559,7 +560,7 @@ namespace Alize.Platform.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@USER.COM",
                             NormalizedUserName = "TESTUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEH9fqjz9qKwq172k4R3sr7v+7Foqwapy4x+3jQT80JpmEXEs69PihtZZya9OObhQ+A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIJBrMjQrihXFwEHCB+HX0lL9d0p68fQnzJpEedAFrRW9dPsjAimru6wN8vbCzkOvA==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "testuser"
@@ -569,7 +570,7 @@ namespace Alize.Platform.Data.Migrations
                             Id = new Guid("1c822965-eb67-4092-9cf7-cf62806d5395"),
                             AccessFailedCount = 0,
                             CompanyId = new Guid("554bc4f7-46a9-4a87-a52e-6ca79e24986c"),
-                            ConcurrencyStamp = "248ab3e2-b6a4-4d30-bc33-3a39d9c1bbaa",
+                            ConcurrencyStamp = "1cc7553f-eb63-4eda-8016-779816f6357f",
                             Email = "test@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Test",
@@ -578,7 +579,7 @@ namespace Alize.Platform.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMIN.COM",
                             NormalizedUserName = "TESTADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKjpu6V52ViYNjFfmRWoIWBV5bOO8qboskQaDsBWEMopO60Hdb69Lu9E5L+djBPTtA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBKt55ZV1MfRcuBAMd6cfb1OdBsiP4OIQ2QOulcrBTyLuxlrt8BOa2KpJ1dXYsYVjQ==",
                             PhoneNumberConfirmed = false,
                             TwoFactorEnabled = false,
                             UserName = "testadmin"

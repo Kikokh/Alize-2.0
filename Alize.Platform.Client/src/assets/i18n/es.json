@@ -51,6 +51,8 @@
     "EmailIncorrecto": "El email tiene un formato incorrecto",
     "EmailVacio": "El campo email no puede estar vacio",
     "PasswordVacio": "El campo password no puede estar vacio",
+    "PasswordUnmatch": "Los campos passwords con coinciden",
+    "PasswordInvalido": "El campo password no tiene el formato correcto. El campo tiene que tener al menos 8 caracteres, una mayuscula, una minuscula, un caracter especial y un numero",
     "EmailPassIncorrecto": "email or password incorrectos",
     "RolesPopUpTitulo": "Ver rol",
     "GruposModulosHabilitados": "Módulos disponibles por el grupo Administrador Pro:",

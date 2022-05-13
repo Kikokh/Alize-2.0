@@ -50,6 +50,8 @@
     "EmailIncorrecto": "The email has an incorrect format",
     "EmailVacio": "The email field cannot be empty",
     "PasswordVacio": "The password field cannot be empty",
+    "PasswordInvalido": "The password field does not has the correct format. Password must be at least 8 characters and have at least one uppercase, one lowercase, one special character and one number",
+    "PasswordUnmatch": "The password fields does not match",
     "EmailPassIncorrecto": "wrong email or password",
     "RolesPopUpTitulo": "View role",
     "GruposModulosHabilitados": "Modules available by Admin Pro group:",
