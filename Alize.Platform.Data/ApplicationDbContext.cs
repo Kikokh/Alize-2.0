@@ -17,6 +17,8 @@ namespace Alize.Platform.Data
         public virtual DbSet<Application> Applications { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
+        public virtual DbSet<Blockchain> Blockchains { get; set; }
+        public virtual DbSet<ApplicationCredentials> ApplicationCredentials { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -47,14 +49,51 @@ namespace Alize.Platform.Data
                 .UsingEntity<IdentityUserRole<Guid>>();
 
             SeedCompanies(builder);
+            SeedApplications(builder);
+            SeedApplicationCredentials(builder);
             var modules = SeedModules(builder);
             var roles = SeedRoles(builder);
             SeedRoleModule(builder, roles, modules);
             var users = SeedUsers(builder);
             SeedUserRoles(builder);
+            SeedBlockchains(builder);
         }
 
         #region Seeds
+        private void SeedBlockchains(ModelBuilder builder)
+        {
+            builder.Entity<Blockchain>().HasData(
+                new Blockchain
+                {
+                    Id = Guid.Parse(Constants.Blockchains.BlockchainFue),
+                    Name = "FUE",
+                    ApiUrl = "https://api-v22.blockchainfue.com/api/"
+                });
+        }
+        private void SeedApplications(ModelBuilder builder)
+        {
+            builder.Entity<Application>().HasData(
+                new Application
+                {
+                    Id = Guid.Parse("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"),
+                    Name = "Calidad mapex",
+                    Description = "Registro planes de control sistema mapex",
+                    IsActive = true,
+                    CompanyId = Guid.Parse("e8528a43-2a9d-44dd-b1c9-e37777ad0644")
+                });
+        }
+        private void SeedApplicationCredentials(ModelBuilder builder)
+        {
+            builder.Entity<ApplicationCredentials>().HasData(
+                new ApplicationCredentials
+                {
+                    Id= Guid.Parse("864d7440-d42e-42e0-9e29-bac987a31028"),
+                    ApplicationId = Guid.Parse("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"),
+                    BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
+                    Username = "60ffbe3ef24524680871dc75",
+                    EncriptedPassword = "CfDJ8OVxN162SLRJjkJckx9xddOS9DkX9iWy4aWGRwkyP5gC7oh_kce92lm5dY4SXuL6bwrBmizWw7Gui12vSEsMV76wf77IQ7NAG9oTbocm5dMrjLBoh9LrIy2Jxvl2S77Hmg2cJXSzvoL_FzWiSItwdiZBlIvjlqaVNL6BFLOrvTiIc1vd-k9puf8eHr9oQ-BzwiN8E-m6J2sJFh57HfYRAYo"
+                });
+        }
         private void SeedCompanies(ModelBuilder builder)
         {
             builder.Entity<Company>().HasData(

@@ -5,6 +5,7 @@ using Alize.Platform.Data.Constants;
 using Alize.Platform.Data.Models;
 using Alize.Platform.Data.Repositories;
 using Alize.Platform.Services;
+using Alize.Platform.Services.BlockchainFue;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -66,15 +67,20 @@ builder.Services
 
 builder.Services.InitializeCosmosClientInstance(builder.Configuration.GetSection("CosmosDb"));
 builder.Services.AddHttpClient();
+builder.Services.AddDataProtection();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<IAuthorizationHandler, ModuleHandler>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
+builder.Services.AddScoped<IApplicationCredentialsRepository, ApplicationCredentialsRepository>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
+builder.Services.AddScoped<IBlockchainRepository, BlockchainRepository>();
 builder.Services.AddScoped<ISecurityService, SecurityService>();
-builder.Services.AddScoped<IBlockChainService, BlockChainFueService>();
+builder.Services.AddScoped<ICryptographyService, CryptographyService>();
+builder.Services.AddScoped<IBlockchainFactory, BlockchainFactory>();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

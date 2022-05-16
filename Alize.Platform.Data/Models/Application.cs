@@ -22,12 +22,6 @@ namespace Alize.Platform.Data.Models
 
         public bool IsActive { get; set; } = false;
 
-        public string? ApiId { get; set; }
-
-        public string? ApiKey { get; set; }
-
-        public string? DataType { get; set; }
-
         public ICollection<User>? Users { get; set; }
     }
 }
