@@ -9,25 +9,30 @@ import { IElementDataRoles } from "../../../../components/models/column.models";
 })
 export class RolesService {
 
-  private _baseUrl = environment.apiUrl;
+  private _baseUrl = `${environment.apiUrl}/Roles`;
+  public token: string
+  public httpOptions: { headers: HttpHeaders }
 
   constructor(
     private _http: HttpClient,
     private _localStorageService: LocalStorageService,
-  ) { }
-
-  getRoles() {
-
-    const token = this._localStorageService.getItem('token')
-
-    const httpOptions = {
+  ) {
+    this.token = this._localStorageService.getItem('token')
+    this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'accept': '*/*',
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${this.token}`
       })
-    };
+    }
+  }
 
-    return this._http.get<IElementDataRoles[]>(`${this._baseUrl}/Roles`, httpOptions)
+  getRoles() {
+
+    return this._http.get<IElementDataRoles[]>(this._baseUrl, this.httpOptions)
+  }
+
+  updateRole(id: string, payload: IElementDataRoles) {
+    return this._http.put<void>(`${this._baseUrl}/${id}`, payload, this.httpOptions)
   }
 }

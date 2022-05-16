@@ -1,4 +1,5 @@
 import { ModePopUpType } from "../pop-up/models/entity-type.enum";
+import {Module} from "../../models/module.model";
 
 /** Constants used to fill up our data base. */
 export interface IElementDataApp {
@@ -32,10 +33,11 @@ export interface IElementDataModules {
 }
 
 export interface IElementDataRoles {
-  id: number;
+  id: string;
   name: string;
   description: string;
   isActive: boolean;
+  modules: Module[];
 }
 
 export interface IElementDataUsers {

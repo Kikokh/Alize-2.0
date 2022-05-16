@@ -101,10 +101,12 @@ export class OpenPopUpService {
       case ModePopUpType.DISPLAY: {
         matDialogConfigModel.component = RolesPopUpComponent;
         matDialogConfigModel.data = {
+          id: data?.id,
           nombre: data?.name,
           grupos: data?.groups,
-          descripcion: data?.descripcion,
+          descripcion: data?.description,
           activo: data?.isActive,
+          modulos: data?.modules,
           mode: mode
         }
         break;
