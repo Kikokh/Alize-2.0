@@ -4,6 +4,7 @@ export enum EntityType {
     'GROUPS' = 'GROUPS',
     'MODULES' = 'MODULES',
     'COMPANIES' = 'COMPANIES',
+    'REQUEST' = 'REQUEST'
 }
 
 export enum ModePopUpType {
@@ -13,5 +14,6 @@ export enum ModePopUpType {
     'DELETE' = 'DELETE',
     'PASSWORD' = 'PASSWORD',
     'ADD' = 'ADD',
-    'TIMER' = 'TIMER'
+    'TIMER' = 'TIMER',
+    'REQUEST' = 'REQUEST'
 }

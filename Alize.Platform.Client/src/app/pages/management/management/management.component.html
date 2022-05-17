@@ -4,7 +4,8 @@
             <app-breadcrumb [componentName]="'Gestion'"></app-breadcrumb>
         </div>
         <div class="grid">
-            <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.USERS"></app-grid>
+            <!-- <app-filter-row></app-filter-row> -->
+            <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.REQUEST" [actions]="actions"></app-grid>
         </div>
     </div>
 </div>

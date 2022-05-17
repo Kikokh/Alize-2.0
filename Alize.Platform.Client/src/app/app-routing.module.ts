@@ -2,10 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home/home.component';
 import { LoginComponent } from './pages/login/login/login.component';
+import { FilterRowComponent } from './Templates/filter-row/filter-row.component';
 
 const routes: Routes = [
   {
     path: 'home', component: HomeComponent
+    // loadChildren: () => import('./pages/home/home/home.module').then(m => m.HomeModule)
+  },
+  {
+    path: 'request-report', component: FilterRowComponent
     // loadChildren: () => import('./pages/home/home/home.module').then(m => m.HomeModule)
   },
   {

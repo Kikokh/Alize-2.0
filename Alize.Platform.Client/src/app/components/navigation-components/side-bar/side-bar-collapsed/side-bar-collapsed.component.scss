@@ -1,3 +1,5 @@
+@import "../../../../scss-variables/variables.scss";
+
 .sidebar-container {
     display: flex;
     flex-direction: column;
@@ -21,4 +23,54 @@
             color: #7F969F;
         }
     }
+
+    .menu-collapsed {
+        display: flex;
+        flex-direction: row;
+        margin-top: 40px;
+    
+        button {
+            margin: 0 auto;
+            width: 100%;
+    
+            .btn {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+    
+                .menu-icon {}
+            }
+        }
+    
+        .right-menu {
+            position: fixed;
+            margin-left: 150px;
+            background-color: $blue-background;
+    
+            mat-list {
+                mat-list-item {
+                    height: 50px;
+                    button {
+                        background-color: $blue-background;
+                        text-align: start;
+                        color: white;
+    
+                        .sub-menu-icon {
+                            font-size: 10px;
+                            padding-top: 10px;
+                        }
+    
+                        span {
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.active {
+    border-right: 4px solid aqua;
+    opacity: 0.6;
 }

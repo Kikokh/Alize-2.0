@@ -4,6 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
@@ -30,7 +31,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   @Input() subTitle: string = '';
 
   public get Entity(): typeof EntityType {
-    return EntityType; 
+    return EntityType;
   }
 
   dataSource: MatTableDataSource<IElementDataApp> = new MatTableDataSource();
@@ -65,10 +66,11 @@ export class GridComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private _globalStylesService: GlobalStylesService,
     private _openPopUpService: OpenPopUpService,
+    private route: Router,
     private _snackBar: MatSnackBar,
     public translate: TranslateService) {
 
-      const lang = localStorage.getItem('lang');
+    const lang = localStorage.getItem('lang');
     if (lang !== null) {
       this.translate.setDefaultLang(lang);
     } else {
@@ -81,7 +83,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.displayedColumns = [ ...this.columns.map(c => c.columnDef), 'Operaciones' ];;
+    this.displayedColumns = [...this.columns.map(c => c.columnDef), 'Operaciones'];;
     if (this.entity === EntityType.APPLICATIONS) {
       this.subTitle = 'Listado de Aplicaciones';
     } else if (this.entity === EntityType.COMPANIES) {
@@ -135,14 +137,18 @@ export class GridComponent implements OnInit, AfterViewInit {
 
 
   showDialog(data: any, optionName: ModePopUpType) {
+    if (this.entity === EntityType.REQUEST && data.Nombre === 'Calidad Mapex') {
+      this.route.navigate(['/request-report']);
+    } else {
+      this._openPopUpService.open(this.entity, optionName, data);
+      this._openPopUpService.afterClosed().subscribe(val => {
+        this.requestApplication = val;
+        // this._snackBar.open('Peticion realizada con exito!', '', {
+        //   horizontalPosition: this.horizontalPosition,
+        //   verticalPosition: this.verticalPosition,
+        // });
+      });
+    }
 
-    this._openPopUpService.open(this.entity, optionName, data);
-    this._openPopUpService.afterClosed().subscribe(val => {
-      this.requestApplication = val;
-      // this._snackBar.open('Peticion realizada con exito!', '', {
-      //   horizontalPosition: this.horizontalPosition,
-      //   verticalPosition: this.verticalPosition,
-      // });
-    });
   }
 }

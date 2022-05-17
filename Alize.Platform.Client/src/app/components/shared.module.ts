@@ -4,7 +4,6 @@ import { NavBarComponent } from './navigation-components/nav-bar/nav-bar.compone
 import { SideBarExpandedComponent } from './navigation-components/side-bar/side-bar-expanded/side-bar-expanded.component';
 import { SideBarCollapsedComponent } from './navigation-components/side-bar/side-bar-collapsed/side-bar-collapsed.component';
 import { MaterialModule } from 'src/app/material.module';
-import { OptionMenuListComponent } from './navigation-components/side-bar/option-menu-list/option-menu-list.component';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { GridComponent } from './grid/grid.component';
@@ -24,6 +23,7 @@ import { TimerPopUpComponent } from './pop-up/users/timer-pop-up/timer-pop-up.co
 import { ApplicationGroupPopUpComponent } from './pop-up/applications/application-group-pop-up/application-group-pop-up.component';
 import { GroupsPopUpComponent } from './pop-up/groups/groups-pop-up/groups-pop-up.component';
 import { ModulesPopUpComponent } from './pop-up/modules/modules-pop-up/modules-pop-up.component';
+import { GridSkeletonComponent } from './skeleton/grid-skeleton/grid-skeleton.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -34,7 +34,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavBarComponent,
     SideBarExpandedComponent,
     SideBarCollapsedComponent,
-    OptionMenuListComponent,
     BreadcrumbComponent,
     GridComponent,
     SearchComponent,
@@ -49,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ApplicationGroupPopUpComponent,
     GroupsPopUpComponent,
     ModulesPopUpComponent,
+    GridSkeletonComponent
   ],
   imports: [
     CommonModule,
@@ -69,13 +69,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavBarComponent,
     SideBarExpandedComponent,
     SideBarCollapsedComponent,
-    OptionMenuListComponent,
     BreadcrumbComponent,
     GridComponent,
     SearchComponent,
     FloatButtonComponent,
     ProgressSpinnerComponent,
-    UserPopUpComponent
+    UserPopUpComponent,
+    GridSkeletonComponent
   ]
 })
 export class SharedModule { }

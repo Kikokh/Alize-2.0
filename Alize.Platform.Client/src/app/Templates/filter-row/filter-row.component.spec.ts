@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OptionMenuListComponent } from './option-menu-list.component';
+import { FilterRowComponent } from './filter-row.component';
 
-describe('OptionMenuListComponent', () => {
-  let component: OptionMenuListComponent;
-  let fixture: ComponentFixture<OptionMenuListComponent>;
+describe('FilterRowComponent', () => {
+  let component: FilterRowComponent;
+  let fixture: ComponentFixture<FilterRowComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OptionMenuListComponent ]
+      declarations: [ FilterRowComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OptionMenuListComponent);
+    fixture = TestBed.createComponent(FilterRowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

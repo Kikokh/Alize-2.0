@@ -2,7 +2,6 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
-import { IMenu } from 'src/app/components/navigation-components/models/menu';
 import { NavigationService } from 'src/app/components/navigation-components/services/navigation.service';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
@@ -57,7 +56,7 @@ export class LayoutComponent implements OnInit {
       if (this.materialTheme.isDarkMode) {
         return 'side-bar-collapsed main-theme';
       } else {
-        return 'side-bar-collapsed main-theme';
+        return 'side-bar-collapsed main-theme-sidebar';
       }
     }
     // return (this.isSideBarExpander) ? 'side-bar-expanded' : 'side-bar-collapsed';

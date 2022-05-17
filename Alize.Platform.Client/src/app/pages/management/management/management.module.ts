@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
 import { SharedModule } from 'src/app/components/shared.module';
+import { TemplatesModule } from 'src/app/Templates/templates.module';
 
 
 
@@ -11,7 +12,8 @@ import { SharedModule } from 'src/app/components/shared.module';
   imports: [
     CommonModule,
     ManagementRoutingModule,
-    SharedModule
+    SharedModule,
+    TemplatesModule
   ]
 })
 

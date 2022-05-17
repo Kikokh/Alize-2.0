@@ -13,5 +13,27 @@
         </div>
     </div>
 
-    <app-option-menu-list [isSideBarExpanded]="true"></app-option-menu-list>
+    <ng-container *ngFor="let opt of optionList; let i = index">
+        <mat-list class="mat-list-expanded">
+            <button mat-button (click)="showSubMenu(i, opt.name, opt.route)" color="primary"
+                [ngClass]="getActiveMenuItem(opt.isSelected)">
+                <mat-icon>{{opt.icon}}</mat-icon>
+                <span>{{opt.name | translate}}</span>
+                <mat-icon class="arrow" *ngIf="opt.name !== 'Inicio'">expand_more</mat-icon>
+            </button>
+
+
+            <div class="sub-item-list" *ngIf="opt.isVisible">
+                <mat-list class="sub-menu" *ngFor="let subOpt of opt.subMenu">
+                    <mat-list-item>
+                        <button color="primary" routerLink="/{{subOpt.route}}" (click)="activateSubMenu(subOpt)"
+                            mat-button [ngClass]="getActiveMenuItem(subOpt.isSelected)">
+                            <mat-icon class="menu-icon">circle</mat-icon>
+                            <span>{{subOpt.name | translate}}</span>
+                        </button>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </mat-list>
+    </ng-container>
 </div>

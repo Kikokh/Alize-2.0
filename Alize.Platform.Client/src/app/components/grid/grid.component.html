@@ -29,7 +29,10 @@
                         <div *ngIf="column.header === 'Activo'">
                             <mat-slide-toggle color="accent" disabled [ngModel]="row.isActive"></mat-slide-toggle>
                         </div>
-                        <div class="common-row" *ngIf="column.header !== 'Operaciones' && column.header !== 'Activo'">
+                        <div *ngIf="column.header === 'Permiso'">
+                            <mat-slide-toggle color="accent" disabled [ngModel]="row.isActive"></mat-slide-toggle>
+                        </div>
+                        <div class="common-row" *ngIf="column.header !== 'Operaciones' && column.header !== 'Activo' && column.header !== 'Permiso'">
                             {{column.cell(row)}}
                         </div>
                     </td>
