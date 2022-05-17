@@ -61,39 +61,14 @@ export class RolesPopUpComponent {
     this.modulesToSend = this.data.modulos
 
     this.form = new FormGroup({
-      name: new FormControl({ value: (this.data.nombre) ? this.data.nombre : '', disabled: false }),
-      description: new FormControl({ value: (this.data.descripcion) ? this.data.descripcion : '', disabled: false }),
+      name: new FormControl({ value: (this.data.nombre) ? this.data.nombre : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      description: new FormControl({ value: (this.data.descripcion) ? this.data.descripcion : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       active: new FormControl({ value: (this.data.activo) ? this.data.activo : '', disabled: false }),
     });
   }
 
-
-  setModule(module: Module, id: string) {
-    const hasModule = !!this.modulesToSend.find((mod) => mod.id === id)
-    if (hasModule) {
-      this.modulesToSend = this.modulesToSend.filter((mod) => mod.id !== id)
-    } else {
-      this.modulesToSend.push(module)
-    }
-  }
-
-  buildPayload(id: string) {
-    const {
-      name,
-      description,
-      active
-    } = this.form.value
-    return {
-      id,
-      name,
-      description,
-      isActive: active,
-      modules: this.modulesToSend
-    }
-  }
-
   onClick() {
-    this.rolesService.updateRole(this.data.id, this.buildPayload(this.data.id)).subscribe(
+    this.rolesService.updateRole(this.data.id, this.form.value.active).subscribe(
       () => {
         this.dialogRef.close();
     },

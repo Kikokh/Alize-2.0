@@ -32,7 +32,7 @@ export class RolesService {
     return this._http.get<IElementDataRoles[]>(this._baseUrl, this.httpOptions)
   }
 
-  updateRole(id: string, payload: IElementDataRoles) {
-    return this._http.put<void>(`${this._baseUrl}/${id}`, payload, this.httpOptions)
+  updateRole(id: string, active: boolean) {
+    return this._http.put<void>(`${this._baseUrl}/${id}?enabled=${active}`, this.httpOptions)
   }
 }
