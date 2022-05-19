@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, HostListener, ElementRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { ThemeEnum } from 'src/app/scss-variables/models/theme.enum';
@@ -25,6 +25,7 @@ export class SideBarCollapsedComponent implements OnInit {
     private _router: Router,
     private _globalStylesService: GlobalStylesService,
     private _optionMenuService: OptionMenuService,
+    private elementRef: ElementRef
   ) {
 
     this._optionMenuService.getCollapsedSideBarMenu().subscribe(menuList => {
@@ -62,6 +63,14 @@ export class SideBarCollapsedComponent implements OnInit {
     optionMenu.showMenuItem(optionMenu);
     optionMenu.ShowSubMenuForSelectedOption(optionMenu, this.itemSelected);
     // optionMenu.selectMenuActive(optionMenu, this.optionList);
+  }
+
+  @HostListener("document:click", ['$event.target'])
+  clickedOut(target: HTMLElement) {
+    const clickedInside = this.elementRef.nativeElement.contains(target);
+    if (!clickedInside) {
+      this.menu.resetMainMenuStatesVisibleAndEnable(this.optionList);
+    }
   }
 
   navigate(module: any) {
