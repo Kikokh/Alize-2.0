@@ -52,18 +52,21 @@ export class SideBarExpandedComponent implements OnInit {
 
   showSubMenu(i: number, name: string, route: any) {
 
-    this.menu.resetMainMenuStatesVisibleAndEnable(this.optionList);
-
     if (name === 'Inicio') {
       this._router.navigate([route]);
       this._optionMenuService.setActiveMenuItem(this.optionList[0]);
     }
 
-    var optionMenu = this.menu.getOption(name, this.optionList);
+    const optionMenu = this.menu.getOption(name, this.optionList);
 
-    optionMenu.showMenuItem(optionMenu);
-    optionMenu.ShowSubMenuForSelectedOption(optionMenu, this.itemSelected);
-    optionMenu.selectMenuActive(optionMenu, this.optionList);
+    if (!optionMenu.isSelected && !optionMenu.isVisible) {
+      this.menu.resetMainMenuStatesVisibleAndEnable(this.optionList);
+      optionMenu.showMenuItem(optionMenu);
+      optionMenu.ShowSubMenuForSelectedOption(optionMenu, this.itemSelected);
+      optionMenu.selectMenuActive(optionMenu, this.optionList);
+    } else {
+      this.menu.resetMainMenuStatesVisibleAndEnable(this.optionList);
+    }
 
   }
 
