@@ -1,4 +1,4 @@
-﻿using Alize.Platform.Data.Models;
+﻿using Alize.Platform.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

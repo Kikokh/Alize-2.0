@@ -1,4 +1,4 @@
-﻿using Alize.Platform.Data.Models;
+﻿using Alize.Platform.Core.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Alize.Platform.Api.Requests.Companies

@@ -9,8 +9,8 @@ using Alize.Platform.Api.Responses.Blockchains;
 using Alize.Platform.Api.Responses.Companies;
 using Alize.Platform.Api.Responses.Modules;
 using Alize.Platform.Api.Responses.Roles;
-using Alize.Platform.Data.Models;
-using Alize.Platform.Services.Models;
+using Alize.Platform.Api.Responses.Templates;
+using Alize.Platform.Core.Models;
 using AutoMapper;
 
 namespace Alize.Platform.Api.Mapping
@@ -44,7 +44,12 @@ namespace Alize.Platform.Api.Mapping
 
             CreateMap<Blockchain, BlockchainResponse>();
 
-            CreateMap<Asset, AssetResponse>(); 
+            CreateMap<Asset, AssetResponse>();
+
+            CreateMap<TemplateField, TemplateFieldResponse>();
+            CreateMap<TemplateColumn, TemplateColumnResponse>();
+            CreateMap<ApplicationTemplate, ApplicationTemplateResponse>();
+            CreateMap<ApplicationAssetTemplate, ApplicationAssetTemplateResponse>();
         }
     }
 }

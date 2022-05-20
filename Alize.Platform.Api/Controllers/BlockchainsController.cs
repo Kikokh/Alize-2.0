@@ -1,5 +1,5 @@
 ﻿using Alize.Platform.Api.Responses.Blockchains;
-using Alize.Platform.Data.Repositories;
+using Alize.Platform.Infrastructure.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +16,7 @@ namespace Alize.Platform.Api.Controllers
 
         public BlockchainsController(IBlockchainRepository blockchainRepository, IMapper mapper)
         {
-            _blockchainRepository = blockchainRepository;
+            _blockchainRepository = blockchainRepository;            
             _mapper = mapper;
         }
 
