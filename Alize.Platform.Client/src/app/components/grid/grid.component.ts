@@ -83,7 +83,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.displayedColumns = [...this.columns.map(c => c.columnDef), 'Operaciones'];;
+    this.displayedColumns = [...this.columns.map(c => c.columnDef), 'Operaciones'];
     if (this.entity === EntityType.APPLICATIONS) {
       this.subTitle = 'Listado de Aplicaciones';
     } else if (this.entity === EntityType.COMPANIES) {
@@ -137,8 +137,12 @@ export class GridComponent implements OnInit, AfterViewInit {
 
 
   showDialog(data: any, optionName: ModePopUpType) {
-    if (this.entity === EntityType.REQUEST && data.Nombre === 'Calidad Mapex') {
-      this.route.navigate(['/request-report']);
+    if (this.entity === EntityType.REQUEST) {
+      const params = {
+        id: data.id
+      }
+
+      this.route.navigate(['/request-report', params]);
     } else {
       this._openPopUpService.open(this.entity, optionName, data);
       this._openPopUpService.afterClosed().subscribe(val => {

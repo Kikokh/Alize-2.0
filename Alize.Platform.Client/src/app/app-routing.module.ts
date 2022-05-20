@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home/home.component';
 import { LoginComponent } from './pages/login/login/login.component';
 import { FilterRowComponent } from './Templates/filter-row/filter-row.component';
+import { ReportComponent } from './Templates/report/report.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,7 @@ const routes: Routes = [
     // loadChildren: () => import('./pages/home/home/home.module').then(m => m.HomeModule)
   },
   {
-    path: 'request-report', component: FilterRowComponent
+    path: 'request-report', component: ReportComponent
     // loadChildren: () => import('./pages/home/home/home.module').then(m => m.HomeModule)
   },
   {

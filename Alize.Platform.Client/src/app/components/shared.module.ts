@@ -48,7 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ApplicationGroupPopUpComponent,
     GroupsPopUpComponent,
     ModulesPopUpComponent,
-    GridSkeletonComponent
+    GridSkeletonComponent,
   ],
   imports: [
     CommonModule,

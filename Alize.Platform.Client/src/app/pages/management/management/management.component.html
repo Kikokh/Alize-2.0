@@ -3,9 +3,14 @@
         <div class="breadcrumb">
             <app-breadcrumb [componentName]="'Gestion'"></app-breadcrumb>
         </div>
-        <div class="grid">
-            <!-- <app-filter-row></app-filter-row> -->
+        <div *ngIf="!isLoading; else gridSkeleton">
             <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.REQUEST" [actions]="actions"></app-grid>
+
         </div>
+        <ng-template #gridSkeleton>
+            <div class="grid-skeleton">
+                <app-grid-skeleton></app-grid-skeleton>
+            </div>
+        </ng-template>
     </div>
 </div>
