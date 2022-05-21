@@ -11,8 +11,8 @@
 <div class="mat-dialog-content-group" mat-dialog-content *ngIf="data.mode === 'GROUP'">
     <ng-container *ngFor="let user of userList">
         <mat-checkbox class="example-margin" name="active" formControlName="active"
-            [disabled]="user.status === 'Disabled'" [checked]="user.status === 'Active'">
-            {{user.name}}
+            [disabled]="user.isActive === false" [checked]="user.isActive === true">
+            {{user.firstName}}  {{user.lastName}}
         </mat-checkbox>
     </ng-container>
 </div>
