@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { catchError, finalize, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
+import { IUser } from 'src/app/models/user.model';
 export class LoginData {
   email: string;
   password: string;
@@ -44,6 +45,26 @@ export class LoginService {
         this._localStorageService.addItem('token', data.accessToken);
         this._isLogguedIn$.next(true);
         console.log(data.accessToken);
+      }),
+      finalize(() => {
+        this.progressSpinnerService.close();
+      })
+    );
+  }
+
+  me(): Observable<IUser> {
+    let user: IUser;
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'accept': '*/*'
+      })
+    };
+    this.progressSpinnerService.open();
+    return this._http.get<any>(`${this._baseUrl}/Users/Me`, httpOptions).pipe(
+      tap(data => {
+        user = data;
       }),
       finalize(() => {
         this.progressSpinnerService.close();

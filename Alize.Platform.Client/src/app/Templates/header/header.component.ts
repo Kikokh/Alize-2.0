@@ -11,16 +11,11 @@ export class HeaderModel {
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   headerModel = new HeaderModel()
   constructor() { 
     this.headerModel.companyName = 'KH Vives';
     this.headerModel.appName = 'Calidad Mapex';
     this.headerModel.description = 'Registro planes de control sistema mapex';
   }
-
-  ngOnInit(): void {
-    console.log(this.headerModel);
-  }
-
 }

@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { OptionSelected } from '../../filter-row/filter-row.component';
 
 @Component({
   selector: 'app-text-box',
@@ -8,6 +9,16 @@ import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 export class TextBoxComponent {
   @Input() text: string;
   @Input() cssClass: string;
+  @Output() outputEvent: EventEmitter<OptionSelected> = new EventEmitter<OptionSelected>();
+
   constructor() { }
 
+  changeFn(event: any) {
+    this.outputEvent.emit(
+      new OptionSelected(
+        this.text,
+        event.target.value
+      )
+    )
+  }
 }

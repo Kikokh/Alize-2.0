@@ -20,6 +20,7 @@ namespace Alize.Platform.Api.Mapping
         public MappingProfile()
         {
             CreateMap<CreateApplicationRequest, Application>();
+            CreateMap<UpdateApplicationRequest, Application>();
             CreateMap<Application, ApplicationResponse>();
 
             CreateMap<UserUpdateRequest, User>();

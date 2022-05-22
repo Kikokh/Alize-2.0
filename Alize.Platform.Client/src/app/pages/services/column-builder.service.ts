@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { GridData, GridDataCompanies, GridDataRequest, GridDataRoles, GridDataUsers, IColumnDef, IElementDataApp as IElementDataApplications, IElementDataCompanies, IElementDataGroup, IElementDataModules, IElementDataRequest, IElementDataUsers } from 'src/app/components/models/column.models';
+import { GridData, GridDataCategoriMapex, GridDataCompanies, GridDataRequest, GridDataUsers, IColumnDef,
+  IElementDataApp as IElementDataApplications, IElementDataCategoriaMapex, IElementDataCompanies, IElementDataRoles, IElementDataModules, IElementDataRequest, IElementDataUsers } from 'src/app/components/models/column.models';
+
 
 const ELEMENT_DATA_APPLICATION: IElementDataApplications[] = [
   {
@@ -239,12 +241,84 @@ const COLUMN_DEFINITION_REQUEST: IColumnDef[] = [
   { columnDef: 'Permiso', header: 'Permiso', cell: (element: any) => `${element.Permiso}` },
 ]
 
+
+const COLUMN_DEFINITION_CALIDAD_MAPEX: IColumnDef[] = [
+  { columnDef: 'Id', header: 'ID del activo.', cell: (element: any) => `${element.Id}` },
+  { columnDef: 'Fecha', header: 'Fecha', cell: (element: any) => `${element.Fecha}` },
+  { columnDef: 'OrdenFabricacion', header: 'Orden de fabricación', cell: (element: any) => `${element.OrdenFabricacion}` },
+  { columnDef: 'Descripcion', header: 'Descripción', cell: (element: any) => `${element.Descripcion}` },
+  { columnDef: 'CodigoProducto', header: 'Código de producto', cell: (element: any) => `${element.CodigoProducto}` },
+  { columnDef: 'Maquina', header: 'Máquina', cell: (element: any) => `${element.Maquina}` },
+]
+
+const ELEMENT_DATA_CALIDAD_MAPEX: IElementDataCategoriaMapex[] = [
+  {
+    Id: "8a0573a2-4573-45a1-96ab-4b0233c1e0a4",
+    Fecha: "20/05/2022 19:04:57",
+    OrdenFabricacion: "2022-SEC09-1699-2022-3836",
+    Descripcion: "K0.FRAME15.BASKET.WIRE.BACKREST.EE.T1.T2.C9D.LEAR",
+    CodigoProducto: "190851190",
+    Maquina: "BM30"
+  },
+  {
+    Id: "0a0573a2-4573-45a1-96jo-4b0233c1e0a5",
+    Fecha: "21/05/2022 18:32:10",
+    OrdenFabricacion: "2022-SEC09-1687-2022-3821",
+    Descripcion: "VW216.RSB.BORDER.WIRE.1868mm.D4,5mm.PH.PROSEAT.",
+    CodigoProducto: "P51004032001",
+    Maquina: "BMS31"
+  },
+  {
+    Id: "1a0573a2-4573-45a1-96ab-4b0233c1e0a6",
+    Fecha: "22/05/2022 19:04:57",
+    OrdenFabricacion: "2022-SEC09-1699-2022-3840",
+    Descripcion: "K0.FRAME15.BASKET.WIRE.BACKREST.EE.T1.T2.C9D.LEAR",
+    CodigoProducto: "190852195",
+    Maquina: "BT 3.4 IZQDA"
+  },
+  {
+    Id: "2a0573a2-4573-45a1-96jo-4b0233c1e0a7",
+    Fecha: "23/05/2022 18:32:10",
+    OrdenFabricacion: "2022-SEC09-1687-2022-3851",
+    Descripcion: "VW216.RSB.BORDER.WIRE.1868mm.D4,5mm.PH.PROSEAT.",
+    CodigoProducto: "P51004038970",
+    Maquina: "BUCH GRANDE"
+  },
+  {
+    Id: "3a0573a2-4573-45a1-96ab-4b0233c1e0a8",
+    Fecha: "24/05/2022 19:04:57",
+    OrdenFabricacion: "2022-SEC09-1699-2022-3867",
+    Descripcion: "K0.FRAME15.BASKET.WIRE.BACKREST.EE.T1.T2.C9D.LEAR",
+    CodigoProducto: "190859999",
+    Maquina: "SOLD.MAG/RESIS TICE"
+  },
+  {
+    Id: "4a0573a2-4573-45a1-96jo-4b0233c1e0a9",
+    Fecha: "25/05/2022 18:32:10",
+    OrdenFabricacion: "2022-SEC03-1687-2022-3899",
+    Descripcion: "VW216.RSB.BORDER.WIRE.1868mm.D4,5mm.PH.PROSEAT.",
+    CodigoProducto: "P51004067435",
+    Maquina: "NUMALL R2108"
+  },
+
+]
+
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class ColumnBuilderService {
   emelemnt_data: IElementDataApplications[];
   constructor() { }
+
+
+  getDataCalidadMapex(): Observable<GridDataCategoriMapex> {
+    let gridData = new GridDataCategoriMapex();
+    gridData.columnDef = COLUMN_DEFINITION_CALIDAD_MAPEX;
+    gridData.data = ELEMENT_DATA_CALIDAD_MAPEX;
+    return of(gridData);
+  }
 
   getApplicationData(): Observable<GridData> {
     let gridData = new GridData();

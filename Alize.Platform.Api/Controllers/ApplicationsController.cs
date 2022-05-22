@@ -73,9 +73,9 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(Guid id, [FromBody] Application application)
+        public async Task<IActionResult> Put(Guid id, [FromBody] UpdateApplicationRequest request)
         {
-            if (id != application.Id)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace Alize.Platform.Api.Controllers
             if (await _applicationRepository.GetApplicationAsync(id) is null)
                 return NotFound();
 
-            await _applicationRepository.UpdateApplicationAsync(application);
+            await _applicationRepository.UpdateApplicationAsync(_mapper.Map<Application>(request));
 
             return NoContent();
         }

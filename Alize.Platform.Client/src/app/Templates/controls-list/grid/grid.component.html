@@ -1,14 +1,4 @@
 <div>
-    <div class="filter">
-        <mat-form-field appearance="standard">
-            <mat-label>Filter</mat-label>
-            <input matInput #input>
-        </mat-form-field>
-        <button mat-raised-button color="accent">
-            Buscar
-        </button>
-    </div>
-
     <table mat-table matSort #sort="matSort" [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container *ngFor="let column of columns; let i = index" matColumnDef="{{column.columnDef}}">
             <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>{{column.header}}</th>

@@ -2,11 +2,11 @@
     <mat-drawer-container autosize>
         <mat-drawer #drawer [ngClass]="getSideBarStyles()" mode="side">
             <app-side-bar-collapsed [hidden]="isSideBarExpander"></app-side-bar-collapsed>
-            <app-side-bar-expanded [hidden]="!isSideBarExpander"></app-side-bar-expanded>
+            <app-side-bar-expanded [user]="user" [hidden]="!isSideBarExpander"></app-side-bar-expanded>
         </mat-drawer>
 
         <mat-drawer-content [ngClass]="getContentStyles()">
-            <app-nav-bar></app-nav-bar>
+            <app-nav-bar [user]="user"></app-nav-bar>
             <div class="main-container-page">
                 <router-outlet></router-outlet>
             </div>

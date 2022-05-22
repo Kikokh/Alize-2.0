@@ -57,6 +57,20 @@ export interface IElementDataUsers {
     Activo: boolean;
 }
 
+export interface IElementDataCategoriaMapex {
+    Id: string;
+    Fecha: string;
+    OrdenFabricacion: string;
+    Descripcion: string;
+    CodigoProducto: string;
+    Maquina: string;
+}
+
+export class GridDataCategoriMapex {
+    columnDef: IColumnDef[];
+    data: IElementDataCategoriaMapex[];
+}
+
 export interface IOperationsModel {
     optionName: ModePopUpType;
     icon: string;

@@ -1,8 +1,13 @@
 export class FilterModel {
     label: string;
     type: ControlType;
+    valueSelected: string;
     dropdownValues?: DropdownValues[];
-    constructor(_label: string, _type: ControlType, _dropdownValues?: DropdownValues[]) {
+    constructor(
+        _label: string, 
+        _type: ControlType, 
+        _valueSelected: string,
+        _dropdownValues?: DropdownValues[]) {
         this.label = _label;
         this.type = _type;
         this.dropdownValues = _dropdownValues;

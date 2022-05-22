@@ -1,10 +1,11 @@
 ﻿using Alize.Platform.Data.Models;
 
-namespace Alize.Platform.Api.Responses.Applications
+namespace Alize.Platform.Api.Requests.Applications
 {
-    public class ApplicationResponse
-  {
+    public class UpdateApplicationRequest
+    {
         public Guid Id { get; set; }
+
         public string Name { get; set; }
 
         public string? Description { get; set; }
@@ -17,9 +18,12 @@ namespace Alize.Platform.Api.Responses.Applications
 
         public bool IsActive { get; set; }
 
+        public string? ApiId { get; set; }
+
+        public string? ApiKey { get; set; }
+
         public string? DataType { get; set; }
 
-        public string CompanyName => (Company is null) ? String.Empty : Company.Name;
-
-  }
+        public ICollection<User>? Users { get; set; }
+    }
 }
