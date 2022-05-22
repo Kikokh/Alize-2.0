@@ -15,9 +15,11 @@ namespace Alize.Platform.Core.Models
         [StringLength(100)]
         public string? Description { get; set; }
 
+        public DateTime CreationDate { get; set; } = DateTime.Now;
+
         public Company? Company { get; set; }
 
-        [ForeignKey("Company")]
+        [ForeignKey("Companies")]
         public Guid? CompanyId { get; set; }
 
         public bool IsActive { get; set; } = false;

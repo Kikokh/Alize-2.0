@@ -21,10 +21,17 @@ namespace Alize.Platform.Infrastructure.Repositories
                     .Companies
                     .Where(c => userRole == Roles.AdminPro || c.Id == user.CompanyId || (userRole == Roles.Distributor && c.ParentCompanyId == user.CompanyId))
                     .SelectMany(c => c.Applications)
+                    .Include(x => x.Company)
                     .ToListAsync();
         }
 
-        public async Task<Application?> GetApplicationAsync(Guid id) => await _dbContext.Applications.FindAsync(id);
+        public async Task<Application?> GetApplicationAsync(Guid id) {
+            return await _dbContext.Applications
+                .AsNoTracking()
+                .Include(x => x.Company)
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+        }
 
         public async Task<Application> UpdateApplicationAsync(Application application)
         {

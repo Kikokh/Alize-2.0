@@ -129,11 +129,13 @@ export class OpenPopUpService {
       case ModePopUpType.EDIT: {
         matDialogConfigModel.component = ApplicationPopUpComponent;
         matDialogConfigModel.data = {
-          nombre: data.Nombre,
-          description: data.Descripcion,
+          id: data.id,
+          name: data.name,
+          description: data.description,
           fecha: new Date(),
-          Activo: data.Activo,
-          isActive: data.Activo,
+          creationDate: data.creationDate,
+          dataType: data.dataType,
+          isActive: data.isActive,
           mode: mode
         }
         break;
@@ -141,11 +143,13 @@ export class OpenPopUpService {
       case ModePopUpType.DISPLAY: {
         matDialogConfigModel.component = ApplicationPopUpComponent;
         matDialogConfigModel.data = {
-          nombre: data.Nombre,
-          description: data.Descripcion,
+          id: data.id,
+          name: data.name,
+          description: data.description,
           fecha: new Date(),
-          Activo: data.Activo,
-          isActive: data.Activo,
+          creationDate: data.creationDate,
+          dataType: data.dataType,
+          isActive: data.isActive,
           mode: mode
         }
         break;
