@@ -25,7 +25,6 @@ export class PasswordService {
     this.progressSpinnerService.open();
     return this._http.put<any>(`${this._baseUrl}/Users/Me/Password`, body).pipe(
       tap(data => {
-        console.log(data);
       }),
       finalize(() => {
         this.progressSpinnerService.close();

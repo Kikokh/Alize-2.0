@@ -41,7 +41,6 @@ export class GroupsPopUpComponent {
       activo: boolean;
     },
     public translate: TranslateService) {
-      console.log(this.data);
     const lang = localStorage.getItem('lang');
     if (lang !== null) {
       this.translate.setDefaultLang(lang);

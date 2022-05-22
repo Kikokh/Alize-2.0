@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { OptionSelected } from '../../filter-row/filter-row.component';
 import { DropdownValues } from '../../models/filters.model';
 
 @Component({
@@ -6,13 +7,20 @@ import { DropdownValues } from '../../models/filters.model';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss']
 })
-export class SelectComponent implements AfterViewInit {
+export class SelectComponent {
   @Input() text: string;
   @Input() cssClass: string;
   @Input() dropdownValues: DropdownValues[];
+  @Output() outputEvent: EventEmitter<OptionSelected> = new EventEmitter<OptionSelected>();
 
   constructor() { }
-  ngAfterViewInit(): void {
-    console.log('dropdownValues',this.dropdownValues);
+
+  select(event: any) {
+    this.outputEvent.emit(
+      new OptionSelected(
+        this.text,
+        event.value
+      )
+    );
   }
 }

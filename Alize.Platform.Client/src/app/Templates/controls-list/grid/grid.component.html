@@ -2,11 +2,11 @@
     <div class="filter">
         <mat-form-field appearance="standard">
             <mat-label>Filter</mat-label>
-            <input matInput #input>
+            <input matInput (keyup)="applyFilter($event)" #input>
         </mat-form-field>
-        <button mat-raised-button color="accent">
+        <!-- <button mat-raised-button color="accent">
             Buscar
-        </button>
+        </button> -->
     </div>
 
     <table mat-table matSort #sort="matSort" [dataSource]="dataSource" class="mat-elevation-z8">

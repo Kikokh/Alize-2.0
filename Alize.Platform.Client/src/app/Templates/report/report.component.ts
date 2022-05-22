@@ -18,7 +18,7 @@ export class ReportComponent implements OnInit {
   constructor(private _columnBuilderService: ColumnBuilderService) { }
 
   ngOnInit(): void {
-    this._columnBuilderService.getApplicationData().subscribe(gridData => {
+    this._columnBuilderService.getDataCalidadMapex().subscribe(gridData => {
       this.dataSource = new MatTableDataSource(gridData.data);
       this.columns = gridData.columnDef;
       this.isLoading = false;
