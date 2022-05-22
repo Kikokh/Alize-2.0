@@ -1,4 +1,5 @@
 import { ModePopUpType } from "../pop-up/models/entity-type.enum";
+import {Module} from "../../models/module.model";
 
 /** Constants used to fill up our data base. */
 export interface IElementDataApp {
@@ -37,6 +38,14 @@ export interface IElementDataModules {
     Descripcion: string;
     Grupo: string;
     Activo: boolean;
+}
+
+export interface IElementDataRoles {
+  id: string;
+  name: string;
+  description: string;
+  isActive: boolean;
+  modules: Module[];
 }
 
 export interface IElementDataUsers {
@@ -96,4 +105,10 @@ export class GridDataUsers {
 export class GridDataRequest {
     columnDef: IColumnDef[];
     data: IElementDataRequest[];
+}
+
+
+export class GridDataRoles {
+    columnDef: IColumnDef[];
+    data: IElementDataRoles[];
 }

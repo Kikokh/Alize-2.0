@@ -1,7 +1,7 @@
 export enum EntityType {
     'USERS' = 'USERS',
     'APPLICATIONS' = 'APPLICATIONS',
-    'GROUPS' = 'GROUPS',
+    'ROLES' = 'ROLES',
     'MODULES' = 'MODULES',
     'COMPANIES' = 'COMPANIES',
     'REQUEST' = 'REQUEST'

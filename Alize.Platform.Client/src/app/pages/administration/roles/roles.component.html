@@ -1,0 +1,10 @@
+<div class="main-container">
+    <div class="page-container">
+        <div class="breadcrumb">
+            <app-breadcrumb [componentName]="'Grupos'"></app-breadcrumb>
+        </div>
+        <div class="grid" ng-if="elementData.length > 0">
+            <app-grid #dataTable [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.ROLES" [actions]="actions"></app-grid>
+        </div>
+    </div>
+</div>

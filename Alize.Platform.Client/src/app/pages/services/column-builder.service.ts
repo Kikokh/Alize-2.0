@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { GridData, GridDataCategoriMapex, GridDataCompanies, GridDataRequest, GridDataUsers, IColumnDef, 
-  IElementDataApp as IElementDataApplications, IElementDataCategoriaMapex, IElementDataCompanies, IElementDataGroup, IElementDataModules, IElementDataRequest, IElementDataUsers } from 'src/app/components/models/column.models';
+import { GridData, GridDataCategoriMapex, GridDataCompanies, GridDataRequest, GridDataUsers, IColumnDef,
+  IElementDataApp as IElementDataApplications, IElementDataCategoriaMapex, IElementDataCompanies, IElementDataRoles, IElementDataModules, IElementDataRequest, IElementDataUsers } from 'src/app/components/models/column.models';
+
 
 const ELEMENT_DATA_APPLICATION: IElementDataApplications[] = [
   {
@@ -22,24 +23,6 @@ const ELEMENT_DATA_APPLICATION: IElementDataApplications[] = [
 const ELEMENT_DATA_COMPANIES: IElementDataCompanies[] = [
   {
     Id: 1, Nombre: 'KH Vives', Descripcion: 'Descripcion 1', Activo: true
-  },
-];
-
-const ELEMENT_DATA_GROUPS: IElementDataGroup[] = [
-  {
-    Id: 1, Nombre: 'Administrador Pro', Descripcion: 'Los administradores pro tienen acceso completo y sin restricciones a la plataforma', Activo: true
-  },
-  {
-    Id: 2, Nombre: 'Distribuidor', Descripcion: 'Los distribuidores tienen acceso completo y sin restricciones en su empresa y empresas clientes que haya dado de alta	', Activo: false
-  },
-  {
-    Id: 3, Nombre: 'Administrador', Descripcion: 'Los administradores tienen acceso completo y sin restricciones dentro de su empresa	', Activo: true
-  },
-  {
-    Id: 4, Nombre: 'Usuario', Descripcion: 'Los usuarios pueden acceder a la mayoria de opciones de la plataforma y no pueden hacer cambios accidentales o intencionados	', Activo: true
-  },
-  {
-    Id: 5, Nombre: 'Invitado', Descripcion: 'Los invitados tienen el acceso limitado a las consultas que se le han asignado	', Activo: true
   },
 ];
 
@@ -193,16 +176,16 @@ const ELEMENT_DATA_USERS: IElementDataUsers[] = [
 
 const ELEMENT_DATA_REQUEST: IElementDataRequest[] = [
   {
-    Id: 1, 
-    Nombre: 'Calidad Mapex', 
-    Descripcion: 'Registro planes de control sistema mapex', 
+    Id: 1,
+    Nombre: 'Calidad Mapex',
+    Descripcion: 'Registro planes de control sistema mapex',
     Empresa: 'KH Vives',
     Permiso: true
   },
   {
-    Id: 2, 
-    Nombre: 'Montaje parabrisas', 
-    Descripcion: 'Secuenciación parabrisas ford', 
+    Id: 2,
+    Nombre: 'Montaje parabrisas',
+    Descripcion: 'Secuenciación parabrisas ford',
     Empresa: 'KH Vives',
     Permiso: true
   },
@@ -221,6 +204,24 @@ const COLUMN_DEFINITION_COMPANIES: IColumnDef[] = [
   { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.Nombre}` },
   { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: any) => `${element.Descripcion}` },
   { columnDef: 'Activo', header: 'Activo', cell: (element: any) => `${element.Activo}` },
+  { columnDef: 'Operaciones', header: 'Operaciones', cell: (element: any) => `${element.Operaciones}` },
+]
+
+const COLUMN_DEFINITION_ROLES: IColumnDef[] = [
+  { columnDef: 'Id', header: 'No.', cell: (element: any) => `${element.id}` },
+  { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.name}` },
+  { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: any) => `${element.description}` },
+  { columnDef: 'Activo', header: 'Activo', cell: (element: any) => `${element.isActive}` },
+  { columnDef: 'Operaciones', header: 'Operaciones', cell: (element: any) => `${element.Operaciones}` },
+]
+
+const COLUMN_DEFINITION_MODULOS: IColumnDef[] = [
+  { columnDef: 'Id', header: 'No.', cell: (element: any) => `${element.Id}` },
+  { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.Nombre}` },
+  { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: any) => `${element.Descripcion}` },
+  { columnDef: 'Grupos', header: 'Grupos', cell: (element: any) => `${element.Grupo}` },
+  { columnDef: 'Activo', header: 'Activo', cell: (element: any) => `${element.Activo}` },
+  { columnDef: 'Operaciones', header: 'Operaciones', cell: (element: any) => `${element.Operaciones}` },
 ]
 
 const COLUMN_DEFINITION_USUARIOS: IColumnDef[] = [
@@ -299,7 +300,7 @@ const ELEMENT_DATA_CALIDAD_MAPEX: IElementDataCategoriaMapex[] = [
     CodigoProducto: "P51004067435",
     Maquina: "NUMALL R2108"
   },
-  
+
 ]
 
 
@@ -330,13 +331,6 @@ export class ColumnBuilderService {
     let gridData = new GridDataCompanies();
     gridData.columnDef = COLUMN_DEFINITION_COMPANIES;
     gridData.data = ELEMENT_DATA_COMPANIES;
-    return of(gridData);
-  }
-
-  getGroupsData(): Observable<GridDataCompanies> {
-    let gridData = new GridDataCompanies();
-    gridData.columnDef = COLUMN_DEFINITION_COMPANIES;
-    gridData.data = ELEMENT_DATA_GROUPS;
     return of(gridData);
   }
 
