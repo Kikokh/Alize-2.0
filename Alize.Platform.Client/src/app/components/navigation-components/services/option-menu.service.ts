@@ -1,138 +1,82 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { IMenu } from '../models/menu';
+import { MenuItem } from '../models/menu';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OptionMenuService {
-  optionList: IMenu[];
-  subMenuItemListSelected = new BehaviorSubject<IMenu[]>(new Array<IMenu>());
+  subMenuItemListSelected = new BehaviorSubject<MenuItem[]>(new Array<MenuItem>());
+  _menuItemSelected$ = new BehaviorSubject<MenuItem>(new MenuItem('', '', false, false, '', '', '', new Array<MenuItem>()));
+  menuItemSelected$ = this._menuItemSelected$.asObservable();
 
   constructor() {
-
-    this.optionList = [
-      {
-        name: 'Inicio',
-        menuName: 'Inicio',
-        isSelected: true,
-        isVisible: false,
-        route: 'home/index',
-        breadcrumb: 'inicio',
-        icon: 'house',
-        subMenu: []
-      },
-      {
-        name: 'Administracion',
-        isSelected: false,
-        isVisible: false,
-        menuName: 'Aplicaciones',
-        route: 'administration/applications',
-        breadcrumb: 'BreadcrumbAplicaciones',
-        icon: 'settings',
-        subMenu: [
-          {
-            name: 'Aplicaciones',
-            menuName: 'Aplicaciones',
-            isSelected: false,
-            isVisible: false,
-            route: 'administration/applications',
-            breadcrumb: 'BreadcrumbAplicaciones',
-            icon: 'home',
-            subMenu: []
-          },
-          {
-            name: 'Empresas',
-            menuName: 'Empresas',
-            isSelected: false,
-            isVisible: false,
-            route: 'administration/companies',
-            breadcrumb: 'BreadcrumbEmpresas',
-            icon: 'home',
-            subMenu: []
-          },
-          {
-            name: 'Roles',
-            menuName: 'Roles',
-            isSelected: false,
-            isVisible: false,
-            route: 'administration/roles',
-            breadcrumb: 'BreadcrumbRoles',
-            icon: 'home',
-            subMenu: []
-          },
-          {
-            name: 'Modulos',
-            menuName: 'Modulos',
-            isSelected: false,
-            isVisible: false,
-            route: 'administration/modules',
-            breadcrumb: 'BreadcrumbModulos',
-            icon: 'home',
-            subMenu: []
-          },
-          {
-            name: 'Usuarios',
-            menuName: 'Usuarios',
-            isSelected: false,
-            isVisible: false,
-            route: 'administration/users',
-            breadcrumb: 'BreadcrumbUsuarios',
-            icon: 'home',
-            subMenu: []
-          },
-          {
-            name: 'Roles',
-            menuName: 'Roles',
-            isSelected: false,
-            isVisible: false,
-            route: 'administration/roles',
-            breadcrumb: 'BreadcrumbRoles',
-            icon: 'home',
-            subMenu: []
-          },
-        ]
-      },
-      {
-        name: 'Gestion',
-        menuName: 'Consultas',
-        isSelected: false,
-        isVisible: false,
-        route: 'management/requests',
-        breadcrumb: 'BreadcrumbConsultas',
-        icon: 'edit_note',
-        subMenu: [
-          {
-            name: 'Consultas',
-            menuName: 'Consultas',
-            isSelected: false,
-            isVisible: false,
-            route: 'management/requests',
-            breadcrumb: 'BreadcrumbConsultas',
-            icon: 'home',
-            subMenu: []
-          }
-        ]
-      }
-    ];
   }
 
 
-  getMenu(): Observable<IMenu[]> {
-    return of(this.optionList);
+  private createSideBarMenu(): MenuItem[] {
+    const optionList = new Array<MenuItem>();
+
+    const homeMenuOption = new MenuItem('Inicio', 'Inicio', true,
+      false, 'home', 'house', 'inicio', []);
+
+    let subMenuAdministrationList = new Array<MenuItem>();
+    subMenuAdministrationList.push(
+      new MenuItem('Aplicaciones', 'Aplicaciones', false,
+        false, 'administration/applications', 'circle', 'BreadcrumbAplicaciones', []),
+      new MenuItem('Empresas', 'Empresas', false,
+        false, 'administration/companies', 'circle', 'BreadcrumbEmpresas', []),
+      new MenuItem('Roles', 'Grupos', false,
+        false, 'administration/roles', 'circle', 'BreadcrumbRoles', []),
+      new MenuItem('Modulos', 'Modulos', false,
+        false, 'administration/modules', 'circle', 'BreadcrumbModulos', []),
+      new MenuItem('Usuarios', 'Usuarios', false,
+        false, 'administration/users', 'circle', 'BreadcrumbUsuarios', [])
+    );
+    const administrationMenuOption = new MenuItem('Administracion', 'Aplicaciones',
+      false, false, 'administration/applications', 'settings', 'BreadcrumbAplicaciones',
+      subMenuAdministrationList
+    );
+
+
+    let subMenuManagementList = new Array<MenuItem>();
+    subMenuManagementList.push(
+      new MenuItem('Consultas', 'Consultas', false,
+        false, 'management/requests', 'circle', 'BreadcrumbConsultas', [])
+    );
+
+    const managementMenuOption = new MenuItem('Gestion', 'Consultas',
+      false, false, 'management/requests', 'edit_note', 'BreadcrumbConsultas',
+      subMenuManagementList
+    );
+
+    optionList.push(
+      homeMenuOption, administrationMenuOption, managementMenuOption
+    );
+
+    return optionList;
+  }
+
+  getExpandedSideBarMenu(): Observable<MenuItem[]> {
+    return of(this.createSideBarMenu());
+  }
+
+  getCollapsedSideBarMenu(): Observable<MenuItem[]> {
+    return of(this.createSideBarMenu());
   }
 
   getBreadCrumb(name: string): Observable<string> {
+    let optionList = this.createSideBarMenu();
     var menuSelected = '';
 
-    var isHeadMenu = this.optionList
+    var isHeadMenu = optionList
       .filter(opt => opt.menuName === name);
 
     if (isHeadMenu.length > 0) {
-      return of(this.optionList.filter(x => x.menuName === name)[0].breadcrumb);
+      return of(optionList.filter(x => x.menuName === name)[0].breadcrumb);
     };
 
-    this.optionList.forEach(opt => {
+    optionList.forEach(opt => {
       if (opt.subMenu.length > 0) {
         opt.subMenu.forEach(subMenu => {
           if (subMenu.menuName === name) {
@@ -146,7 +90,11 @@ export class OptionMenuService {
     return of(menuSelected);
   }
 
-  showSubMenuCollapsed(itemListSelected: IMenu[]) {
+  showSubMenuCollapsed(itemListSelected: MenuItem[]) {
     this.subMenuItemListSelected.next(itemListSelected);
+  }
+
+  setActiveMenuItem(menuItem: MenuItem) {
+    this._menuItemSelected$.next(menuItem)
   }
 }

@@ -19,7 +19,7 @@ export class NavBarComponent {
   currentLang: string;
   isExpanded = true;
   materialTheme = new MaterialTheme();
-  isSideBarCollapsedEnabler = false;
+  isSideBarCollapsedEnabler = true;
   private dialogRef: MatDialogRef<PasswordUserPopUpComponent>;
 
   constructor(

@@ -1,0 +1,17 @@
+$background-color-main: #e0e0e0;
+$background-color-second: #c9c9c9;
+$background-color-custom: linear-gradient(to right, #80c1f2 0%, #7c9ef2 100%);
+
+.skeleton {
+    animation: skeleton 0.5s linear infinite alternate;
+}
+
+@keyframes skeleton {
+    0% {
+        background-color: $background-color-main;
+    }
+
+    100% {
+        background-color: $background-color-second;
+    }
+}

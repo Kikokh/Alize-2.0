@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { GridData, GridDataCompanies, GridDataUsers, GridDataRoles, IColumnDef, IElementDataApp as IElementDataApplications, IElementDataCompanies, IElementDataGroup, IElementDataModules, IElementDataUsers } from 'src/app/components/models/column.models';
+import { GridData, GridDataCompanies, GridDataRequest, GridDataRoles, GridDataUsers, IColumnDef, IElementDataApp as IElementDataApplications, IElementDataCompanies, IElementDataGroup, IElementDataModules, IElementDataRequest, IElementDataUsers } from 'src/app/components/models/column.models';
 
 const ELEMENT_DATA_APPLICATION: IElementDataApplications[] = [
   {
@@ -172,6 +172,23 @@ const ELEMENT_DATA_USERS: IElementDataUsers[] = [
   },
 ];
 
+const ELEMENT_DATA_REQUEST: IElementDataRequest[] = [
+  {
+    Id: 1,
+    Nombre: 'Calidad Mapex',
+    Descripcion: 'Registro planes de control sistema mapex',
+    Empresa: 'KH Vives',
+    Permiso: true
+  },
+  {
+    Id: 2,
+    Nombre: 'Montaje parabrisas',
+    Descripcion: 'Secuenciación parabrisas ford',
+    Empresa: 'KH Vives',
+    Permiso: true
+  },
+];
+
 const COLUMN_DEFINITION_APPLICATION: IColumnDef[] = [
   { columnDef: 'Id', header: 'No.', cell: (element: any) => `${element.Id}` },
   { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.Nombre}` },
@@ -214,6 +231,14 @@ const COLUMN_DEFINITION_USUARIOS: IColumnDef[] = [
   { columnDef: 'Activo', header: 'Activo', cell: (element: any) => `${element.Activo}` }
 ]
 
+const COLUMN_DEFINITION_REQUEST: IColumnDef[] = [
+  { columnDef: 'Id', header: 'No.', cell: (element: any) => `${element.Id}` },
+  { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.Nombre}` },
+  { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: any) => `${element.Descripcion}` },
+  { columnDef: 'Empresa', header: 'Empresa', cell: (element: any) => `${element.Empresa}` },
+  { columnDef: 'Permiso', header: 'Permiso', cell: (element: any) => `${element.Permiso}` },
+]
+
 @Injectable({
   providedIn: 'root'
 })
@@ -239,6 +264,13 @@ export class ColumnBuilderService {
     let gridData = new GridDataUsers();
     gridData.columnDef = COLUMN_DEFINITION_USUARIOS;
     gridData.data = ELEMENT_DATA_USERS;
+    return of(gridData);
+  }
+
+  getRequestData(): Observable<GridDataRequest> {
+    let gridData = new GridDataRequest();
+    gridData.columnDef = COLUMN_DEFINITION_REQUEST;
+    gridData.data = ELEMENT_DATA_REQUEST;
     return of(gridData);
   }
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FilterRowComponent } from 'src/app/Templates/filter-row/filter-row.component';
 import { ManagementComponent } from '../management/management/management.component';
 import { ApplicationsComponent } from './applications/applications.component';
 import { CompaniesComponent } from './companies/companies.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'modules', component: ModulesComponent },
       { path: 'users', component: UsersComponent },
       { path: 'requests', component: ManagementComponent },
+      { path: 'filter', component: FilterRowComponent },
       { path: '**', redirectTo: 'applications' }
     ]
   }

@@ -1,4 +1,4 @@
-﻿using Alize.Platform.Data.Models;
+﻿using Alize.Platform.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +17,7 @@ namespace Alize.Platform.Api.Policies
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, ModuleRequirement requirement)
         {
-            if (context.User.Identity.IsAuthenticated)
+            if (context.User.Identity?.IsAuthenticated == true)
             {
                 var userRoleName = context.User.Claims.Single(c => c.Type == ClaimTypes.Role).Value;
                 var userRole = await _roleManager.Roles

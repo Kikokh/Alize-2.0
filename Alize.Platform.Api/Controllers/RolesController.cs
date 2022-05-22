@@ -1,6 +1,6 @@
 ﻿using Alize.Platform.Api.Responses.Roles;
-using Alize.Platform.Data.Constants;
-using Alize.Platform.Services;
+using Alize.Platform.Core.Constants;
+using Alize.Platform.Infrastructure;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

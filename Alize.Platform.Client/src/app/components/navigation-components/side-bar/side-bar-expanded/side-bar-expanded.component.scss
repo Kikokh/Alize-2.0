@@ -43,6 +43,51 @@
             }
         }
     }
+
+    .mat-list-expanded {
+
+        // padding: 0;
+        button {
+            width: 90%;
+            height: 50px;
+            display: flex;
+            font-size: 15px;
+
+            span {
+                margin-left: 15px;
+            }
+
+            .arrow {
+                position: absolute;
+                right: 10px;
+                top: 10px;
+            }
+        }
+
+        .sub-item-list {
+            padding: 0;
+            width: 95%;
+
+            .sub-menu {
+                cursor: pointer;
+                width: 100%;
+
+                mat-list-item {
+                    width: 100%;
+
+                    button {
+                        text-align: left;
+                        width: 100%;
+
+                        .menu-icon {
+                            font-size: 8px;
+                            padding-top: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 .dark-theme-title {
@@ -59,4 +104,9 @@
 
 .main-theme-subtitle {
     color: mat-color($my-primary);
+}
+
+.active {
+    border-right: 4px solid aqua;
+    opacity: 0.6;
 }

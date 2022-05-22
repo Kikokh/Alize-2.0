@@ -1,0 +1,19 @@
+<div class="header-container">
+    <div class="header-up">
+        <div class="header">{{headerModel.companyName}} | {{headerModel.appName}}</div>
+        <div class="find">
+            <form class="example-form">
+                <mat-form-field class="example-full-width" appearance="outline" color="accent">
+                    <mat-label>Buscar por Id</mat-label>
+                    <input type="text" matInput>
+                </mat-form-field>
+                <button mat-raised-button color="accent">
+                    Buscar
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="header-down">
+        {{headerModel.description}}
+    </div>
+</div>

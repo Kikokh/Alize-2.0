@@ -1,8 +1,8 @@
 ﻿using Alize.Platform.Api.Requests.Modules;
 using Alize.Platform.Api.Responses.Modules;
-using Alize.Platform.Data.Constants;
-using Alize.Platform.Data.Models;
-using Alize.Platform.Data.Repositories;
+using Alize.Platform.Core.Constants;
+using Alize.Platform.Core.Models;
+using Alize.Platform.Infrastructure.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

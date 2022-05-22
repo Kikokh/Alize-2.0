@@ -17,6 +17,14 @@ export interface IElementDataCompanies {
     Activo: boolean;
 }
 
+export interface IElementDataRequest {
+    Id: number;
+    Nombre: string;
+    Descripcion: string;
+    Empresa: string;
+    Permiso: boolean;
+}
+
 export interface IElementDataGroup {
     Id: number;
     Nombre: string;
@@ -79,6 +87,12 @@ export class GridDataUsers {
     columnDef: IColumnDef[];
     data: IElementDataUsers[];
 }
+
+export class GridDataRequest {
+    columnDef: IColumnDef[];
+    data: IElementDataRequest[];
+}
+
 
 export class GridDataRoles {
     columnDef: IColumnDef[];

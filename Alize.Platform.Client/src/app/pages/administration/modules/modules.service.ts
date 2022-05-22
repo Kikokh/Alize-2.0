@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ModulesService {
 
-  private _baseUrl = `${environment.apiUrl}/Modules`
+  private _baseUrl = `${environment.apiUrl}/Modules`;
 
   constructor(private _http: HttpClient) { }
 

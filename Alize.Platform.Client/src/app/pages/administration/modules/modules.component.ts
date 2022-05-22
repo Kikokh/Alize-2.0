@@ -21,6 +21,7 @@ export class ModulesComponent implements OnInit {
     { optionName: ModePopUpType.DISPLAY, icon: 'search' }
   ]
 
+  isLoading = true;
   get entity(): EntityType {
     return EntityType.MODULES;
   }
@@ -29,7 +30,10 @@ export class ModulesComponent implements OnInit {
 
   ngOnInit() {
     this._moduleService.getModules().subscribe(
-      modules => this.elementData = modules
+      modules =>{
+        this.isLoading = false; 
+        this.elementData = modules; 
+      }
     );
   }
 }
