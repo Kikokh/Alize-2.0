@@ -4,7 +4,9 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
 import { NavigationService } from 'src/app/components/navigation-components/services/navigation.service';
 import { MaterialTheme } from 'src/app/models/theme.model';
+import { IUser } from 'src/app/models/user.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
+import { LoginService } from '../../login/services/login.service';
 
 @Component({
   selector: 'app-layout',
@@ -16,11 +18,12 @@ export class LayoutComponent implements OnInit {
   isSideBarExpander = true;
   @ViewChild('drawer', { static: true }) public sideBar!: MatDrawer;
   materialTheme = new MaterialTheme();
-  
+  user: IUser;
   constructor(
     private _navigationService: NavigationService, 
     private _globalStylesService: GlobalStylesService,
     public overlayContainer: OverlayContainer,
+    public _loginService: LoginService,
     public translate: TranslateService) {
     this.translate.addLangs(['es', 'en']);
 
@@ -37,6 +40,11 @@ export class LayoutComponent implements OnInit {
     this._navigationService.isSideBarExpanded.subscribe(isSideBarExpander => {
       this.isSideBarExpander = isSideBarExpander;
     });
+
+    this._loginService.me().subscribe(user => {
+      this.user = user;
+    });
+
     this._globalStylesService.theme.subscribe(value => {
       this.materialTheme.isDarkMode = (value === 'dark-theme');
       this.materialTheme.isPrimaryMain = (value === 'main-theme');

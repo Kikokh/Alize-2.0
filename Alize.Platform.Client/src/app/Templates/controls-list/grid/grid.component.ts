@@ -30,6 +30,9 @@ export class GridComponent implements AfterViewInit, OnInit {
     OrdenFabricacion: '',
     CodigoProducto: '',
     Maquina: '',
+    Id: '',
+    Fecha: '',
+    Descripcion: '',
   };
 
 
@@ -60,13 +63,6 @@ export class GridComponent implements AfterViewInit, OnInit {
       if (ultimaOrdenFabricacion || ultimoCodigoProducto || ultimaMaquina) {
         this.dataSource.filter = JSON.stringify(this.filterValues);
       }
-
-      // if ((ultimaOrdenFabricacion !== undefined && (ultimaOrdenFabricacion && ultimaOrdenFabricacion.value === '') 
-      //   && ultimoCodigoProducto !== undefined && (ultimoCodigoProducto && ultimoCodigoProducto.value === '')
-      //   && ultimaMaquina !== undefined && (ultimaMaquina && ultimaMaquina.value === ''))) {
-      //   this.resetFilters();
-      // }
-
     });
   }
 
@@ -74,15 +70,6 @@ export class GridComponent implements AfterViewInit, OnInit {
     this.dataSource.sort = this.sort;
     this.dataSource.filterPredicate = this.createFilter();
   }
-
-   // Reset table filters
-  //  resetFilters() {
-  //   this.dataSource.filter = JSON.stringify({
-  //     OrdenFabricacion: '',
-  //     CodigoProducto: '',
-  //     Maquina: '',
-  //   });
-  // }
 
   createFilter(): (data: any, filter: string) => boolean {
     let filterFunction = function(data: any, filter: any): boolean {
@@ -96,6 +83,14 @@ export class GridComponent implements AfterViewInit, OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.filterValues.CodigoProducto = filterValue.trim().toLowerCase();
+    this.filterValues.OrdenFabricacion = filterValue.trim().toLowerCase();
+    this.filterValues.Maquina = filterValue.trim().toLowerCase();
+    this.filterValues.Id = filterValue.trim().toLowerCase();
+    this.filterValues.Fecha = filterValue.trim().toLowerCase();
+    this.filterValues.Descripcion = filterValue.trim().toLowerCase();
+
+
+    this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 }
