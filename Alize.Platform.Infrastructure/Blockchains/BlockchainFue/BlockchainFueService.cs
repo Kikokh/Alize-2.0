@@ -87,7 +87,7 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
             };
 
             httpClient.DefaultRequestHeaders.Add("X-App-Id", _applicationCredentials.Username);
-            httpClient.DefaultRequestHeaders.Add("X-App-Key", _cryptographyService.DecryptString(_applicationCredentials.EncriptedPassword));
+            httpClient.DefaultRequestHeaders.Add("X-App-Key", _applicationCredentials.EncriptedPassword);
 
             return httpClient;
         }

@@ -94,7 +94,7 @@ namespace Alize.Platform.Infrastructure
                     ApplicationId = Guid.Parse("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"),
                     BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
                     Username = "60ffbe3ef24524680871dc75",
-                    EncriptedPassword = "CfDJ8Ev1k98Oc-dJts7S6Q8ReyFv4Fl-MgnGTR_5FPbmr5EbDDueJq6i94N8UWVtaLrafR3iGRpaeOQElfGtScjFyTQ8167WRfnjij-J8i6oJezkgiVAF8-ozQzSlnqOTPPRtArl_traKRJNE7JdXwHoNBc_ldSgiob-LV7ZSttrOKSl2cgvO20hL617N1ex2vX9zx0jbDm1UfYhtEZvJWTlnXU"
+                    EncriptedPassword = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436"
                 });
         }
         private void SeedCompanies(ModelBuilder builder)
