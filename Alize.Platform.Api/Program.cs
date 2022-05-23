@@ -84,7 +84,6 @@ builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
 builder.Services.AddScoped<IBlockchainRepository, BlockchainRepository>();
 builder.Services.AddScoped<ITemplateRespository, TemplateRespository>();
 builder.Services.AddScoped<ISecurityService, SecurityService>();
-builder.Services.AddScoped<IBlockChainService, BlockChainFueService>();
 builder.Services.AddScoped<ICryptographyService, CryptographyService>();
 builder.Services.AddScoped<IBlockchainFactory, BlockchainFactory>();
 
@@ -137,9 +136,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("Default");
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors("Default");
 
 //app.MapHangfireDashboard();
 app.MapControllers();

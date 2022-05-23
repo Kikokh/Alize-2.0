@@ -33,7 +33,8 @@ import { SharedModule } from '../components/shared.module';
   ],
   exports: [
     FilterRowComponent,
-    HeaderComponent
+    HeaderComponent,
+    DynamicHostDirective
   ]
 })
 export class TemplatesModule { }

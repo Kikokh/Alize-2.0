@@ -1,21 +1,25 @@
-import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, of, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { OptionSelected } from '../filter-row/filter-row.component';
+import { ApplicationTemplate } from '../models/application-template.model';
+import { AssetTemplate } from '../models/asset-template.model';
 import { ControlType, DropdownValues, FilterModel } from '../models/filters.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TemplatesService {
+  private _filteredControl$ = new Subject<FilterModel>();
+  private _baseUrl = environment.apiUrl
+  private _findRecord$ = new Subject<OptionSelected[]>();
   filterList = new Subject<FilterModel[]>();
   controlList = new Array<FilterModel>();
-  _filteredControl$ = new Subject<FilterModel>();
   filteredControls$ = this._filteredControl$.asObservable();
-
-  private _findRecord$ = new Subject<OptionSelected[]>();
   findControl$ = this._findRecord$.asObservable();
 
-  constructor() {
+  constructor(private _http: HttpClient) {
     this.controlList.push(
       new FilterModel('Orden de Fabricacion', ControlType.TEXTBOX, ''),
       new FilterModel('Codigo de producto', ControlType.TEXTBOX, ''),
@@ -52,6 +56,14 @@ export class TemplatesService {
 
   getFilterOptionObs(): Observable<FilterModel[]> {
     return of(this.controlList);
+  }
+
+  getApplicationTemplate(applicationId: string): Observable<ApplicationTemplate> {
+    return this._http.get<ApplicationTemplate>(`${this._baseUrl}/Applications/${applicationId}/Templates`)
+  }
+
+  getAssetTemplate(applicationId: string): Observable<AssetTemplate> {
+    return this._http.get<AssetTemplate>(`${this._baseUrl}/Applications/${applicationId}/Templates/Asset`)
   }
 
   getFilterOption(): FilterModel[] {

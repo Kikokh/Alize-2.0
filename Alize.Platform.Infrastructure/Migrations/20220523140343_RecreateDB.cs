@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Alize.Platform.Infrastructure.Migrations
 {
-    public partial class RecreateDb : Migration
+    public partial class RecreateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -119,6 +119,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false)
                 },
@@ -332,11 +333,11 @@ namespace Alize.Platform.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "IsActive", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"), "8eaf7a80-d6fc-4404-9ee2-f4d569672015", "Los administradores pro tienen acceso completo y sin restricciones a la plataforma", true, "Administrador Pro", "ADMINISTRADOR PRO" },
-                    { new Guid("33dde250-ddde-42db-a4b9-5a2355082391"), "ac46f85f-c80f-4cf7-979d-e3e4aa3837f6", "Los usuarios pueden acceder a la mayoria de opciones de la plataforma y no pueden hacer cambios accidentales o intencionados", true, "Usuario", "USUARIO" },
-                    { new Guid("33dde740-ddde-42db-a4b9-5a2355082391"), "c13c62b9-36e1-469f-96fb-4da9aed1e1f4", "Los invitados tienen el acceso limitado a las consultas que se le han asignado", true, "Invitado", "INVITADO" },
-                    { new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"), "d7ccbfdd-3538-41ca-88a4-b22a32457095", "Los distribuidores tienen acceso completo y sin restricciones en su empresa y empresas clientes que haya dado de alta", true, "Distribuidor", "DISTRIBUIDOR" },
-                    { new Guid("caddad05-120f-48a8-b659-ff4528e5df97"), "ee95d641-3b5a-4efb-948b-52f0ae4c7b0c", "Los administradores tienen acceso completo y sin restricciones dentro de su empresa", true, "Administrador", "ADMINISTRADOR" }
+                    { new Guid("2c5e174e-3b0e-446f-86af-483d56fd7210"), "78dca994-16a7-4035-85e5-c34417079a94", "Los administradores pro tienen acceso completo y sin restricciones a la plataforma", true, "Administrador Pro", "ADMINISTRADOR PRO" },
+                    { new Guid("33dde250-ddde-42db-a4b9-5a2355082391"), "1594f95c-8fc3-4ef2-82fd-16e353558c3f", "Los usuarios pueden acceder a la mayoria de opciones de la plataforma y no pueden hacer cambios accidentales o intencionados", true, "Usuario", "USUARIO" },
+                    { new Guid("33dde740-ddde-42db-a4b9-5a2355082391"), "8f892861-79c3-4e25-bc89-a6a07eaf2664", "Los invitados tienen el acceso limitado a las consultas que se le han asignado", true, "Invitado", "INVITADO" },
+                    { new Guid("8e445865-a24d-4543-a6c6-9443d048cdb9"), "199eb939-1fb5-42bf-bbd6-4340395f66f6", "Los distribuidores tienen acceso completo y sin restricciones en su empresa y empresas clientes que haya dado de alta", true, "Distribuidor", "DISTRIBUIDOR" },
+                    { new Guid("caddad05-120f-48a8-b659-ff4528e5df97"), "0d85fa04-e2b2-4fba-8a38-996ed70a628e", "Los administradores tienen acceso completo y sin restricciones dentro de su empresa", true, "Administrador", "ADMINISTRADOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -375,16 +376,16 @@ namespace Alize.Platform.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Applications",
-                columns: new[] { "Id", "CompanyId", "Description", "IsActive", "Name" },
-                values: new object[] { new Guid("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"), new Guid("e8528a43-2a9d-44dd-b1c9-e37777ad0644"), "Registro planes de control sistema mapex", true, "Calidad mapex" });
+                columns: new[] { "Id", "CompanyId", "CreationDate", "Description", "IsActive", "Name" },
+                values: new object[] { new Guid("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"), new Guid("e8528a43-2a9d-44dd-b1c9-e37777ad0644"), new DateTime(2022, 5, 23, 11, 3, 42, 804, DateTimeKind.Local).AddTicks(8935), "Registro planes de control sistema mapex", true, "Calidad mapex" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "CompanyId", "ConcurrencyStamp", "Email", "EmailConfirmed", "EntryDate", "FirstName", "IsActive", "LastName", "LeavingDate", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Pin", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("1c822965-eb67-4092-9cf7-cf62806d5395"), 0, new Guid("554bc4f7-46a9-4a87-a52e-6ca79e24986c"), "b2f2ded5-ff8c-4af4-a82a-3ca6d5b6b220", "test@admin.com", true, null, "Test", true, "Admin", null, false, null, "TEST@ADMIN.COM", "TESTADMIN", "AQAAAAEAACcQAAAAEJrTXbLVW9tzOHmIA0e23WharLH/CskHqI5zLob44Qwnvmvf9c4lsOaauvRwD2lLjg==", null, false, null, null, false, "testadmin" },
-                    { new Guid("95ada776-f3e1-42db-aa39-382f91b74cd4"), 0, new Guid("554bc4f7-46a9-4a87-a52e-6ca79e24986c"), "e9aa8b20-8d55-472d-8e0c-da028e672cb6", "test@user.com", true, null, "Test", true, "User", null, false, null, "TEST@USER.COM", "TESTUSER", "AQAAAAEAACcQAAAAEOi/JP7UTnL06STk5HT0LJidHSK8IBNV+rKT8Fgl6Ua5VE+O2Siwwk3Pq5Htk5xJYA==", null, false, null, null, false, "testuser" }
+                    { new Guid("1c822965-eb67-4092-9cf7-cf62806d5395"), 0, new Guid("554bc4f7-46a9-4a87-a52e-6ca79e24986c"), "8ef14a4a-aa37-441a-9a18-45c33a12223e", "test@admin.com", true, null, "Test", true, "Admin", null, false, null, "TEST@ADMIN.COM", "TESTADMIN", "AQAAAAEAACcQAAAAEPf07Liz170iYOKFppNKKTDnNe4u/NuE0Jp0PvQbwkS2gwA+ruR2xpjtpUhR6xf9nw==", null, false, null, null, false, "testadmin" },
+                    { new Guid("95ada776-f3e1-42db-aa39-382f91b74cd4"), 0, new Guid("554bc4f7-46a9-4a87-a52e-6ca79e24986c"), "27be32c3-315c-44f0-b024-fdaaf20edbc1", "test@user.com", true, null, "Test", true, "User", null, false, null, "TEST@USER.COM", "TESTUSER", "AQAAAAEAACcQAAAAENB1g0VVtu0Mu03Ogza+R9XV7St6y7bvlw2GkmarYqOA/oQEOS8T/7iSvurcrHNMlg==", null, false, null, null, false, "testuser" }
                 });
 
             migrationBuilder.InsertData(

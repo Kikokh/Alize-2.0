@@ -1,4 +1,5 @@
-﻿using Alize.Platform.Data.Models;
+﻿
+using Alize.Platform.Core.Models;
 
 namespace Alize.Platform.Api.Responses.Applications
 {

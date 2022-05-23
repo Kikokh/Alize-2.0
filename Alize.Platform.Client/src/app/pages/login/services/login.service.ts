@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { catchError, finalize, map, tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
 import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
 import { IUser } from 'src/app/models/user.model';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { environment } from 'src/environments/environment';
 export class LoginData {
   email: string;
   password: string;
@@ -21,9 +21,11 @@ export interface ILoginData {
   providedIn: 'root'
 })
 export class LoginService {
-  private _isLogguedIn$ = new BehaviorSubject<boolean>(false);
   private _baseUrl = environment.apiUrl;
-  isLogguedIn$ = this._isLogguedIn$.asObservable();
+
+  get isLoggedin() {
+    return this._localStorageService.getItem('token')
+  }
 
   constructor(
     public progressSpinnerService: ProgressSpinnerService,
@@ -43,13 +45,15 @@ export class LoginService {
     return this._http.post<any>(`${this._baseUrl}/Users/Login`, loginData, httpOptions).pipe(
       tap(data => {
         this._localStorageService.addItem('token', data.accessToken);
-        this._isLogguedIn$.next(true);
-        console.log(data.accessToken);
       }),
       finalize(() => {
         this.progressSpinnerService.close();
       })
     );
+  }
+
+  logout(): void {
+    this._localStorageService.removeItem('token');
   }
 
   me(): Observable<IUser> {
@@ -71,11 +75,4 @@ export class LoginService {
       })
     );
   }
-
-  onInit() {
-    this._isLogguedIn$.next(true);
-  }
 }
-
-
- // jwtToken: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJPbmxpbmUgSldUIEJ1aWxkZXIiLCJpYXQiOjE2NTE3NTk5MjMsImV4cCI6MTY4MzI5NTkyMywiYXVkIjoid3d3LmV4YW1wbGUuY29tIiwic3ViIjoianJvY2tldEBleGFtcGxlLmNvbSIsIkdpdmVuTmFtZSI6IkpvaG5ueSIsIlN1cm5hbWUiOiJSb2NrZXQiLCJFbWFpbCI6Impyb2NrZXRAZXhhbXBsZS5jb20iLCJSb2xlIjpbIk1hbmFnZXIiLCJQcm9qZWN0IEFkbWluaXN0cmF0b3IiXX0.eX7IqlROvAdpyxsevBrBGIwHF23GkIk36s9tMY-u6QA'

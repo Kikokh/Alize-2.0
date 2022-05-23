@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alize.Platform.Api.Controllers
 {
-    [Route("api/Applications/{applicationId}/Blockchain/{blockchainId}/[controller]")]
+    [Route("api/Applications/{applicationId}/[controller]")]
     [ApiController]
     [Authorize(Policy = Modules.Queries)]
     public class AssetsController : ControllerBase
@@ -22,22 +22,22 @@ namespace Alize.Platform.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(Guid applicationId, Guid blockchainId, int? pageNumber = default, int? pageSize = default, bool isInverse = false)
+        public async Task<IActionResult> Get(Guid applicationId, [FromQuery] Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
         {
-            var service = await _blockchainFactory.CreateAsync(blockchainId, applicationId);
+            var service = await _blockchainFactory.CreateAsync(Guid.Parse(Blockchains.BlockchainFue), applicationId);
 
             if (service is null)
                 return NotFound();
 
-            var assets = await service.GetAssetsAsync(pageNumber, pageSize, isInverse);
+            var assets = await service.GetAssetsAsync(queries, pageSize, pageNumber);
 
             return Ok(_mapper.Map<IEnumerable<AssetResponse>>(assets));
         }
 
         [HttpGet("{assetId}")]
-        public async Task<IActionResult> Get(Guid applicationId, Guid blockchainId, string assetId)
+        public async Task<IActionResult> Get(Guid applicationId, string assetId)
         {
-            var service = await _blockchainFactory.CreateAsync(blockchainId, applicationId);
+            var service = await _blockchainFactory.CreateAsync(Guid.Parse(Blockchains.BlockchainFue), applicationId);
 
             if (service is null)
                 return NotFound();            
@@ -48,9 +48,9 @@ namespace Alize.Platform.Api.Controllers
         }
 
         [HttpGet("{assetId}/History")]
-        public async Task<IActionResult> GetHistory(Guid applicationId, Guid blockchainId, string assetId)
+        public async Task<IActionResult> GetHistory(Guid applicationId, string assetId)
         {
-            var service = await _blockchainFactory.CreateAsync(blockchainId, applicationId);
+            var service = await _blockchainFactory.CreateAsync(Guid.Parse(Blockchains.BlockchainFue), applicationId);
 
             if (service is null)
                 return NotFound();

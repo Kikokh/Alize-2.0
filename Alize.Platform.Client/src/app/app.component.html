@@ -1,7 +1,9 @@
-<app-layout *ngIf="_loginService.isLogguedIn$ | async; else login_template"></app-layout>
-
+<!-- <app-layout></app-layout> -->
+<!-- 
 <ng-template #login_template>
   <app-login></app-login>
-</ng-template>
+</ng-template> -->
+
+<router-outlet></router-outlet>
 
 <app-float-button></app-float-button>

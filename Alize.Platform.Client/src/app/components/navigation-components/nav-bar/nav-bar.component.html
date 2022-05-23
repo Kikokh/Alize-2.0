@@ -17,7 +17,7 @@
   <img src="../../../../assets/kh.png" alt="">
   
   <button color="accent" mat-button [matMenuTriggerFor]="menuUser">
-    {{user.email}}
+    {{user?.email}}
   </button>
 
   <mat-menu #menuUser="matMenu" xPosition="before" class="user-menu">

@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Application } from 'src/app/components/models/applications.model';
+import { Application } from 'src/app/models/application.model';
 import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
-import { ManagementService } from './management.service';
+import { ManagementService } from '../management.service';
 
 @Component({
   selector: 'app-management',
-  templateUrl: './management.component.html',
-  styleUrls: ['./management.component.scss']
+  templateUrl: './queries.component.html',
+  styleUrls: ['./queries.component.scss']
 })
-export class ManagementComponent implements OnInit {
+export class QueriesComponent implements OnInit {
   isLoading = true;
 
   displayedColumns: IColumnDef[]  = [

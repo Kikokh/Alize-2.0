@@ -49,7 +49,7 @@ export class MenuItem {
     }
 
     showMenuItemAmongModes(menuItem: MenuItem, optionList: MenuItem[], isCollapsed: boolean) {
-        const adminitrationList = ['Aplicaciones', 'Empresas', 'Grupos', 'Modulos', 'Usuarios']
+        const adminitrationList = ['Aplicaciones', 'Empresas', 'Roles', 'Modulos', 'Usuarios']
         if (!isCollapsed) {
             if (adminitrationList.includes(menuItem.name)) {
                 optionList[1].subMenu.forEach(sub => {
@@ -127,7 +127,7 @@ export class MenuItem {
     }
 
     selectMainMenuActive(option: MenuItem, optionList: MenuItem[]) {
-        const adminitrationList = ['Aplicaciones', 'Empresas', 'Grupos', 'Modulos', 'Usuarios']
+        const adminitrationList = ['Aplicaciones', 'Empresas', 'Roles', 'Modulos', 'Usuarios']
             if (adminitrationList.includes(option.name)) {
                 optionList[1].isSelected = true;
                 optionList[1].isVisible = true;

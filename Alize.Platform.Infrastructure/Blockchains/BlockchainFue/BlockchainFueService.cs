@@ -35,7 +35,7 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
             catch (HttpRequestException)
             {
                 return default;
-            }            
+            }
         }
 
         public async Task<IEnumerable<AssetHistory>> GetAssetHistoryAsync(string assetId)
@@ -57,20 +57,15 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
             }
         }
 
-        public async Task<IEnumerable<Asset>> GetAssetsAsync(int? pageNumber = default, int? pageSize = default, bool isInverse = false)
+        public async Task<IEnumerable<Asset>> GetAssetsAsync(Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
         {
-            var parameters = new Dictionary<string, object>();
+            var parameters = new {
+                page_num = pageNumber, 
+                per_page = pageSize,
+                data = queries.Where(q => q.Key != "pageSize" && q.Key != "pageNumber").ToDictionary(q => $"bc_data.{q.Key}", q => q.Value)
+            };
 
-            if (pageNumber.HasValue)
-                parameters.Add("page_num", pageNumber.Value);
-
-            if (pageSize.HasValue)
-                parameters.Add("per_page", pageSize.Value);
-
-            if (isInverse)
-                parameters.Add("inverse", isInverse);
-
-            var url = parameters.Any() ? $"asset?query={JsonSerializer.Serialize(parameters)}" : "asset";
+            var url = $"asset?query={JsonSerializer.Serialize(parameters)}";
 
             var response = await GetHttpClient().GetFromJsonAsync<FueAssetList>(url);
 
@@ -81,7 +76,7 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
                 CreatedAt = a.Data.CreatedAt,
                 Namespace = a.Data.Namespace,
                 Type = a.Data.Type
-            });            
+            });
         }
 
         private HttpClient GetHttpClient()

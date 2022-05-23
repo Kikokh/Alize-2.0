@@ -204,7 +204,6 @@ const COLUMN_DEFINITION_COMPANIES: IColumnDef[] = [
   { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.Nombre}` },
   { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: any) => `${element.Descripcion}` },
   { columnDef: 'Activo', header: 'Activo', cell: (element: any) => `${element.Activo}` },
-  { columnDef: 'Operaciones', header: 'Operaciones', cell: (element: any) => `${element.Operaciones}` },
 ]
 
 const COLUMN_DEFINITION_ROLES: IColumnDef[] = [

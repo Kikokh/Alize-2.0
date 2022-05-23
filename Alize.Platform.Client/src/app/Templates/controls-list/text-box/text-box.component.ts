@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FilterService } from 'src/app/services/filter.service';
 import { OptionSelected } from '../../filter-row/filter-row.component';
 
 @Component({
@@ -8,10 +9,12 @@ import { OptionSelected } from '../../filter-row/filter-row.component';
 })
 export class TextBoxComponent {
   @Input() text: string;
+  @Input() key: string;
   @Input() cssClass: string;
   @Output() outputEvent: EventEmitter<OptionSelected> = new EventEmitter<OptionSelected>();
+  value: any;
 
-  constructor() { }
+  constructor(private filterService: FilterService) { }
 
   changeFn(event: any) {
     this.outputEvent.emit(
@@ -19,6 +22,8 @@ export class TextBoxComponent {
         this.text,
         event.target.value
       )
-    )
+    );
+
+    this.filterService.addFilter(this.key, this.value);
   }
 }

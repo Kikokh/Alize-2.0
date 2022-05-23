@@ -66,7 +66,7 @@ export class GridComponent implements OnInit, AfterViewInit {
     public dialog: MatDialog,
     private _globalStylesService: GlobalStylesService,
     private _openPopUpService: OpenPopUpService,
-    private route: Router,
+    private _router: Router,
     private _snackBar: MatSnackBar,
     public translate: TranslateService) {
 
@@ -147,7 +147,7 @@ export class GridComponent implements OnInit, AfterViewInit {
         id: data.id
       }
 
-      this.route.navigate(['/request-report', params]);
+      this._router.navigate([`management/queries/${data.id}/assets`]);
     } else {
       this._openPopUpService.open(this.entity, optionName, data);
       this._openPopUpService.afterClosed().subscribe(val => {

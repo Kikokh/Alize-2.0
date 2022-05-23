@@ -42,7 +42,7 @@
                     <th [ngClass]="getColorHeaderTable()" mat-header-cell *matHeaderCellDef> Operaciones </th>
                     <td mat-cell class="operation-column" *matCellDef="let row">
                         <ng-container *ngFor="let action of actions">
-                            <button class="icon-button" mat-mini-fab color="primary"
+                            <button class="icon-button" mat-icon-button color="accent"
                                 (click)="showDialog(row, action.optionName)">
                                 <mat-icon>{{action.icon}}</mat-icon>
                             </button>

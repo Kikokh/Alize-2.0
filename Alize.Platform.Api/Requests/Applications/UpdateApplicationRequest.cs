@@ -1,4 +1,4 @@
-﻿using Alize.Platform.Data.Models;
+﻿using Alize.Platform.Core.Models;
 
 namespace Alize.Platform.Api.Requests.Applications
 {
@@ -11,8 +11,6 @@ namespace Alize.Platform.Api.Requests.Applications
         public string? Description { get; set; }
 
         public DateTime CreationDate { get; set; }
-
-        public Company? Company { get; set; }
 
         public Guid? CompanyId { get; set; }
 

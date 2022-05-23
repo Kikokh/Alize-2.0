@@ -26,7 +26,7 @@ export class OptionMenuService {
         false, 'administration/applications', 'circle', 'BreadcrumbAplicaciones', []),
       new MenuItem('Empresas', 'Empresas', false,
         false, 'administration/companies', 'circle', 'BreadcrumbEmpresas', []),
-      new MenuItem('Roles', 'Grupos', false,
+      new MenuItem('Roles', 'Roles', false,
         false, 'administration/roles', 'circle', 'BreadcrumbRoles', []),
       new MenuItem('Modulos', 'Modulos', false,
         false, 'administration/modules', 'circle', 'BreadcrumbModulos', []),
@@ -42,11 +42,11 @@ export class OptionMenuService {
     let subMenuManagementList = new Array<MenuItem>();
     subMenuManagementList.push(
       new MenuItem('Consultas', 'Consultas', false,
-        false, 'management/requests', 'circle', 'BreadcrumbConsultas', [])
+        false, 'management/queries', 'circle', 'BreadcrumbConsultas', [])
     );
 
     const managementMenuOption = new MenuItem('Gestion', 'Consultas',
-      false, false, 'management/requests', 'edit_note', 'BreadcrumbConsultas',
+      false, false, 'management/queries', 'edit_note', 'BreadcrumbConsultas',
       subMenuManagementList
     );
 
