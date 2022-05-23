@@ -1,13 +1,14 @@
 ﻿using Alize.Platform.Core;
 using Alize.Platform.Core.Constants;
 using Alize.Platform.Core.Models;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Alize.Platform.Infrastructure
 {
-    public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>
+    public class ApplicationDbContext : IdentityDbContext<User, Role, Guid>, IDataProtectionKeyContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -20,6 +21,7 @@ namespace Alize.Platform.Infrastructure
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Blockchain> Blockchains { get; set; }
         public virtual DbSet<ApplicationCredentials> ApplicationCredentials { get; set; }
+        public virtual DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -92,7 +94,7 @@ namespace Alize.Platform.Infrastructure
                     ApplicationId = Guid.Parse("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"),
                     BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
                     Username = "60ffbe3ef24524680871dc75",
-                    EncriptedPassword = "CfDJ8OVxN162SLRJjkJckx9xddOS9DkX9iWy4aWGRwkyP5gC7oh_kce92lm5dY4SXuL6bwrBmizWw7Gui12vSEsMV76wf77IQ7NAG9oTbocm5dMrjLBoh9LrIy2Jxvl2S77Hmg2cJXSzvoL_FzWiSItwdiZBlIvjlqaVNL6BFLOrvTiIc1vd-k9puf8eHr9oQ-BzwiN8E-m6J2sJFh57HfYRAYo"
+                    EncriptedPassword = "CfDJ8Ev1k98Oc-dJts7S6Q8ReyFv4Fl-MgnGTR_5FPbmr5EbDDueJq6i94N8UWVtaLrafR3iGRpaeOQElfGtScjFyTQ8167WRfnjij-J8i6oJezkgiVAF8-ozQzSlnqOTPPRtArl_traKRJNE7JdXwHoNBc_ldSgiob-LV7ZSttrOKSl2cgvO20hL617N1ex2vX9zx0jbDm1UfYhtEZvJWTlnXU"
                 });
         }
         private void SeedCompanies(ModelBuilder builder)
