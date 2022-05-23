@@ -1,4 +1,6 @@
-import { ChangeDetectorRef, Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { zip } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
@@ -22,11 +24,12 @@ import { AssetService } from './asset.service';
 })
 export class AssetsComponent implements OnInit {
   @ViewChild(DynamicHostDirective, { static: false }) dynamicHost: DynamicHostDirective;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   company: Company;
   application: Application
   assets: Asset[];
-  dataSource: Asset[];
+  dataSource = new MatTableDataSource<Asset>();
   template: ApplicationTemplate;
   isLoading = false;
   filters: Map<string, string>;
@@ -90,12 +93,16 @@ export class AssetsComponent implements OnInit {
       }
     });
 
+    this.paginator.page.subscribe(() => this.getData())
     this._filterService.filter$.subscribe(filters => this.filters = filters);
   }
 
   getData(): void {
-    this._assetService.getApplicationAssets(String(this._route.snapshot.paramMap.get('applicationId')), 1, 10, this.filters).subscribe(
-      resp => this.dataSource = resp.map(asset => ({ id: asset.id, ...asset.data }))
+    this._assetService.getApplicationAssets(String(this._route.snapshot.paramMap.get('applicationId')), this.paginator.pageIndex + 1, this.paginator.pageSize, this.filters).subscribe(
+      resp => {
+        this.dataSource.data = resp.assets.map(asset => ({ id: asset.id, ...asset.data }));
+        this.paginator.length = resp.total;
+      }
     );
   }
 }

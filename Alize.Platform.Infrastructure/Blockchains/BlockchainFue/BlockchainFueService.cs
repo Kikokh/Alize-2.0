@@ -57,7 +57,7 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
             }
         }
 
-        public async Task<IEnumerable<Asset>> GetAssetsAsync(Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
+        public async Task<AssetsPage?> GetAssetsPageAsync(Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
         {
             var parameters = new {
                 page_num = pageNumber, 
@@ -69,14 +69,17 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
 
             var response = await GetHttpClient().GetFromJsonAsync<FueAssetList>(url);
 
-            return response.Assets.Select(a => new Asset()
-            {
-                Id = a.Id,
-                Data = a.Data.BlockchainData,
-                CreatedAt = a.Data.CreatedAt,
-                Namespace = a.Data.Namespace,
-                Type = a.Data.Type
-            });
+            return new AssetsPage() {
+                Assets = response.Assets.Select(a => new Asset()
+                {
+                    Id = a.Id,
+                    Data = a.Data.BlockchainData,
+                    CreatedAt = a.Data.CreatedAt,
+                    Namespace = a.Data.Namespace,
+                    Type = a.Data.Type
+                }),
+                Total = response.Count.Total                
+            };
         }
 
         private HttpClient GetHttpClient()

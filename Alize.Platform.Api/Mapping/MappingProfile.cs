@@ -46,6 +46,7 @@ namespace Alize.Platform.Api.Mapping
             CreateMap<Blockchain, BlockchainResponse>();
 
             CreateMap<Asset, AssetResponse>();
+            CreateMap<AssetsPage, AssetsPageResponse>();
 
             CreateMap<TemplateField, TemplateFieldResponse>();
             CreateMap<TemplateColumn, TemplateColumnResponse>();

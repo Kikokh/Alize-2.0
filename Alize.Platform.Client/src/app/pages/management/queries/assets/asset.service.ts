@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AssetHistory } from 'src/app/models/asset-history.model';
 import { Asset } from 'src/app/models/asset.model';
+import { AssetsPage } from 'src/app/models/assets-page.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class AssetService {
 
   constructor(private _http: HttpClient) { }
 
-  getApplicationAssets(applicationId: string, pageNumber: number = 1, pageSize: number = 10, queryItems?: Map<string, string>): Observable<Asset[]> {
+  getApplicationAssets(applicationId: string, pageNumber: number = 1, pageSize: number = 10, queryItems?: Map<string, string>): Observable<AssetsPage> {
     let params: HttpParams = new HttpParams()
       .append('pageNumber', pageNumber)
       .append('pageSize', pageSize);
@@ -22,7 +23,7 @@ export class AssetService {
       params = params.append(key, value)
     });
 
-    return this._http.get<Asset[]>(`${this._baseUrl}/Applications/${applicationId}/Assets`, { params });
+    return this._http.get<AssetsPage>(`${this._baseUrl}/Applications/${applicationId}/Assets`, { params });
   }
 
   getApplicationAsset(applicationId: string, assetId: string): Observable<Asset> {

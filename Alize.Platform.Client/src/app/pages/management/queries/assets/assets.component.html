@@ -1,5 +1,4 @@
-
-<div *ngIf="!isLoading; else gridSkeleton" class="container">
+<div [hidden]="isLoading" class="container">
     <div class="header">
         <div class="titles">
             <h1 class="title">{{company?.name}} | {{application?.name}}</h1>
@@ -11,7 +10,7 @@
             <button matSuffix mat-raised-button color="accent" (click)="showDetails(assetId)">
                 Buscar
             </button>
-        </mat-form-field>        
+        </mat-form-field>
     </div>
     <div class="table">
         <h2 class="title">Ultimos activos publicados en <i>{{ application?.name }}</i></h2>
@@ -35,12 +34,8 @@
             </ng-container>
             <mat-header-row *matHeaderRowDef="rowDefs"></mat-header-row>
             <mat-row *matRowDef="let row; columns: rowDefs"></mat-row>
+
         </mat-table>
+        <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
     </div>
 </div>
-
-<ng-template #gridSkeleton>
-    <div class="grid-skeleton">
-        <app-grid-skeleton></app-grid-skeleton>
-    </div>
-</ng-template>

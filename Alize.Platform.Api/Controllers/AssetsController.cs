@@ -29,9 +29,9 @@ namespace Alize.Platform.Api.Controllers
             if (service is null)
                 return NotFound();
 
-            var assets = await service.GetAssetsAsync(queries, pageSize, pageNumber);
+            var assets = await service.GetAssetsPageAsync(queries, pageSize, pageNumber);
 
-            return Ok(_mapper.Map<IEnumerable<AssetResponse>>(assets));
+            return Ok(_mapper.Map<AssetsPageResponse>(assets));
         }
 
         [HttpGet("{assetId}")]
