@@ -6,6 +6,7 @@ namespace Alize.Platform.Api.Responses.Companies
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public bool IsActive { get; set; }
         public string? Activity { get; set; }
         public string? BusinessName { get; set; }
@@ -16,7 +17,7 @@ namespace Alize.Platform.Api.Responses.Companies
         public string Email { get; set; }
         public string? Web { get; set; }
         public string? ContactName { get; set; }
-        public byte[]? Logo { get; set; }
+        public string? Logo { get; set; }
         public string? ImageTypeMime { get; set; }
         public string? Address { get; set; }
         public string? Zip { get; set; }
@@ -24,6 +25,5 @@ namespace Alize.Platform.Api.Responses.Companies
         public string? Province { get; set; }
         public string? Country { get; set; }
         public string? GoogleMapsUrl { get; set; }
-        public Company? ParentCompany { get; set; }
     }
 }

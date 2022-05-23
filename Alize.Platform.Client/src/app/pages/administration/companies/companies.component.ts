@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IColumnDef, IElementDataApp, IElementDataCompanies, IOperationsModel } from 'src/app/components/models/column.models';
+import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
+import { Company } from 'src/app/components/models/company.model';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
-import { ColumnBuilderService } from '../../services/column-builder.service';
+import { CompaniesService } from './services/companies.service';
 
 @Component({
   selector: 'app-companies',
@@ -9,8 +10,14 @@ import { ColumnBuilderService } from '../../services/column-builder.service';
   styleUrls: ['./companies.component.scss', '../../layout-main.scss']
 })
 export class CompaniesComponent {
-  displayedColumns: IColumnDef[];
-  elementData: IElementDataCompanies[];
+  displayedColumns: IColumnDef[] = [
+    { columnDef: 'Id', header: 'No.', cell: (element: Company) => `${element.id}` },
+    { columnDef: 'Nombre', header: 'Nombre', cell: (element: Company) => `${element.name}` },
+    { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: Company) => (element.description) ? `${element.description}` : '' },
+    { columnDef: 'Activo', header: 'Activo', cell: (element: Company) => `${element.isActive}` }
+  ];
+  elementData: Company[];
+
   actions: IOperationsModel[] = [
     { optionName: ModePopUpType.DISPLAY, icon: 'search' },
     { optionName: ModePopUpType.EDIT, icon: 'edit_note' }
@@ -20,11 +27,9 @@ export class CompaniesComponent {
     return EntityType; 
   }
   
-  constructor(private _columnBuilderService: ColumnBuilderService) {
-    this._columnBuilderService.getCompaniesData().subscribe(gridData => {
-      this.elementData = gridData.data;
-      this.displayedColumns = gridData.columnDef;
+  constructor(private _companiesService: CompaniesService) {
+    this._companiesService.getCompanies().subscribe(companies => {
+      this.elementData = companies;
     });
   }
-
 }

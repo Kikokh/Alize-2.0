@@ -1,0 +1,96 @@
+<div class="main">
+    <div class="header">
+        <h1 class="title" mat-dialog-title>{{title | translate}}</h1>
+    </div>
+
+    <div class="mat-dialog-content" mat-dialog-content>
+        <form [formGroup]="form">
+            <div class="sub-container">
+            <div class="company-data">
+                <h3>{{"Datos" | translate}}</h3>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Nombre" | translate}}</mat-label>
+                    <input matInput name="name" formControlName="name">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Actividad" | translate}}</mat-label>
+                    <input matInput name="activity" formControlName="activity">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"RazonSocial" | translate}}</mat-label>
+                    <input matInput name="businessName" formControlName="businessName">
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Cif" | translate}}</mat-label>
+                    <input matInput name="cif" formControlName="cif">
+                </mat-form-field>
+                <div class="text-area">
+                <mat-form-field appearance="outline" [style.width.%]="70">
+                    <mat-label>{{"Descripcion" | translate}}</mat-label>
+                    <textarea matInput cdkAutosizeMinRows="5" cdkAutosizeMaxRows="7" name="description" formControlName="description"></textarea>
+                </mat-form-field>
+                </div>
+                <mat-checkbox class="example-margin" name="active" formControlName="active" [checked]="data.isActive">{{"Activo" | translate}}</mat-checkbox>
+            </div>
+            <div class="company-contact">
+                <h3>{{"Contacto" | translate}}</h3>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Idioma" | translate}}</mat-label>
+                    <input matInput name="language" formControlName="language">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Telefono" | translate}}</mat-label>
+                    <input matInput name="phoneNumber" formControlName="phoneNumber">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Email" | translate}}</mat-label>
+                    <input matInput name="email" formControlName="email">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Web" | translate}}</mat-label>
+                    <input matInput name="web" formControlName="web">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"NombreContacto" | translate}}</mat-label>
+                    <input matInput name="contactName" formControlName="contactName">                
+                </mat-form-field>
+            </div>
+            </div>
+            <div class="company-localization">
+                <h3>{{"Localizacion" | translate}}</h3>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Direccion" | translate}}</mat-label>
+                    <input matInput name="address" formControlName="address">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"CP" | translate}}</mat-label>
+                    <input matInput name="zip" formControlName="zip">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Ciudad" | translate}}</mat-label>
+                    <input matInput name="city" formControlName="city">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Provincia" | translate}}</mat-label>
+                    <input matInput name="province" formControlName="province">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"Pais" | translate}}</mat-label>
+                    <input matInput name="country" formControlName="country">                
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>{{"MapUrl" | translate}}</mat-label>
+                    <input matInput name="googleMapUrl" formControlName="googleMapUrl" (input)="actualizarUrl()">                
+                </mat-form-field>
+                <iframe [src] = "urlMap | safe" width="500" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </form>
+    </div>
+    <div class="mat-dialog-actions" mat-dialog-actions>
+        <div class="fill"></div>
+        <div class="buttons">
+            <button mat-raised-button (click)="close()">{{"Cerrar" | translate}}</button>
+            <button mat-raised-button color="accent" (click)="onClick()" *ngIf="data.mode !==  _modePopUpType.DISPLAY">{{"Guardar" | translate}}</button>
+        </div>
+    </div>
+</div>

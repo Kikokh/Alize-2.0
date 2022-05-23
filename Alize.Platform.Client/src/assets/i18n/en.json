@@ -76,5 +76,22 @@
     "TimerPopUpSubTitulo2":" the user will be disabled after 24H.",
     "TimerPopUpTextInfo": "Do you want to continue with the operation?",
     "VerModulo": "View Module",
-    "Controlador": "Controller"
+    "Controlador": "Controller",
+    "VerEmpresa": "View Company",
+    "EditarEmpresa": "Edit Company",
+    "Datos": "Data",
+    "Contacto": "Contact",
+    "Localizacion": "Localization",
+    "Actividad": "Activity",
+    "RazonSocial": "Bussiness Name",
+    "Cif": "CIF",
+    "Idioma": "Language",
+    "Telefono": "Phone Number",
+    "NombreContacto": "Contact Name",
+    "Direccion": "Address",
+    "CP": "Zip",
+    "Ciudad": "City",
+    "Provincia": "Province",
+    "Pais": "Country",
+    "MapUrl": "Map Url"
 }

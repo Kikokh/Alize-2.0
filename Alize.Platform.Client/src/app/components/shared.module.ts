@@ -24,6 +24,8 @@ import { ApplicationGroupPopUpComponent } from './pop-up/applications/applicatio
 import { RolesPopUpComponent } from './pop-up/roles/roles-pop-up/roles-pop-up.component';
 import { ModulesPopUpComponent } from './pop-up/modules/modules-pop-up/modules-pop-up.component';
 import { GridSkeletonComponent } from './skeleton/grid-skeleton/grid-skeleton.component';
+import { CompanyPopUpComponent } from './pop-up/companies/company-pop-up/company-pop-up.component';
+import { SafePipe } from '../pipes/safe.pipe';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -49,6 +51,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     RolesPopUpComponent,
     ModulesPopUpComponent,
     GridSkeletonComponent,
+    CompanyPopUpComponent,
+    SafePipe
   ],
   imports: [
     CommonModule,

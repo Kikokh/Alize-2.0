@@ -1,0 +1,68 @@
+.main {
+    width: 1200px;
+    height: auto;
+    .header {
+        .title {
+            border-bottom: 1px solid grey;
+            height: 40px;
+        }
+        .subtitle {
+            display: flex;
+            mat-icon {
+                padding-top: 8px;
+                font-size: 15px;
+            }
+
+            h5 {
+                font-size: 17px;
+            }
+        }
+    }
+    
+    .mat-dialog-content {
+
+        height: auto;
+    
+        form {
+            .sub-container {
+                width: 600px;
+                float: left;
+
+                .text-area {
+                    width: 100% !important;
+                    height: 80px;
+                }
+            }
+            .company-localization {
+                width: 600px;
+                float: right;
+            }
+            mat-form-field {
+                margin-left: 10px;
+                padding-top: 8px !important;
+                padding-bottom: 8px !important;
+            }
+
+            mat-checkbox {
+                margin-top: 20px;
+                margin-left: 10px;
+                margin-bottom: 20px;
+            }
+
+            h3 {
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        }
+    }
+    
+    
+    .mat-dialog-actions {
+        display: flex;
+    
+        .fill {
+            width: 70%;
+            height: 50px;
+        }
+    }
+}

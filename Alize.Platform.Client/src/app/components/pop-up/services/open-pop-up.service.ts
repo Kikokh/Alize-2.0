@@ -4,9 +4,11 @@ import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { Module } from 'src/app/models/module.model';
 import { IElementDataApp } from '../../models/column.models';
+import { Company } from '../../models/company.model';
 import { ProgressSpinnerComponent } from '../../progress-spinner/progress-spinner.component';
 import { ApplicationGroupPopUpComponent } from '../applications/application-group-pop-up/application-group-pop-up.component';
 import { ApplicationPopUpComponent } from '../applications/application-pop-up/application-pop-up.component';
+import { CompanyPopUpComponent } from '../companies/company-pop-up/company-pop-up.component';
 import { RolesPopUpComponent } from '../roles/roles-pop-up/roles-pop-up.component';
 import { EntityType, ModePopUpType } from '../models/entity-type.enum';
 import { MatDialogConfigModel } from '../models/request-pop-up.model';
@@ -66,6 +68,10 @@ export class OpenPopUpService {
       }
       case EntityType.MODULES: {
         this.resolveModulesPopUp(mode, matDialogConfigModel, data);
+        break;
+      }
+      case EntityType.COMPANIES: {
+        this.resolveCompaniesPopUp(mode, matDialogConfigModel, data);
         break;
       }
       default: {
@@ -233,6 +239,43 @@ export class OpenPopUpService {
         matDialogConfigModel.data = {
           nombre: data.Nombre,
         }
+        break;
+      }
+    }
+  }
+  resolveCompaniesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: Company) {
+    switch (mode) {
+      case ModePopUpType.DISPLAY: {
+        matDialogConfigModel.component = CompanyPopUpComponent;
+        matDialogConfigModel.data = {
+          id: data?.id,
+          name: data?.name,
+          description: data?.description,
+          isActive: data?.isActive,
+          activity: data?.activity,
+          businessName: data?.businessName,
+          cif: data?.cif,
+          comments: data?.comments,
+          language: data?.language,
+          phoneNumber: data?.phoneNumber,
+          email: data?.email,
+          web: data?.web,
+          contactName: data?.contactName,
+          logo: data?.logo,
+          imageTypeMime: data?.imageTypeMime,
+          address: data?.address,
+          zip: data?.zip,
+          city: data?.city,
+          province: data?.province,
+          country: data?.country,
+          googleMapsUrl: data?.googleMapsUrl,
+          mode: mode
+        }
+        break;
+      }
+      case ModePopUpType.EDIT: {
+        matDialogConfigModel.component = CompanyPopUpComponent;
+        matDialogConfigModel.data = data
         break;
       }
     }
