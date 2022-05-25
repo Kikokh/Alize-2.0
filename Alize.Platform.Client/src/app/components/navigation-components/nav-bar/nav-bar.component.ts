@@ -24,6 +24,10 @@ export class NavBarComponent {
   isSideBarCollapsedEnabler = true;
   private dialogRef: MatDialogRef<PasswordUserPopUpComponent>;
 
+  get img(): string {
+    return (this.user?.companyLogo);
+  }
+
   constructor(
     private _dialog: MatDialog,
     private _localStorageService : LocalStorageService,

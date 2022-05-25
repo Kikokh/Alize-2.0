@@ -1,4 +1,3 @@
-import { areAllEquivalent } from '@angular/compiler/src/output/output_ast';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MaterialTheme } from 'src/app/models/theme.model';
@@ -14,7 +13,8 @@ import { OptionMenuService } from '../../services/option-menu.service';
   styleUrls: ['./side-bar-expanded.component.scss']
 })
 export class SideBarExpandedComponent implements OnInit {
-  @Input() user : IUser
+  @Input() user: IUser;
+  imageSource: any;
   materialTheme = new MaterialTheme();
   optionList: MenuItem[] = [];
   menu = new MenuItem('', '', false, false, '', '', '', new Array<MenuItem>());
@@ -33,6 +33,9 @@ export class SideBarExpandedComponent implements OnInit {
     this._optionMenuService.getExpandedSideBarMenu().subscribe(menuList => {
       this.optionList = menuList;
     });
+  }
+  get img(): string {
+    return (this.user?.companyLogo);
   }
 
   ngOnInit(): void {
