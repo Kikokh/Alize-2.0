@@ -35,6 +35,11 @@ namespace Alize.Platform.Infrastructure.Repositories
             return await _context.Modules.ToListAsync();
         }
 
+        public async Task<IEnumerable<Module>> GetModulesForRoleAsync(string role)
+        {
+            return await _context.Modules.Where(m => m.Roles.Any(r => r.Name == role)).ToListAsync();
+        }
+
         public async Task<Module> UpdateModuleAsync(Module module)
         {
             _context.Update(module);

@@ -9,5 +9,6 @@ namespace Alize.Platform.Infrastructure.Repositories
         Task<Module?> GetModuleAsync(Guid id);
         Task<IEnumerable<Module>> GetModulesAsync();
         Task<Module> UpdateModuleAsync(Module module);
+        Task<IEnumerable<Module>> GetModulesForRoleAsync(string role);
     }
 }

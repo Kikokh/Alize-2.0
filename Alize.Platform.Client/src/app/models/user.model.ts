@@ -1,3 +1,5 @@
+import { Module } from "./module.model";
+
 export class IUser {
     companyLogo: string;
     companyName: string;
@@ -8,4 +10,5 @@ export class IUser {
     lastName: string;
     roleName: string;
     userName: string;
+    modules: Module[];
 }

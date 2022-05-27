@@ -45,50 +45,38 @@
         }
     }
 
-    .mat-list-expanded {
+    .nav-menu {
+        background-color: $blue-background;
+        color: mat-color($my-primary) !important;  
+        box-shadow: none;
 
-        // padding: 0;
-        button {
-            width: 90%;
-            height: 50px;
-            display: flex;
-            font-size: 15px;
-
-            span {
-                margin-left: 15px;
-            }
-
-            .arrow {
-                position: absolute;
-                right: 10px;
-                top: 10px;
+        .mat-expansion-panel-header-title {
+            color: mat-color($my-primary) !important;
+            
+            .mat-icon {
+                margin-right: 10px;
             }
         }
+        
+        &.mat-expanded .mat-expansion-panel-header {
+            border-right: 5px solid turquoise;
+            border-radius: 5px;
+        }
 
-        .sub-item-list {
-            padding: 0;
-            width: 95%;
-
-            .sub-menu {
-                cursor: pointer;
-                width: 100%;
-
-                mat-list-item {
-                    width: 100%;
-
-                    button {
-                        text-align: left;
-                        width: 100%;
-
-                        .menu-icon {
-                            font-size: 8px;
-                            padding-top: 15px;
-                        }
-                    }
-                }
-            }
+        .nav-option {
+            color: #fff;
+            text-decoration: none;
         }
     }
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+::ng-deep .nav-menu .mat-expansion-indicator::after {
+    color: mat-color($my-primary) !important;
 }
 
 .dark-theme-title {
@@ -105,9 +93,4 @@
 
 .main-theme-subtitle {
     color: mat-color($my-primary);
-}
-
-.active {
-    border-right: 4px solid aqua;
-    opacity: 0.6;
 }

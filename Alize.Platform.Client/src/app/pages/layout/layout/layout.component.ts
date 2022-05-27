@@ -19,7 +19,8 @@ export class LayoutComponent implements OnInit {
   @ViewChild('drawer', { static: true }) public sideBar!: MatDrawer;
   materialTheme = new MaterialTheme();
   user: IUser;
-  constructor(
+  
+  constructor( 
     private _navigationService: NavigationService, 
     private _globalStylesService: GlobalStylesService,
     public overlayContainer: OverlayContainer,
@@ -41,7 +42,7 @@ export class LayoutComponent implements OnInit {
       this.isSideBarExpander = isSideBarExpander;
     });
 
-    this._loginService.me().subscribe(user => {
+    this._loginService.$me.subscribe(user => {
       this.user = user;
     });
 

@@ -24,7 +24,7 @@ namespace Alize.Platform.Api.Policies
                     .Include(r => r.Modules)
                     .SingleAsync(r => userRoleName == r.Name);
 
-                if (userRole.Modules.Any(m => m.Name == requirement.Module))
+                if (userRole.Modules.Any(m => m.Name == requirement.Module && m.IsActive))
                     context.Succeed(requirement);
                 else
                     context.Fail();
