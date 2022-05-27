@@ -35,7 +35,7 @@ export class RolesPopUpComponent implements OnDestroy {
   public modules: string[];
   public modulesToSend: Module[];
 
-  private roles = ['administrador pro', 'administrador'];
+  private roles = ['Administrador Pro', 'Distribuidor', 'Administrador'];
   private unsubscribeAll = new Subject<any>();
 
   constructor(

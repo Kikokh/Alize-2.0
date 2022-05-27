@@ -52,15 +52,12 @@ namespace Alize.Platform.Api.Controllers
                 return NotFound();
 
             var currentRole = User.Claims.Single(c => c.Type == ClaimTypes.Role).Value;
-            if (!_securityService.verifyRolePermit(currentRole, role.Name))
+            if (!_securityService.VerifyRolePermit(currentRole, role.Name))
             {
                 return BadRequest();
             }
-
-                role.IsActive = enabled;
-
+            role.IsActive = enabled;
             await _securityService.UpdateRoleAsync(role); 
-
             return NoContent();
         }
     }
