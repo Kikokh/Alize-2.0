@@ -1,4 +1,6 @@
-﻿namespace Alize.Platform.Api.Responses
+﻿using Alize.Platform.Api.Responses.Modules;
+
+namespace Alize.Platform.Api.Responses
 {
     public class UserResponse
     {
@@ -15,6 +17,8 @@
         public bool IsActive { get; set; }
 
         public string RoleName { get; set; }
+
+        public IEnumerable<ModuleResponse> Modules { get; set; }
 
         public string CompanyName { get; set; }
 

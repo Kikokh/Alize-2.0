@@ -31,7 +31,8 @@ namespace Alize.Platform.Api.Mapping
             CreateMap<User, UserResponse>()
                 .ForMember(d => d.CompanyName, o => o.MapFrom(s => s.Company != null ? s.Company.Name :  string.Empty))
                 .ForMember(d => d.CompanyLogo, o => o.MapFrom(s => s.Company != null ? s.Company.Logo : string.Empty))
-                .ForMember(d => d.RoleName, o => o.MapFrom(s => s.Role != null ? s.Role.Name : string.Empty));
+                .ForMember(d => d.RoleName, o => o.MapFrom(s => s.Role != null ? s.Role.Name : string.Empty))
+                .ForMember(d => d.Modules, o => o.MapFrom(s => s.Role != null ? s.Role.Modules : Enumerable.Empty<Module>()));
 
             CreateMap<CreateModuleRequest, Module>();
             CreateMap<UpdateModuleRequest, Module>();

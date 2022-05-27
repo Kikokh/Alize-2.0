@@ -1,4 +1,5 @@
 ﻿using Alize.Platform.Core.Models;
+using Alize.Platform.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,12 +15,14 @@ namespace Alize.Platform.Infrastructure.Services
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly IModuleRepository _moduleRepository;
 
-        public SecurityService(UserManager<User> userManager, RoleManager<Role> roleManager, IConfiguration configuration)
+        public SecurityService(UserManager<User> userManager, RoleManager<Role> roleManager, IModuleRepository moduleRepository, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _moduleRepository = moduleRepository;
         }
 
         public async Task SetUserRoleAsync(string userId, string roleId)
@@ -43,6 +46,8 @@ namespace Alize.Platform.Infrastructure.Services
 
             var roles = await _userManager.GetRolesAsync(user);
 
+            var modules = await _moduleRepository.GetModulesForRoleAsync(roles.Single());
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
@@ -50,6 +55,11 @@ namespace Alize.Platform.Infrastructure.Services
                 new Claim(ClaimTypes.GivenName, $"{user.FirstName} {user.LastName}"),
                 new Claim(ClaimTypes.Role, roles.Single())
             };
+
+            foreach (var module in modules)
+            {
+                claims.Add(new Claim("module", module.Name));
+            }
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
@@ -78,10 +88,14 @@ namespace Alize.Platform.Infrastructure.Services
             .Include(u => u.Roles)
             .ToListAsync();
 
-        public async Task<User?> GetUserAsync(string id) => await _userManager.Users
-            .Include(u => u.Company)
-            .Include(u => u.Roles)
-            .SingleOrDefaultAsync(u => u.Id.ToString() == id);
+        public async Task<User?> GetUserAsync(string id)
+        {
+            return await _userManager.Users
+                .Include(u => u.Company)
+                .Include(u => u.Roles)
+                .ThenInclude(r => r.Modules)
+                .SingleOrDefaultAsync(u => u.Id.ToString() == id);
+        }
 
         public async Task<User?> GetUserAsync(Guid id) => await this.GetUserAsync(id.ToString());
 

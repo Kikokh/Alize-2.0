@@ -9,7 +9,7 @@ namespace Alize.Platform.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Policy = Modules.Groups)]
+    [Authorize(Policy = Modules.Roles)]
     public class RolesController : ControllerBase
     {
         private readonly ISecurityService _securityService;

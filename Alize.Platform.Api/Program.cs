@@ -41,7 +41,7 @@ builder.Services
     {
         options.AddPolicy(Modules.Applications, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Applications)));
         options.AddPolicy(Modules.Companies, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Companies)));
-        options.AddPolicy(Modules.Groups, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Groups)));
+        options.AddPolicy(Modules.Roles, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Roles)));
         options.AddPolicy(Modules.ModuleAdmin, policy => policy.Requirements.Add(new ModuleRequirement(Modules.ModuleAdmin)));
         options.AddPolicy(Modules.Users, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Users)));
         options.AddPolicy(Modules.Alerts, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Alerts)));

@@ -4,7 +4,7 @@
     {
         public const string Applications = "Aplicaciones";
         public const string Companies = "Empresas";
-        public const string Groups = "Grupos";
+        public const string Roles = "Roles";
         public const string ModuleAdmin = "Módulos";
         public const string Users = "Usuarios";
         public const string Alerts = "Alertas";

@@ -209,7 +209,7 @@ namespace Alize.Platform.Infrastructure
                 new Module
                 {
                     Id = Guid.Parse("9141e022-2833-4a18-a7b9-7f20a6b39768"),
-                    Name = Core.Constants.Modules.Groups,
+                    Name = Core.Constants.Modules.Roles,
                     Description = "Permite la gestión de grupos de usuarios",
                     ModuleGroup = ModuleGroups.Administration,
                     IsActive = true
@@ -377,7 +377,7 @@ namespace Alize.Platform.Infrastructure
                     {
                         Core.Constants.Modules.Applications,
                         Core.Constants.Modules.Companies,
-                        Core.Constants.Modules.Groups,
+                        Core.Constants.Modules.Roles,
                         Core.Constants.Modules.ModuleAdmin,
                         Core.Constants.Modules.Users,
                         Core.Constants.Modules.Alerts,
@@ -394,7 +394,7 @@ namespace Alize.Platform.Infrastructure
                     {
                         Core.Constants.Modules.Applications,
                         Core.Constants.Modules.Companies,
-                        Core.Constants.Modules.Groups,
+                        Core.Constants.Modules.Roles,
                         Core.Constants.Modules.ModuleAdmin,
                         Core.Constants.Modules.Users,
                         Core.Constants.Modules.Queries
@@ -407,7 +407,7 @@ namespace Alize.Platform.Infrastructure
                     {
                         Core.Constants.Modules.Applications,
                         Core.Constants.Modules.Companies,
-                        Core.Constants.Modules.Groups,
+                        Core.Constants.Modules.Roles,
                         Core.Constants.Modules.ModuleAdmin,
                         Core.Constants.Modules.Users,
                         Core.Constants.Modules.Queries
