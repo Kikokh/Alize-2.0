@@ -120,5 +120,17 @@ namespace Alize.Platform.Infrastructure.Services
         {
             await _roleManager.UpdateAsync(role);
         }
+
+        public bool verifyRolePermit(string currentRole, string toChangeRole)
+        {
+            List<string> roles =  new List<string>(){ "administrador pro", "administrador" };
+            int indexCurrent = roles.IndexOf(currentRole.ToLower());
+            if (indexCurrent < 0) return false;
+            int indexChangeRole = roles.IndexOf(toChangeRole);
+            
+            if (indexCurrent >=0 && indexCurrent < indexChangeRole) return false;
+
+            return true;
+        }
     }
 }
