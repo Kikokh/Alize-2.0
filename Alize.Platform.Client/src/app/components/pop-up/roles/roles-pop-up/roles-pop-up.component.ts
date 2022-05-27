@@ -93,7 +93,7 @@ export class RolesPopUpComponent implements OnDestroy {
       .pipe(
         switchMap((modules) => {
           this.moduleList = modules;
-          return this._loginService.me();
+          return this._loginService.$me
         }),
         takeUntil(this.unsubscribeAll)
       )
