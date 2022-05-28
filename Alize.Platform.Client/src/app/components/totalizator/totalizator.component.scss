@@ -1,0 +1,35 @@
+.totalizator-card{
+  width: 100%;
+  color: #73879b;
+  padding-bottom: 1em;
+}
+
+.title-container{
+  display: flex;
+  align-items: baseline;
+  height: 3em;
+}
+.card-title{
+  font-weight: normal;
+}
+.card-value{
+  margin: 0;
+}
+.card-description{
+  margin-top: .3em;
+}
+
+.custom-border {
+  position: relative;
+}
+
+.custom-border:after {
+  content: " ";
+  position: absolute;
+  border-left: 2px #73879b solid;
+  top: 25%;
+  right: 0;
+  height: 50%;
+  margin-top: auto;
+  margin-bottom: auto;
+}

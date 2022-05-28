@@ -20,6 +20,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
+import { MatGridListModule} from '@angular/material/grid-list';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
@@ -48,7 +49,8 @@ import { MatTreeModule } from '@angular/material/tree';
     MatProgressSpinnerModule,
     MatChipsModule,
     MatSelectModule,
-    MatSortModule
+    MatSortModule,
+    MatGridListModule
   ],
   exports: [
     MatButtonModule,
@@ -74,6 +76,7 @@ import { MatTreeModule } from '@angular/material/tree';
     MatChipsModule,
     MatSelectModule,
     MatSortModule,
+    MatGridListModule,
     MatExpansionModule
   ]
 })

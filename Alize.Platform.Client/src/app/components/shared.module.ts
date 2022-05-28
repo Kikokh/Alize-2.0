@@ -26,6 +26,7 @@ import { ModulesPopUpComponent } from './pop-up/modules/modules-pop-up/modules-p
 import { GridSkeletonComponent } from './skeleton/grid-skeleton/grid-skeleton.component';
 import { CompanyPopUpComponent } from './pop-up/companies/company-pop-up/company-pop-up.component';
 import { SafePipe } from '../pipes/safe.pipe';
+import { TotalizatorComponent } from './totalizator/totalizator.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -52,7 +53,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ModulesPopUpComponent,
     GridSkeletonComponent,
     CompanyPopUpComponent,
-    SafePipe
+    SafePipe,
+    TotalizatorComponent
   ],
   imports: [
     CommonModule,
@@ -79,7 +81,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     FloatButtonComponent,
     ProgressSpinnerComponent,
     UserPopUpComponent,
-    GridSkeletonComponent
+    GridSkeletonComponent,
+    TotalizatorComponent
   ]
 })
 export class SharedModule { }
