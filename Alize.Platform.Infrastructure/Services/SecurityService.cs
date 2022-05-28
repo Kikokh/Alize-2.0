@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Alize.Platform.Core.Constants;
 
 namespace Alize.Platform.Infrastructure.Services
 {
@@ -133,6 +134,18 @@ namespace Alize.Platform.Infrastructure.Services
         public async Task UpdateRoleAsync(Role role)
         {
             await _roleManager.UpdateAsync(role);
+        }
+
+        public bool VerifyRolePermit(string currentRole, string toChangeRole)
+        {
+            List<string> roles =  new List<string>(){ Roles.AdminPro.ToLower(), Roles.Distributor.ToLower(), Roles.Admin.ToLower() };
+            int indexCurrent = roles.IndexOf(currentRole.ToLower());
+            if (indexCurrent < 0) return false;
+            int indexChangeRole = roles.IndexOf(toChangeRole);
+            
+            if (indexCurrent >=0 && indexCurrent < indexChangeRole) return false;
+
+            return true;
         }
     }
 }

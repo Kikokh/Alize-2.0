@@ -4,6 +4,7 @@ using Alize.Platform.Infrastructure;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Alize.Platform.Api.Controllers
 {
@@ -50,10 +51,13 @@ namespace Alize.Platform.Api.Controllers
             if (role is null) 
                 return NotFound();
 
+            var currentRole = User.Claims.Single(c => c.Type == ClaimTypes.Role).Value;
+            if (!_securityService.VerifyRolePermit(currentRole, role.Name))
+            {
+                return BadRequest();
+            }
             role.IsActive = enabled;
-
             await _securityService.UpdateRoleAsync(role); 
-
             return NoContent();
         }
     }

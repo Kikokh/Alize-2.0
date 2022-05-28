@@ -17,5 +17,6 @@ namespace Alize.Platform.Infrastructure
         Task UpdateUserPasswordAsync(Guid userId, string newPassword);
         Task UpdateUserPasswordAsync(string userId, string newPassword);
         Task UpdateRoleAsync(Role role);
+        bool VerifyRolePermit(string currentRole, string toChangeRole);
     }
 }
