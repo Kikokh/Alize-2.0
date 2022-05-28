@@ -7,7 +7,7 @@
         <form [formGroup]="userForm">
             <mat-form-field color="accent" appearance="outline">
                 <mat-label>{{"Nombre" | translate}}</mat-label>
-                <input matInput name="name" formControlName="name">
+                <input matInput name="name" formControlName="firstName">
             </mat-form-field>
             <mat-form-field color="accent" appearance="outline">
                 <mat-label>{{"Apellidos" | translate}}</mat-label>
@@ -21,26 +21,30 @@
             <div class="password-field" *ngIf="data.mode === ModePopUpType.ADD">
                 <mat-form-field color="accent" appearance="outline">
                     <mat-label>{{"Password" | translate}}</mat-label>
-                    <input type="password" matInput name="Contraseña" formControlName="Contraseña">
+                    <input type="password" matInput name="password" formControlName="password">
                 </mat-form-field>
                 <mat-form-field color="accent" appearance="outline">
-                    <mat-label>{{"RepitePassword" | translate}}</mat-label>
-                    <input type="password" matInput name="RepContraseña" formControlName="RepContraseña">
+                    <mat-label>{{"Repeat Password" | translate}}</mat-label>
+                    <input type="password" matInput name="repassword" formControlName="repassword">
                 </mat-form-field>
             </div>
 
             <mat-form-field color="accent" appearance="outline"
-                *ngIf="data.mode === ModePopUpType.GROUP || data.mode === ModePopUpType.ADD">
+                *ngIf="data.mode === ModePopUpType.GROUP || data.mode !== ModePopUpType.ADD">
                 <mat-label>{{"Roles" | translate}}</mat-label>
                 <input matInput name="groups" formControlName="groups">
             </mat-form-field>
 
-            <mat-form-field color="accent" appearance="outline" *ngIf="data.mode !== ModePopUpType.ADD">
+            <mat-form-field appearance="fill">
                 <mat-label>{{"Empresa" | translate}}</mat-label>
-                <input matInput name="company" formControlName="company">
-            </mat-form-field>
+                <mat-select [disabled]="data.mode === ModePopUpType.EDIT" formControlName="company">
+                  <mat-option *ngFor="let company of companies" [value]="company.id">
+                    {{ company.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
 
-            <mat-slide-toggle color="accent" formControlName="active">{{"Activo" | translate}}</mat-slide-toggle>
+            <mat-slide-toggle color="accent" formControlName="isActive">{{"Activo" | translate}}</mat-slide-toggle>
         </form>
     </div>
 

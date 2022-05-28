@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from 'src/app/components/models/application.model';
 import { FormValidation } from 'src/app/models/validation.model';
+import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 import { PasswordService } from '../services/password.service';
 import { PasswordModel } from './models/password.model';
@@ -33,9 +34,10 @@ export class PasswordUserPopUpComponent {
   }
 
   constructor(
-    private _passwordService: PasswordService,
+    private _usersService: UsersService,
     public dialogRef: MatDialogRef<PasswordUserPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
+      id: string;
       nombre: string;
     },
     public translate: TranslateService) {
@@ -58,7 +60,7 @@ export class PasswordUserPopUpComponent {
     changePassword.repeatPassword = this.passwordForm.get('repeatPassword')?.value;
     changePassword.mode = ModePopUpType.PASSWORD;
 
-    this._passwordService.updatePassword(changePassword).subscribe(
+    this._usersService.changeUserPassword(this.data.id, { newPassword: changePassword.password, confirmPassword: changePassword.repeatPassword }).subscribe(
       success => this.dialogRef.close(false),
       err => {
         switch (err.status) {

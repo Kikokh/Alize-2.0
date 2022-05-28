@@ -103,6 +103,7 @@ export class OpenPopUpService {
   }
 
   resolveRolesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
+   
     switch (mode) {
       case ModePopUpType.DISPLAY: {
         matDialogConfigModel.component = RolesPopUpComponent;
@@ -186,12 +187,13 @@ export class OpenPopUpService {
       case ModePopUpType.EDIT: {
         matDialogConfigModel.component = UserPopUpComponent;
         matDialogConfigModel.data = {
-          nombre: data.Nombre,
-          apellidos: data.Email,
-          email: data.Email,
-          empresa: data.Empresa,
-          grupos: data.Grupo,
-          isActive: data.Activo,
+          id: data.id,
+          nombre: data.firstName,
+          apellidos: data.lastName,
+          email: data.email,
+          empresa: data.companyName,
+          grupos: data.roleName,
+          isActive: data.isActive,
           mode: mode
         }
         break;
@@ -199,22 +201,23 @@ export class OpenPopUpService {
       case ModePopUpType.DISPLAY: {
         matDialogConfigModel.component = UserPopUpComponent;
         matDialogConfigModel.data = {
-          nombre: data.Nombre,
-          apellidos: data.Email,
-          email: data.Email,
-          empresa: data.Empresa,
-          grupos: data.Grupo,
-          isActive: data.Activo,
+          id: data.id,
+          nombre: data.firstName,
+          apellidos: data.lastName,
+          email: data.email,
+          empresa: data.companyName,
+          grupos: data.roleName,
+          isActive: data.isActive,
           mode: mode
         }
         break;
       }
-
-      case ModePopUpType.GROUP: {
+      case ModePopUpType.GROUP: {        
         matDialogConfigModel.component = GroupUserPopUpComponent;
         matDialogConfigModel.data = {
-          nombre: data.Nombre,
-          grupos: data.Grupo,
+          id: data.id,
+          nombre: data.firstName,
+          grupos: data.roleName,
           mode: mode
         }
         break;
@@ -222,7 +225,8 @@ export class OpenPopUpService {
       case ModePopUpType.PASSWORD: {
         matDialogConfigModel.component = PasswordUserPopUpComponent;
         matDialogConfigModel.data = {
-          nombre: data.Nombre,
+          id: data.id,
+          nombre: data.firstName,
           mode: mode
         }
         break;

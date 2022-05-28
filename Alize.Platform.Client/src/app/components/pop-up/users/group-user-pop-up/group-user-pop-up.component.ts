@@ -3,6 +3,9 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from 'src/app/components/models/application.model';
+import { IElementDataRoles } from 'src/app/components/models/column.models';
+import { RolesService } from 'src/app/pages/administration/roles/services/roles.service';
+import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
 @Component({
@@ -11,13 +14,17 @@ import { ModePopUpType } from '../../models/entity-type.enum';
   styleUrls: ['./group-user-pop-up.component.scss']
 })
 export class GroupUserPopUpComponent {
-  title ='GrupoUserPopUpTitulo';
+  title = 'GrupoUserPopUpTitulo';
   subtitle = 'GrupoUserPopUpSubTitulo';
   userForm: FormGroup;
+  roles: any;
 
   constructor(
+    private _rolesService: RolesService,
+    private _userService: UsersService,
     public dialogRef: MatDialogRef<GroupUserPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
+      id: string;
       nombre: string;
       grupos: string;
       mode: ModePopUpType;
@@ -25,23 +32,24 @@ export class GroupUserPopUpComponent {
     fb: FormBuilder,
     public translate: TranslateService
   ) {
-
     const lang = localStorage.getItem('lang');
     if (lang !== null) {
       this.translate.setDefaultLang(lang);
     } else {
       this.translate.setDefaultLang('en');
     }
-    this.userForm = new FormGroup({
-      name: new FormControl({ value: (this.data?.nombre) ? this.data.nombre : '' }),
-    });
-
-    this.userForm =  fb.group({
-        administrador: (this.data.grupos === 'Administrador'? true : false),
-        usuario: (this.data.grupos === 'Usuario'? true : false),
-        invitado: (this.data.grupos === 'Invitado'? true : false),
+    this.userForm = fb.group({
+      roleId: null,
     })
-    group: new FormControl({ value: (this.data?.grupos) ? this.data.grupos : '' })
+    this._rolesService.getRoles().subscribe(
+      (roles) => {
+        this.roles = roles
+        const currentRole = this.roles.find((role: any) => role.name === this.data.grupos)
+        this.userForm.patchValue({
+          roleId: currentRole ? currentRole.id : ''
+        })
+      }
+    )
   }
 
   onClick() {
@@ -49,6 +57,15 @@ export class GroupUserPopUpComponent {
     requestApplication.name = 'Nombre';
     requestApplication.importantInfo = 'Important Info';
     requestApplication.description = 'description';
+
+    this._userService.updateUserRole(this.data.id, this.userForm.value.roleId).subscribe(
+      () => {
+        this.dialogRef.close();
+      },
+      (err) => {
+        console.log(err)
+      })
+
     this.dialogRef.close(requestApplication);
   }
 

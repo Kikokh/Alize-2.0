@@ -8,15 +8,11 @@
     </div>
     <form [formGroup]="userForm">
         <div class="mat-dialog-content" mat-dialog-content>
-            <p>
-                <mat-checkbox formControlName="administrador">{{"Administrador" | translate}}</mat-checkbox>
-            </p>
-            <p>
-                <mat-checkbox formControlName="usuario">{{"Usuario" | translate}}</mat-checkbox>
-            </p>
-            <p>
-                <mat-checkbox formControlName="invitado">{{"Invitado" | translate}}</mat-checkbox>
-            </p>
+            <mat-select formControlName="roleId">
+                <mat-option *ngFor="let role of roles" [value]="role.id">
+                  {{ role.name }}
+                </mat-option>
+            </mat-select>
         </div>
 
         <div class="mat-dialog-actions" mat-dialog-actions>
