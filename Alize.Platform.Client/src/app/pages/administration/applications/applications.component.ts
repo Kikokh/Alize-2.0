@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Application } from 'src/app/components/models/application.model';
+import { Application } from 'src/app/models/application.model';
 import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
-import { ApplicationsService } from './services/applications.service';
+import { ApplicationsService } from './applications.service';
 
 @Component({
   selector: 'app-applications',
@@ -11,10 +11,9 @@ import { ApplicationsService } from './services/applications.service';
 })
 export class ApplicationsComponent implements OnInit {
   displayedColumns: IColumnDef[] = [
-    { columnDef: 'Id', header: 'No.', cell: (element: Application) => `${element.id}` },
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: Application) => `${element.name}` },
     { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: Application) => `${element.description}` },
-    { columnDef: 'Empresa', header: 'Empresa', cell: (element: Application) => `${element.companyName}`},
+    { columnDef: 'Empresa', header: 'Empresa', cell: (element: Application) => `${element.companyName}` },
     { columnDef: 'Activo', header: 'Activo', cell: (element: Application) => `${element.isActive}` }
   ];
   elementData: Application[];
@@ -24,17 +23,16 @@ export class ApplicationsComponent implements OnInit {
     { optionName: ModePopUpType.EDIT, icon: 'edit_note' },
     { optionName: ModePopUpType.GROUP, icon: 'groups' }
   ]
-  
+
   public get entity(): EntityType {
     return EntityType.APPLICATIONS;
   }
 
-  constructor(private _applicationsService: ApplicationsService) {}
-  
+  constructor(private _applicationsService: ApplicationsService) { }
+
   ngOnInit() {
-    this._applicationsService.getAll().subscribe( apps => {
-      this.elementData = apps
-      console.log(apps)
-    });
+    this._applicationsService.getApplications().subscribe(
+      apps => this.elementData = apps
+    );
   }
 }

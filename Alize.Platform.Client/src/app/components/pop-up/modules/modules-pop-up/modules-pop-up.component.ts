@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { RequestApplication } from 'src/app/components/models/application.model';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
 @Component({

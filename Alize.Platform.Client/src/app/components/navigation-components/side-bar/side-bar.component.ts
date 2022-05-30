@@ -9,11 +9,11 @@ import { ThemeEnum } from 'src/app/scss-variables/models/theme.enum';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 
 @Component({
-  selector: 'app-side-bar-expanded',
-  templateUrl: './side-bar-expanded.component.html',
-  styleUrls: ['./side-bar-expanded.component.scss']
+  selector: 'app-side-bar',
+  templateUrl: './side-bar.component.html',
+  styleUrls: ['./side-bar.component.scss']
 })
-export class SideBarExpandedComponent implements OnInit {
+export class SideBarComponent implements OnInit {
   @Input() user?: IUser;
   materialTheme = new MaterialTheme();
   Modules = Modules;

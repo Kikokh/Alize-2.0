@@ -1,12 +1,13 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { Application, RequestApplication } from '../../../models/application.model';
+import { Application } from 'src/app/models/application.model';
+import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
+import { RequestApplication } from '../../../models/application.model';
+import { ModePopUpType } from '../../models/entity-type.enum';
 import { IUser } from '../../models/IUser';
-import { EntityType, ModePopUpType } from '../../models/entity-type.enum';
 import { UserService } from '../../services/user.service';
-import { ApplicationsService } from 'src/app/pages/administration/applications/services/applications.service';
 
 @Component({
   selector: 'app-application-pop-up',
@@ -77,32 +78,15 @@ export class ApplicationPopUpComponent {
   }
 
   onClick() {
-    if (this.data.mode === ModePopUpType.ADD) {
-      
-      let app = this.buildApplication();
-      console.log(app);
-      
+    const app = this.buildApplication();
+
+    if (this.data.mode === ModePopUpType.ADD) {            
       this._applicationServices.newApplication(app).subscribe(
-        () => {
-          this.dialogRef.close();
-        },
-        (err) => {
-          console.log(err);
-        }
+        () => this.dialogRef.close()
       );
-    } else if (this.data.mode === ModePopUpType.EDIT) {
-      
-      let app = this.buildApplication();
-      
-      console.log(app);
-      
+    } else if (this.data.mode === ModePopUpType.EDIT) {            
       this._applicationServices.updateApplication(app).subscribe(
-        () => {
-          this.dialogRef.close();
-        },
-        (err) => {
-          console.log(err);
-        }
+        () => this.dialogRef.close()
       );
     }
   }
@@ -112,7 +96,7 @@ export class ApplicationPopUpComponent {
   }
 
   private buildApplication(): Application {
-    let app = new Application; 
+    const app = new Application; 
     if (this.data.mode === ModePopUpType.ADD) {
       app.name = this.applicationForm.value.name;
       app.description = this.applicationForm.value.description;

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { RequestApplication } from 'src/app/components/models/application.model';
 import { Company } from 'src/app/models/company.model';
-import { CompanyService } from 'src/app/pages/administration/companies/company.service';
+import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
@@ -22,9 +22,8 @@ export class UserPopUpComponent {
     return ModePopUpType; 
   }
   companies: Company[];
-  constructor(
-    
-    private _companyService: CompanyService,
+  constructor(    
+    private _companyService: CompaniesService,
     private _userService: UsersService,
     public dialogRef: MatDialogRef<UserPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
-import { Company } from 'src/app/components/models/company.model';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
-import { CompaniesService } from './services/companies.service';
+import { Company } from 'src/app/models/company.model';
+import { CompaniesService } from './companies.service';
 
 @Component({
   selector: 'app-companies',
@@ -11,7 +11,6 @@ import { CompaniesService } from './services/companies.service';
 })
 export class CompaniesComponent {
   displayedColumns: IColumnDef[] = [
-    { columnDef: 'Id', header: 'No.', cell: (element: Company) => `${element.id}` },
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: Company) => `${element.name}` },
     { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: Company) => (element.description) ? `${element.description}` : '' },
     { columnDef: 'Activo', header: 'Activo', cell: (element: Company) => `${element.isActive}` }

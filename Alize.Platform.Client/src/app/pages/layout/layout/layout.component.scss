@@ -8,12 +8,8 @@
     mat-drawer-container {
         height: 100%;
 
-        .side-bar-expanded {
-            min-width: 280px;
-        }
-
-        .side-bar-collapsed {
-            min-width: 150px;
+        .side-bar {
+            min-width: 260px;
         }
 
         mat-drawer-content {

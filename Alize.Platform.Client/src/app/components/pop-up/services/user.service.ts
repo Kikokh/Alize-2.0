@@ -33,10 +33,6 @@ export class UserService {
   }
 
   getUsers(): Observable<UserResponse[]> {
-    return this._http.get<UserResponse[]>(this._baseUrl).pipe(
-      tap( data => {
-        console.log(data);
-      })
-    );
+    return this._http.get<UserResponse[]>(this._baseUrl);
   }
 }

@@ -1,5 +1,5 @@
 @import "~@angular/material/theming";
-@import "../../../../scss-variables/variables.scss";
+@import "../../../scss-variables/variables.scss";
 
 .sidebar-container {
     display: flex;
@@ -50,6 +50,8 @@
         color: mat-color($my-primary) !important;  
         box-shadow: none;
 
+        
+
         .mat-expansion-panel-header-title {
             color: mat-color($my-primary) !important;
             
@@ -58,7 +60,7 @@
             }
         }
         
-        &.mat-expanded .mat-expansion-panel-header {
+        &.mat-expanded .mat-expansion-panel-header, .active-link {
             border-right: 5px solid turquoise;
             border-radius: 5px;
         }
@@ -69,6 +71,26 @@
         }
     }
 }
+
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+::ng-deep .nav-menu {
+    .mat-expansion-panel-body {
+        padding: 0 !important;
+    }
+
+    .mat-expansion-panel-header.mat-expanded {
+        height: 48px;
+    }
+
+    .mat-expansion-indicator::after {
+        color: mat-color($my-primary) !important;
+    }
+} 
+
 
 .flex {
     display: flex;

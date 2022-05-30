@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Application } from 'src/app/models/application.model';
 import { Asset } from 'src/app/models/asset.model';
 import { Company } from 'src/app/models/company.model';
 import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
-import { CompanyService } from 'src/app/pages/administration/companies/company.service';
+import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { SelectComponent } from 'src/app/Templates/controls-list/select/select.component';
 import { TextBoxComponent } from 'src/app/Templates/controls-list/text-box/text-box.component';
@@ -44,7 +44,7 @@ export class AssetsComponent implements OnInit {
     private _route: ActivatedRoute,
     private _assetService: AssetService,
     private _templateService: TemplatesService,
-    private _companyService: CompanyService,
+    private _companyService: CompaniesService,
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _changeDetector: ChangeDetectorRef,
     private _router: Router,

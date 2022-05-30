@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { Company } from 'src/app/components/models/company.model';
+import { Company } from 'src/app/models/company.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,6 +18,10 @@ export class CompaniesService {
     return this._http.get<Company[]>(this._baseUrl).pipe(
       tap( data => {})
     );
+  }
+
+  getCompany(companyId: string): Observable<Company> {
+    return this._http.get<Company>(`${this._baseUrl}/${companyId}`);
   }
 
   updateCompany(company: Company) {
@@ -43,10 +47,6 @@ export class CompaniesService {
     googleMapsUrl: company.googleMapsUrl
     }
 
-    return this._http.put<any>(`${this._baseUrl}/${company.id}`, body).pipe(
-      tap( res => {
-        console.log(res);
-      })
-    );
+    return this._http.put<any>(`${this._baseUrl}/${company.id}`, body);
   }
 }

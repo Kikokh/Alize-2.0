@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Application } from 'src/app/models/application.model';
 import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
+import { Application } from 'src/app/models/application.model';
 import { ManagementService } from '../management.service';
 
 @Component({
@@ -13,11 +13,10 @@ export class QueriesComponent implements OnInit {
   isLoading = true;
 
   displayedColumns: IColumnDef[]  = [
-    { columnDef: 'id', header: 'No.', cell: (element: any) => `${element.id}` },
-    { columnDef: 'name', header: 'Nombre', cell: (element: any) => `${element.name}` },
-    { columnDef: 'description', header: 'Descripcion', cell: (element: any) => `${element.description}` },
-    { columnDef: 'companyId', header: 'Empresa', cell: (element: any) => `${element.companyId}` },
-    { columnDef: 'isActive', header: 'Permiso', cell: (element: any) => `${element.isActive}` },
+    { columnDef: 'name', header: 'Nombre', cell: (element: Application) => `${element.name}` },
+    { columnDef: 'description', header: 'Descripcion', cell: (element: Application) => `${element.description}` },
+    { columnDef: 'companyName', header: 'Empresa', cell: (element: Application) => `${element.companyName}` },
+    { columnDef: 'isActive', header: 'Permiso', cell: (element: Application) => `${element.isActive}` },
   ];
 
   elementData: Application[];

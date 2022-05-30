@@ -5,6 +5,12 @@ import { AssetsComponent } from './queries/assets/assets.component';
 import { QueriesComponent } from './queries/queries.component';
 
 const routes: Routes = [
+
+  {
+    path: '',
+    redirectTo: 'queries',
+    pathMatch: 'full'
+  },
   {
     path: 'queries',
     children: [

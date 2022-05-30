@@ -2,14 +2,14 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { ModePopUpType } from '../../models/entity-type.enum';
-import { ModulesService } from '../../../../pages/administration/modules/modules.service';
-import { RolesService } from '../../../../pages/administration/roles/services/roles.service';
-import { Module } from 'src/app/models/module.model';
-import { LoginService } from 'src/app/pages/login/services/login.service';
-import { switchMap, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
+import { Module } from 'src/app/models/module.model';
 import { IUser } from 'src/app/models/user.model';
+import { RolesService } from 'src/app/pages/administration/roles/roles.service';
+import { LoginService } from 'src/app/pages/login/services/login.service';
+import { ModulesService } from '../../../../pages/administration/modules/modules.service';
+import { ModePopUpType } from '../../models/entity-type.enum';
 
 export interface IMenuItem {
   isChecked: boolean;
@@ -26,7 +26,7 @@ export interface IAvailablesModules {
   templateUrl: './roles-pop-up.component.html',
   styleUrls: ['./roles-pop-up.component.scss'],
 })
-export class RolesPopUpComponent implements OnDestroy {
+export class RolesPopUpComponent implements OnInit, OnDestroy {
   title = 'RolesPopUpTitulo';
   availableModules = 'GruposModulosHabilitados';
   form: FormGroup;
@@ -55,7 +55,9 @@ export class RolesPopUpComponent implements OnDestroy {
     public modulesService: ModulesService,
     public rolesService: RolesService,
     public _loginService: LoginService
-  ) {
+  ) {  }
+
+  ngOnInit(): void {
     const lang = localStorage.getItem('lang');
     this.requestApi();
     if (lang !== null) {
@@ -82,6 +84,7 @@ export class RolesPopUpComponent implements OnDestroy {
       }),
     });
   }
+
   ngOnDestroy(): void {
     this.unsubscribeAll.next();
     this.unsubscribeAll.complete();

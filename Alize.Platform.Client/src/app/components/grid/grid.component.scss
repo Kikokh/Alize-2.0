@@ -24,14 +24,18 @@
     }
 
     .main-grid {
+        padding: 15px;
+        color: #73879c;
+
         .toolbar {
-            width: 95%;
             margin: 0 auto;
 
             div {
                 display: flex;
+                font-size: 18px;
 
                 .title {
+                    
                     font-weight: bold;
                 }
 
@@ -44,14 +48,7 @@
         .table-container {
             margin: 40px auto;
 
-            table {
-                margin: 40px;
-                width: 95%;
-
-                th {
-
-                }
-
+            .mat-table {
                 td {
                     height: 60px;
                     .operation-column {
@@ -61,12 +58,6 @@
                         //    width: 35%;
                          width: 100%;
                         //    text-align: end;
-                    }
-
-                    .common-row {
-                        // background-color: grey;
-                        // padding: 5px 5px 5px 5px;
-                        // width: 95%;
                     }
                 }
             }
@@ -83,24 +74,3 @@
     background-color: $blue-background;
     color: mat-color($my-primary) !important;
 }
-
-// .column-id {
-//     width: 3%;
-// }
-
-// .column-name {
-//     width: 15%;
-// }
-
-// .column-description {
-//     width: 50%;
-// }
-
-// .column-company {
-//     width: 13%;
-// }
-
-
-// .column-active {
-//     width: 3%;
-// }

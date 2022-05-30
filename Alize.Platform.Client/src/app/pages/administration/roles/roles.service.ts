@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { IElementDataRoles } from "../../../../components/models/column.models";
+import { IElementDataRoles } from "../../../components/models/column.models";
 
 @Injectable({
   providedIn: 'root'

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {IColumnDef, IElementDataRoles, IOperationsModel} from 'src/app/components/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { ColumnBuilderService } from '../../services/column-builder.service';
-import { RolesService } from "./services/roles.service";
+import { RolesService } from "./roles.service";
 
 @Component({
   selector: 'app-roles',
@@ -14,7 +14,6 @@ import { RolesService } from "./services/roles.service";
 export class RolesComponent implements OnInit {
 
   displayedColumns: IColumnDef[] = [
-    { columnDef: 'Id', header: 'No.', cell: (element: any) => `${element.id}` },
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.name}` },
     { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: any) => `${element.description}` },
     { columnDef: 'Activo', header: 'Activo', cell: (element: any) => `${element.isActive}` },

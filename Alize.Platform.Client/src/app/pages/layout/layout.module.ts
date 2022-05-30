@@ -7,8 +7,6 @@ import { MaterialModule } from 'src/app/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
-
-
 @NgModule({
     declarations: [
         LayoutComponent

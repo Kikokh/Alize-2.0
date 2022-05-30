@@ -9,11 +9,10 @@ import { UsersService } from './users.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss', '../../layout-main.scss']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit {
   userSelected: User;
   elementData: User[];
   displayedColumns: IColumnDef[] = [
-    { columnDef: 'Id', header: 'No.', cell: (element: User) => `${element.id}` },
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: User) => `${element.firstName + ' ' + element.lastName}` },
     { columnDef: 'Email', header: 'Email', cell: (element: User) => `${element.email}` },
     { columnDef: 'Empresa', header: 'Empresa', cell: (element: User) => `${element.companyName}` },

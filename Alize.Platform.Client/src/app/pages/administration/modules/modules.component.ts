@@ -10,7 +10,6 @@ import { ModulesService } from './modules.service';
 })
 export class ModulesComponent implements OnInit {
   displayedColumns: IColumnDef[] = [
-    { columnDef: 'Id', header: 'No.', cell: (element: Module) => `${element.id}` },
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: Module) => `${element.name}` },
     { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: Module) => `${element.description}` },
     { columnDef: 'Grupos', header: 'Grupos', cell: (element: Module) => `${element.moduleGroup}` },

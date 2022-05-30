@@ -20,4 +20,5 @@ export class Company {
     province: string;
     web: string;
     zip: string;
+    description: string;
 }

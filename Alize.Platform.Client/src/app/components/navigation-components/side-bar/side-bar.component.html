@@ -28,19 +28,19 @@
                     <mat-icon>settings</mat-icon>{{"Administracion" | translate }}
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <a *ngIf="userCanAccessModule(Modules.Applications) | async" class="nav-option flex" [routerLink]="['/administration/applications']">
+            <a *ngIf="userCanAccessModule(Modules.Applications) | async" class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/administration/applications']">
                 <button mat-button> {{"Aplicaciones" | translate }}</button>
             </a>
-            <a *ngIf="userCanAccessModule(Modules.Companies) | async"class="nav-option flex" [routerLink]="['/administration/companies']">
+            <a *ngIf="userCanAccessModule(Modules.Companies) | async"class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/administration/companies']">
                 <button mat-button> {{"Empresas" | translate }}</button>
             </a>
-            <a *ngIf="userCanAccessModule(Modules.Roles) | async"class="nav-option flex" [routerLink]="['/administration/roles']">
+            <a *ngIf="userCanAccessModule(Modules.Roles) | async"class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/administration/roles']">
                 <button mat-button> {{"Roles" | translate }}</button>
             </a>
-            <a *ngIf="userCanAccessModule(Modules.Modules) | async"class="nav-option flex" [routerLink]="['/administration/modules']">
+            <a *ngIf="userCanAccessModule(Modules.Modules) | async"class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/administration/modules']">
                 <button mat-button> {{"Modulos" | translate }}</button>
             </a>
-            <a *ngIf="userCanAccessModule(Modules.Users) | async"class="nav-option flex" [routerLink]="['/administration/users']">
+            <a *ngIf="userCanAccessModule(Modules.Users) | async"class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/administration/users']">
                 <button mat-button> {{"Usuarios" | translate }}</button>
             </a>
 
@@ -52,34 +52,10 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
-            <a class="nav-option flex" [routerLink]="['/management/queries']">
+            <a class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/management/queries']">
                 <button mat-button> {{"Consultas" | translate }}</button>
             </a>
 
         </mat-expansion-panel>
     </mat-accordion>
-
-    <!-- <ng-container *ngFor="let opt of optionList; let i = index">
-        <mat-list class="mat-list-expanded">
-            <button mat-button (click)="showSubMenu(i, opt.name, opt.route)" color="primary"
-                [ngClass]="getActiveMenuItem(opt.isSelected)">
-                <mat-icon>{{opt.icon}}</mat-icon>
-                <span>{{opt.name | translate}}</span>
-                <mat-icon class="arrow" *ngIf="opt.name !== 'Inicio'">expand_more</mat-icon>
-            </button>
-
-
-            <div class="sub-item-list" *ngIf="opt.isVisible">
-                <mat-list class="sub-menu" *ngFor="let subOpt of opt.subMenu">
-                    <mat-list-item>
-                        <button color="primary" routerLink="/{{subOpt.route}}" (click)="activateSubMenu(subOpt)"
-                            mat-button [ngClass]="getActiveMenuItem(subOpt.isSelected)">
-                            <mat-icon class="menu-icon">circle</mat-icon>
-                            <span>{{subOpt.name | translate}}</span>
-                        </button>
-                    </mat-list-item>
-                </mat-list>
-            </div>
-        </mat-list>
-    </ng-container> -->
 </div>
