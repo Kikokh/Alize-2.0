@@ -1,3 +1,4 @@
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -51,6 +52,8 @@ import { MatTreeModule } from '@angular/material/tree';
     MatChipsModule,
     MatSelectModule,
     MatSortModule,
+    MatExpansionModule,
+    TextFieldModule,
     MatGridListModule,
     MatTabsModule
   ],
@@ -78,8 +81,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatChipsModule,
     MatSelectModule,
     MatSortModule,
-    MatGridListModule,
     MatExpansionModule,
+    TextFieldModule,
+    MatGridListModule,
     MatTabsModule
   ]
 })
