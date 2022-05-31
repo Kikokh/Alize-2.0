@@ -26,8 +26,8 @@ namespace Alize.Platform.Core.Models
 
         public Role? Role => this.Roles?.SingleOrDefault();
 
-        public ICollection<Role>? Roles { get; set; }
+        public ICollection<Role> Roles { get; set; }
 
-        public ICollection<Application>? Applications { get; set; }
+        public ICollection<Application> Applications { get; set; }
     }
 }

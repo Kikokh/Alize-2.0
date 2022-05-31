@@ -270,7 +270,6 @@ export class OpenPopUpService {
           city: data?.city,
           province: data?.province,
           country: data?.country,
-          googleMapsUrl: data?.googleMapsUrl,
           mode: mode
         }
         break;

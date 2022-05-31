@@ -1,7 +1,7 @@
 <div class="container">
     <div class="page-container">
         <div class="breadcrumb">
-            <app-breadcrumb [componentName]="'Gestion'"></app-breadcrumb>
+            <app-breadcrumb></app-breadcrumb>
         </div>
         <div *ngIf="!isLoading; else gridSkeleton">
             <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.REQUEST" [actions]="actions"></app-grid>

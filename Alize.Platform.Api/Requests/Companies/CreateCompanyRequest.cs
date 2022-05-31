@@ -11,6 +11,8 @@ namespace Alize.Platform.Api.Requests.Companies
 
         public bool IsActive { get; set; }
 
+        public string? Description { get; set; }
+
         [StringLength(50)]
         public string? Activity { get; set; }
 
@@ -64,8 +66,6 @@ namespace Alize.Platform.Api.Requests.Companies
         [StringLength(25)]
         public string? Country { get; set; }
 
-        [Url]
-        public string? GoogleMapsUrl { get; set; }
-        public Company? ParentCompany { get; set; }
+        public Guid? ParentCompanyId { get; set; }
     }
 }

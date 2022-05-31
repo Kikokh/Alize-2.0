@@ -1,5 +1,4 @@
 .main {
-    width: 1200px;
     height: auto;
     .header {
         .title {
@@ -18,25 +17,28 @@
             }
         }
     }
-    
+
     .mat-dialog-content {
+        min-height: 400px;
 
-        height: auto;
-    
+        .tab-content {
+            display: flex;
+            flex-flow: row wrap;
+            max-width: 900px;
+            transform: none;
+        }
+
         form {
-            .sub-container {
-                width: 600px;
-                float: left;
+            .company-map {
+                height: 300px;
+                width: 300px;
+            }
 
-                .text-area {
-                    width: 100% !important;
-                    height: 80px;
-                }
+            .text-area {
+                width: 100% !important;
+                height: 80px;
             }
-            .company-localization {
-                width: 600px;
-                float: right;
-            }
+
             mat-form-field {
                 margin-left: 10px;
                 padding-top: 8px !important;
@@ -55,11 +57,10 @@
             }
         }
     }
-    
-    
+
     .mat-dialog-actions {
         display: flex;
-    
+
         .fill {
             width: 70%;
             height: 50px;

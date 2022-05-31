@@ -12,7 +12,7 @@ namespace Alize.Platform.Core.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -70,9 +70,6 @@ namespace Alize.Platform.Core.Models
 
         [StringLength(25)]
         public string? Country { get; set; }
-
-        [Url]
-        public string? GoogleMapsUrl { get; set; }
 
         [ForeignKey(nameof(ParentCompany))]
         public Guid? ParentCompanyId { get; set; }

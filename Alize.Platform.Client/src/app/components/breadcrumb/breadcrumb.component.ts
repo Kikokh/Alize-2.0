@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 })
 export class BreadcrumbComponent implements OnInit {
 
-  @Input() componentName: string = '';
   fragments: string[] = [];
   constructor(private _router: Router) { }
 
@@ -17,7 +16,7 @@ export class BreadcrumbComponent implements OnInit {
     this.fragments = this._router.url.split('/').filter(f => f);
   }
 
-  getLink(fragment: string, index: number): string {
+  getLink(index: number): string {
     return `/${this.fragments.slice(0, index + 1).join('/')}`;
   }
 }

@@ -44,7 +44,6 @@ export class CompaniesService {
     city: company.city,
     province: company.province,
     country: company.country,
-    googleMapsUrl: company.googleMapsUrl
     }
 
     return this._http.put<any>(`${this._baseUrl}/${company.id}`, body);

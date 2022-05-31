@@ -1,6 +1,6 @@
 <mat-label class="accent">
     <ng-template ngFor let-fragment let-i="index" [ngForOf]="fragments">
-        <a  [routerLink]="getLink(fragment, i)"> {{ fragment | titlecase | translate }} </a>
+        <a  [routerLink]="getLink(i)"> {{ fragment | titlecase | translate }} </a>
         <span *ngIf="i + 1  < fragments.length"> > </span>
     </ng-template>
 </mat-label>
