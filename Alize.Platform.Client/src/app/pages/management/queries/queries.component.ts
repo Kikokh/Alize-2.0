@@ -23,13 +23,15 @@ export class QueriesComponent implements OnInit {
 
   actions: IOperationsModel[] = [
     { optionName: ModePopUpType.REQUEST, icon: 'search' },
+    { optionName: ModePopUpType.CHARTS, icon: 'add_chart' },
   ]
 
   public get Entity(): typeof EntityType {
     return EntityType;
   }
 
-  constructor(private _managementService: ManagementService) {}
+  constructor(private _managementService: ManagementService) {
+  }
 
   ngOnInit(): void {
     this._managementService.getApplication().subscribe(

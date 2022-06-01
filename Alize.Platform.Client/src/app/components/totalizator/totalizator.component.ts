@@ -6,11 +6,7 @@ import {ITotalizator} from "./models/totalizator.model";
   templateUrl: './totalizator.component.html',
   styleUrls: ['./totalizator.component.scss']
 })
-export class TotalizatorComponent implements OnInit {
+export class TotalizatorComponent {
   @Input() items: ITotalizator[]
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

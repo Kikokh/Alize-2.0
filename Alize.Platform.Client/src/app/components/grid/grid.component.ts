@@ -142,12 +142,10 @@ export class GridComponent implements OnInit, AfterViewInit {
 
 
   showDialog(data: any, optionName: ModePopUpType) {
-    if (this.entity === EntityType.REQUEST) {
-      const params = {
-        id: data.id
-      }
-
+    if (optionName === ModePopUpType.REQUEST) {
       this._router.navigate([`management/queries/${data.id}/assets`]);
+    } if (optionName === ModePopUpType.CHARTS) { 
+      this._router.navigate([`management/charts/${data.id}/chart`]);
     } else {
       this._openPopUpService.open(this.entity, optionName, data);
       this._openPopUpService.afterClosed().subscribe(val => {

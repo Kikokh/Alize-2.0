@@ -10,8 +10,9 @@ import { HeaderComponent } from './header/header.component';
 import { ReportComponent } from './report/report.component';
 import { GridComponent } from './controls-list/grid/grid.component';
 import { SharedModule } from '../components/shared.module';
-
-
+import { LineChartComponent } from './charts/line-chart/line-chart.component';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -22,19 +23,24 @@ import { SharedModule } from '../components/shared.module';
     SelectComponent,
     HeaderComponent,
     ReportComponent,
-    GridComponent
+    GridComponent,
+    LineChartComponent,
+    BarChartComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule, 
-    SharedModule
+    SharedModule,
+    NgxChartsModule
   ],
   exports: [
     FilterRowComponent,
     HeaderComponent,
-    DynamicHostDirective
+    DynamicHostDirective,
+    LineChartComponent,
+    BarChartComponent
   ]
 })
 export class TemplatesModule { }

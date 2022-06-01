@@ -7,12 +7,10 @@ import { TemplatesModule } from 'src/app/Templates/templates.module';
 import { ManagementRoutingModule } from './management-routing.module';
 import { AssetDetailComponent } from './queries/assets/asset-detail/asset-detail.component';
 import { AssetsComponent } from './queries/assets/assets.component';
+import { ChartsComponent } from './queries/charts/charts.component';
 import { QueriesComponent } from './queries/queries.component';
-
-
-
 @NgModule({
-  declarations: [QueriesComponent, AssetsComponent, AssetDetailComponent],
+  declarations: [QueriesComponent, AssetsComponent, AssetDetailComponent, ChartsComponent],
   imports: [
     CommonModule,
     FormsModule,
