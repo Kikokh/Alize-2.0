@@ -15,9 +15,10 @@
 
 
   <img [src]="img" alt="">
-  
-  <button color="accent" mat-button [matMenuTriggerFor]="menuUser">
-    {{user?.email}}
+
+  <button color="accent" class="btn-nav-menu" mat-button [matMenuTriggerFor]="menuUser">
+    <span class="nav-email">{{user?.email}}</span><br class="break" />
+    <span class="nav-role"> {{user?.roleName}}</span>
   </button>
 
   <mat-menu #menuUser="matMenu" xPosition="before" class="user-menu">
