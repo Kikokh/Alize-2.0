@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/app/models/users.model';
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -11,6 +11,8 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 export class UsersService {
 
   private _baseUrl = `${environment.apiUrl}/Users`
+  public users:User[] = [];
+  public users_shared: BehaviorSubject<User[]>
   public token: string
   public httpOptions: { headers: HttpHeaders }
 
@@ -18,6 +20,7 @@ export class UsersService {
     private _http: HttpClient,
     private _localStorageService: LocalStorageService,
   ) {
+    this.users_shared = new BehaviorSubject(this.users);
     this.token = this._localStorageService.getItem('token')
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -28,9 +31,12 @@ export class UsersService {
     }
   }
 
-  getUsers(): Observable<User[]> {
-    return this._http.get<User[]>(this._baseUrl, this.httpOptions );
+  getUsers(): void {
+    this._http.get<User[]>(this._baseUrl, this.httpOptions ).subscribe((users:User[]) => {
+      this.users_shared.next(users);
+    });
   }
+  // this._http.get<User[]>(this._baseUrl, this.httpOptions );
 
   getMyUser(): Observable<User[]> {
     return this._http.get<User[]>(this._baseUrl+'/Me', this.httpOptions );

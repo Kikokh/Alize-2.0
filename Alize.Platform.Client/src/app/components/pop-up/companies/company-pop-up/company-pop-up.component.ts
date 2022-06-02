@@ -83,7 +83,10 @@ export class CompanyPopUpComponent implements OnInit {
     const company = this.buildCompany();
 
     this._companiesService.updateCompany(company).subscribe(
-      () => this.dialogRef.close()
+      () => {
+        this.dialogRef.close();
+        this._companiesService.getCompanies();
+      }
     );
   }
 

@@ -38,9 +38,10 @@ export class UserPopUpComponent {
     },
     public translate: TranslateService
   ) {
-    this._companyService.getCompanies().subscribe(
+    this._companyService.companies_shared.subscribe(
       companies => this.companies = companies
     );
+    this._companyService.getCompanies();
 
     this.title = (this.data.mode === ModePopUpType.ADD) ? 'NuevoUsuario' : (this.data.mode) ? 'VerUsuario' : 'EditarUsuario';
     this.userForm = new FormGroup({
@@ -51,7 +52,7 @@ export class UserPopUpComponent {
       password: new FormControl({ value: ''}),
       repassword: new FormControl({ value: ''}),
       groups: new FormControl({ value: (this.data?.grupos) ? this.data.grupos : '', disabled: true }),
-      active: new FormControl({ value: this.data?.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      isActive: new FormControl({ value: this.data?.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
     });
   }
 
@@ -71,6 +72,7 @@ export class UserPopUpComponent {
       }
       this._userService.createNewUser(request).subscribe(
         () => {
+          this._userService.getUsers();
           this.dialogRef.close();
       },
         (err) => {
@@ -87,6 +89,7 @@ export class UserPopUpComponent {
       }
        this._userService.updateUser(this.data.id, request).subscribe(
         () => {
+          this._userService.getUsers();
           this.dialogRef.close();
       },
         (err) => {

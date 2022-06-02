@@ -82,11 +82,17 @@ export class ApplicationPopUpComponent {
 
     if (this.data.mode === ModePopUpType.ADD) {            
       this._applicationServices.newApplication(app).subscribe(
-        () => this.dialogRef.close()
+        () => {
+          this._applicationServices.getApplications();
+          this.dialogRef.close();
+        }
       );
     } else if (this.data.mode === ModePopUpType.EDIT) {            
       this._applicationServices.updateApplication(app).subscribe(
-        () => this.dialogRef.close()
+        () => {
+          this._applicationServices.getApplications();
+          this.dialogRef.close();
+        }
       );
     }
   }

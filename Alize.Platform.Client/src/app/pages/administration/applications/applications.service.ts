@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Application } from 'src/app/models/application.model';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -8,9 +8,15 @@ import { environment } from 'src/environments/environment';
 })
 export class ApplicationsService {
   private _baseUrl = `${environment.apiUrl}/Applications`
+  public applications:Application[] = [];
+  public applications_shared: BehaviorSubject<Application[]>
 
   constructor(
-    private _http: HttpClient) { }
+    private _http: HttpClient) {
+
+      this.applications_shared = new BehaviorSubject(this.applications);
+
+     }
   private _httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -18,9 +24,12 @@ export class ApplicationsService {
     })
   };
 
-  getApplications(): Observable<Application[]> {
-    return this._http.get<Application[]>(this._baseUrl, this._httpOptions);
+  getApplications(): void {
+    this._http.get<Application[]>(this._baseUrl, this._httpOptions).subscribe((applications:Application[]) => {
+      this.applications_shared.next(applications);
+    });
   }
+  // return this._http.get<Application[]>(this._baseUrl, this._httpOptions);
 
   getApplication(idApplication: string) {
     return this._http.get<any>(`${this._baseUrl}/${idApplication}`, this._httpOptions);
