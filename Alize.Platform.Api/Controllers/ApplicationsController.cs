@@ -80,10 +80,12 @@ namespace Alize.Platform.Api.Controllers
                 return BadRequest();
             }
 
-            if (await _applicationRepository.GetApplicationAsync(id) is null)
+            var app = await _applicationRepository.GetApplicationAsync(id);
+
+            if (app is null)
                 return NotFound();
 
-            await _applicationRepository.UpdateApplicationAsync(_mapper.Map<Application>(request));
+            await _applicationRepository.UpdateApplicationAsync(_mapper.Map(request, app));
 
             return NoContent();
         }

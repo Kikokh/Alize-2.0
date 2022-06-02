@@ -41,7 +41,7 @@
     <div class="fill"></div>
     <div class="buttons">
       <button mat-raised-button (click)="close()">{{"Cerrar" | translate}}</button>
-      <button mat-raised-button color="accent" (click)="onClick()"
+      <button mat-raised-button color="accent" (click)="onClick()" [disabled]="applicationForm.invalid"
         *ngIf="data.mode !==  _modePopUpType.DISPLAY">{{"Guardar" | translate}}</button>
     </div>
   </div>

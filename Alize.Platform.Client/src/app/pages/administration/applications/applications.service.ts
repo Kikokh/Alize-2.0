@@ -25,6 +25,7 @@ export class ApplicationsService {
   getApplication(idApplication: string) {
     return this._http.get<any>(`${this._baseUrl}/${idApplication}`, this._httpOptions);
   }
+  
   newApplication(newApplication: Application) {
     const body = {
       name: newApplication.name,
