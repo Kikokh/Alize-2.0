@@ -64,8 +64,6 @@ export class GroupUserPopUpComponent {
       (err) => {
         console.log(err)
       })
-
-    this.dialogRef.close(requestApplication);
   }
 
   close() {

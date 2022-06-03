@@ -31,4 +31,10 @@ export class CompaniesComponent {
       this.elementData = companies;
     });
   }
+
+  updateCompanies(){
+    this._companiesService.getCompanies().subscribe(companies => {
+      this.elementData = companies;
+    });
+  }
 }

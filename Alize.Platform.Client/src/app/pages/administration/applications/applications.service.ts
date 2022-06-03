@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Application } from 'src/app/models/application.model';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -10,7 +10,7 @@ export class ApplicationsService {
   private _baseUrl = `${environment.apiUrl}/Applications`
 
   constructor(
-    private _http: HttpClient) { }
+    private _http: HttpClient) {}
   private _httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

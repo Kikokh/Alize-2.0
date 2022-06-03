@@ -38,4 +38,11 @@ export class UsersComponent implements OnInit {
       users => this.elementData = users
     );
   }
+
+  updateUsers(){
+    this._userService.getUsers().subscribe(
+      users => this.elementData = users
+    );
+  }
+
 }

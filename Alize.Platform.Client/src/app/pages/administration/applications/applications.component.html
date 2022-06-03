@@ -4,6 +4,6 @@
     </div>
 
     <div class="grid">
-        <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions"></app-grid>
+        <app-grid (updateTable)="updateApplications()" [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions"></app-grid>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
@@ -29,6 +29,8 @@ export class GridComponent implements OnInit, AfterViewInit {
   @Input() actions?: IOperationsModel[];
   @Input() title: string = 'Administracion';
   @Input() subTitle: string = '';
+
+  @Output() updateTable = new EventEmitter<any>();
 
   public get Entity(): typeof EntityType {
     return EntityType;
@@ -149,6 +151,9 @@ export class GridComponent implements OnInit, AfterViewInit {
     } else {
       this._openPopUpService.open(this.entity, optionName, data);
       this._openPopUpService.afterClosed().subscribe(val => {
+
+        this.updateTable.emit();
+        
         this.requestApplication = val;
         // this._snackBar.open('Peticion realizada con exito!', '', {
         //   horizontalPosition: this.horizontalPosition,

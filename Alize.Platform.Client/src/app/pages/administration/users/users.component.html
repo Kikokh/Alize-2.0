@@ -4,7 +4,7 @@
             <app-breadcrumb></app-breadcrumb>
         </div>
         <div class="grid">
-            <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions"></app-grid>
+            <app-grid (updateTable)="updateUsers()" [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions"></app-grid>
         </div>
     </div>
 </div>

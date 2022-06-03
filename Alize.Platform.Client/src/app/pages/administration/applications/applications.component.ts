@@ -32,7 +32,13 @@ export class ApplicationsComponent implements OnInit {
 
   ngOnInit() {
     this._applicationsService.getApplications().subscribe(
-      apps => this.elementData = apps
+      applications => this.elementData = applications
+    );
+  }
+
+  updateApplications() {
+    this._applicationsService.getApplications().subscribe(
+      applications => this.elementData = applications
     );
   }
 }
