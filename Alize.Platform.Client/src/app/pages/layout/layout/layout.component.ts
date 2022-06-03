@@ -37,6 +37,11 @@ export class LayoutComponent implements OnInit {
     this.sideBar.toggle();
 
     this._loginService.$me.subscribe(user => {
+      if (!user) {
+        this._loginService.logout()
+        location.reload()
+        return
+      }
       this.user = user;
     });
 
