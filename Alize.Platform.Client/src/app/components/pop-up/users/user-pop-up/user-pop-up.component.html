@@ -1,58 +1,128 @@
 <div class="main">
-    <div class="header">
-        <h1 mat-dialog-title>{{title | translate}}</h1>
+  <div class="header">
+    <h1 mat-dialog-title>{{ title | translate }}</h1>
+  </div>
+
+  <div class="mat-dialog-content" mat-dialog-content>
+    <form [formGroup]="userForm">
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>{{ "Nombre" | translate }}</mat-label>
+        <input matInput name="name" formControlName="firstName" />
+        <mat-error>
+          <app-form-error
+            [form]="userForm"
+            field="firstName"
+            [errors]="userForm.get('firstName')?.errors"
+          ></app-form-error>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>{{ "Apellidos" | translate }}</mat-label>
+        <input matInput name="lastName" formControlName="lastName" />
+        <mat-error>
+          <app-form-error
+            [form]="userForm"
+            field="lastName"
+            [errors]="userForm.get('lastName')?.errors"
+          ></app-form-error>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field color="accent" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput name="email" formControlName="email" />
+        <mat-error>
+          <app-form-error
+            [form]="userForm"
+            field="email"
+            [errors]="userForm.get('email')?.errors"
+          ></app-form-error>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="password-field" *ngIf="data.mode === ModePopUpType.ADD">
+        <mat-form-field color="accent" appearance="outline">
+          <mat-label>{{ "Password" | translate }}</mat-label>
+          <input
+            type="password"
+            matInput
+            name="password"
+            formControlName="password"
+          />
+          <mat-error>
+            <app-form-error
+              [form]="userForm"
+              field="password"
+              [errors]="userForm.get('password')?.errors"
+            ></app-form-error>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field color="accent" appearance="outline"  *ngIf="data.mode === ModePopUpType.ADD">
+          <mat-label>{{ "Repeat Password" | translate }}</mat-label>
+          <input
+            type="password"
+            matInput
+            name="repassword"
+            formControlName="repassword"
+          />
+          <mat-error>
+            <app-form-error
+              [form]="userForm"
+              field="repassword"
+              [errors]="userForm.get('repassword')?.errors"
+            ></app-form-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field
+        color="accent"
+        appearance="outline"
+        *ngIf="
+          data.mode === ModePopUpType.GROUP || data.mode !== ModePopUpType.ADD
+        "
+      >
+        <mat-label>{{ "Roles" | translate }}</mat-label>
+        <input matInput name="groups" formControlName="groups" />
+        <mat-error>
+          <app-form-error
+            [form]="userForm"
+            field="groups"
+            [errors]="userForm.get('groups')?.errors"
+          ></app-form-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" *ngIf="data.mode === ModePopUpType.ADD">
+        <mat-label>{{ "Empresa" | translate }}</mat-label>
+        <mat-select formControlName="company">
+          <mat-option *ngFor="let company of companies" [value]="company.id">
+            {{ company.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <app-form-error
+            [form]="userForm"
+            field="company"
+            [errors]="userForm.get('company')?.errors"
+          ></app-form-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-slide-toggle color="accent" formControlName="isActive">{{
+        "Activo" | translate
+      }}</mat-slide-toggle>
+    </form>
+  </div>
+
+  <div class="mat-dialog-actions" mat-dialog-actions>
+    <div class="fill"></div>
+    <div class="buttons">
+      <button mat-raised-button color="accent" (click)="onClick()">
+        {{ "Guardar" | translate }}
+      </button>
+      <button mat-raised-button (click)="close()">
+        {{ "Cerrar" | translate }}
+      </button>
     </div>
-
-    <div class="mat-dialog-content" mat-dialog-content>
-        <form [formGroup]="userForm">
-            <mat-form-field color="accent" appearance="outline">
-                <mat-label>{{"Nombre" | translate}}</mat-label>
-                <input matInput name="name" formControlName="firstName">
-            </mat-form-field>
-            <mat-form-field color="accent" appearance="outline">
-                <mat-label>{{"Apellidos" | translate}}</mat-label>
-                <input matInput name="lastName" formControlName="lastName">
-            </mat-form-field>
-            <mat-form-field color="accent" appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput name="email" formControlName="email">
-            </mat-form-field>
-
-            <div class="password-field" *ngIf="data.mode === ModePopUpType.ADD">
-                <mat-form-field color="accent" appearance="outline">
-                    <mat-label>{{"Password" | translate}}</mat-label>
-                    <input type="password" matInput name="password" formControlName="password">
-                </mat-form-field>
-                <mat-form-field color="accent" appearance="outline">
-                    <mat-label>{{"Repeat Password" | translate}}</mat-label>
-                    <input type="password" matInput name="repassword" formControlName="repassword">
-                </mat-form-field>
-            </div>
-
-            <mat-form-field color="accent" appearance="outline"
-                *ngIf="data.mode === ModePopUpType.GROUP || data.mode !== ModePopUpType.ADD">
-                <mat-label>{{"Roles" | translate}}</mat-label>
-                <input matInput name="groups" formControlName="groups">
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>{{"Empresa" | translate}}</mat-label>
-                <mat-select [disabled]="data.mode === ModePopUpType.EDIT" formControlName="company">
-                  <mat-option *ngFor="let company of companies" [value]="company.id">
-                    {{ company.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-            <mat-slide-toggle color="accent" formControlName="isActive">{{"Activo" | translate}}</mat-slide-toggle>
-        </form>
-    </div>
-
-    <div class="mat-dialog-actions" mat-dialog-actions>
-        <div class="fill"></div>
-        <div class="buttons">
-            <button mat-raised-button color="accent" (click)="onClick()">{{"Guardar" | translate}}</button>
-            <button mat-raised-button (click)="close()">{{"Cerrar" | translate}}</button>
-        </div>
-    </div>
+  </div>
 </div>

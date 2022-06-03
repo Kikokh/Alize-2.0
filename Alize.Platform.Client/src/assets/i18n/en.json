@@ -93,5 +93,23 @@
     "Ciudad": "City",
     "Provincia": "Province",
     "Pais": "Country",
-    "MapUrl": "Map Url"
+    "MapUrl": "Map Url",
+    "errors": {
+      "saveUser":"Error saving user",
+      "updateUser": "Error updating user"
+    },
+    "success": {
+      "saveUser":"User saved!",
+      "updateUser": "User updated!"
+    },
+    "form":{
+      "error": {
+        "required": "It's a required field",
+        "maxlength": "Max. {{length}} characters",
+        "minlength": "Min. {{length}} characters",
+        "email": "Email invalid",
+        "password_pattern":"Password must contain more than 8 characters, 1 upper case letter, and 1special character",
+        "repassword_mismatch": "passwords is not equals"
+      }
+    }
 }

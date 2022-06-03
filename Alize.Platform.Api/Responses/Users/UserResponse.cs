@@ -21,6 +21,7 @@ namespace Alize.Platform.Api.Responses
         public IEnumerable<ModuleResponse> Modules { get; set; }
 
         public string CompanyName { get; set; }
+        public string CompanyId { get; set; }
 
         public string? CompanyLogo { get; set; }
     }
