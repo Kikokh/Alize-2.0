@@ -1,8 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { RequestApplication } from 'src/app/components/models/application.model';
 import { Company } from 'src/app/models/company.model';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { UsersService } from 'src/app/pages/administration/users/users.service';
@@ -16,7 +15,6 @@ import { ModePopUpType } from '../../models/entity-type.enum';
 export class UserPopUpComponent {
   title ='NuevoUsuario';
   userForm: FormGroup;
-  
   
   public get ModePopUpType(): typeof ModePopUpType {
     return ModePopUpType; 
@@ -38,10 +36,9 @@ export class UserPopUpComponent {
     },
     public translate: TranslateService
   ) {
-    this._companyService.companies_shared.subscribe(
+    this._companyService.getCompanies().subscribe(
       companies => this.companies = companies
     );
-    this._companyService.getCompanies();
 
     this.title = (this.data.mode === ModePopUpType.ADD) ? 'NuevoUsuario' : (this.data.mode) ? 'VerUsuario' : 'EditarUsuario';
     this.userForm = new FormGroup({
@@ -57,10 +54,7 @@ export class UserPopUpComponent {
   }
 
   onClick() {
-    let requestApplication = new RequestApplication();
-    requestApplication.name = 'Nombre';
-    requestApplication.importantInfo = 'Important Info';
-    requestApplication.description = 'description';
+
 
     if(this.data.mode === ModePopUpType.ADD) {
       const value = this.userForm.value;
@@ -72,7 +66,6 @@ export class UserPopUpComponent {
       }
       this._userService.createNewUser(request).subscribe(
         () => {
-          this._userService.getUsers();
           this.dialogRef.close();
       },
         (err) => {
@@ -89,7 +82,6 @@ export class UserPopUpComponent {
       }
        this._userService.updateUser(this.data.id, request).subscribe(
         () => {
-          this._userService.getUsers();
           this.dialogRef.close();
       },
         (err) => {
@@ -97,8 +89,6 @@ export class UserPopUpComponent {
         })
     }
 
-    
-    this.dialogRef.close(requestApplication);
   }
 
   close() {

@@ -27,9 +27,14 @@ export class CompaniesComponent {
   }
   
   constructor(private _companiesService: CompaniesService) {
-    this._companiesService.companies_shared.subscribe(companies => {
+    this._companiesService.getCompanies().subscribe(companies => {
       this.elementData = companies;
     });
-    this._companiesService.getCompanies();
+  }
+
+  updateCompanies(){
+    this._companiesService.getCompanies().subscribe(companies => {
+      this.elementData = companies;
+    });
   }
 }

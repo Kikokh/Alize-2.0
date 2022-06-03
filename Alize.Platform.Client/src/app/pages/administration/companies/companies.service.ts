@@ -11,24 +11,15 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CompaniesService {
   private _baseUrl = `${environment.apiUrl}/Companies`
-  public companies:Company[] = [];
-  public companies_shared: BehaviorSubject<Company[]>
-  constructor(private _http: HttpClient) { 
+  constructor(private _http: HttpClient) {}
 
-    this.companies_shared = new BehaviorSubject(this.companies);
+  getCompanies(): Observable<Company[]> {
 
+    return this._http.get<Company[]>(this._baseUrl).pipe(
+      tap( data => {})
+    );
   }
 
-  getCompanies(): void {
-
-    this._http.get<Company[]>(this._baseUrl).subscribe((companies:Company[]) => {
-      this.companies_shared.next(companies);
-    });
-    
-  }
-  // .pipe(
-  //   tap( data => {})
-  // )
   getCompany(companyId: string): Observable<Company> {
     return this._http.get<Company>(`${this._baseUrl}/${companyId}`);
   }

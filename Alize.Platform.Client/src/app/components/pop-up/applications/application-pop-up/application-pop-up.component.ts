@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Application } from 'src/app/models/application.model';
@@ -44,7 +44,7 @@ export class ApplicationPopUpComponent {
     private _applicationServices: ApplicationsService) {
     
     this.applicationForm = new FormGroup({
-      name: new FormControl({ value: (this.data.name) ? this.data.name : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      name: new FormControl({ value: (this.data.name) ? this.data.name : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
       description: new FormControl({ value: (this.data.description) ? this.data.description : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       importantInfo: new FormControl({ value: (this.data.importantInfo) ? this.data.importantInfo : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       date: new FormControl({ value: this.data.creationDate, disabled: true }),
@@ -82,17 +82,11 @@ export class ApplicationPopUpComponent {
 
     if (this.data.mode === ModePopUpType.ADD) {            
       this._applicationServices.newApplication(app).subscribe(
-        () => {
-          this._applicationServices.getApplications();
-          this.dialogRef.close();
-        }
+        () => this.dialogRef.close()
       );
     } else if (this.data.mode === ModePopUpType.EDIT) {            
       this._applicationServices.updateApplication(app).subscribe(
-        () => {
-          this._applicationServices.getApplications();
-          this.dialogRef.close();
-        }
+        () => this.dialogRef.close()
       );
     }
   }

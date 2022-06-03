@@ -8,15 +8,9 @@ import { environment } from 'src/environments/environment';
 })
 export class ApplicationsService {
   private _baseUrl = `${environment.apiUrl}/Applications`
-  public applications:Application[] = [];
-  public applications_shared: BehaviorSubject<Application[]>
 
   constructor(
-    private _http: HttpClient) {
-
-      this.applications_shared = new BehaviorSubject(this.applications);
-
-     }
+    private _http: HttpClient) {}
   private _httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -24,12 +18,9 @@ export class ApplicationsService {
     })
   };
 
-  getApplications(): void {
-    this._http.get<Application[]>(this._baseUrl, this._httpOptions).subscribe((applications:Application[]) => {
-      this.applications_shared.next(applications);
-    });
+  getApplications(): Observable<Application[]> {
+    return this._http.get<Application[]>(this._baseUrl, this._httpOptions);
   }
-  // return this._http.get<Application[]>(this._baseUrl, this._httpOptions);
 
   getApplication(idApplication: string) {
     return this._http.get<any>(`${this._baseUrl}/${idApplication}`, this._httpOptions);

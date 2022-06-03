@@ -31,9 +31,14 @@ export class ApplicationsComponent implements OnInit {
   constructor(private _applicationsService: ApplicationsService) { }
 
   ngOnInit() {
-    this._applicationsService.applications_shared.subscribe(
+    this._applicationsService.getApplications().subscribe(
       applications => this.elementData = applications
     );
-    this._applicationsService.getApplications();
+  }
+
+  updateApplications() {
+    this._applicationsService.getApplications().subscribe(
+      applications => this.elementData = applications
+    );
   }
 }

@@ -59,14 +59,11 @@ export class GroupUserPopUpComponent {
 
     this._userService.updateUserRole(this.data.id, this.userForm.value.roleId).subscribe(
       () => {
-        this._userService.getUsers();
         this.dialogRef.close();
       },
       (err) => {
         console.log(err)
       })
-
-    this.dialogRef.close(requestApplication);
   }
 
   close() {
