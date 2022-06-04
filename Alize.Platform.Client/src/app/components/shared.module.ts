@@ -26,6 +26,7 @@ import { GridSkeletonComponent } from './skeleton/grid-skeleton/grid-skeleton.co
 import { CompanyPopUpComponent } from './pop-up/companies/company-pop-up/company-pop-up.component';
 import { SafePipe } from '../pipes/safe.pipe';
 import { TotalizatorComponent } from './totalizator/totalizator.component';
+import { EncryptionPopUpComponent } from './pop-up/encryption-pop-up/encryption-pop-up.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -52,7 +53,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     GridSkeletonComponent,
     CompanyPopUpComponent,
     SafePipe,
-    TotalizatorComponent
+    TotalizatorComponent,
+    EncryptionPopUpComponent
   ],
   imports: [
     CommonModule,

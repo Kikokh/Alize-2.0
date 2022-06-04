@@ -93,5 +93,11 @@
     "Ciudad": "City",
     "Provincia": "Province",
     "Pais": "Country",
-    "MapUrl": "Map Url"
+    "MapUrl": "Map Url",
+    "TraceabilityHash": "Traceability Hash",
+    "TraceabilityData": "Traceability Data",
+    "EncryptionDescOne": "To validate the traceability information that you can see in the table, copy the content of the field.",
+    "EncryptionDescTwo": "and using the SHA256 encryption algorithm compare it to the field above. The hashes will be the same if and only if the data is the same.",
+    "EncryptionWeb": "You can perform encryption through this",
+    "AlerBar":"The content of this table has been validated using Blockchain technologies and SHA256 encryption. Click on the check to obtain more information"
 }

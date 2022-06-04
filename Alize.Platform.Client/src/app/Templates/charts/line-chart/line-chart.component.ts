@@ -9,7 +9,7 @@ import { multi } from '../../models/data';
 })
 export class LineChartComponent {
   multi: any[];
-  view: [number,number] = [700, 300];
+  view: [number, number] = [900, 300];
   // options
   legend: boolean = true;
   showLabels: boolean = true;
@@ -28,8 +28,8 @@ export class LineChartComponent {
     group: ScaleType.Ordinal,
     domain: ['#f00', '#0f0', '#0ff'],
   };
-  
-  constructor() { 
+
+  constructor() {
     Object.assign(this, { multi });
   }
 
@@ -45,4 +45,7 @@ export class LineChartComponent {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
+  onResize(event: any) {
+    this.view = [event.target.innerWidth / 5, 500];
+  }
 }

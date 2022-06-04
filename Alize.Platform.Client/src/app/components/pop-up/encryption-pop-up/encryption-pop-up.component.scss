@@ -1,0 +1,31 @@
+.main {
+    padding: 10px 10px 10px 10px;
+    width: 600px;
+    
+    mat-form-field {
+        width: 100%;
+    }
+
+    span {
+        .traceability {
+            font-style: italic;
+            font-size: 18px;
+        }
+    }
+
+    span {
+        .web {
+            font-weight: 600;
+        }
+    }
+}
+
+.color-bold {
+    color: #73879c;
+    font-weight: 800;
+}
+
+.color {
+    color: #73879c;
+    font-weight: 500;
+}

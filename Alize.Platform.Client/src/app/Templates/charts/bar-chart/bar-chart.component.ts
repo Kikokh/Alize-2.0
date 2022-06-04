@@ -40,4 +40,7 @@ export class BarChartComponent {
     console.log(event);
   }
 
+  onResize(event: any) {
+    this.view = [event.target.innerWidth / 5, 500];
+  }
 }

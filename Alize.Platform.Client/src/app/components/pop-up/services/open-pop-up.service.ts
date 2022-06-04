@@ -7,6 +7,7 @@ import { Module } from 'src/app/models/module.model';
 import { ApplicationGroupPopUpComponent } from '../applications/application-group-pop-up/application-group-pop-up.component';
 import { ApplicationPopUpComponent } from '../applications/application-pop-up/application-pop-up.component';
 import { CompanyPopUpComponent } from '../companies/company-pop-up/company-pop-up.component';
+import { EncryptionPopUpComponent } from '../encryption-pop-up/encryption-pop-up.component';
 import { EntityType, ModePopUpType } from '../models/entity-type.enum';
 import { MatDialogConfigModel } from '../models/request-pop-up.model';
 import { ModulesPopUpComponent } from '../modules/modules-pop-up/modules-pop-up.component';
@@ -70,6 +71,14 @@ export class OpenPopUpService {
       }
       case EntityType.COMPANIES: {
         this.resolveCompaniesPopUp(mode, matDialogConfigModel, data);
+        break;
+      }
+      case EntityType.ENCRYPTING: {
+        matDialogConfigModel.component = EncryptionPopUpComponent;
+        matDialogConfigModel.data = {
+          hash: data.hash,
+          data: data.data
+        };
         break;
       }
       default: {
