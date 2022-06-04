@@ -20,12 +20,14 @@ namespace Alize.Platform.Api.Controllers
         private readonly IApplicationRepository _applicationRepository;
         private readonly ISecurityService _securityService;
         private readonly IMapper _mapper;
+        private readonly ICosmosRepositoryFactory _templateRepositoryFactory;
 
-        public ApplicationsController(IApplicationRepository applicationRepository, ISecurityService securityService, IMapper mapper)
+        public ApplicationsController(IApplicationRepository applicationRepository, ISecurityService securityService, IMapper mapper, ICosmosRepositoryFactory templateRepositoryFactory)
         {
             _applicationRepository = applicationRepository;
             _securityService = securityService;
             _mapper = mapper;
+            _templateRepositoryFactory = templateRepositoryFactory;
         }
 
         // GET: api/<ApplicationsController>
@@ -64,6 +66,7 @@ namespace Alize.Platform.Api.Controllers
         {
 
             var app = await _applicationRepository.AddApplicationAsync(_mapper.Map<Application>(request));
+            await _templateRepositoryFactory.CreateApplicationContainerAsync(app.Id);
 
             return CreatedAtAction(nameof(Get), new { id = app.Id }, _mapper.Map<ApplicationResponse>(app));
         }

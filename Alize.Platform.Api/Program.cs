@@ -84,7 +84,7 @@ builder.Services.AddScoped<IApplicationCredentialsRepository, ApplicationCredent
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
 builder.Services.AddScoped<IBlockchainRepository, BlockchainRepository>();
-builder.Services.AddScoped<ITemplateRespository, TemplateRespository>();
+builder.Services.AddScoped<ICosmosRepositoryFactory, CosmosRepositoryFactory>();
 builder.Services.AddScoped<ISecurityService, SecurityService>();
 builder.Services.AddScoped<ICryptographyService, CryptographyService>();
 builder.Services.AddScoped<IBlockchainFactory, BlockchainFactory>();

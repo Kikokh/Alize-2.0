@@ -23,14 +23,14 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
             try
             {
                 var response = await GetHttpClient().GetFromJsonAsync<FueAsset>(url);
-                return new Asset()
+
+                return response is not null ? new Asset()
                 {
                     Id = response.AssetItem.Id,
                     Data = response.AssetItem.Data.BlockchainData,
                     CreatedAt = response.AssetItem.Data.CreatedAt,
-                    Namespace = response.AssetItem.Data.Namespace,
-                    Type = response.AssetItem.Data.Type
-                };
+                    Namespace = response.AssetItem.Data.Namespace
+                } : default;
             }
             catch (HttpRequestException)
             {
@@ -45,11 +45,12 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
             try
             {
                 var response = await GetHttpClient().GetFromJsonAsync<FueAssetHistoryList>(url);
-                return response.History.Select(h => new AssetHistory()
+
+                return response is not null ? response.History.Select(h => new AssetHistory()
                 {
                     TransactionId = h.TransactionId,
                     Metadata = h.Metadata
-                });
+                }) : Enumerable.Empty<AssetHistory>();
             }
             catch (HttpRequestException)
             {
@@ -59,8 +60,9 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
 
         public async Task<AssetsPage?> GetAssetsPageAsync(Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
         {
-            var parameters = new {
-                page_num = pageNumber, 
+            var parameters = new
+            {
+                page_num = pageNumber,
                 per_page = pageSize,
                 data = queries.Where(q => q.Key != "pageSize" && q.Key != "pageNumber").ToDictionary(q => $"bc_data.{q.Key}", q => q.Value)
             };
@@ -69,17 +71,17 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
 
             var response = await GetHttpClient().GetFromJsonAsync<FueAssetList>(url);
 
-            return new AssetsPage() {
+            return response != null ? new AssetsPage()
+            {
                 Assets = response.Assets.Select(a => new Asset()
                 {
                     Id = a.Id,
                     Data = a.Data.BlockchainData,
                     CreatedAt = a.Data.CreatedAt,
-                    Namespace = a.Data.Namespace,
-                    Type = a.Data.Type
+                    Namespace = a.Data.Namespace
                 }),
-                Total = response.Count.Total                
-            };
+                Total = response.Count.Total
+            } : new AssetsPage();
         }
 
         private HttpClient GetHttpClient()
