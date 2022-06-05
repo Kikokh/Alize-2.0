@@ -83,6 +83,14 @@ namespace Alize.Platform.Infrastructure
                     Description = "Registro planes de control sistema mapex",
                     IsActive = true,
                     CompanyId = Guid.Parse("e8528a43-2a9d-44dd-b1c9-e37777ad0644")
+                },
+                new Application
+                {
+                    Id = Guid.Parse("de017cbb-fc9f-45e0-9f2c-c777a257fee7"),
+                    Name = "Huella de carbono",
+                    Description = "Huella de carbono en proceso de montaje parabrisas",
+                    IsActive = true,
+                    CompanyId = Guid.Parse("e8528a43-2a9d-44dd-b1c9-e37777ad0644")
                 });
         }
         private void SeedApplicationCredentials(ModelBuilder builder)
@@ -95,6 +103,14 @@ namespace Alize.Platform.Infrastructure
                     BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
                     Username = "60ffbe3ef24524680871dc75",
                     EncriptedPassword = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436"
+                },
+                new ApplicationCredentials
+                {
+                    Id = Guid.Parse("558ae1ca-63d2-4dd2-b18a-e80136d9315e"),
+                    ApplicationId = Guid.Parse("de017cbb-fc9f-45e0-9f2c-c777a257fee7"),
+                    BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
+                    Username = "61e844e4f245240292cf8641",
+                    EncriptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d"
                 });
         }
         private void SeedCompanies(ModelBuilder builder)

@@ -73,4 +73,37 @@
             }
         }
     }
+
+    .alert-container {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+
+        .alert-bar-button {
+            width: 70%;
+            height: 60px;
+            font-size: 20px;
+            background-color: #80cbc4;
+
+            .button-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                span,
+                mat-icon {
+                    margin-left: 5px;
+                }
+
+                mat-icon,
+                span {
+                    color: #fff;
+                }
+            }
+        }
+    }
 }
+
+:host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: transparent !important;
+  }

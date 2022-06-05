@@ -26,6 +26,18 @@
             <mat-row *matRowDef="let row; columns: rowDefs"></mat-row>
         </mat-table>
     </div>
+    <div class="alert-container">
+        <button mat-raised-button class="alert-bar-button">
+            <div class="button-container">
+                <mat-icon>info</mat-icon>
+                <span>
+                    El contenido de esta tabla ha sido validado usando tecnologias Blockchain
+                    y cifrado SHA256. Haga click en el check para obtener mas informacion
+                </span>
+                <mat-icon (click)="openEncryptedPopUp()">file_download_done</mat-icon>
+            </div>
+        </button>
+    </div>
 </div>
 
 <ng-template #gridSkeleton>

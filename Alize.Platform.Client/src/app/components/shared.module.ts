@@ -27,7 +27,7 @@ import { CompanyPopUpComponent } from './pop-up/companies/company-pop-up/company
 import { SafePipe } from '../pipes/safe.pipe';
 import { TotalizatorComponent } from './totalizator/totalizator.component';
 import { FormErrorComponent } from './form-error/form-error.component';
-
+import { EncryptionPopUpComponent } from './pop-up/encryption-pop-up/encryption-pop-up.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -55,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SafePipe,
     TotalizatorComponent,
     FormErrorComponent,
+    EncryptionPopUpComponent
   ],
   imports: [
     CommonModule,

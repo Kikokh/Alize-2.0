@@ -100,5 +100,11 @@
     "Ciudad": "Ciudad",
     "Provincia": "Provincia",
     "Pais": "Pais",
-    "MapUrl": "Url del Mapa"
+    "MapUrl": "Url del Mapa",
+    "TraceabilityHash": "Hash de trazabilidad",
+    "TraceabilityData": "Datos de trazabilidad",
+    "EncryptionDescOne": "Para Validar la informacion de trazabilidad que puede ver en la tabla copie el contenido del campo. ",
+    "EncryptionDescTwo": "y usando el algoritmo de cifrado SHA256 comparelo con el campo superior. Los hashes seran los mismo si y solamente si los datos son los mismos.",
+    "EncryptionWeb": "Puede realizar el cifrado a traves de esta",
+    "AlerBar":"El contenido de esta tabla ha sido validado usando tecnologias Blockchain y cifrado SHA256. Haga click en el check para obtener mas informacion"
 }

@@ -4,7 +4,8 @@ export enum EntityType {
     'ROLES' = 'ROLES',
     'MODULES' = 'MODULES',
     'COMPANIES' = 'COMPANIES',
-    'REQUEST' = 'REQUEST'
+    'REQUEST' = 'REQUEST',
+    'ENCRYPTING' = 'ENCRYPTING'
 }
 
 export enum ModePopUpType {
@@ -16,5 +17,6 @@ export enum ModePopUpType {
     'ADD' = 'ADD',
     'TIMER' = 'TIMER',
     'REQUEST' = 'REQUEST',
+    'ENCRYPTING' = 'ENCRYPTING',
     'CHARTS' = 'CHARTS'
 }

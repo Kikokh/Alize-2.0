@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { zip } from 'rxjs';
+import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
+import { OpenPopUpService } from 'src/app/components/pop-up/services/open-pop-up.service';
 import { AssetHistory } from 'src/app/models/asset-history.model';
 import { Asset } from 'src/app/models/asset.model';
 import { AssetTemplate } from 'src/app/Templates/models/asset-template.model';
@@ -37,7 +39,8 @@ export class AssetDetailComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _templateService: TemplatesService,
-    private _assetService: AssetService
+    private _assetService: AssetService,
+    private _openPopUpService: OpenPopUpService
   ) { }
 
   ngOnInit(): void {
@@ -59,4 +62,17 @@ export class AssetDetailComponent implements OnInit {
     );
   }
 
+  openEncryptedPopUp() {
+    const data = {
+      hash: '01248739475643756476574fjksdbvjkbsdkjvsdjhgf8237532875',
+      data: [{
+        "Id":"543643435",
+        "VinJTDS":"NJ471955",
+        "SecuenciaJTDS":"0002941",
+        "Producto":"Producto543643435"
+      }]
+    };
+
+    this._openPopUpService.open(EntityType.ENCRYPTING, ModePopUpType.ENCRYPTING, data);
+  }
 }

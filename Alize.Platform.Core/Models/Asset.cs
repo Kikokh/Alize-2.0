@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using Alize.Platform.Core.Constants;
+using Newtonsoft.Json;
 
 namespace Alize.Platform.Core.Models
 {
-    public class Asset
+    public class Asset : ApplicationItem
     {
-        [JsonProperty(PropertyName = "id")]
-        public string Id { get; set; }
-
         public string BlockNumber { get; set; }
 
         public string BlockHash { get; set; }
@@ -15,12 +13,11 @@ namespace Alize.Platform.Core.Models
         public Dictionary<string, object> Data { get; set; }
 
         [JsonProperty(PropertyName = "createdAt")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
 
         [JsonProperty(PropertyName = "namespace")]
         public string? Namespace { get; set; }
 
-        [JsonProperty(PropertyName = "type")]
-        public string? Type { get; set; }
+        public override string Type => ApplicationItemTypes.Asset;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Alize.Platform.Api.Responses.Templates
 {
-    public class ApplicationAssetTemplateResponse
+    public class AssetTemplateResponse
     {
         public IEnumerable<TemplateColumnResponse> Columns { get; set; }
 

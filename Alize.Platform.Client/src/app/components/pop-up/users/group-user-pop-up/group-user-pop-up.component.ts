@@ -7,6 +7,12 @@ import { RolesService } from 'src/app/pages/administration/roles/roles.service';
 import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
+export class DialogResult {
+  id: string;
+  roleId: string;
+  action: ModePopUpType;
+  constructor() { }
+}
 @Component({
   selector: 'app-group-user-pop-up',
   templateUrl: './group-user-pop-up.component.html',
@@ -52,20 +58,12 @@ export class GroupUserPopUpComponent {
   }
 
   onClick() {
-    let requestApplication = new RequestApplication();
-    requestApplication.name = 'Nombre';
-    requestApplication.importantInfo = 'Important Info';
-    requestApplication.description = 'description';
-
-    this._userService.updateUserRole(this.data.id, this.userForm.value.roleId).subscribe(
-      () => {
-        this.dialogRef.close();
-      },
-      (err) => {
-        console.log(err)
-      })
-
-    this.dialogRef.close(requestApplication);
+    let dialogResult = new DialogResult();
+    dialogResult.id = this.data.id;
+    dialogResult.roleId = this.userForm.value.roleId;
+    dialogResult.action = ModePopUpType.GROUP;
+    
+    this.dialogRef.close(dialogResult);
   }
 
   close() {

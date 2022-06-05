@@ -3,6 +3,7 @@ import { Application } from 'src/app/models/application.model';
 import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { ApplicationsService } from './applications.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
   selector: 'app-applications',
@@ -28,11 +29,61 @@ export class ApplicationsComponent implements OnInit {
     return EntityType.APPLICATIONS;
   }
 
-  constructor(private _applicationsService: ApplicationsService) { }
+  isLoading = true;
+
+  constructor(
+    private _snackBarService: SnackBarService,
+    private _applicationsService: ApplicationsService) { }
 
   ngOnInit() {
     this._applicationsService.getApplications().subscribe(
-      apps => this.elementData = apps
+      applications => {
+        this.isLoading = false;
+        this.elementData = applications;
+      }
     );
+  }
+
+  add(app: Application) {
+    this.isLoading = true;
+    this._applicationsService.newApplication(app).
+      subscribe({
+        next: () => {
+          this._snackBarService.showSnackBar('Entidad creada con éxito.');
+        },
+        error: () => {
+          this._snackBarService
+            .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
+        },
+        complete: () => {
+          this._applicationsService.getApplications().subscribe(
+            applications => {
+              this.isLoading = false;
+              this.elementData = applications;
+            }
+          );
+        }
+      });
+  }
+
+  update(app: Application) {
+    this._applicationsService.updateApplication(app).subscribe({
+      next: () => {
+        this._snackBarService.showSnackBar('Entidad actualizada con éxito.');
+      },
+      error: () => {
+        this._snackBarService
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
+      },
+      complete: () => {
+        this._applicationsService.getApplications().subscribe(
+          applications => this.elementData = applications
+        );
+      }
+    });
+  }
+
+  delete(app: Application) {
+
   }
 }

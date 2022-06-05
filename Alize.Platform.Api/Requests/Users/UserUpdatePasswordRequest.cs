@@ -9,6 +9,7 @@ namespace Alize.Platform.Api.Requests.Users
         [Password]
         public string NewPassword { get; set; }
 
+        [Required]
         [Compare(nameof(NewPassword))]
         [Password]
         public string ConfirmPassword { get; set; }

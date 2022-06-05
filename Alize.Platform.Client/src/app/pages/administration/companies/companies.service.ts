@@ -4,14 +4,14 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Company } from 'src/app/models/company.model';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CompaniesService {
   private _baseUrl = `${environment.apiUrl}/Companies`
-  
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {}
 
   getCompanies(): Observable<Company[]> {
 

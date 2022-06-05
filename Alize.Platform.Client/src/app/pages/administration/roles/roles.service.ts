@@ -28,7 +28,6 @@ export class RolesService {
   }
 
   getRoles() {
-
     return this._http.get<IElementDataRoles[]>(this._baseUrl, this.httpOptions)
   }
 

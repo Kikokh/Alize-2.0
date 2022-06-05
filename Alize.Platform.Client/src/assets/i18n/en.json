@@ -108,8 +108,14 @@
         "maxlength": "Max. {{length}} characters",
         "minlength": "Min. {{length}} characters",
         "email": "Email invalid",
-        "password_pattern":"Password must contain more than 8 characters, 1 upper case letter, and 1special character",
+        "password_pattern":"Password must contain more than 8 characters, 1 upper case letter, and 1 special character",
         "repassword_mismatch": "passwords is not equals"
       }
-    }
+    },
+    "TraceabilityHash": "Traceability Hash",
+    "TraceabilityData": "Traceability Data",
+    "EncryptionDescOne": "To validate the traceability information that you can see in the table, copy the content of the field.",
+    "EncryptionDescTwo": "and using the SHA256 encryption algorithm compare it to the field above. The hashes will be the same if and only if the data is the same.",
+    "EncryptionWeb": "You can perform encryption through this",
+    "AlerBar":"The content of this table has been validated using Blockchain technologies and SHA256 encryption. Click on the check to obtain more information"
 }

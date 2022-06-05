@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Alize.Platform.Core.Models
+﻿namespace Alize.Platform.Core.Models
 {
     public class TemplateColumn : TemplateField
     {

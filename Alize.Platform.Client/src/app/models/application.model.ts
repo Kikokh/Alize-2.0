@@ -1,3 +1,4 @@
+import { ModePopUpType } from "../components/pop-up/models/entity-type.enum";
 import { Company } from "./company.model";
 
 export class Application {
@@ -10,4 +11,5 @@ export class Application {
     company?: Company;
     companyName: string;
     dataType?: string;
+    action: ModePopUpType;
 }
