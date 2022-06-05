@@ -179,7 +179,7 @@ export class UserPopUpComponent implements OnDestroy {
           lastName: value.lastName,
           isActive: value.isActive,
         };
-        this.updateUser(this.data.id, request);
+        this.updateUser(request);
       }
     } else {
       this.userForm.markAllAsTouched();
@@ -199,9 +199,9 @@ export class UserPopUpComponent implements OnDestroy {
       );
   }
 
-  updateUser(id: string, request: any) {
+  updateUser(request: any) {
     this._userService
-      .updateUser(id, request)
+      .updateUser(request)
       .pipe(takeUntil(this.unsubscribeAll))
       .subscribe(
         () => {
