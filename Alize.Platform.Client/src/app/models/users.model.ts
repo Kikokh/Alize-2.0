@@ -1,3 +1,5 @@
+import { ModePopUpType } from "../components/pop-up/models/entity-type.enum";
+
 export class User {
     id: string;
     userName: string;
@@ -8,4 +10,5 @@ export class User {
     roleName: string;
     isActive: boolean;
     password: string;
+    action: ModePopUpType;
 }

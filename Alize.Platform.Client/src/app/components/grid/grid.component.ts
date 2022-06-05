@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Application } from 'src/app/models/application.model';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { RequestApplication } from '../models/application.model';
@@ -30,7 +31,11 @@ export class GridComponent implements OnInit, AfterViewInit {
   @Input() title: string = 'Administracion';
   @Input() subTitle: string = '';
 
-  @Output() updateTable = new EventEmitter<any>();
+  @Output() update = new EventEmitter<any>();
+  @Output() updateRole = new EventEmitter<any>();
+  @Output() add = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
+
 
   public get Entity(): typeof EntityType {
     return EntityType;
@@ -51,9 +56,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   pageEvent: PageEvent;
 
 
-  requestApplication = new RequestApplication();
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
 
   materialTheme = new MaterialTheme();
 
@@ -69,7 +72,6 @@ export class GridComponent implements OnInit, AfterViewInit {
     private _globalStylesService: GlobalStylesService,
     private _openPopUpService: OpenPopUpService,
     private _router: Router,
-    private _snackBar: MatSnackBar,
     public translate: TranslateService) {
 
     const lang = localStorage.getItem('lang');
@@ -133,12 +135,8 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   openDialog() {
     this._openPopUpService.open(this.entity, ModePopUpType.ADD);
-    this._openPopUpService.afterClosed().subscribe(val => {
-      this.requestApplication = val;
-      // this._snackBar.open('Peticion realizada con exito!', '', {
-      //   horizontalPosition: this.horizontalPosition,
-      //   verticalPosition: this.verticalPosition,
-      // });
+    this._openPopUpService.afterClosed().subscribe(entity => {
+      this.add.emit(entity);
     });
   }
 
@@ -150,15 +148,15 @@ export class GridComponent implements OnInit, AfterViewInit {
       this._router.navigate([`management/charts/${data.id}/chart`]);
     } else {
       this._openPopUpService.open(this.entity, optionName, data);
-      this._openPopUpService.afterClosed().subscribe(val => {
+      this._openPopUpService.afterClosed().subscribe(entity => {
 
-        this.updateTable.emit();
-        
-        this.requestApplication = val;
-        // this._snackBar.open('Peticion realizada con exito!', '', {
-        //   horizontalPosition: this.horizontalPosition,
-        //   verticalPosition: this.verticalPosition,
-        // });
+        if (entity.action === ModePopUpType.EDIT) {
+          this.update.emit(entity);
+        } if (entity.action === ModePopUpType.GROUP) {
+          this.updateRole.emit(entity);
+        } else {
+          this.delete.emit(entity);
+        }
       });
     }
 

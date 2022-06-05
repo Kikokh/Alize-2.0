@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Company } from 'src/app/models/company.model';
+import { User } from 'src/app/models/users.model';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
@@ -13,14 +14,14 @@ import { ModePopUpType } from '../../models/entity-type.enum';
   styleUrls: ['./user-pop-up.component.scss']
 })
 export class UserPopUpComponent {
-  title ='NuevoUsuario';
+  title = 'NuevoUsuario';
   userForm: FormGroup;
-  
+
   public get ModePopUpType(): typeof ModePopUpType {
-    return ModePopUpType; 
+    return ModePopUpType;
   }
   companies: Company[];
-  constructor(    
+  constructor(
     private _companyService: CompaniesService,
     private _userService: UsersService,
     public dialogRef: MatDialogRef<UserPopUpComponent>,
@@ -45,50 +46,33 @@ export class UserPopUpComponent {
       firstName: new FormControl({ value: (data?.nombre) ? data.nombre : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       lastName: new FormControl({ value: (this.data?.apellidos) ? this.data.apellidos : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       email: new FormControl({ value: (this.data?.email) ? this.data.email : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      company: new FormControl({ value: (this.data.empresa) ? this.data.empresa : ''}),
-      password: new FormControl({ value: ''}),
-      repassword: new FormControl({ value: ''}),
+      company: new FormControl({ value: (this.data.empresa) ? this.data.empresa : '' }),
+      password: new FormControl({ value: '' }),
+      repassword: new FormControl({ value: '' }),
       groups: new FormControl({ value: (this.data?.grupos) ? this.data.grupos : '', disabled: true }),
       isActive: new FormControl({ value: this.data?.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
     });
   }
 
   onClick() {
+    this.dialogRef.close(this.buildUser());
+  }
 
-
-    if(this.data.mode === ModePopUpType.ADD) {
-      const value = this.userForm.value;
-      const request = {
-        email: value.email,
-        password: value.password,
-        firstName: value.firstName,
-        lastName: value.lastName
-      }
-      this._userService.createNewUser(request).subscribe(
-        () => {
-          this.dialogRef.close();
-      },
-        (err) => {
-          console.log(err)
-        })
-    } else {
-      const value = this.userForm.value;
-      const request = {
-        id: this.data.id,
-        email: value.email,
-        firstName: value.firstName,
-        lastName: value.lastName,
-        isActive: value.isActive
-      }
-       this._userService.updateUser(this.data.id, request).subscribe(
-        () => {
-          this.dialogRef.close();
-      },
-        (err) => {
-          console.log(err)
-        })
+  private buildUser(): User {
+    const value = this.userForm.value;
+    let user = new User();
+    user.id = this.data.id;
+    user.email = value.email;
+    
+    if (this.data.mode === ModePopUpType.ADD) { 
+      user.password = value.password;
     }
 
+    user.firstName = value.firstName;
+    user.lastName = value.lastName;
+    user.isActive = value.isActive;
+    user.action = (this.data.mode === ModePopUpType.ADD) ? ModePopUpType.ADD : ModePopUpType.EDIT;
+    return user;
   }
 
   close() {

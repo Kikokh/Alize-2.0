@@ -3,8 +3,15 @@
         <div class="breadcrumb">
             <app-breadcrumb></app-breadcrumb>
         </div>
-        <div class="grid" ng-if="elementData.length > 0">
-            <app-grid #dataTable [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.ROLES" [actions]="actions"></app-grid>
+        <div class="grid">
+            <div *ngIf="!isLoading; else gridSkeleton">
+                <app-grid #dataTable [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.ROLES" [actions]="actions"></app-grid>
+            </div>
+            <ng-template #gridSkeleton>
+                <div class="grid-skeleton">
+                    <app-grid-skeleton></app-grid-skeleton>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>

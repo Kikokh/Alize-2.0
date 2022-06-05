@@ -1,3 +1,5 @@
+import { ModePopUpType } from "../components/pop-up/models/entity-type.enum";
+
 export class Company {
     activity: string;
     address: string;
@@ -21,4 +23,5 @@ export class Company {
     web: string;
     zip: string;
     description: string;
+    action: ModePopUpType;
 }

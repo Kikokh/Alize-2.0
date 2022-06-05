@@ -47,7 +47,7 @@ export class CompanyPopUpComponent implements OnInit {
       mode: string;
     },
     private _companiesService: CompaniesService,
-    public translate: TranslateService) { 
+    public translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -80,11 +80,7 @@ export class CompanyPopUpComponent implements OnInit {
   }
 
   onClick() {
-    const company = this.buildCompany();
-
-    this._companiesService.updateCompany(company).subscribe(
-      () => this.dialogRef.close(company)
-    );
+    this.dialogRef.close(this.buildCompany());
   }
 
   close() {
@@ -110,7 +106,8 @@ export class CompanyPopUpComponent implements OnInit {
       zip: this.form.value.zip,
       city: this.form.value.city,
       province: this.form.value.province,
-      country: this.form.value.country
+      country: this.form.value.country,
+      action: ModePopUpType.EDIT
     }
   }
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { Company } from 'src/app/models/company.model';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { CompaniesService } from './companies.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class CompaniesComponent {
     { columnDef: 'Activo', header: 'Activo', cell: (element: Company) => `${element.isActive}` }
   ];
   elementData: Company[];
+  isLoading = true;
 
   actions: IOperationsModel[] = [
     { optionName: ModePopUpType.DISPLAY, icon: 'search' },
@@ -23,18 +25,48 @@ export class CompaniesComponent {
   ]
 
   public get Entity(): typeof EntityType {
-    return EntityType; 
+    return EntityType;
   }
-  
-  constructor(private _companiesService: CompaniesService) {
+
+  constructor(
+    private _snackBarService: SnackBarService,
+    private _companiesService: CompaniesService
+  ) {
     this._companiesService.getCompanies().subscribe(companies => {
+      this.isLoading = false;
       this.elementData = companies;
     });
   }
 
-  updateCompanies(){
+  updateCompanies() {
     this._companiesService.getCompanies().subscribe(companies => {
+      this.isLoading = false;
       this.elementData = companies;
     });
   }
+
+  add(company: Company) { }
+
+  update(company: Company) {
+    this.isLoading = true;
+    this._companiesService.updateCompany(company).subscribe({
+      next: () => {
+        this._snackBarService.showSnackBar('Entidad actualizada con éxito.');
+      },
+      error: () => {
+        this._snackBarService
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
+      },
+      complete: () => {
+        this._companiesService.getCompanies().subscribe(
+          company => {
+            this.elementData = company;
+            this.isLoading = false;
+          }
+        );
+      }
+    });
+  }
+
+  delete(app: Company) { }
 }

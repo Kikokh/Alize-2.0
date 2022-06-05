@@ -24,6 +24,8 @@ export class RolesComponent implements OnInit {
     { optionName: ModePopUpType.DISPLAY, icon: 'search' }
   ]
 
+  isLoading = true;
+
   public get Entity(): typeof EntityType {
     return EntityType;
   }
@@ -36,7 +38,8 @@ export class RolesComponent implements OnInit {
   ngOnInit() {
     this._rolesService.getRoles().subscribe(
       (roles) => {
-        this.elementData = roles
+        this.isLoading = false;
+        this.elementData = roles;
       }
     )
   }

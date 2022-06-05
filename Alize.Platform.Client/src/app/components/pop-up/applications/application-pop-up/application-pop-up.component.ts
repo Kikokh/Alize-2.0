@@ -22,8 +22,6 @@ export class ApplicationPopUpComponent {
 
   applicationForm: FormGroup;
 
-  userList: IUser[];
-
   public get _modePopUpType(): typeof ModePopUpType {
     return ModePopUpType;
   }
@@ -39,10 +37,10 @@ export class ApplicationPopUpComponent {
       mode: string;
       creationDate: Date;
       isActive: boolean;
-    }, 
+    },
     public translate: TranslateService,
     private _applicationServices: ApplicationsService) {
-    
+
     this.applicationForm = new FormGroup({
       name: new FormControl({ value: (this.data.name) ? this.data.name : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
       description: new FormControl({ value: (this.data.description) ? this.data.description : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
@@ -50,11 +48,6 @@ export class ApplicationPopUpComponent {
       date: new FormControl({ value: this.data.creationDate, disabled: true }),
       active: new FormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
     });
-
-    let requestApplication = new RequestApplication();
-    requestApplication.name = data.name;
-    requestApplication.description = data.description;
-    requestApplication.importantInfo = data.importantInfo;
 
     if (data.mode === ModePopUpType.DISPLAY) {
       this.title = 'DisplayTitulo'
@@ -65,10 +58,6 @@ export class ApplicationPopUpComponent {
       this.subtitle = 'AddSubTitulo';
     }
 
-    this._userService.getUserPopUp().subscribe(userList => {
-      this.userList = userList;
-    });
-
     const lang = localStorage.getItem('lang');
     if (lang !== null) {
       this.translate.setDefaultLang(lang);
@@ -78,17 +67,7 @@ export class ApplicationPopUpComponent {
   }
 
   onClick() {
-    const app = this.buildApplication();
-
-    if (this.data.mode === ModePopUpType.ADD) {            
-      this._applicationServices.newApplication(app).subscribe(
-        () => this.dialogRef.close()
-      );
-    } else if (this.data.mode === ModePopUpType.EDIT) {            
-      this._applicationServices.updateApplication(app).subscribe(
-        () => this.dialogRef.close()
-      );
-    }
+    this.dialogRef.close(this.buildApplication());
   }
 
   close() {
@@ -96,12 +75,12 @@ export class ApplicationPopUpComponent {
   }
 
   private buildApplication(): Application {
-    const app = new Application; 
+    const app = new Application;
     if (this.data.mode === ModePopUpType.ADD) {
       app.name = this.applicationForm.value.name;
       app.description = this.applicationForm.value.description;
       app.dataType = this.applicationForm.value.importantInfo;
-
+      app.action = ModePopUpType.ADD;
       return app;
     }
     else {
@@ -111,8 +90,8 @@ export class ApplicationPopUpComponent {
       app.dataType = this.data.importantInfo;
       app.isActive = this.applicationForm.value.active;
       app.creationDate = this.data.creationDate;
-
+      app.action = ModePopUpType.EDIT;
       return app;
-    }    
+    }
   }
 }
