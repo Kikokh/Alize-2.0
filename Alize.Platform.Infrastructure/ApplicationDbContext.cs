@@ -20,6 +20,7 @@ namespace Alize.Platform.Infrastructure
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Blockchain> Blockchains { get; set; }
+        public virtual DbSet<RequestLogEntry> RequestLogsEntries { get; set; }
         public virtual DbSet<ApplicationCredentials> ApplicationCredentials { get; set; }
         public virtual DbSet<DataProtectionKey> DataProtectionKeys { get; set; }
 
