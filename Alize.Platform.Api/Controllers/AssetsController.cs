@@ -7,6 +7,7 @@ using Alize.Platform.Infrastructure.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Alize.Platform.Api.Controllers
 {
@@ -15,12 +16,21 @@ namespace Alize.Platform.Api.Controllers
     [Authorize(Policy = Modules.Queries)]
     public class AssetsController : ControllerBase
     {
+        private readonly ISecurityService _securityService;
+        private readonly IRequestLogEntryRepository _requestLogEntryRepository;
         private readonly IBlockchainFactory _blockchainFactory;
         private readonly ICosmosRepositoryFactory _cosmosRepositoryFactory;
         private readonly IMapper _mapper;
 
-        public AssetsController(IBlockchainFactory blockchainFactory, ICosmosRepositoryFactory cosmosRepositoryFactory, IMapper mapper)
+        public AssetsController(
+            ISecurityService securityService,
+            IRequestLogEntryRepository requestLogEntryRepository, 
+            IBlockchainFactory blockchainFactory, 
+            ICosmosRepositoryFactory cosmosRepositoryFactory, 
+            IMapper mapper)
         {
+            _securityService = securityService;
+            _requestLogEntryRepository = requestLogEntryRepository;
             _blockchainFactory = blockchainFactory;
             _cosmosRepositoryFactory = cosmosRepositoryFactory;
             _mapper = mapper;
@@ -37,6 +47,14 @@ namespace Alize.Platform.Api.Controllers
 
             var assets = await service.GetAssetsPageAsync(queries, pageSize, pageNumber);
 
+            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+            _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            {
+                ApplicationId = applicationId,
+                UserId = user!.Id,
+                Action = RequestLogEntryActions.GetApplicationAssetList
+            });
+
             return Ok(_mapper.Map<AssetsPageResponse>(assets));
         }
 
@@ -50,6 +68,14 @@ namespace Alize.Platform.Api.Controllers
                 return NotFound();
 
             var asset = await service.GetAssetAsync(assetId);
+
+            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+            _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            {
+                ApplicationId = applicationId,
+                UserId = user!.Id,
+                Action = RequestLogEntryActions.GetApplicationAsset
+            });
 
             return Ok(_mapper.Map<AssetResponse>(asset));
         }
@@ -81,6 +107,14 @@ namespace Alize.Platform.Api.Controllers
             await _cosmosRepositoryFactory
                 .GetAssetRepository(applicationId)
                 .CreateAssetAsync(asset);
+
+            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+            _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            {
+                ApplicationId = applicationId,
+                UserId = user!.Id,
+                Action = RequestLogEntryActions.AddApplicationAsset
+            });
 
             return CreatedAtAction(nameof(Get), new { applicationId, assetId = asset.Id }, asset);
         }
