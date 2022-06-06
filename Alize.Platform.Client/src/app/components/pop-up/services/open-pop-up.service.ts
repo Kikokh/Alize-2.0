@@ -110,7 +110,7 @@ export class OpenPopUpService {
   }
 
   resolveRolesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: any) {
-   
+
     switch (mode) {
       case ModePopUpType.DISPLAY: {
         matDialogConfigModel.component = RolesPopUpComponent;
@@ -201,8 +201,9 @@ export class OpenPopUpService {
           empresa: data.companyName,
           grupos: data.roleName,
           isActive: data.isActive,
-          mode: mode
-        }
+          empresaId: data.companyId,
+          mode: mode,
+        };
         break;
       }
       case ModePopUpType.DISPLAY: {
@@ -213,13 +214,14 @@ export class OpenPopUpService {
           apellidos: data.lastName,
           email: data.email,
           empresa: data.companyName,
+          empresaId:data.companyId,
           grupos: data.roleName,
           isActive: data.isActive,
           mode: mode
         }
         break;
       }
-      case ModePopUpType.GROUP: {        
+      case ModePopUpType.GROUP: {
         matDialogConfigModel.component = GroupUserPopUpComponent;
         matDialogConfigModel.data = {
           id: data.id,
