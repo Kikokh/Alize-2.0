@@ -1,0 +1,18 @@
+<mat-grid-list cols="6" rowHeight="2:1">
+  <mat-grid-tile *ngFor="let item of items; let i = index">
+    <mat-card class="totalizator-card" [class.custom-border]="(((i + 1) % 6) !== 0) && ((i + 1) !== items.length)">
+      <div class="title-container">
+        <mat-icon style="font-size: 16px; width: 16px">{{item.icon}}</mat-icon>
+        <h4 class="card-title">
+          {{item.name}}
+        </h4>
+      </div>
+      <div>
+        <h1 class="card-value">{{item.value}}</h1>
+        <mat-card-content class="card-description">
+          {{item.description}}
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

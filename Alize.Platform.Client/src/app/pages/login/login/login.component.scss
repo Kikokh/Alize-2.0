@@ -1,0 +1,101 @@
+@use "src/app/scss-variables/variables" as c;
+
+// Activate this styles to put image background
+// background-image: url(../../../../assets/backgroudImage.png);
+// background-position: center;
+// background-size: cover;
+// background-repeat: no-repeat;
+
+
+.login-form {
+    max-width: 450px;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    mat-card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 50px 50px 50px;
+        border-radius: 8px 8px 8px 8px;
+
+        mat-card-header {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form {
+            width: 100%;
+
+            mat-card-content {
+                margin-top: 20px;
+                width: 100%;
+
+                display: flex;
+                flex-direction: column;
+
+                mat-form-field {
+                    margin-top: 40px;
+                    width: 100%;
+                }
+            }
+
+            mat-card-actions {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                button {
+                    margin-top: 10px;
+                    // background-color: c.$primary-color;
+                    width: 50%;
+                    height: 60px;
+                    font-size: 15px;
+                    border-radius: 30px 30px 30px 30px;
+                }
+
+                .login-btn {
+                    margin-top: 10px;
+                    // background-color: c.$primary-color;
+                    width: 50%;
+                    height: 60px;
+                    font-size: 20px;
+                }
+
+                a {
+                    margin-top: 10px;
+                    width: 100%;
+                }
+            }
+        }
+
+        mat-card-footer {
+            text-align: center;
+            color: grey;
+        }
+    }
+}
+
+
+.dark-theme-background {
+    background-color: #222;
+}
+
+.main-theme-background {
+    background-color: #f0f0f0;
+}
+
+.login-form {
+    margin: 0 auto;
+
+    .example-full-width {
+        width: 80%;
+    }
+}

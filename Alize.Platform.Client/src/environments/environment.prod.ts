@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://alize-platform-api-dev.azurewebsites.net/api'
 };

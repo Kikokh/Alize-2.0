@@ -1,0 +1,66 @@
+// $dynamic-colour: var(--dynamic-colour);
+
+// :root {
+//     --dynamic-colour: $dynamic-colour
+// }
+
+// $primary-color: $dynamic-colour;
+
+
+
+
+
+// Primery default material styles
+
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$my-primary: mat-palette($mat-grey,  100, 300, 900);
+$my-accent: mat-palette($mat-grey, 900, 300, 900);
+$my-warn: mat-palette($mat-deep-orange, 800, 300, 900);
+
+
+$my-primary-dark: mat-palette($mat-grey, 100, 300, 900);
+$my-accent-dark: mat-palette($mat-grey , 300, 300, 900);
+$my-warn-dark: mat-palette($mat-red, 800, 300, 900);
+
+$my-theme: mat-light-theme($my-primary, $my-accent, $my-warn);
+$my-theme-dark: mat-dark-theme($my-primary-dark, $my-accent-dark, $my-warn-dark);
+
+
+// @include mat-core-theme($my-theme);
+// @include angular-material-theme($my-theme);
+// @include angular-material-theme($my-theme-dark);
+
+.main-theme {
+    @include angular-material-theme($my-theme);
+    // background: #fff;
+    // color: #222;
+}
+
+.dark-theme {
+    @include angular-material-theme($my-theme-dark);
+    // background: #222;
+    // color: #fff;
+}
+
+
+$blue-background: #2A3F54;
+$background-grid-color: #fff;
+$background-main-content: #EDEDED;
+// $background-main-container:$my-primary;
+// .alternative {
+//     $my-primary: mat-palette($mat-purple, A400);
+//     $my-accent: mat-palette($mat-orange, 900);
+//     $my-theme: mat-light-theme($my-primary, $my-accent);
+//     @include angular-material-theme($my-theme);
+// }
+
+// Change background color of the material input text
+// ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+//     background-color: #fff !important;
+// }
+
+
+// @import '~@angular/material/prebuilt-themes/indigo-pink.css';

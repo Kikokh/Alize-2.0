@@ -1,0 +1,28 @@
+@import '~@angular/material/theming';
+@import '../../../scss-variables/variables.scss';
+
+.app-container {
+    height: 100%;
+    width: 100%;
+
+    mat-drawer-container {
+        height: 100%;
+
+        .side-bar {
+            min-width: 260px;
+        }
+
+        mat-drawer-content {
+            height: 100%;
+        }
+
+    }
+}
+
+.main-theme-sidebar {
+    background: $blue-background;
+}
+
+.main-theme-content {
+    background: $background-main-content;
+}

@@ -1,33 +1,73 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { NavigationService } from '../services/navigation.service';
-
+import { MaterialTheme } from 'src/app/models/theme.model';
+import { IUser } from 'src/app/models/user.model';
+import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { ModePopUpType } from '../../pop-up/models/entity-type.enum';
+import { PasswordUserPopUpComponent } from '../../pop-up/users/password-user-pop-up/password-user-pop-up.component';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent {
-
-  @Output() isSideBarExpanded = new EventEmitter<boolean>();
+  @Output() isSideBarExpanded = new EventEmitter<any>();
+  @Input() user: IUser;
   currentLang: string;
   isExpanded = true;
+  materialTheme = new MaterialTheme();
+  isSideBarCollapsedEnabler = true;
+
+  get img(): string {
+    return (this.user?.companyLogo);
+  }
 
   constructor(
-    private _navigationService: NavigationService,
-    public translate: TranslateService) {
+    private _dialog: MatDialog,
+    private _localStorageService: LocalStorageService,
+    public translate: TranslateService,
+    private _globalStylesService: GlobalStylesService) {
 
     const currentLang = localStorage.getItem('lang');
-    
+
     this.currentLang = (currentLang !== null) ? currentLang : 'es';
   }
 
   handleSideBarToggle() {
-    this._navigationService.handleSideBarToggle(this.isExpanded = !this.isExpanded);
+    this.isSideBarExpanded.emit();
+
+    this._globalStylesService.theme.subscribe(value => {
+      this.materialTheme.isPrimaryMain = (value === 'main-theme');
+      this.materialTheme.isDarkMode = (value === 'dark-theme');
+    });
   }
 
   ChangeLanguaje(lang: string) {
     localStorage.setItem('lang', lang);
+    window.location.reload();
+  }
+
+  getTheme(): string {
+    if (this.materialTheme.isPrimaryMain) {
+      return 'main-theme-subtitle';
+    } else {
+      return 'dark-theme';
+    }
+  }
+
+  showPasswordPopUp(nombre: string) {
+    this._dialog.open(PasswordUserPopUpComponent, {
+      data: {
+        nombre: nombre,
+        mode: ModePopUpType.EDIT
+      }
+    });
+  }
+
+  closeSession() {
+    this._localStorageService.removeItem('token');
     window.location.reload();
   }
 }

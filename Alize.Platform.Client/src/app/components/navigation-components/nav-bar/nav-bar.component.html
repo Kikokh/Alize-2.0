@@ -1,25 +1,38 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon aria-hidden="false" (click)="handleSideBarToggle()" aria-label="Example reorder icon">reorder</mat-icon>
+  <button *ngIf="isSideBarCollapsedEnabler" color="accent" mat-icon-button class="example-icon" (click)="handleSideBarToggle()"
+    aria-label="Example icon-button with menu icon">
+    <mat-icon aria-hidden="false" aria-label="Example reorder icon">reorder</mat-icon>
   </button>
   <span class="example-spacer"></span>
-  
-  
-  <button mat-button [matMenuTriggerFor]="afterMenu">
+
+  <button color="accent" mat-button [matMenuTriggerFor]="menuLang">
     <mat-icon>language</mat-icon> {{currentLang}}
   </button>
-  <mat-menu #afterMenu="matMenu" xPosition="before">
-    <button (click)="ChangeLanguaje('es')" mat-menu-item>Espanol</button>
-    <button (click)="ChangeLanguaje('en')" mat-menu-item>Ingles</button>
+  <mat-menu  color="accent" #menuLang="matMenu" xPosition="before">
+    <button (click)="ChangeLanguaje('es')" mat-menu-item>{{"Espanol" | translate}}</button>
+    <button (click)="ChangeLanguaje('en')" mat-menu-item>{{"Ingles" | translate}}</button>
   </mat-menu>
 
 
-  <img src="../../../../assets/kh.png" alt="">
-  <button mat-button [matMenuTriggerFor]="afterMenu">
-    oscar.valente@kardumtech.es
+  <img [src]="img" alt="">
+
+  <button color="accent" class="btn-nav-menu" mat-button [matMenuTriggerFor]="menuUser">
+    <span class="nav-email">{{user?.email}}</span><br class="break" />
+    <span class="nav-role"> {{user?.roleName}}</span>
   </button>
-  <mat-menu #afterMenu="matMenu" xPosition="before">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
+
+  <mat-menu #menuUser="matMenu" xPosition="before" class="user-menu">
+    <button color="primary" mat-menu-item (click)="showPasswordPopUp('Oscar Valente')">
+      <span style="margin-right: 60px">Cambiar Contraseña</span>
+      <mat-icon style="position: absolute;
+      right: 10px;
+      top: 10px;">key</mat-icon>
+    </button>
+    <button color=primary mat-menu-item (click)="closeSession()">
+      <span style="margin-right: 60px">Cerrar Sesion</span>
+      <mat-icon style="  position: absolute;
+      right: 10px;
+      top: 10px;">logout</mat-icon>
+    </button>
   </mat-menu>
 </mat-toolbar>

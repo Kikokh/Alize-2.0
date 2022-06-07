@@ -1,0 +1,118 @@
+@import "~@angular/material/theming";
+@import "../../../scss-variables/variables.scss";
+
+.sidebar-container {
+    display: flex;
+    flex-direction: column;
+
+    & > .logo {
+        height: 50px;
+        margin: 0 auto;
+
+        & > img {
+            margin: 10px auto;
+            height: 100%;
+        }
+    }
+
+    .profile {
+        display: flex;
+        flex-direction: row;
+        margin-top: 30px;
+        & > .logo {
+            margin: 0 10px;
+            align-self: center;
+
+            & > img {
+                height: 60px;
+                margin: auto;
+                border-radius: 50%;
+            }
+        }
+
+        .user-profile {
+            margin-left: 10px;
+
+            .welcome {
+                font-weight: 700;
+                font-size: 17px;
+                opacity: 0.5;
+            }
+
+            .user-name {
+                font-size: 15px;
+            }
+        }
+    }
+
+    .nav-menu {
+        background-color: $blue-background;
+        color: mat-color($my-primary) !important;  
+        box-shadow: none;
+
+        
+
+        .mat-expansion-panel-header-title {
+            color: mat-color($my-primary) !important;
+            
+            .mat-icon {
+                margin-right: 10px;
+            }
+        }
+        
+        &.mat-expanded .mat-expansion-panel-header, .active-link {
+            border-right: 5px solid turquoise;
+            border-radius: 5px;
+        }
+
+        .nav-option {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+}
+
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+::ng-deep .nav-menu {
+    .mat-expansion-panel-body {
+        padding: 0 !important;
+    }
+
+    .mat-expansion-panel-header.mat-expanded {
+        height: 48px;
+    }
+
+    .mat-expansion-indicator::after {
+        color: mat-color($my-primary) !important;
+    }
+} 
+
+
+.flex {
+    display: flex;
+    flex-direction: column;
+}
+
+::ng-deep .nav-menu .mat-expansion-indicator::after {
+    color: mat-color($my-primary) !important;
+}
+
+.dark-theme-title {
+    color: mat-color($my-accent-dark);
+}
+
+.main-theme-title {
+    color: mat-color($my-primary);
+}
+
+.dark-theme-subtitle {
+    color: mat-color($my-accent-dark);
+}
+
+.main-theme-subtitle {
+    color: mat-color($my-primary);
+}

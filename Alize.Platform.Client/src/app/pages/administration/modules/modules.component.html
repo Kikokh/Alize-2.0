@@ -1,10 +1,19 @@
 <div class="main-container">
     <div class="page-container">
         <div class="breadcrumb">
-            <app-breadcrumb [componentName]="'Modulos'"></app-breadcrumb>
+            <app-breadcrumb></app-breadcrumb>
         </div>
         <div class="grid">
-            <app-grid [columns]="displayedColumns" [elementData]="elementData" [table]="'Modulos'"></app-grid>
+            <div *ngIf="!isLoading; else gridSkeleton">
+                <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions"
+                    title="Administracion" subTitle="ListadoModulos">
+                </app-grid>
+            </div>
+            <ng-template #gridSkeleton>
+                <div class="grid-skeleton">
+                    <app-grid-skeleton></app-grid-skeleton>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>

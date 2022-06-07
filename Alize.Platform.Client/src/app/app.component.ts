@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
-import { TranslateService } from '@ngx-translate/core';
-import { NavigationService } from './components/navigation-components/services/navigation.service';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component, HostBinding, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { LoginService } from './pages/login/services/login.service';
+import { ThemeEnum } from './scss-variables/models/theme.enum';
+import { LocalStorageService } from './services/local-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -9,29 +11,41 @@ import { NavigationService } from './components/navigation-components/services/n
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'alize-fe';
-  isSideBarExpander = true;
+  isUserLoggued = false;
 
-  @ViewChild('drawer', { static: true }) public sideBar!: MatDrawer;
-  constructor(private _navigationService: NavigationService, public translate: TranslateService) {
-    this.translate.addLangs(['es', 'en']);
+  checked = false;
+  disabled = false;
 
-    const lang = localStorage.getItem('lang');
-    if (lang !== null) {
-      this.translate.setDefaultLang(lang);
-    } else {
-      this.translate.setDefaultLang('en');
-    }
+  showMenu = false;
+  isDarkMode = false;
+
+  activatedRoute: any;
+
+  @HostBinding('class') componentCssClass: any;
+
+
+  public get theme(): typeof ThemeEnum {
+    return ThemeEnum;
+  }
+
+  constructor(
+    private router: Router,
+    public overlayContainer: OverlayContainer,
+    public _loginService: LoginService,
+    private _localStorageService: LocalStorageService,
+  ) {
+
+
   }
 
   ngOnInit(): void {
-    this.sideBar.toggle();
-    this._navigationService.isSideBarExpanded.subscribe(isSideBarExpander => {
-      this.isSideBarExpander = isSideBarExpander;
-    });
-  }
+    const that = this;
+    const token = this._localStorageService.getItem('token');
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
 
-  getSideBarStyles(): string {
-    return (this.isSideBarExpander) ? 'side-bar-expanded' : 'side-bar-collapsed';
+    this.overlayContainer.getContainerElement().classList.add('main-theme');
+    this.componentCssClass = 'main-theme';
   }
 }

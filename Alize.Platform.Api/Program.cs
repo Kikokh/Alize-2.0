@@ -1,13 +1,18 @@
-using Alize.Platform.Data;
-using Alize.Platform.Data.Models;
-using Alize.Platform.Data.Repositories;
-using Alize.Platform.Services;
+using Alize.Platform.Api.Extensions;
+using Alize.Platform.Api.Policies;
+using Alize.Platform.Core.Constants;
+using Alize.Platform.Core.Models;
+using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Repositories;
+using Alize.Platform.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,9 +24,33 @@ builder.Services.AddSqlServer<ApplicationDbContext>(connectionString)
     .AddRoles<Role>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Default",
+    builder =>
+    {
+        builder.AllowAnyOrigin();
+        builder.AllowAnyMethod();
+        builder.AllowAnyHeader();
+    });
+});
+
 builder.Services
     .AddHttpContextAccessor()
-    .AddAuthorization()
+    .AddAuthorization(options =>
+    {
+        options.AddPolicy(Modules.Applications, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Applications)));
+        options.AddPolicy(Modules.Companies, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Companies)));
+        options.AddPolicy(Modules.Roles, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Roles)));
+        options.AddPolicy(Modules.ModuleAdmin, policy => policy.Requirements.Add(new ModuleRequirement(Modules.ModuleAdmin)));
+        options.AddPolicy(Modules.Users, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Users)));
+        options.AddPolicy(Modules.Alerts, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Alerts)));
+        options.AddPolicy(Modules.Queries, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Queries)));
+        options.AddPolicy(Modules.ControlPanel, policy => policy.Requirements.Add(new ModuleRequirement(Modules.ControlPanel)));
+        options.AddPolicy(Modules.UserAudit, policy => policy.Requirements.Add(new ModuleRequirement(Modules.UserAudit)));
+        options.AddPolicy(Modules.TransactionLog, policy => policy.Requirements.Add(new ModuleRequirement(Modules.TransactionLog)));
+        options.AddPolicy(Modules.Help, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Help)));
+    })
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -37,15 +66,32 @@ builder.Services
         };
     });
 
+//builder.Services.AddHangfire(configuration => configuration
+    //.UseMemoryStorage());
+
+//builder.Services.AddHangfireServer();
+
+builder.Services.InitializeCosmosClientInstance(builder.Configuration.GetSection("CosmosDb"));
 builder.Services.AddHttpClient();
+builder.Services.AddDataProtection()
+    .PersistKeysToDbContext<ApplicationDbContext>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.AddScoped<IAuthorizationHandler, ModuleHandler>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
+builder.Services.AddScoped<IApplicationCredentialsRepository, ApplicationCredentialsRepository>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
-builder.Services.AddScoped<IBlockChainService, BlockChainFueService>();
-builder.Services.AddControllers();
+builder.Services.AddScoped<IBlockchainRepository, BlockchainRepository>();
+builder.Services.AddScoped<IRequestLogEntryRepository, RequestLogEntryRepository>();
+builder.Services.AddScoped<ICosmosRepositoryFactory, CosmosRepositoryFactory>();
+builder.Services.AddScoped<ISecurityService, SecurityService>();
+builder.Services.AddScoped<ICryptographyService, CryptographyService>();
+builder.Services.AddScoped<IBlockchainFactory, BlockchainFactory>();
+
+builder.Services.AddControllers().AddJsonOptions(
+    x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(option =>
@@ -61,17 +107,17 @@ builder.Services.AddSwaggerGen(option =>
     });
     option.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-         {
-               new OpenApiSecurityScheme
-               {
-                   Reference = new OpenApiReference
-                   {
-                       Type = ReferenceType.SecurityScheme,
-                       Id = "Bearer"
-                   }
-               },
-               new string[] {}
-         }
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
     });
 });
 
@@ -81,14 +127,23 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(
+        c =>
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            c.RoutePrefix = "";
+        });
+
+    //app.UseHangfireDashboard();
 }
 
 app.UseHttpsRedirection();
 
+app.UseCors("Default");
 app.UseAuthentication();
 app.UseAuthorization();
 
+//app.MapHangfireDashboard();
 app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
@@ -97,5 +152,7 @@ using (var scope = app.Services.CreateScope())
     //db.Database.EnsureDeleted();
     db.Database.Migrate();
 }
+
+//RecurringJob.AddOrUpdate<BlockchainInsertService>(x => x.PersistAssetsAsync(), Cron.Minutely);
 
 app.Run();

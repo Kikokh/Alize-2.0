@@ -10,5 +10,7 @@ namespace Alize.Platform.Api.Requests.Applications
 
         [StringLength(100)]
         public string? Description { get; set; }
+
+        public string? DataType { get; set; }
     }
 }

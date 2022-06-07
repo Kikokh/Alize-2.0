@@ -1,17 +1,13 @@
 ﻿using Alize.Platform.Api.Requests;
 using Alize.Platform.Api.Requests.Users;
 using Alize.Platform.Api.Responses;
-using Alize.Platform.Data.Constants;
-using Alize.Platform.Data.Models;
+using Alize.Platform.Core.Constants;
+using Alize.Platform.Core.Models;
+using Alize.Platform.Infrastructure;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
 namespace Alize.Platform.Api.Controllers
 {
@@ -20,126 +16,151 @@ namespace Alize.Platform.Api.Controllers
     [Authorize]
     public class UsersController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-        private readonly IConfiguration _configuration;
+        private readonly ISecurityService _securityService;
         private readonly IMapper _mapper;
 
-        public UsersController(UserManager<User> userManager, IConfiguration configuration, IMapper mapper)
+        public UsersController(ISecurityService securityService, IMapper mapper)
         {
-            _userManager = userManager;
-            _configuration = configuration;
+            _securityService = securityService;
             _mapper = mapper;
         }
 
         [HttpGet]
+        [Authorize(Policy = Modules.Users)]
+        [ProducesResponseType(typeof(IEnumerable<UserResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var users = await _userManager.Users.ToListAsync();
+            var users = await _securityService.GetUsersAsync();
 
             return Ok(_mapper.Map<IEnumerable<UserResponse>>(users));
         }
 
         [HttpGet("Me")]
+        [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMe()
         {
-            var user = HttpContext.User;
-
-            return Ok(new
-            {
-                Claims = user.Claims.Select(s => new
-                {
-                    s.Type,
-                    s.Value
-                }).ToList(),
-                user.Identity.Name,
-                user.Identity.IsAuthenticated,
-                user.Identity.AuthenticationType
-            });
-        }
-
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
-        {
-            var user = await _userManager.Users.SingleOrDefaultAsync(u => u.Id == id);
+            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
 
             return Ok(_mapper.Map<UserResponse>(user));
         }
 
-        [AllowAnonymous]
-        [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginRequest request)
+        [HttpGet("{id}")]
+        [Authorize(Policy = Modules.Users)]
+        [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Get(Guid id)
         {
-            var user = await _userManager.FindByNameAsync(request.UserName);
+            var user = await _securityService.GetUserAsync(id);
 
-            if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
+            if (user is null)
+                return NotFound();
+
+            return Ok(_mapper.Map<UserResponse>(user));
+        }
+
+        [HttpPost("Login")]
+        [AllowAnonymous]
+        [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> Login(UserLoginRequest request)
+        {
+            try
+            {
+                return Ok(new
+                {
+                    AccessToken = await _securityService.LoginUserWithEmail(request.Email, request.Password)
+                });
+            }
+            catch (UnauthorizedAccessException)
             {
                 return Forbid();
             }
-
-            var roles = await _userManager.GetRolesAsync(user);
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.GivenName, $"{user.FirstName} {user.LastName}")
-            };
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
-            var tokenDescriptor = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(720),
-                signingCredentials: credentials);
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
-
-            return Ok(new
-            {
-                AccessToken = jwt
-            });
         }
 
-        [Authorize(Roles = Roles.Admin)]
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(RegisterRequest request)
+        [Authorize(Policy = Modules.Users)]
+        [ProducesResponseType(typeof(UserResponse), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]        
+        public async Task<IActionResult> Register(UserCreateRequest request)
         {
             var user = _mapper.Map<User>(request);
-            var result = await _userManager.CreateAsync(user);
 
-            if (result.Succeeded)
+            try
             {
-                result = await _userManager.AddPasswordAsync(user, request.Password);
+                await _securityService.RegisterUserAsync(user, request.Password);
+            }
+            catch (ApplicationException)
+            {
+                return BadRequest();
+            }
 
-                if (result.Succeeded)
-                {
-                    return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
-                }
-                
-                await _userManager.DeleteAsync(user);
-            }            
-
-            return BadRequest(result.Errors);
+            return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
         }
 
-        [Authorize(Roles = Roles.Admin )]
-        [HttpPost("{id}/Roles")]
-        public async Task<IActionResult> AddToRoles(string id, IEnumerable<string> roles)
+        [HttpPut("{id}/Role")]
+        [Authorize(Policy = Modules.Users)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> SetRole(string id, string roleId)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            var userRoles = await _userManager.GetRolesAsync(user);
-            await _userManager.UpdateSecurityStampAsync(user);
-            await _userManager.RemoveFromRolesAsync(user, userRoles.Where(r => !roles.Contains(r)));
-            await _userManager.AddToRolesAsync(user, roles.Where(r => !userRoles.Contains(r)));
+            try
+            {
+                await _securityService.SetUserRoleAsync(id, roleId);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
 
             return NoContent();
+        }
+
+
+        [HttpPut("{id}")]
+        [Authorize(Policy = Modules.Users)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateUser(Guid id, UserUpdateRequest userUpdate)
+        {
+            if (id != userUpdate.Id)
+                return BadRequest();
+
+            var user = await _securityService.GetUserAsync(id);
+
+            if (user is null)
+                return NotFound();
+
+            _mapper.Map(userUpdate, user);
+
+            await _securityService.UpdateUserAsync(user);   
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}/Password")]
+        [Authorize(Policy = Modules.Users)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateUserPassword(Guid id, UserUpdatePasswordRequest userPasswordUpdate)
+        {
+            try
+            {
+                await _securityService.UpdateUserPasswordAsync(id, userPasswordUpdate.NewPassword);
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
+
+        [HttpPut("Me/Password")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> UpdateCurrentUserPassword(UserUpdatePasswordRequest userPasswordUpdate)
+        {
+            return await UpdateUserPassword(Guid.Parse(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value), userPasswordUpdate);
         }
     }
 }

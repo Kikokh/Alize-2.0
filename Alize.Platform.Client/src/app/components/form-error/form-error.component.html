@@ -1,0 +1,16 @@
+<span id="formError" *ngIf="form?.get(field)?.dirty || form?.get(field)?.touched" [ngSwitch]="fieldError">
+  <span *ngSwitchDefault>
+    {{displayedError | translate}}
+  </span>
+
+  <span *ngSwitchCase="'maxlength'" translate [translateParams]="{length:errors!.maxlength!.requiredLength}">
+    form.error.maxlength
+  </span>
+
+  <span *ngSwitchCase="'minlength'" translate [translateParams]="{length:errors!.minlength!.requiredLength}">
+    form.error.minlength
+  </span>
+
+  <span *ngSwitchCase="'required'" translate>form.error.required</span>
+  <span *ngSwitchCase="'email'" translate>form.error.email</span>
+</span>

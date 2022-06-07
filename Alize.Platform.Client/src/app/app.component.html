@@ -1,10 +1,9 @@
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer [ngClass]="getSideBarStyles()" mode="side">
-    <app-side-bar></app-side-bar>
-  </mat-drawer>
+<!-- <app-layout></app-layout> -->
+<!-- 
+<ng-template #login_template>
+  <app-login></app-login>
+</ng-template> -->
 
-  <div class="example-sidenav-content">
-    <app-nav-bar></app-nav-bar>
-    <router-outlet></router-outlet>
-  </div>
-</mat-drawer-container>
+<router-outlet></router-outlet>
+
+<app-float-button></app-float-button>

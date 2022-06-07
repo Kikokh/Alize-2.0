@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { IColumnDef, IElementDataApp, IElementDataCompanies } from 'src/app/components/models/column.models';
-import { ColumnBuilderService } from '../../services/column-builder.service';
+import { Component } from '@angular/core';
+import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
+import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
+import { Company } from 'src/app/models/company.model';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { CompaniesService } from './companies.service';
 
 @Component({
   selector: 'app-companies',
@@ -8,13 +11,62 @@ import { ColumnBuilderService } from '../../services/column-builder.service';
   styleUrls: ['./companies.component.scss', '../../layout-main.scss']
 })
 export class CompaniesComponent {
-  displayedColumns: IColumnDef[];
-  elementData: IElementDataCompanies[];
-  constructor(private _columnBuilderService: ColumnBuilderService) {
-    this._columnBuilderService.getCompaniesData().subscribe(gridData => {
-      this.elementData = gridData.data;
-      this.displayedColumns = gridData.columnDef;
+  displayedColumns: IColumnDef[] = [
+    { columnDef: 'Nombre', header: 'Nombre', cell: (element: Company) => `${element.name}` },
+    { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: Company) => (element.description) ? `${element.description}` : '' },
+    { columnDef: 'Activo', header: 'Activo', cell: (element: Company) => `${element.isActive}` }
+  ];
+  elementData: Company[];
+  isLoading = true;
+
+  actions: IOperationsModel[] = [
+    { optionName: ModePopUpType.DISPLAY, icon: 'search' },
+    { optionName: ModePopUpType.EDIT, icon: 'edit_note' }
+  ]
+
+  public get Entity(): typeof EntityType {
+    return EntityType;
+  }
+
+  constructor(
+    private _snackBarService: SnackBarService,
+    private _companiesService: CompaniesService
+  ) {
+    this._companiesService.getCompanies().subscribe(companies => {
+      this.isLoading = false;
+      this.elementData = companies;
     });
   }
 
+  updateCompanies() {
+    this._companiesService.getCompanies().subscribe(companies => {
+      this.isLoading = false;
+      this.elementData = companies;
+    });
+  }
+
+  add(company: Company) { }
+
+  update(company: Company) {
+    this.isLoading = true;
+    this._companiesService.updateCompany(company).subscribe({
+      next: () => {
+        this._snackBarService.showSnackBar('Entidad actualizada con éxito.');
+      },
+      error: () => {
+        this._snackBarService
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
+      },
+      complete: () => {
+        this._companiesService.getCompanies().subscribe(
+          company => {
+            this.elementData = company;
+            this.isLoading = false;
+          }
+        );
+      }
+    });
+  }
+
+  delete(app: Company) { }
 }

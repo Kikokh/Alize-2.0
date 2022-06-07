@@ -1,0 +1,7 @@
+<mat-form-field appearance="fill" [ngClass]="cssClass" color="accent">
+    <mat-label>{{text}}</mat-label>
+    <mat-select [(ngModel)]="value" (selectionChange)="onChange($event)" name="type">
+        <mat-option *ngFor="let val of dropdownValues" [value]="val.value">{{val.value}}</mat-option>
+    </mat-select>
+    <!-- <mat-hint align="end">Here's the dropdown arrow ^</mat-hint> -->
+</mat-form-field>

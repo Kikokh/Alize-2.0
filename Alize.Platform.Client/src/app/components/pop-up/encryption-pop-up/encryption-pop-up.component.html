@@ -1,0 +1,25 @@
+<div class="main">
+    <h1 class="title color-bold" mat-dialog-title>{{"TraceabilityHash" | translate}}</h1>
+    <mat-form-field appearance="outline">
+        <mat-label>{{data.hash}}</mat-label>
+        <input matInput name="name" disabled>
+    </mat-form-field>
+
+    <h1 class="title color-bold" mat-dialog-title>{{"TraceabilityData" | translate}}</h1>
+    <mat-form-field appearance="outline">
+        <mat-label>{{hashData}}</mat-label>
+        <input matInput name="name" disabled>
+    </mat-form-field>
+
+    <span class="color">
+        {{"EncryptionDescOne" | translate}}
+        <span class="traceability color-bold">{{"TraceabilityHash" | translate}}</span>
+        {{"EncryptionDescTwo" | translate}}
+    </span>
+    <br>
+    <br>
+    <span class="color">
+        {{"EncryptionWeb" | translate}}
+        <a href="https://emn178.github.io/online-tools/sha256.html" target="_blanck" class="web color-bold">web</a>
+    </span>
+</div>

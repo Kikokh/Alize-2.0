@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { OptionMenuService } from '../navigation-components/services/option-menu.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -8,14 +8,15 @@ import { OptionMenuService } from '../navigation-components/services/option-menu
 })
 export class BreadcrumbComponent implements OnInit {
 
-  @Input() componentName: string = '';
-  breadcrumb: string = ''; 
-  constructor(private _optionMenuService: OptionMenuService) { }
+  fragments: string[] = [];
+  constructor(private _router: Router) { }
 
   ngOnInit(): void {
-    this._optionMenuService.getBreadCrumb(this.componentName).subscribe(breadcrumb => {
-      this.breadcrumb = breadcrumb;
-    })
+    const lang = localStorage.getItem('lang');
+    this.fragments = this._router.url.split('/').filter(f => f);
   }
 
+  getLink(index: number): string {
+    return `/${this.fragments.slice(0, index + 1).join('/')}`;
+  }
 }

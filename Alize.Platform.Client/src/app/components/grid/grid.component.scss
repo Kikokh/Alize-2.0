@@ -1,3 +1,6 @@
+@import '~@angular/material/theming';
+@import '../../scss-variables/variables.scss';
+
 .grid-container {
     display: flex;
     flex-direction: column;
@@ -20,16 +23,19 @@
         }
     }
 
-    div {
-        background-color: white;
+    .main-grid {
+        padding: 15px;
+        color: #73879c;
 
         .toolbar {
-            width: 95%;
             margin: 0 auto;
-            
+
             div {
                 display: flex;
+                font-size: 18px;
+
                 .title {
+                    
                     font-weight: bold;
                 }
 
@@ -42,33 +48,16 @@
         .table-container {
             margin: 40px auto;
 
-            table {
-                margin: 40px;
-                width: 95%;
-
-                th {
-                    background-color: #2A3F54;
-                    color: aliceblue;
-                }
-
+            .mat-table {
                 td {
-                    mat-list {
-                        display: flex;
-                        flex-direction: row;
-                        justify-content: center;
-                        width: 30%;
-                        padding: 0;
-                        width: fit-content;
-                
-                        mat-list-item {
-                            padding: 0;
-                            button {
-                                cursor: pointer;
-                                mat-icon {
-                                    color: #2A3F54;
-                                }
-                            }
+                    height: 60px;
+                    .operation-column {
+                        .icon-button {
+                           margin-left: 20px;
                         }
+                        //    width: 35%;
+                         width: 100%;
+                        //    text-align: end;
                     }
                 }
             }
@@ -76,23 +65,12 @@
     }
 }
 
-// .column-id {
-//     width: 3%;
-// }
-
-// .column-name {
-//     width: 15%;
-// }
-
-// .column-description {
-//     width: 50%;
-// }
-
-// .column-company {
-//     width: 13%;
-// }
+.main-theme-background-grid {
+    background: $background-grid-color;
+}
 
 
-// .column-active {
-//     width: 3%;
-// }
+.main-theme-header {
+    background-color: $blue-background;
+    color: mat-color($my-primary) !important;
+}

@@ -1,20 +1,18 @@
-import { DataSource } from '@angular/cdk/collections';
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { Application } from 'src/app/models/application.model';
+import { MaterialTheme } from 'src/app/models/theme.model';
+import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { RequestApplication } from '../models/application.model';
-import { IColumnDef, IElementDataApp, IElementDataCompanies } from '../models/column.models';
-import { ApplicationPopUpComponent } from '../pop-up/application-pop-up/application-pop-up.component';
-
-export interface UserData {
-  id: string;
-  name: string;
-  progress: string;
-  fruit: string;
-}
+import { IColumnDef, IElementDataApp, IOperationsModel } from '../models/column.models';
+import { EntityType, ModePopUpType } from '../pop-up/models/entity-type.enum';
+import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
 
 @Component({
   selector: 'app-grid',
@@ -24,13 +22,27 @@ export interface UserData {
 export class GridComponent implements OnInit, AfterViewInit {
 
   @Input() columns: IColumnDef[];
-  @Input() elementData: any;
-  @Input() table: string;
+  @Input()
+  set elementData(value: any) {
+    this.dataSource.data = value;
+  }
+  @Input() entity: EntityType;
+  @Input() actions?: IOperationsModel[];
+  @Input() title: string = 'Administracion';
+  @Input() subTitle: string = '';
 
-  title: string;
-  subTitle: string;
+  @Output() update = new EventEmitter<any>();
+  @Output() updateRole = new EventEmitter<any>();
+  @Output() updatePassword = new EventEmitter<any>();
+  @Output() add = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<any>();
 
-  dataSource: MatTableDataSource<IElementDataApp>;
+
+  public get Entity(): typeof EntityType {
+    return EntityType;
+  }
+
+  dataSource: MatTableDataSource<IElementDataApp> = new MatTableDataSource();
   displayedColumns: string[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -45,10 +57,9 @@ export class GridComponent implements OnInit, AfterViewInit {
   pageEvent: PageEvent;
 
 
-  requestApplication = new RequestApplication();
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
 
+
+  materialTheme = new MaterialTheme();
 
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
@@ -57,7 +68,19 @@ export class GridComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(public dialog: MatDialog, private _snackBar: MatSnackBar) {
+  constructor(
+    public dialog: MatDialog,
+    private _globalStylesService: GlobalStylesService,
+    private _openPopUpService: OpenPopUpService,
+    private _router: Router,
+    public translate: TranslateService) {
+
+    const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
+    }
   }
 
   ngAfterViewInit(): void {
@@ -65,17 +88,46 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.displayedColumns = this.columns.map(c => c.columnDef);;
-    this.dataSource = new MatTableDataSource(this.elementData);
+    this.displayedColumns = [...this.columns.map(c => c.columnDef), 'Operaciones'];
+    if (this.entity === EntityType.APPLICATIONS) {
+      this.subTitle = 'ListadoAplicaciones';
+    } else if (this.entity === EntityType.COMPANIES) {
+      this.subTitle = 'ListadoEmpresas';
+    } else if (this.entity === EntityType.USERS) {
+      this.title = 'Administracion'
+      this.subTitle = 'ListadoUsuarios'
+    } else if (this.entity === EntityType.MODULES) {
+      this.title = 'Administracion'
+      this.subTitle = 'ListadoModulos'
+    } else if (this.entity === EntityType.ROLES) {
+      this.title = 'Administracion'
+      this.subTitle = 'ListadoRoles'
+    }
 
-    if (this.table === 'Applications') {
-      this.title = 'Administrción'
-      this.subTitle = 'Listado de aplicaciones'
-    } else if (this.table === 'Companies') {
-      this.title = 'Administrción'
-      this.subTitle = 'Listado de empresas'
+    this._globalStylesService.theme.subscribe(value => {
+      this.materialTheme.isDarkMode = (value === 'dark-theme');
+      this.materialTheme.isPrimaryMain = (value === 'main-theme');
+    });
+  }
+
+
+  getContentStyles(): string {
+    if (this.materialTheme.isPrimaryMain) {
+      return 'main-theme-background-grid';
+    } else {
+      return '';
     }
   }
+
+
+  getColorHeaderTable(): string {
+    if (this.materialTheme.isPrimaryMain) {
+      return 'main-theme-header';
+    } else {
+      return '';
+    }
+  }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -83,72 +135,33 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   openDialog() {
-    let requestApplication = new RequestApplication();
-    requestApplication.mode = 'ADD';
-
-    const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
-      data: {
-        nombre: '', 
-        description: '',
-        importantInfo: '',
-        mode: requestApplication.mode,
-        date: '',
-        isActive: ''
-      }
-    });
-
-    dialogRef.afterClosed().subscribe((result: RequestApplication) => {
-      if (result) {
-        console.log('The dialog was closed with: ' , result);
-        this.requestApplication = result;
-        this._snackBar.open('Peticion realizada con exito!','', {
-          horizontalPosition: this.horizontalPosition,
-          verticalPosition: this.verticalPosition,
-        });
-      }
+    this._openPopUpService.open(this.entity, ModePopUpType.ADD);
+    this._openPopUpService.afterClosed().subscribe(entity => {
+      this.add.emit(entity);
     });
   }
 
-  onDisplay(application: IElementDataApp) {
-    const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
-      width: '600px',
-      data: {
-        nombre: application.Nombre, 
-        description: application.Descripcion,
-        importantInfo: '',
-        mode: 'Display',
-        date: new Date(),
-        isActive: application.Activo
-      },
-    });
-  }
 
-  onEdit(application: IElementDataApp) {
-    const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
-      width: '600px',
-      data: {
-        nombre: application.Nombre, 
-        description: application.Descripcion,
-        importantInfo: '',
-        mode: 'EDIT',
-        date: new Date(),
-        isActive: application.Activo
-      },
-    });
-  }
+  showDialog(data: any, optionName: ModePopUpType) {
+    if (optionName === ModePopUpType.REQUEST) {
+      this._router.navigate([`management/queries/${data.id}/assets`]);
+    } if (optionName === ModePopUpType.CHARTS) {
+      this._router.navigate([`management/charts/${data.id}/chart`]);
+    } else {
+      this._openPopUpService.open(this.entity, optionName, data);
+      this._openPopUpService.afterClosed().subscribe(entity => {
 
-  onDisplayGroup(application: IElementDataApp) {
-    const dialogRef = this.dialog.open(ApplicationPopUpComponent, {
-      width: '600px',
-      data: {
-        nombre: application.Nombre, 
-        description: application.Descripcion,
-        importantInfo: '',
-        mode: 'GROUP',
-        date: new Date(),
-        isActive: application.Activo
-      },
-    });
-  }
+        if (entity.action === ModePopUpType.EDIT) {
+          this.update.emit(entity);
+        } else if (entity.action === ModePopUpType.GROUP) {
+          this.updateRole.emit(entity);
+        } else if (entity.action === ModePopUpType.PASSWORD) {
+          this.updatePassword.emit(entity);
+        } else {
+          this.delete.emit(entity);
+        }
+      });
+    }
 
+  }
 }

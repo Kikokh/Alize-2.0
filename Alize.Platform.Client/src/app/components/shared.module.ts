@@ -1,21 +1,33 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from './navigation-components/nav-bar/nav-bar.component';
-import { SideBarExpandedComponent } from './navigation-components/side-bar/side-bar-expanded/side-bar-expanded.component';
-import { SideBarCollapsedComponent } from './navigation-components/side-bar/side-bar-collapsed/side-bar-collapsed.component';
 import { SideBarComponent } from './navigation-components/side-bar/side-bar.component';
 import { MaterialModule } from 'src/app/material.module';
-import { OptionMenuListComponent } from './navigation-components/side-bar/option-menu-list/option-menu-list.component';
 import { RouterModule } from '@angular/router';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { GridComponent } from './grid/grid.component';
 import { SearchComponent } from './search/search.component';
-import { ApplicationPopUpComponent } from './pop-up/application-pop-up/application-pop-up.component';
+import { ApplicationPopUpComponent } from './pop-up/applications/application-pop-up/application-pop-up.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
+import { FloatButtonComponent } from './float-button/float-button.component';
+import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
+import { UserPopUpComponent } from './pop-up/users/user-pop-up/user-pop-up.component';
+import { GroupUserPopUpComponent } from './pop-up/users/group-user-pop-up/group-user-pop-up.component';
+import { PasswordUserPopUpComponent } from './pop-up/users/password-user-pop-up/password-user-pop-up.component';
+import { DeleteUserPopUpComponent } from './pop-up/users/delete-user-pop-up/delete-user-pop-up.component';
+import { TimerPopUpComponent } from './pop-up/users/timer-pop-up/timer-pop-up.component';
+import { ApplicationGroupPopUpComponent } from './pop-up/applications/application-group-pop-up/application-group-pop-up.component';
+import { RolesPopUpComponent } from './pop-up/roles/roles-pop-up/roles-pop-up.component';
+import { ModulesPopUpComponent } from './pop-up/modules/modules-pop-up/modules-pop-up.component';
+import { GridSkeletonComponent } from './skeleton/grid-skeleton/grid-skeleton.component';
+import { CompanyPopUpComponent } from './pop-up/companies/company-pop-up/company-pop-up.component';
+import { SafePipe } from '../pipes/safe.pipe';
+import { TotalizatorComponent } from './totalizator/totalizator.component';
+import { FormErrorComponent } from './form-error/form-error.component';
+import { EncryptionPopUpComponent } from './pop-up/encryption-pop-up/encryption-pop-up.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -24,13 +36,26 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     NavBarComponent,
     SideBarComponent,
-    SideBarExpandedComponent,
-    SideBarCollapsedComponent,
-    OptionMenuListComponent,
     BreadcrumbComponent,
     GridComponent,
     SearchComponent,
-    ApplicationPopUpComponent
+    ApplicationPopUpComponent,
+    FloatButtonComponent,
+    ProgressSpinnerComponent,
+    UserPopUpComponent,
+    GroupUserPopUpComponent,
+    PasswordUserPopUpComponent,
+    DeleteUserPopUpComponent,
+    TimerPopUpComponent,
+    ApplicationGroupPopUpComponent,
+    RolesPopUpComponent,
+    ModulesPopUpComponent,
+    GridSkeletonComponent,
+    CompanyPopUpComponent,
+    SafePipe,
+    TotalizatorComponent,
+    FormErrorComponent,
+    EncryptionPopUpComponent
   ],
   imports: [
     CommonModule,
@@ -43,19 +68,22 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    })
+        deps: [HttpClient],
+      },
+    }),
   ],
   exports: [
     NavBarComponent,
     SideBarComponent,
-    SideBarExpandedComponent,
-    SideBarCollapsedComponent,
-    OptionMenuListComponent,
     BreadcrumbComponent,
     GridComponent,
-    SearchComponent
-  ]
+    SearchComponent,
+    FloatButtonComponent,
+    ProgressSpinnerComponent,
+    UserPopUpComponent,
+    GridSkeletonComponent,
+    TotalizatorComponent,
+    FormErrorComponent,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

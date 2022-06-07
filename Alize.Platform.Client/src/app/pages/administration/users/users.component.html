@@ -1,10 +1,20 @@
 <div class="main-container">
     <div class="page-container">
         <div class="breadcrumb">
-            <app-breadcrumb [componentName]="'Usuarios'"></app-breadcrumb>
+            <app-breadcrumb></app-breadcrumb>
         </div>
         <div class="grid">
-            <app-grid [columns]="displayedColumns" [elementData]="elementData" [table]="'Usuarios'"></app-grid>
+            <div *ngIf="!isLoading; else gridSkeleton">
+                <app-grid (add)="add($event)" (updatePassword)="updatePassword($event)" (update)="update($event)" (updateRole)="updateRole($event)" (delete)="delete($event)"
+                    [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions">
+                </app-grid>
+
+            </div>
+            <ng-template #gridSkeleton>
+                <div class="grid-skeleton">
+                    <app-grid-skeleton></app-grid-skeleton>
+                </div>
+            </ng-template>
         </div>
     </div>
 </div>

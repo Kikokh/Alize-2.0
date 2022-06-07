@@ -1,26 +1,33 @@
 ﻿using Alize.Platform.Api.Requests.Applications;
 using Alize.Platform.Api.Responses.Applications;
-using Alize.Platform.Data.Models;
-using Alize.Platform.Data.Repositories;
+using Alize.Platform.Core.Constants;
+using Alize.Platform.Core.Models;
+using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Alize.Platform.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    [Authorize(Policy = Modules.Applications)]
     [Produces("application/json")]
     public class ApplicationsController : ControllerBase
     {
         private readonly IApplicationRepository _applicationRepository;
+        private readonly ISecurityService _securityService;
         private readonly IMapper _mapper;
+        private readonly ICosmosRepositoryFactory _templateRepositoryFactory;
 
-        public ApplicationsController(IApplicationRepository applicationRepository, IMapper mapper)
+        public ApplicationsController(IApplicationRepository applicationRepository, ISecurityService securityService, IMapper mapper, ICosmosRepositoryFactory templateRepositoryFactory)
         {
             _applicationRepository = applicationRepository;
+            _securityService = securityService;
             _mapper = mapper;
+            _templateRepositoryFactory = templateRepositoryFactory;
         }
 
         // GET: api/<ApplicationsController>
@@ -28,7 +35,12 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<ApplicationResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var apps = await _applicationRepository.GetApplicationsAsync();
+            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+
+            if (user == null)
+                return NotFound();
+
+            var apps = await _applicationRepository.GetApplicationsForUserAsync(user);
 
             return Ok(_mapper.Map<IEnumerable<ApplicationResponse>>(apps));
         }
@@ -54,6 +66,7 @@ namespace Alize.Platform.Api.Controllers
         {
 
             var app = await _applicationRepository.AddApplicationAsync(_mapper.Map<Application>(request));
+            await _templateRepositoryFactory.CreateApplicationContainerAsync(app.Id);
 
             return CreatedAtAction(nameof(Get), new { id = app.Id }, _mapper.Map<ApplicationResponse>(app));
         }
@@ -63,17 +76,19 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Put(Guid id, [FromBody] Application application)
+        public async Task<IActionResult> Put(Guid id, [FromBody] UpdateApplicationRequest request)
         {
-            if (id != application.Id)
+            if (id != request.Id)
             {
                 return BadRequest();
             }
 
-            if (await _applicationRepository.GetApplicationAsync(id) is null)
+            var app = await _applicationRepository.GetApplicationAsync(id);
+
+            if (app is null)
                 return NotFound();
 
-            await _applicationRepository.UpdateApplicationAsync(application);
+            await _applicationRepository.UpdateApplicationAsync(_mapper.Map(request, app));
 
             return NoContent();
         }

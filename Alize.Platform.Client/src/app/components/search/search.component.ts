@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-search',
@@ -7,6 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent {
 
-  constructor() { }
+  constructor(public translate: TranslateService) { 
+    const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
+    }
+  }
 
 }
