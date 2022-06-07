@@ -33,6 +33,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   @Output() update = new EventEmitter<any>();
   @Output() updateRole = new EventEmitter<any>();
+  @Output() updatePassword = new EventEmitter<any>();
   @Output() add = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
 
@@ -144,7 +145,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   showDialog(data: any, optionName: ModePopUpType) {
     if (optionName === ModePopUpType.REQUEST) {
       this._router.navigate([`management/queries/${data.id}/assets`]);
-    } if (optionName === ModePopUpType.CHARTS) { 
+    } if (optionName === ModePopUpType.CHARTS) {
       this._router.navigate([`management/charts/${data.id}/chart`]);
     } else {
       this._openPopUpService.open(this.entity, optionName, data);
@@ -152,8 +153,10 @@ export class GridComponent implements OnInit, AfterViewInit {
 
         if (entity.action === ModePopUpType.EDIT) {
           this.update.emit(entity);
-        } if (entity.action === ModePopUpType.GROUP) {
+        } else if (entity.action === ModePopUpType.GROUP) {
           this.updateRole.emit(entity);
+        } else if (entity.action === ModePopUpType.PASSWORD) {
+          this.updatePassword.emit(entity);
         } else {
           this.delete.emit(entity);
         }

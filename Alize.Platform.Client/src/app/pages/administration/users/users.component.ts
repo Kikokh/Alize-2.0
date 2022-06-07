@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { DialogResult } from 'src/app/components/pop-up/users/group-user-pop-up/group-user-pop-up.component';
+import { PasswordModel } from 'src/app/components/pop-up/users/password-user-pop-up/models/password.model';
 import { User } from 'src/app/models/users.model';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { UsersService } from './users.service';
@@ -57,65 +59,70 @@ export class UsersComponent implements OnInit {
 
   add(user: User) {
     this.isLoading = true;
-    this._userService.createNewUser(user).subscribe({
-      next: () => {
+    this._userService.createNewUser(user).pipe(
+      switchMap(() => this._userService.getUsers())
+    ).subscribe({
+      next: (users) => {
+        this.elementData = users;
+        this.isLoading = false;
         this._snackBarService.showSnackBar('Entidad creada con éxito.');
       },
       error: () => {
         this._snackBarService
-          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
       },
-      complete: () => {
-        this._userService.getUsers().subscribe(
-          users => {
-            this.elementData = users;
-            this.isLoading = false;
-          }
-        );
-      }
     });
   }
 
   update(user: User) {
     this.isLoading = true;
-    this._userService.updateUser(user).subscribe({
-      next: () => {
+    this._userService.updateUser(user).pipe(
+      switchMap(() => this._userService.getUsers())
+    ).subscribe({
+      next: (users) => {
+        this.elementData = users;
+        this.isLoading = false;
         this._snackBarService.showSnackBar('Entidad actualizada con éxito.');
       },
       error: () => {
         this._snackBarService
-          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
       },
-      complete: () => {
-        this._userService.getUsers().subscribe(
-          users => {
-            this.elementData = users;
-            this.isLoading = false;
-          }
-        );
-      }
     });
   }
 
   updateRole(dialogResult: DialogResult) {
     this.isLoading = true;
-    this._userService.updateUserRole(dialogResult.id, dialogResult.roleId).subscribe({
-      next: () => {
+    this._userService.updateUserRole(dialogResult.id, dialogResult.roleId).pipe(
+      switchMap(() => this._userService.getUsers())
+    ).subscribe({
+      next: (users) => {
+        this.elementData = users;
+        this.isLoading = false;
         this._snackBarService.showSnackBar('Entidad actualizada con éxito.');
       },
       error: () => {
         this._snackBarService
-          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
       },
-      complete: () => {
-        this._userService.getUsers().subscribe(
-          users => {
-            this.elementData = users;
-            this.isLoading = false;
-          }
-        );
-      }
-    })
+    });
+  }
+
+  updatePassword(passwordModel: PasswordModel) {
+    this.isLoading = true;
+    this._userService.changeUserPassword(passwordModel.userId, { newPassword: passwordModel.password, confirmPassword: passwordModel.repeatPassword }).pipe(
+      switchMap(() => this._userService.getUsers())
+    ).subscribe({
+      next: (users) => {
+        this.elementData = users;
+        this.isLoading = false;
+        this._snackBarService.showSnackBar('Entidad actualizada con éxito.');
+      },
+      error: () => {
+        this._snackBarService
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
+      },
+    });
   }
 
 

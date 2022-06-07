@@ -49,28 +49,19 @@ export class PasswordUserPopUpComponent {
       this.translate.setDefaultLang('en');
     }
     this.passwordForm = new FormGroup({
-      password: new FormControl('', [Validators.required]),
-      repeatPassword: new FormControl('', [Validators.required])
+      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]),
+      repeatPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)])
     });
   }
 
   onClick() {
     let changePassword = new PasswordModel();
+    changePassword.userId = this.data.id;
     changePassword.password = this.passwordForm.get('password')?.value;
     changePassword.repeatPassword = this.passwordForm.get('repeatPassword')?.value;
-    changePassword.mode = ModePopUpType.PASSWORD;
+    changePassword.action = ModePopUpType.PASSWORD;
 
-    this._usersService.changeUserPassword(this.data.id, { newPassword: changePassword.password, confirmPassword: changePassword.repeatPassword }).subscribe(
-      success => this.dialogRef.close(false),
-      err => {
-        switch (err.status) {
-          case 400: {
-            this.showInvalidPassword = true;
-          }
-        }
-      }
-    );
-
+    this.dialogRef.close(changePassword);
   }
 
   close() {
