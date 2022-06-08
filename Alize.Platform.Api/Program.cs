@@ -1,8 +1,8 @@
-using Alize.Platform.Api.Extensions;
 using Alize.Platform.Api.Policies;
 using Alize.Platform.Core.Constants;
 using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Extensions;
 using Alize.Platform.Infrastructure.Repositories;
 using Alize.Platform.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -67,11 +67,12 @@ builder.Services
     });
 
 //builder.Services.AddHangfire(configuration => configuration
-    //.UseMemoryStorage());
+//.UseMemoryStorage());
 
 //builder.Services.AddHangfireServer();
 
 builder.Services.InitializeCosmosClientInstance(builder.Configuration.GetSection("CosmosDb"));
+builder.Services.InitializeBlobServiceClientInstance(builder.Configuration.GetConnectionString("BlobStorage"));
 builder.Services.AddHttpClient();
 builder.Services.AddDataProtection()
     .PersistKeysToDbContext<ApplicationDbContext>();
@@ -83,6 +84,8 @@ builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IApplicationCredentialsRepository, ApplicationCredentialsRepository>();
 builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<IModuleRepository, ModuleRepository>();
+builder.Services.AddScoped<IImageRepository, MediaRepository>();
+builder.Services.AddScoped<IVideoRepository, MediaRepository>();
 builder.Services.AddScoped<IBlockchainRepository, BlockchainRepository>();
 builder.Services.AddScoped<IRequestLogEntryRepository, RequestLogEntryRepository>();
 builder.Services.AddScoped<ICosmosRepositoryFactory, CosmosRepositoryFactory>();
