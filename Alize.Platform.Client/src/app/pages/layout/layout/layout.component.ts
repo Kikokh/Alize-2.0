@@ -20,16 +20,16 @@ export class LayoutComponent implements OnInit {
 
   constructor(
     private _globalStylesService: GlobalStylesService,
-    public overlayContainer: OverlayContainer,
+    public _overlayContainer: OverlayContainer,
     public _loginService: LoginService,
-    public translate: TranslateService) {
-    this.translate.addLangs(['es', 'en']);
+    public _translate: TranslateService) {
+    this._translate.addLangs(['es', 'en']);
 
     const lang = localStorage.getItem('lang');
     if (lang !== null) {
-      this.translate.setDefaultLang(lang);
+      this._translate.setDefaultLang(lang);
     } else {
-      this.translate.setDefaultLang('en');
+      this._translate.setDefaultLang('en');
     }
   }
 

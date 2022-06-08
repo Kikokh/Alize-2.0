@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
 import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { Company } from 'src/app/models/company.model';
@@ -49,22 +50,19 @@ export class CompaniesComponent {
 
   update(company: Company) {
     this.isLoading = true;
-    this._companiesService.updateCompany(company).subscribe({
-      next: () => {
+
+    this._companiesService.updateCompany(company).pipe(
+      switchMap(() => this._companiesService.getCompanies())
+    ).subscribe({
+      next: (company) => {
+        this.elementData = company;
+        this.isLoading = false;
         this._snackBarService.showSnackBar('Entidad actualizada con éxito.');
       },
       error: () => {
         this._snackBarService
-          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
       },
-      complete: () => {
-        this._companiesService.getCompanies().subscribe(
-          company => {
-            this.elementData = company;
-            this.isLoading = false;
-          }
-        );
-      }
     });
   }
 

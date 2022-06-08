@@ -20,7 +20,7 @@ import { AssetService } from './asset.service';
 @Component({
   selector: 'app-assets',
   templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.scss']
+  styleUrls: ['./assets.component.scss','../../../layout-main.scss']
 })
 export class AssetsComponent implements OnInit {
   @ViewChild(DynamicHostDirective, { static: false }) dynamicHost: DynamicHostDirective;

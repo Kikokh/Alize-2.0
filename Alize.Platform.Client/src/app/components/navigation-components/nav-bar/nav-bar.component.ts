@@ -32,7 +32,7 @@ export class NavBarComponent {
 
     const currentLang = localStorage.getItem('lang');
 
-    this.currentLang = (currentLang !== null) ? currentLang : 'es';
+    this.currentLang = (currentLang !== null) ? currentLang : 'en';
   }
 
   handleSideBarToggle() {
