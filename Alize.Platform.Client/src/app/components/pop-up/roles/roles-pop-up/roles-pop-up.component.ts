@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { Module } from 'src/app/models/module.model';
-import { IUser } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user.model';
 import { RolesService } from 'src/app/pages/administration/roles/roles.service';
 import { LoginService } from 'src/app/pages/login/services/login.service';
 import { ModulesService } from '../../../../pages/administration/modules/modules.service';
@@ -110,7 +110,7 @@ export class RolesPopUpComponent implements OnInit, OnDestroy {
       });
   }
 
-  verifyPermit(user: IUser) {
+  verifyPermit(user: User) {
     const userRole = this.roles.findIndex(f => f.toLowerCase() === user.roleName.toLowerCase());
     if (userRole < 0) return false;
     const currentRole = this.roles.findIndex(f => f.toLowerCase() === this.data.nombre.toLowerCase());

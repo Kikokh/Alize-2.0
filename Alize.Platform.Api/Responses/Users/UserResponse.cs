@@ -1,4 +1,5 @@
-﻿using Alize.Platform.Api.Responses.Modules;
+﻿using Alize.Platform.Api.Responses.Applications;
+using Alize.Platform.Api.Responses.Modules;
 
 namespace Alize.Platform.Api.Responses
 {
@@ -19,6 +20,8 @@ namespace Alize.Platform.Api.Responses
         public string RoleName { get; set; }
 
         public IEnumerable<ModuleResponse> Modules { get; set; }
+
+        public IEnumerable<ApplicationResponse> Applications { get; set; }
 
         public string CompanyName { get; set; }
         public string CompanyId { get; set; }

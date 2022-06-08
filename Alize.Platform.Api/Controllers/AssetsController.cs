@@ -48,7 +48,7 @@ namespace Alize.Platform.Api.Controllers
             var assets = await service.GetAssetsPageAsync(queries, pageSize, pageNumber);
 
             var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
-            _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            await _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
             {
                 ApplicationId = applicationId,
                 UserId = user!.Id,
@@ -70,7 +70,7 @@ namespace Alize.Platform.Api.Controllers
             var asset = await service.GetAssetAsync(assetId);
 
             var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
-            _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            await _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
             {
                 ApplicationId = applicationId,
                 UserId = user!.Id,
@@ -109,7 +109,7 @@ namespace Alize.Platform.Api.Controllers
                 .CreateAssetAsync(asset);
 
             var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
-            _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            await _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
             {
                 ApplicationId = applicationId,
                 UserId = user!.Id,

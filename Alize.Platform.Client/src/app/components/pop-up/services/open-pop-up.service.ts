@@ -26,24 +26,20 @@ export class OpenPopUpService {
 
   constructor(private dialog: MatDialog) { }
 
-  open(entity: EntityType, mode: ModePopUpType, data?: any) {
+  open(entity: EntityType, mode: ModePopUpType, data?: any): Observable<any> {
     const matDialogConfigModel = this.resolveComponentToOpen(entity, mode, data);
     this.dialogRef = this.dialog.open(matDialogConfigModel.component, {
       data: matDialogConfigModel.data,
     });
+
+    return this.dialogRef.afterClosed()
+      .pipe(
+        take(1)
+      );
   }
 
   close() {
     if (this.dialogRef && this.dialogRef.componentInstance) { this.dialogRef.close(true); }
-  }
-
-  afterClosed(): Observable<any> {
-    return this.dialogRef.afterClosed()
-      .pipe(
-        take(1),
-        map(res => {
-          return res;
-        }));
   }
 
   // MatDialogConfigModel
@@ -175,6 +171,7 @@ export class OpenPopUpService {
       case ModePopUpType.GROUP: {
         matDialogConfigModel.component = ApplicationGroupPopUpComponent;
         matDialogConfigModel.data = {
+          value: data,
           nombre: data.Nombre,
           grupos: data.Grupo,
           mode: mode
@@ -214,7 +211,7 @@ export class OpenPopUpService {
           apellidos: data.lastName,
           email: data.email,
           empresa: data.companyName,
-          empresaId:data.companyId,
+          empresaId: data.companyId,
           grupos: data.roleName,
           isActive: data.isActive,
           mode: mode

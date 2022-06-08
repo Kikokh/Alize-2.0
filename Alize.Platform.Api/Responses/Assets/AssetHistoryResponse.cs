@@ -4,6 +4,6 @@
     {
         public string TransactionId { get; set; }
 
-        public Dictionary<string, object> Metadata { get; set; }
+        public IDictionary<string, object> Metadata { get; set; }
     }
 }

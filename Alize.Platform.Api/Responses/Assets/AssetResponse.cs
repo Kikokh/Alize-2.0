@@ -4,7 +4,7 @@
     {
         public string Id { get; set; }
 
-        public Dictionary<string, object> Data { get; set; }
+        public IDictionary<string, object> Data { get; set; }
 
         public DateTime? CreatedAt { get; set; }
 

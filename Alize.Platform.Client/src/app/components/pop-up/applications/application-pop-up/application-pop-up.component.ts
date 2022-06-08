@@ -4,10 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Application } from 'src/app/models/application.model';
 import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
-import { RequestApplication } from '../../../models/application.model';
+import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
-import { IUser } from '../../models/IUser';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-application-pop-up',
@@ -27,7 +25,6 @@ export class ApplicationPopUpComponent {
   }
 
   constructor(
-    private _userService: UserService,
     public dialogRef: MatDialogRef<ApplicationPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       id: string;
@@ -38,8 +35,7 @@ export class ApplicationPopUpComponent {
       creationDate: Date;
       isActive: boolean;
     },
-    public translate: TranslateService,
-    private _applicationServices: ApplicationsService) {
+    public translate: TranslateService) {
 
     this.applicationForm = new FormGroup({
       name: new FormControl({ value: (this.data.name) ? this.data.name : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),

@@ -45,7 +45,7 @@ builder.Services
         options.AddPolicy(Modules.ModuleAdmin, policy => policy.Requirements.Add(new ModuleRequirement(Modules.ModuleAdmin)));
         options.AddPolicy(Modules.Users, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Users)));
         options.AddPolicy(Modules.Alerts, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Alerts)));
-        options.AddPolicy(Modules.Queries, policy => policy.Requirements.Add(new ModuleRequirement(Modules.Queries)));
+        options.AddPolicy(Modules.Queries, policy => policy.Requirements.Add(new QueryRequirement(Modules.Applications)));
         options.AddPolicy(Modules.ControlPanel, policy => policy.Requirements.Add(new ModuleRequirement(Modules.ControlPanel)));
         options.AddPolicy(Modules.UserAudit, policy => policy.Requirements.Add(new ModuleRequirement(Modules.UserAudit)));
         options.AddPolicy(Modules.TransactionLog, policy => policy.Requirements.Add(new ModuleRequirement(Modules.TransactionLog)));
@@ -78,6 +78,7 @@ builder.Services.AddDataProtection()
     .PersistKeysToDbContext<ApplicationDbContext>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<IAuthorizationHandler, ModuleHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, QueryHandler>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();

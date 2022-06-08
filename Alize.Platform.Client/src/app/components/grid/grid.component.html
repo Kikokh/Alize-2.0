@@ -14,7 +14,7 @@
                 <p class="sub-title">{{subTitle | translate}}</p>
             </div>
             <button *ngIf="entity === Entity.APPLICATIONS || entity === Entity.USERS" mat-stroked-button color="accent"
-                (click)="openDialog()">
+                (click)="showDialog(ModePopUpType.ADD)">
                 <mat-icon>add</mat-icon>
                 <span>{{ "nuevo" | translate }}</span>
             </button>
@@ -43,7 +43,7 @@
                     <mat-cell class="operation-column" *matCellDef="let row">
                         <ng-container *ngFor="let action of actions">
                             <button class="icon-button" mat-icon-button color="accent"
-                                (click)="showDialog(row, action.optionName)">
+                                (click)="showDialog(action.optionName, row)">
                                 <mat-icon>{{action.icon}}</mat-icon>
                             </button>
                         </ng-container>

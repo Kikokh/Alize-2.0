@@ -6,8 +6,9 @@ namespace Alize.Platform.Infrastructure.Repositories
     {
         Task<Application> AddApplicationAsync(Application application);
         Task DeleteApplicationAsync(Application application);
-        Task<Application?> GetApplicationAsync(Guid id);
-        Task<IEnumerable<Application>> GetApplicationsForUserAsync(User user);
+        Task<Application?> GetApplicationForUserAsync(Guid userId, Guid id);
+        Task<IEnumerable<Application>> GetApplicationsForUserAsync(Guid userId);
         Task<Application> UpdateApplicationAsync(Application application);
+        Task SetUserApplicationAccessAsync(Guid applicationId, Guid userId, bool canAccess);
     }
 }

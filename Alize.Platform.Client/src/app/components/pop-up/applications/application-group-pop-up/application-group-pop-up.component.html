@@ -8,10 +8,9 @@
 </div>
 
 
-<div class="mat-dialog-content-group" mat-dialog-content *ngIf="data.mode === 'GROUP'">
-    <ng-container *ngFor="let user of userList">
-        <mat-checkbox class="example-margin" name="active" formControlName="active"
-            [disabled]="user.isActive === false" [checked]="user.isActive === true">
+<div [formGroup]="form" class="mat-dialog-content-group" mat-dialog-content *ngIf="data.mode === 'GROUP'">
+    <ng-container formArrayName="users" *ngFor="let user of userList; let i = index">
+        <mat-checkbox class="example-margin" name="active" formControlName="active" [formControlName]="i">
             {{user.firstName}}  {{user.lastName}}
         </mat-checkbox>
     </ng-container>
@@ -21,6 +20,6 @@
     <div class="fill"></div>
     <div class="buttons">
         <button mat-raised-button (click)="close()">{{"Cerrar" | translate}}</button>
-        <button mat-raised-button color="accent" (click)="onClick()">{{"Guardar" | translate}}</button>
+        <button mat-raised-button color="accent" (click)="onSave()">{{"Guardar" | translate}}</button>
     </div>
 </div>

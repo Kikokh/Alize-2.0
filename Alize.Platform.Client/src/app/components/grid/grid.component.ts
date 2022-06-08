@@ -37,7 +37,6 @@ export class GridComponent implements OnInit, AfterViewInit {
   @Output() add = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
 
-
   public get Entity(): typeof EntityType {
     return EntityType;
   }
@@ -55,12 +54,9 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   // MatPaginator Output
   pageEvent: PageEvent;
-
-
-
-
   materialTheme = new MaterialTheme();
 
+  ModePopUpType = ModePopUpType;
 
   setPageSizeOptions(setPageSizeOptionsInput: string) {
     if (setPageSizeOptionsInput) {
@@ -134,25 +130,18 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openDialog() {
-    this._openPopUpService.open(this.entity, ModePopUpType.ADD);
-    this._openPopUpService.afterClosed().subscribe(entity => {
-      this.add.emit(entity);
-    });
-  }
-
-
-  showDialog(data: any, optionName: ModePopUpType) {
+  showDialog(optionName: ModePopUpType, data?: any) {
     if (optionName === ModePopUpType.REQUEST) {
       this._router.navigate([`management/queries/${data.id}/assets`]);
-    } if (optionName === ModePopUpType.CHARTS) {
+    } else if (optionName === ModePopUpType.CHARTS) {
       this._router.navigate([`management/charts/${data.id}/chart`]);
     } else {
-      this._openPopUpService.open(this.entity, optionName, data);
-      this._openPopUpService.afterClosed().subscribe(entity => {
+      this._openPopUpService.open(this.entity, optionName, data).subscribe(entity => {
 
         if (entity.action === ModePopUpType.EDIT) {
           this.update.emit(entity);
+        } else if (entity.action === ModePopUpType.ADD) {
+          this.add.emit(entity);
         } else if (entity.action === ModePopUpType.GROUP) {
           this.updateRole.emit(entity);
         } else if (entity.action === ModePopUpType.PASSWORD) {

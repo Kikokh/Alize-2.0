@@ -1,4 +1,5 @@
 import { ModePopUpType } from "../components/pop-up/models/entity-type.enum";
+import { Application } from "./application.model";
 
 export class User {
     id: string;
@@ -11,4 +12,5 @@ export class User {
     isActive: boolean;
     password: string;
     action: ModePopUpType;
+    applications: Application[];
 }

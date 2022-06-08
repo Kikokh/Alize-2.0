@@ -87,12 +87,14 @@ namespace Alize.Platform.Infrastructure.Services
         public async Task<IEnumerable<User>> GetUsersAsync() => await _userManager.Users
             .Include(u => u.Company)
             .Include(u => u.Roles)
+            .Include(u => u.Applications)
             .ToListAsync();
 
         public async Task<User?> GetUserAsync(string id)
         {
             return await _userManager.Users
                 .Include(u => u.Company)
+                .Include(u => u.Applications)
                 .Include(u => u.Roles)
                 .ThenInclude(r => r.Modules)
                 .SingleOrDefaultAsync(u => u.Id.ToString() == id);
