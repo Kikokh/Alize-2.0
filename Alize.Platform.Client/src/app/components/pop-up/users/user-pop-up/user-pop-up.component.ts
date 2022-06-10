@@ -11,8 +11,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { RequestApplication } from 'src/app/components/models/application.model';
+import { Roles } from 'src/app/components/models/column.models';
 import { Company } from 'src/app/models/company.model';
+import { User } from 'src/app/models/users.model';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
+import { RolesService } from 'src/app/pages/administration/roles/roles.service';
 import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
@@ -31,10 +34,14 @@ export class UserPopUpComponent implements OnDestroy {
   public get ModePopUpType(): typeof ModePopUpType {
     return ModePopUpType;
   }
+
   companies: Company[];
+  roles: Roles[];
+
   constructor(
     private _companyService: CompaniesService,
     private _userService: UsersService,
+    private _rolesService: RolesService,
     public dialogRef: MatDialogRef<UserPopUpComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -44,6 +51,8 @@ export class UserPopUpComponent implements OnDestroy {
       email: string;
       empresa: string;
       empresaId: string;
+      roleName: string;
+      roleId: string;
       grupos: Date;
       isActive: boolean;
       mode: ModePopUpType;
@@ -56,23 +65,32 @@ export class UserPopUpComponent implements OnDestroy {
       .getCompanies()
       .subscribe((companies) => (this.companies = companies));
 
+    this._rolesService
+      .getRoles()
+      .subscribe((roles) => (this.roles = roles));
+
     this.title =
       this.data.mode === ModePopUpType.ADD
         ? 'NuevoUsuario'
         : this.data.mode
-        ? 'VerUsuario'
-        : 'EditarUsuario';
+          ? 'VerUsuario'
+          : 'EditarUsuario';
 
     this.buildForm();
-    console.log(this.data);
 
     if (this.data.mode === ModePopUpType.EDIT) {
       this.userForm.controls['company'].clearValidators();
       this.userForm.controls['company'].updateValueAndValidity();
 
+      this.userForm.controls['role'].clearValidators();
+      this.userForm.controls['role'].updateValueAndValidity();
+
       this.userForm.controls['password'].clearValidators();
       this.userForm.controls['password'].updateValueAndValidity();
     }
+
+    console.log('El role es: ' , this.data?.roleName);
+    console.log('El role es: ' , this.data?.empresaId);
   }
 
   buildForm() {
@@ -100,7 +118,11 @@ export class UserPopUpComponent implements OnDestroy {
           [Validators.required, Validators.maxLength(100), Validators.email]
         ),
         company: new FormControl(
-          { value: null, disabled: this.data.mode === ModePopUpType.DISPLAY },
+          { value:  this.data?.empresaId, disabled: this.data.mode === ModePopUpType.DISPLAY },
+          [Validators.required]
+        ),
+        role: new FormControl(
+          { value:  this.data?.roleName, disabled: this.data.mode === ModePopUpType.DISPLAY },
           [Validators.required]
         ),
         password: new FormControl(
@@ -153,63 +175,28 @@ export class UserPopUpComponent implements OnDestroy {
   }
 
   onClick() {
-    if (this.userForm.valid) {
-      let requestApplication = new RequestApplication();
-      requestApplication.name = 'Nombre';
-      requestApplication.importantInfo = 'Important Info';
-      requestApplication.description = 'description';
+    this.dialogRef.close(this.buildUser());
+  }
 
-      if (this.data.mode === ModePopUpType.ADD) {
-        const value = this.userForm.value;
-        const request = {
-          email: value.email,
-          password: value.password,
-          firstName: value.firstName,
-          lastName: value.lastName,
-          companyId: value.company,
-          isActive: value.isActive ? true:false
-        };
-        this.saveUser(request);
-      } else {
-        const value = this.userForm.value;
-        const request = {
-          id: this.data.id,
-          email: value.email,
-          firstName: value.firstName,
-          lastName: value.lastName,
-          isActive: value.isActive,
-        };
-        this.updateUser(request);
-      }
+  private buildUser(): User {
+    let user = new User();
+
+    const value = this.userForm.value;
+    user.email = value.email,
+      user.password = value.password,
+      user.firstName = value.firstName,
+      user.lastName = value.lastName,
+      user.companyId = value.company,
+      user.roleId = value.role,
+      user.isActive = value.isActive ? true : false
+
+    if (this.data.mode === ModePopUpType.ADD) {
+      user.action = ModePopUpType.ADD;
     } else {
-      this.userForm.markAllAsTouched();
+      user.action = ModePopUpType.EDIT;
+      user.id = this.data.id;
     }
-  }
-
-  saveUser(request: any) {
-    this._userService
-      .createNewUser(request)
-      .pipe(takeUntil(this.unsubscribeAll))
-      .subscribe(
-        () => {
-          this.snackBar.open('success.saveUser', 'success');
-          this.dialogRef.close();
-        },
-        (err) => this.snackBar.open('errors.saveUser', 'error')
-      );
-  }
-
-  updateUser(request: any) {
-    this._userService
-      .updateUser(request)
-      .pipe(takeUntil(this.unsubscribeAll))
-      .subscribe(
-        () => {
-          this.snackBar.open('success.updateUser', 'success');
-          this.dialogRef.close();
-        },
-        (err) => this.snackBar.open('errors.updateUser', 'error')
-      );
+    return user;
   }
 
   close() {

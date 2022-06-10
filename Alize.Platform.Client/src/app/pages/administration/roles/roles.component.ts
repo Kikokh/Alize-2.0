@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {IColumnDef, IElementDataRoles, IOperationsModel} from 'src/app/components/models/column.models';
+import {IColumnDef, Roles, IOperationsModel} from 'src/app/components/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { ColumnBuilderService } from '../../services/column-builder.service';
 import { RolesService } from "./roles.service";
@@ -19,7 +19,7 @@ export class RolesComponent implements OnInit {
     { columnDef: 'Activo', header: 'Activo', cell: (element: any) => `${element.isActive}` },
   ];
 
-  elementData: IElementDataRoles[] = [];
+  elementData: Roles[] = [];
   actions: IOperationsModel[] = [
     { optionName: ModePopUpType.DISPLAY, icon: 'search' }
   ]

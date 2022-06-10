@@ -88,6 +88,7 @@ namespace Alize.Platform.Api.Controllers
             try
             {
                 await _securityService.RegisterUserAsync(user, request.Password);
+                await _securityService.SetUserRoleAsync(user.Id.ToString(), request.RoleId.ToString());
             }
             catch (ApplicationException)
             {
@@ -132,7 +133,8 @@ namespace Alize.Platform.Api.Controllers
 
             _mapper.Map(userUpdate, user);
 
-            await _securityService.UpdateUserAsync(user);   
+            await _securityService.UpdateUserAsync(user);
+            await _securityService.SetUserRoleAsync(user.Id.ToString(), userUpdate.RoleId.ToString());
 
             return NoContent();
         }

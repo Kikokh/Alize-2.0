@@ -20,7 +20,10 @@ namespace Alize.Platform.Api.Requests.Users
         [Required]
         [MinLength(1)]
         public string LastName { get; set; }
-        public Guid? CompanyId { get; set; }
+        [Required]
+        public Guid CompanyId { get; set; }
+        [Required]
+        public Guid RoleId { get; set; }
         public bool IsActive { get; set; }
     }
 }

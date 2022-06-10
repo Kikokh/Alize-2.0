@@ -5,8 +5,6 @@ import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/enti
 import { ApplicationsService } from './applications.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { switchMap } from 'rxjs/operators';
-import { Dialog } from 'src/app/models/dialog.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-applications',

@@ -8,6 +8,8 @@ export class User {
     lastName: string;
     email: string;
     companyName: string;
+    companyId: string;
+    roleId: string;
     roleName: string;
     isActive: boolean;
     password: string;
