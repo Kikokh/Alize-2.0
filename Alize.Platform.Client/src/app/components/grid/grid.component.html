@@ -43,7 +43,8 @@
                     <mat-cell class="operation-column" *matCellDef="let row">
                         <ng-container *ngFor="let action of actions">
                             <button class="icon-button" mat-icon-button color="accent"
-                                (click)="showDialog(action.optionName, row)">
+                                  *ngIf="action.optionName !== ModePopUpType.CHARTS || (row.showChartAction && action.optionName === ModePopUpType.CHARTS)"
+                                  (click)="showDialog(action.optionName, row)">
                                 <mat-icon>{{action.icon}}</mat-icon>
                             </button>
                         </ng-container>
