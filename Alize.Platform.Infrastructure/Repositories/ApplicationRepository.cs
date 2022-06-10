@@ -25,17 +25,20 @@ namespace Alize.Platform.Infrastructure.Repositories
             if (user.Role.Name == Roles.AdminPro)
                 return await _dbContext
                     .Applications
+                    .Include(u => u.Company)
                     .ToListAsync();
 
             if (user.Role.Name == Roles.Distributor)
                 return await _dbContext
                     .Applications
+                    .Include(u => u.Company)
                     .Where(a => a.CompanyId == user.CompanyId || a.Company.ParentCompanyId == user.CompanyId)
                     .ToListAsync();
 
             if (user.Role.Name == Roles.Admin)
                 return await _dbContext
                     .Applications
+                    .Include(u => u.Company)
                     .Where(a => a.CompanyId == user.CompanyId)
                     .ToListAsync();
 

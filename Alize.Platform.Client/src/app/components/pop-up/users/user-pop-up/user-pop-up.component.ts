@@ -122,7 +122,7 @@ export class UserPopUpComponent implements OnDestroy {
           [Validators.required]
         ),
         role: new FormControl(
-          { value:  this.data?.roleName, disabled: this.data.mode === ModePopUpType.DISPLAY },
+          { value:  this.data?.roleId, disabled: this.data.mode === ModePopUpType.DISPLAY },
           [Validators.required]
         ),
         password: new FormControl(

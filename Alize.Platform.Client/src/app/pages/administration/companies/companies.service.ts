@@ -14,10 +14,7 @@ export class CompaniesService {
   constructor(private _http: HttpClient) {}
 
   getCompanies(): Observable<Company[]> {
-
-    return this._http.get<Company[]>(this._baseUrl).pipe(
-      tap( data => {})
-    );
+    return this._http.get<Company[]>(this._baseUrl);
   }
 
   getCompany(companyId: string): Observable<Company> {
