@@ -38,7 +38,7 @@
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Operaciones">
+                <ng-container matColumnDef="operations">
                     <mat-header-cell [ngClass]="getColorHeaderTable()" *matHeaderCellDef> {{ 'Operaciones' | translate }} </mat-header-cell>
                     <mat-cell class="operation-column" *matCellDef="let row">
                         <ng-container *ngFor="let action of actions">

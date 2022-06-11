@@ -22,57 +22,65 @@ namespace Alize.Platform.Infrastructure.Repositories
                 .ThenInclude(r => r.Modules)
                 .SingleAsync(u => u.Id == userId);
 
-            if (user.Role.Name == Roles.AdminPro)
-                return await _dbContext
-                    .Applications
-                    .Include(u => u.Company)
-                    .ToListAsync();
+            switch (user.Role?.Name)
+            {
+                case Roles.AdminPro:
+                    return await _dbContext
+                        .Applications
+                        .Include(u => u.Company)
+                        .ToListAsync();
 
-            if (user.Role.Name == Roles.Distributor)
-                return await _dbContext
-                    .Applications
-                    .Include(u => u.Company)
-                    .Where(a => a.CompanyId == user.CompanyId || a.Company.ParentCompanyId == user.CompanyId)
-                    .ToListAsync();
+                case Roles.Distributor:
+                    return await _dbContext
+                        .Applications
+                        .Include(u => u.Company)
+                        .Where(a => a.Company != null && (a.CompanyId == user.CompanyId || a.Company.ParentCompanyId == user.CompanyId))
+                        .ToListAsync();
 
-            if (user.Role.Name == Roles.Admin)
-                return await _dbContext
-                    .Applications
-                    .Include(u => u.Company)
-                    .Where(a => a.CompanyId == user.CompanyId)
-                    .ToListAsync();
+                case Roles.Admin:
+                    return await _dbContext
+                        .Applications
+                        .Include(u => u.Company)
+                        .Where(a => a.CompanyId == user.CompanyId)
+                        .ToListAsync();
 
-            return user.Applications;
+                default:
+                    return user.Applications;
+            }
         }
 
         public async Task<Application?> GetApplicationForUserAsync(Guid userId, Guid id)
         {
+            var applicationsQuery = _dbContext
+                        .Applications
+                        .Include(u => u.Company);
+
             var user = await _dbContext.Users
                 .Include(u => u.Applications)
                 .ThenInclude(u => u.Company)
                 .Include(u => u.Roles)
+                .ThenInclude(r => r.Modules)
                 .SingleAsync(u => u.Id == userId);
 
-            if (user.Role.Name == Roles.AdminPro)
-                return await _dbContext
-                    .Applications
-                    .Include(x => x.Company)
-                    .SingleOrDefaultAsync(a => a.Id == id);
+            switch (user.Role?.Name)
+            {
+                case Roles.AdminPro:
+                    return await applicationsQuery.SingleOrDefaultAsync(a => a.Id == id);
 
-            if (user.Role.Name == Roles.Distributor)
-                return await _dbContext
-                    .Applications
-                    .Include(x => x.Company)
-                    .Where(a => a.CompanyId == user.CompanyId || a.Company.ParentCompanyId == user.CompanyId)
-                    .SingleOrDefaultAsync(a => a.Id == id);
+                case Roles.Distributor:
+                    return await applicationsQuery
+                        .Where(a => a.CompanyId == user.CompanyId || a.Company.ParentCompanyId == user.CompanyId)
+                        .SingleOrDefaultAsync(a => a.Id == id);
 
-            if (user.Role.Name == Roles.Admin)
-                return await _dbContext
-                    .Applications
-                    .Where(a => a.CompanyId == user.CompanyId)
-                    .SingleOrDefaultAsync(a => a.Id == id);
+                case Roles.Admin:
+                    return await applicationsQuery
+                        .Include(u => u.Company)
+                        .Where(a => a.CompanyId == user.CompanyId)
+                        .SingleOrDefaultAsync(a => a.Id == id);
 
-            return user.Applications.SingleOrDefault(a => a.Id == id);
+                default:
+                    return user.Applications.SingleOrDefault(a => a.Id == id);
+            }
         }
 
         public async Task<Application> UpdateApplicationAsync(Application application)

@@ -84,11 +84,36 @@ namespace Alize.Platform.Infrastructure.Services
 
         public async Task UpdateUserPasswordAsync(Guid userId, string newPassword) => await this.UpdateUserPasswordAsync(userId.ToString(), newPassword);
 
-        public async Task<IEnumerable<User>> GetUsersAsync() => await _userManager.Users
-            .Include(u => u.Company)
-            .Include(u => u.Roles)
-            .Include(u => u.Applications)
-            .ToListAsync();
+        public async Task<IEnumerable<User>> GetUserListForUserAsync(Guid userId)
+        {
+            var user = await _userManager.Users
+                .Include(u => u.Roles)
+                .SingleAsync(u => u.Id == userId);
+
+            var usersQuery = _userManager.Users
+                    .Include(u => u.Applications)
+                    .Include(u => u.Company)
+                    .Include(u => u.Roles);
+
+            switch (user.Role?.Name)
+            {
+                case Roles.AdminPro:
+                    return await usersQuery.ToListAsync();
+
+                case Roles.Distributor:
+                    return await usersQuery
+                        .Where(u => u.CompanyId == user.CompanyId || u.Company.ParentCompanyId == user.CompanyId)
+                        .ToListAsync();
+
+                case Roles.Admin:
+                    return await usersQuery
+                        .Where(u => u.CompanyId == user.CompanyId)
+                        .ToListAsync();
+
+                default:
+                    return new List<User>() { user };
+            }
+        }
 
         public async Task<User?> GetUserAsync(string id)
         {
@@ -140,12 +165,12 @@ namespace Alize.Platform.Infrastructure.Services
 
         public bool VerifyRolePermit(string currentRole, string toChangeRole)
         {
-            List<string> roles =  new List<string>(){ Roles.AdminPro.ToLower(), Roles.Distributor.ToLower(), Roles.Admin.ToLower() };
+            List<string> roles = new List<string>() { Roles.AdminPro.ToLower(), Roles.Distributor.ToLower(), Roles.Admin.ToLower() };
             int indexCurrent = roles.IndexOf(currentRole.ToLower());
             if (indexCurrent < 0) return false;
             int indexChangeRole = roles.IndexOf(toChangeRole);
-            
-            if (indexCurrent >=0 && indexCurrent < indexChangeRole) return false;
+
+            if (indexCurrent >= 0 && indexCurrent < indexChangeRole) return false;
 
             return true;
         }

@@ -1,5 +1,6 @@
 ﻿using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,21 +21,19 @@ namespace Alize.Platform.Api.Policies
 
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, QueryRequirement requirement)
         {
-            if (context.User.Identity?.IsAuthenticated == true)
-            {
-                var userRoleName = context.User.Claims.Single(c => c.Type == ClaimTypes.Role).Value;
-                var userRole = await _roleManager.Roles
-                    .Include(r => r.Modules)
-                    .SingleAsync(r => userRoleName == r.Name);
+            var httpContext = (context.Resource as DefaultHttpContext);
 
-                if (userRole.Modules.Any(m => m.Name == requirement.Module && m.IsActive))
+            if (httpContext is not null && context.User.IsAuthenticated())
+            {
+                var user = await _securityService.GetUserAsync(context.User.GetUserId());
+
+                if (user?.Role?.Modules.Any(m => m.Name == requirement.Module && m.IsActive) ?? false)
                 {
                     context.Succeed(requirement);
                 }
                 else
                 {
-                    var user = await _securityService.GetUserAsync(context.User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
-                    var applicationId = (context.Resource as DefaultHttpContext)
+                    var applicationId = httpContext
                         .Request
                         .RouteValues["applicationId"] as string;
 

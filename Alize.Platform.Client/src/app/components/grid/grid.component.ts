@@ -84,7 +84,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.displayedColumns = [...this.columns.map(c => c.columnDef), 'Operaciones'];
+    this.displayedColumns = [...this.columns.map(c => c.columnDef), 'operations'];
     if (this.entity === EntityType.APPLICATIONS) {
       this.subTitle = 'ListadoAplicaciones';
     } else if (this.entity === EntityType.COMPANIES) {

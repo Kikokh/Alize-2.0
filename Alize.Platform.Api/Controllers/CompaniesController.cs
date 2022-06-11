@@ -3,6 +3,7 @@ using Alize.Platform.Api.Responses.Companies;
 using Alize.Platform.Core.Constants;
 using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Extensions;
 using Alize.Platform.Infrastructure.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +33,7 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<CompanyResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+            var user = await _securityService.GetUserAsync(User.GetUserId());
 
             if (user == null)
                 return NotFound();
