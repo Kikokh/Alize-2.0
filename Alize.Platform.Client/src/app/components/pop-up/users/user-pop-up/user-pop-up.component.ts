@@ -64,7 +64,6 @@ export class UserPopUpComponent implements OnDestroy {
         : 'EditarUsuario';
 
     this.buildForm();
-    console.log(this.data);
 
     if (this.data.mode === ModePopUpType.EDIT) {
       this.userForm.controls['company'].clearValidators();

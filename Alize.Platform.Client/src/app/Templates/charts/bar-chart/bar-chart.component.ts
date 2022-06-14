@@ -37,7 +37,6 @@ export class BarChartComponent {
   }
 
   onSelect(event: any) {
-    console.log(event);
   }
 
   onResize(event: any) {

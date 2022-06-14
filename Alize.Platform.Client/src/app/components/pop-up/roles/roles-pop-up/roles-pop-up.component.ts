@@ -126,7 +126,6 @@ export class RolesPopUpComponent implements OnInit, OnDestroy {
           this.dialogRef.close();
         },
         (err) => {
-          console.log(err);
         }
       );
   }
