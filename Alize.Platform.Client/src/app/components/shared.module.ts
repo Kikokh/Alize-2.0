@@ -28,6 +28,7 @@ import { SafePipe } from '../pipes/safe.pipe';
 import { TotalizatorComponent } from './totalizator/totalizator.component';
 import { FormErrorComponent } from './form-error/form-error.component';
 import { EncryptionPopUpComponent } from './pop-up/encryption-pop-up/encryption-pop-up.component';
+import { TimelineComponent } from './timeline/timeline.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -55,7 +56,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     SafePipe,
     TotalizatorComponent,
     FormErrorComponent,
-    EncryptionPopUpComponent
+    EncryptionPopUpComponent,
+    TimelineComponent
   ],
   imports: [
     CommonModule,
@@ -84,6 +86,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     GridSkeletonComponent,
     TotalizatorComponent,
     FormErrorComponent,
+    TimelineComponent
   ],
 })
 export class SharedModule {}
