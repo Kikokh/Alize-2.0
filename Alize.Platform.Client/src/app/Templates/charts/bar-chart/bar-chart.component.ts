@@ -36,9 +36,6 @@ export class BarChartComponent {
     Object.assign(this, { single })
   }
 
-  onSelect(event: any) {
-  }
-
   onResize(event: any) {
     this.view = [event.target.innerWidth / 5, 500];
   }

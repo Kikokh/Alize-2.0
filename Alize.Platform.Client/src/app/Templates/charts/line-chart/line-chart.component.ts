@@ -33,14 +33,6 @@ export class LineChartComponent {
     Object.assign(this, { multi });
   }
 
-  onSelect(data: any): void {
-  }
-
-  onActivate(data: any): void {
-  }
-
-  onDeactivate(data: any): void {  }
-
   onResize(event: any) {
     this.view = [event.target.innerWidth / 5, 500];
   }
