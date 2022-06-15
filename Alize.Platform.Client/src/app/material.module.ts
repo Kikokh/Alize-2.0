@@ -26,7 +26,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
-
+import {MatStepperModule} from '@angular/material/stepper';
 @NgModule({
   imports: [
     MatButtonModule,
@@ -55,7 +55,8 @@ import { MatTreeModule } from '@angular/material/tree';
     MatExpansionModule,
     TextFieldModule,
     MatGridListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatStepperModule
   ],
   exports: [
     MatButtonModule,
@@ -84,7 +85,8 @@ import { MatTreeModule } from '@angular/material/tree';
     MatExpansionModule,
     TextFieldModule,
     MatGridListModule,
-    MatTabsModule
+    MatTabsModule,
+    MatStepperModule
   ]
 })
 export class MaterialModule { }
