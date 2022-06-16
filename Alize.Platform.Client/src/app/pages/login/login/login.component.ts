@@ -3,8 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { ProgressSpinnerComponent } from 'src/app/components/progress-spinner/progress-spinner.component';
-import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { FormValidation } from 'src/app/models/validation.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';

@@ -6,10 +6,10 @@
             <h3 class="description">{{application?.description}}</h3>
         </div>
         <mat-form-field class="search-by-id" appearance="outline" color="accent">
-            <mat-label>Buscar por Id</mat-label>
+            <mat-label>{{ 'searchById' | translate }}</mat-label>
             <input type="text" matInput [(ngModel)]="assetId">
             <button matSuffix mat-raised-button color="accent" (click)="showDetails(assetId)">
-                Buscar
+                {{ 'search' | translate }}
             </button>
         </mat-form-field>
     </div>
@@ -17,12 +17,12 @@
         <h2 class="title">Ultimos activos publicados en <i>{{ application?.name }}</i></h2>
         <div class="filters">
             <ng-template appDynamicHost></ng-template>
-            <button mat-raised-button color="accent" class="search-button" (click)="getData()">Buscar</button>
+            <button mat-raised-button color="accent" class="search-button" (click)="getData()">{{ 'search' | translate }}</button>
         </div>
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container [matColumnDef]="column.property" *ngFor="let column of template?.columns">
                 <mat-header-cell *matHeaderCellDef> {{ column.header }} </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element[column.property] }} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{ resolve(column.property, element) }} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Operaciones">

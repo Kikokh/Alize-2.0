@@ -66,13 +66,18 @@ export class AssetDetailComponent implements OnInit {
     const data = {
       hash: '01248739475643756476574fjksdbvjkbsdkjvsdjhgf8237532875',
       data: [{
-        "Id":"543643435",
-        "VinJTDS":"NJ471955",
-        "SecuenciaJTDS":"0002941",
-        "Producto":"Producto543643435"
+        "Id": "543643435",
+        "VinJTDS": "NJ471955",
+        "SecuenciaJTDS": "0002941",
+        "Producto": "Producto543643435"
       }]
     };
 
     this._openPopUpService.open(EntityType.ENCRYPTING, ModePopUpType.ENCRYPTING, data);
+  }
+
+  resolve(path: any, obj: any, separator = '.') {
+    var properties = Array.isArray(path) ? path : path.split(separator)
+    return properties.reduce((prev: any, curr: any) => prev && prev[curr], obj)
   }
 }

@@ -29,9 +29,6 @@ import { TotalizatorComponent } from './totalizator/totalizator.component';
 import { FormErrorComponent } from './form-error/form-error.component';
 import { EncryptionPopUpComponent } from './pop-up/encryption-pop-up/encryption-pop-up.component';
 import { TimelineComponent } from './timeline/timeline.component';
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 @NgModule({
   declarations: [
@@ -66,13 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+    TranslateModule
   ],
   exports: [
     NavBarComponent,

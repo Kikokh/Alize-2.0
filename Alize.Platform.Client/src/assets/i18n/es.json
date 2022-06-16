@@ -1,4 +1,12 @@
 {
+    "asset": {
+        "details": "Detalle del activo",
+        "records": "Registros"
+    },
+    "search": "Buscar",
+    "searchById": "Buscar por ID",
+    "Applications": "Aplicaciones",
+    "alertBlockchain": "El contenido de esta tabla ha sido validado usando tecnologias Blockchain y cifrado SHA256. Haga click en el check para obtener mas informacion",
     "Queries": "Consultas",
     "Modules": "Módulos",
     "Companies": "Companías",
@@ -79,8 +87,8 @@
     "PasswordPopUpTitulo": "Cambio de contraseña",
     "PasswordPopUpSubTitulo": "Va a proceder al cambio de contraseña del usuario",
     "TimerPopUpTitulo": "Acceso temporal",
-    "TimerPopUpSubTitulo1":"Va a proceder a establecer una caducidad en la cuenta del usuario ",
-    "TimerPopUpSubTitulo2":" el usuario se deshabilitará pasadas 24H.",
+    "TimerPopUpSubTitulo1": "Va a proceder a establecer una caducidad en la cuenta del usuario ",
+    "TimerPopUpSubTitulo2": " el usuario se deshabilitará pasadas 24H.",
     "TimerPopUpTextInfo": "¿Desea continuar con la operación?",
     "VerModulo": "Ver Modulo",
     "Controlador": "Controlador",
@@ -106,5 +114,5 @@
     "EncryptionDescOne": "Para Validar la informacion de trazabilidad que puede ver en la tabla copie el contenido del campo. ",
     "EncryptionDescTwo": "y usando el algoritmo de cifrado SHA256 comparelo con el campo superior. Los hashes seran los mismo si y solamente si los datos son los mismos.",
     "EncryptionWeb": "Puede realizar el cifrado a traves de esta",
-    "AlerBar":"El contenido de esta tabla ha sido validado usando tecnologias Blockchain y cifrado SHA256. Haga click en el check para obtener mas informacion"
+    "AlerBar": "El contenido de esta tabla ha sido validado usando tecnologias Blockchain y cifrado SHA256. Haga click en el check para obtener mas informacion"
 }

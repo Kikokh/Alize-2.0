@@ -92,9 +92,14 @@ export class AssetsComponent implements OnInit {
   getData(): void {
     this._assetService.getApplicationAssets(String(this._route.snapshot.paramMap.get('applicationId')), this.paginator.pageIndex + 1, this.paginator.pageSize, this.filters).subscribe(
       resp => {
-        this.dataSource.data = resp.assets.map(asset => ({ id: asset.id, ...asset.data }));
+        this.dataSource.data = resp.assets;
         this.paginator.length = resp.total;
       }
     );
+  }
+
+  resolve(path: any, obj: any, separator = '.') {
+    var properties = Array.isArray(path) ? path : path.split(separator)
+    return properties.reduce((prev: any, curr: any) => prev && prev[curr], obj)
   }
 }

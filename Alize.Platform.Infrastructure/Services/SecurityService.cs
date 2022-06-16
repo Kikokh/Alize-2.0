@@ -42,7 +42,7 @@ namespace Alize.Platform.Infrastructure.Services
         {
             var user = await _userManager.FindByEmailAsync(email);
 
-            if (user is null || !await _userManager.CheckPasswordAsync(user, password))
+            if (user is null || !user.IsActive || !await _userManager.CheckPasswordAsync(user, password))
                 throw new UnauthorizedAccessException();
 
             var roles = await _userManager.GetRolesAsync(user);
