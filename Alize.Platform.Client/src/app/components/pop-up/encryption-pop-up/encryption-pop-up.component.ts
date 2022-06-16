@@ -6,7 +6,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   templateUrl: './encryption-pop-up.component.html',
   styleUrls: ['./encryption-pop-up.component.scss']
 })
-export class EncryptionPopUpComponent implements OnInit {
+export class EncryptionPopUpComponent {
   hashData: string;
 
   constructor(
@@ -15,12 +15,8 @@ export class EncryptionPopUpComponent implements OnInit {
       hash: string;
       data: any;
     }
-  ) { 
+  ) {
     this.hashData = JSON.stringify(this.data.data);
-  }
-
-  ngOnInit(): void {
-    console.log(this.data);
   }
 
 }
