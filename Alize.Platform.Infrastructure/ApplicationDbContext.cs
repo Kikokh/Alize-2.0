@@ -94,7 +94,17 @@ namespace Alize.Platform.Infrastructure
                     IsActive = true,
                     CreationDate = new DateTime(2020, 10, 10),
                     CompanyId = Guid.Parse("e8528a43-2a9d-44dd-b1c9-e37777ad0644")
-                });
+                },
+                new Application
+                {
+                    Id = Guid.Parse("892494ab-f4f5-4b76-a2f8-aa1e042e6b87"),
+                    Name = "Montaje parabrisas",
+                    Description = "Secuenciación parabrisas ford",
+                    IsActive = true,
+                    CreationDate = new DateTime(2020, 10, 10),
+                    CompanyId = Guid.Parse("e8528a43-2a9d-44dd-b1c9-e37777ad0644")
+                }
+            );
         }
         private void SeedApplicationCredentials(ModelBuilder builder)
         {
@@ -114,7 +124,16 @@ namespace Alize.Platform.Infrastructure
                     BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
                     Username = "61e844e4f245240292cf8641",
                     EncriptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d"
-                });
+                },
+                new ApplicationCredentials
+                {
+                    Id = Guid.Parse("76053ad3-d72b-46c3-b4a0-691ed4d13ca6"),
+                    ApplicationId = Guid.Parse("892494ab-f4f5-4b76-a2f8-aa1e042e6b87"),
+                    BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
+                    Username = "61e844e4f245240292cf8641",
+                    EncriptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d"
+                }
+            );
         }
         private void SeedCompanies(ModelBuilder builder)
         {
