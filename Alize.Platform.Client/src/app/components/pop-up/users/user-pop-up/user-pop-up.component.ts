@@ -88,9 +88,6 @@ export class UserPopUpComponent implements OnDestroy {
       this.userForm.controls['password'].clearValidators();
       this.userForm.controls['password'].updateValueAndValidity();
     }
-
-    console.log('El role es: ' , this.data?.roleName);
-    console.log('El role es: ' , this.data?.empresaId);
   }
 
   buildForm() {
