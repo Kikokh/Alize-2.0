@@ -18,9 +18,9 @@
 
 ## Environments
 ### Dev
--[API](https://alize-platform-api-dev.azurewebsites.net/)
--[Front End](https://lively-plant-0a9448f10.1.azurestaticapps.net/)
+- [API](https://alize-platform-api-dev.azurewebsites.net/)
+- [Front End](https://lively-plant-0a9448f10.1.azurestaticapps.net/)
 
 ### Staging
--[API](https://alize-platform-api-staging.azurewebsites.net/)
--[Front End](https://gentle-desert-0e8e9a510.1.azurestaticapps.net/)
+- [API](https://alize-platform-api-staging.azurewebsites.net/)
+- [Front End](https://gentle-desert-0e8e9a510.1.azurestaticapps.net/)
