@@ -1,0 +1,12 @@
+<div class="table">
+    <h2 class="title">{{ 'asset.records' | translate }}</h2>
+    <mat-table [dataSource]="assetHistory" class="mat-elevation-z8">
+        <ng-container [matColumnDef]="column.property" *ngFor="let column of tableTemplate">
+            <mat-header-cell *matHeaderCellDef> {{ column.header | titlecase }} </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.metadata[column.property] }} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="rowDefs"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: rowDefs"></mat-row>
+    </mat-table>
+</div>

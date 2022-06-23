@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
-import { single } from '../../models/data-bar-chart';
+import { single } from '../../../models/data-bar-chart';
 
 @Component({
   selector: 'app-bar-chart',

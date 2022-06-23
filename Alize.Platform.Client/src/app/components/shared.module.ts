@@ -29,6 +29,8 @@ import { TotalizatorComponent } from './totalizator/totalizator.component';
 import { FormErrorComponent } from './form-error/form-error.component';
 import { EncryptionPopUpComponent } from './pop-up/encryption-pop-up/encryption-pop-up.component';
 import { TimelineComponent } from './timeline/timeline.component';
+import { AssetDetailTableComponent } from './asset-detail-table/asset-detail-table.component';
+import { AssetDetailStepperComponent } from './asset-detail-stepper/asset-detail-stepper.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { TimelineComponent } from './timeline/timeline.component';
     TotalizatorComponent,
     FormErrorComponent,
     EncryptionPopUpComponent,
-    TimelineComponent
+    TimelineComponent,
+    AssetDetailTableComponent,
+    AssetDetailStepperComponent
   ],
   imports: [
     CommonModule,
@@ -77,7 +81,9 @@ import { TimelineComponent } from './timeline/timeline.component';
     GridSkeletonComponent,
     TotalizatorComponent,
     FormErrorComponent,
-    TimelineComponent
+    TimelineComponent,
+    AssetDetailTableComponent,
+    AssetDetailStepperComponent
   ],
 })
 export class SharedModule {}

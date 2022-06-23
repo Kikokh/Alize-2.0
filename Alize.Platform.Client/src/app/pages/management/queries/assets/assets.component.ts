@@ -10,8 +10,8 @@ import { FilterService } from 'src/app/services/filter.service';
 import { SelectComponent } from 'src/app/Templates/controls-list/select/select.component';
 import { TextBoxComponent } from 'src/app/Templates/controls-list/text-box/text-box.component';
 import { DynamicHostDirective } from 'src/app/Templates/dynamic-host.directive';
-import { ApplicationTemplate } from 'src/app/Templates/models/application-template.model';
-import { DropdownValues } from 'src/app/Templates/models/filters.model';
+import { ApplicationTemplate } from 'src/app/models/application-template.model';
+import { DropdownValues } from 'src/app/models/filters.model';
 import { TemplatesService } from 'src/app/Templates/services/templates.service';
 import { AssetService } from './asset.service';
 @Component({

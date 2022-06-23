@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
-import { multi } from '../../models/data';
+import { multi } from '../../../models/data';
 
 @Component({
   selector: 'app-line-chart',

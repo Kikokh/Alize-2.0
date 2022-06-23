@@ -15,18 +15,14 @@
                 </span>
             </div>
         </div>
-        <div class="table">
-            <h2 class="title">{{ 'asset.records' | translate }}</h2>
-            <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                <ng-container [matColumnDef]="column.property" *ngFor="let column of assetTemplate?.columns">
-                    <mat-header-cell *matHeaderCellDef> {{ column.header | titlecase }} </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{ element[column.property] }} </mat-cell>
-                </ng-container>
-
-                <mat-header-row *matHeaderRowDef="rowDefs"></mat-header-row>
-                <mat-row *matRowDef="let row; columns: rowDefs"></mat-row>
-            </mat-table>
-        </div>
+        <app-asset-detail-table 
+            *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length"
+            [tableTemplate]="assetTemplate?.columns ?? []">
+        </app-asset-detail-table>
+        <app-asset-detail-stepper 
+            *ngIf="assetTemplate?.steps && assetTemplate?.steps?.length"
+            [stepperTemplate]="assetTemplate?.steps ?? []">
+        </app-asset-detail-stepper>
         <div class="alert-container">
             <button mat-raised-button class="alert-bar-button">
                 <div class="button-container">

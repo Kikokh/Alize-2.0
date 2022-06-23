@@ -42,38 +42,6 @@
         }
     }
 
-    .table {
-        background: white;
-        padding: 15px;
-        border-radius: 2px;
-
-        .title {
-            color: #73879c;
-            font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-            font-size: 18px;
-            font-weight: 400;
-            line-height: 1.471;
-
-            &:after,
-            form:after {
-                content: ".";
-                display: block;
-                height: 0;
-                clear: both;
-                visibility: hidden;
-            }
-        }
-
-        .mat-header-row {
-            background: #2a3f54;
-
-            .mat-header-cell {
-                color: white;
-                font-weight: 600;
-            }
-        }
-    }
-
     .alert-container {
         margin-top: 40px;
         display: flex;
