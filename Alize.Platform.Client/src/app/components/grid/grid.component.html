@@ -14,7 +14,7 @@
                 <p class="sub-title">{{subTitle | translate}}</p>
             </div>
             <button *ngIf="entity === Entity.APPLICATIONS || entity === Entity.USERS" mat-stroked-button color="accent"
-                (click)="openDialog()">
+                (click)="showDialog(ModePopUpType.ADD)">
                 <mat-icon>add</mat-icon>
                 <span>{{ "nuevo" | translate }}</span>
             </button>
@@ -38,12 +38,13 @@
                     </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="Operaciones">
+                <ng-container matColumnDef="operations">
                     <mat-header-cell [ngClass]="getColorHeaderTable()" *matHeaderCellDef> {{ 'Operaciones' | translate }} </mat-header-cell>
                     <mat-cell class="operation-column" *matCellDef="let row">
                         <ng-container *ngFor="let action of actions">
                             <button class="icon-button" mat-icon-button color="accent"
-                                (click)="showDialog(row, action.optionName)">
+                                  *ngIf="action.optionName !== ModePopUpType.CHARTS || (row.showChartAction && action.optionName === ModePopUpType.CHARTS)"
+                                  (click)="showDialog(action.optionName, row)">
                                 <mat-icon>{{action.icon}}</mat-icon>
                             </button>
                         </ng-container>

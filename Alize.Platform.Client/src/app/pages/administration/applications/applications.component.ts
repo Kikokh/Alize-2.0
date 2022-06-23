@@ -4,6 +4,7 @@ import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.m
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { ApplicationsService } from './applications.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-applications',
@@ -46,40 +47,37 @@ export class ApplicationsComponent implements OnInit {
 
   add(app: Application) {
     this.isLoading = true;
-    this._applicationsService.newApplication(app).
-      subscribe({
-        next: () => {
-          this._snackBarService.showSnackBar('Entidad creada con éxito.');
-        },
-        error: () => {
-          this._snackBarService
-            .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
-        },
-        complete: () => {
-          this._applicationsService.getApplications().subscribe(
-            applications => {
-              this.isLoading = false;
-              this.elementData = applications;
-            }
-          );
-        }
-      });
-  }
-
-  update(app: Application) {
-    this._applicationsService.updateApplication(app).subscribe({
-      next: () => {
-        this._snackBarService.showSnackBar('Entidad actualizada con éxito.');
+    this._applicationsService.newApplication(app).pipe(
+      switchMap(() => this._applicationsService.getApplications())
+    ).subscribe({
+      next: (applications) => {
+        this.elementData = applications;
+        this.isLoading = false;
+        this._snackBarService.showSnackBar('Entidad creatada con éxito.');
       },
       error: () => {
         this._snackBarService
-          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamjente mas tarde');
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
       },
-      complete: () => {
-        this._applicationsService.getApplications().subscribe(
-          applications => this.elementData = applications
-        );
-      }
+    });
+
+  }
+
+  update(app: Application) {
+    this.isLoading = true;
+
+    this._applicationsService.updateApplication(app).pipe(
+      switchMap(() => this._applicationsService.getApplications())
+    ).subscribe({
+      next: (applications) => {
+        this.elementData = applications;
+        this.isLoading = false;
+        this._snackBarService.showSnackBar('Entidad creatada con éxito.');
+      },
+      error: () => {
+        this._snackBarService
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
+      },
     });
   }
 

@@ -17,7 +17,7 @@ namespace Alize.Platform.Core.Models
 
         public DateTime CreationDate { get; set; } = DateTime.Now;
 
-        public Company? Company { get; set; }
+        public Company Company { get; set; }
 
         [ForeignKey("Companies")]
         public Guid? CompanyId { get; set; }

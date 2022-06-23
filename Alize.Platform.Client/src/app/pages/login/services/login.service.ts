@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
 import { Modules } from 'src/app/constants/modules.constants';
-import { IUser } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user.model';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { environment } from 'src/environments/environment';
 import { __metadata } from 'tslib';
@@ -24,9 +24,9 @@ export interface ILoginData {
 })
 export class LoginService {
   private _baseUrl = environment.apiUrl;
-  private _me = new BehaviorSubject<IUser>(JSON.parse(this._localStorageService.getItem('user')) as IUser);
+  private _me = new BehaviorSubject<User>(JSON.parse(this._localStorageService.getItem('user')) as User);
 
-  $me: Observable<IUser> = this._me.asObservable();
+  $me: Observable<User> = this._me.asObservable();
 
   get isLoggedin() {
     return this._localStorageService.getItem('token')
@@ -49,7 +49,7 @@ export class LoginService {
 
     return this._http.post<any>(`${this._baseUrl}/Users/Login`, loginData, httpOptions).pipe(
       tap(data => this._localStorageService.addItem('token', data.accessToken)),
-      switchMap(() => this._http.get<IUser>(`${this._baseUrl}/Users/Me`, httpOptions)),
+      switchMap(() => this._http.get<User>(`${this._baseUrl}/Users/Me`, httpOptions)),
       tap(user => {
         this._me.next(user);
         this._localStorageService.addItem('user', JSON.stringify(user))

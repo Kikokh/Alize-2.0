@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { MaterialTheme } from 'src/app/models/theme.model';
-import { IUser } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { ModePopUpType } from '../../pop-up/models/entity-type.enum';
@@ -14,7 +14,7 @@ import { PasswordUserPopUpComponent } from '../../pop-up/users/password-user-pop
 })
 export class NavBarComponent {
   @Output() isSideBarExpanded = new EventEmitter<any>();
-  @Input() user: IUser;
+  @Input() user: User;
   currentLang: string;
   isExpanded = true;
   materialTheme = new MaterialTheme();
@@ -32,7 +32,7 @@ export class NavBarComponent {
 
     const currentLang = localStorage.getItem('lang');
 
-    this.currentLang = (currentLang !== null) ? currentLang : 'es';
+    this.currentLang = (currentLang !== null) ? currentLang : 'en';
   }
 
   handleSideBarToggle() {

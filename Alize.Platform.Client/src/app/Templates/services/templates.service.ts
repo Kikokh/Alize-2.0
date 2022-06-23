@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { OptionSelected } from '../filter-row/filter-row.component';
-import { ApplicationTemplate } from '../models/application-template.model';
-import { AssetTemplate } from '../models/asset-template.model';
-import { ControlType, DropdownValues, FilterModel } from '../models/filters.model';
+import { ApplicationTemplate } from '../../models/application-template.model';
+import { AssetTemplate } from '../../models/asset-template.model';
+import { ControlType, DropdownValues, FilterModel } from '../../models/filters.model';
 
 @Injectable({
   providedIn: 'root'

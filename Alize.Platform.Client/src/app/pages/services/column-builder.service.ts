@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { GridData, GridDataCategoriMapex, GridDataCompanies, GridDataRequest, GridDataUsers, IColumnDef,
-  IElementDataApp as IElementDataApplications, IElementDataCategoriaMapex, IElementDataCompanies, IElementDataRoles, IElementDataModules, IElementDataRequest, IElementDataUsers } from 'src/app/components/models/column.models';
+  IElementDataApp as IElementDataApplications, IElementDataCategoriaMapex, IElementDataCompanies, Roles, IElementDataModules, IElementDataRequest, IElementDataUsers } from 'src/app/components/models/column.models';
 
 
 const ELEMENT_DATA_APPLICATION: IElementDataApplications[] = [

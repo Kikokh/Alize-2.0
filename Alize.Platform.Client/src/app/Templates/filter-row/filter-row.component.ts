@@ -2,7 +2,7 @@ import { AfterViewInit, Component, ComponentFactory, ComponentFactoryResolver, I
 import { SelectComponent } from '../controls-list/select/select.component';
 import { TextBoxComponent } from '../controls-list/text-box/text-box.component';
 import { DynamicHostDirective } from '../dynamic-host.directive';
-import { ControlType, FilterModel } from '../models/filters.model';
+import { ControlType, FilterModel } from '../../models/filters.model';
 import { TemplatesService } from '../services/templates.service';
 
 export class OptionSelected {

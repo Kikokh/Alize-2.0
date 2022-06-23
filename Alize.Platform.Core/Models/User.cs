@@ -19,7 +19,7 @@ namespace Alize.Platform.Core.Models
         [ForeignKey(nameof(Company))]
         public Guid? CompanyId { get; set; }
 
-        public Company? Company { get; set; }
+        public Company Company { get; set; }
 
         [StringLength(10)]
         public string? Pin { get; set; }

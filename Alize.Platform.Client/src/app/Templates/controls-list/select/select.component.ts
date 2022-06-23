@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FilterService } from 'src/app/services/filter.service';
 import { OptionSelected } from '../../filter-row/filter-row.component';
-import { DropdownValues } from '../../models/filters.model';
+import { DropdownValues } from '../../../models/filters.model';
 
 @Component({
   selector: 'app-select',

@@ -1,0 +1,22 @@
+<div class="container">
+    <h2 class="title">{{ 'asset.records' | translate }}</h2>
+    <div class="flex flex-row content-space-evenly">
+        <div class="flex flex-1 flex-column text-center step items-center relative"
+            *ngFor="let step of stepperTemplate; let i = index">
+            <span class="step-circle">{{ i }}</span>
+            <span class="step-name">{{ step.name }}</span>
+            <div *ngIf="assetHistory && assetHistory[i]" class="properties flex flex-column">
+                <span *ngFor="let field of step.fields" [ngSwitch]="field.dataType">
+                    <ng-template ngSwitchCase="date">
+                        {{ assetHistory[i].metadata.bc_metadata[field.property] | date: 'short' }}
+                    </ng-template>
+                    <ng-template ngSwitchDefault>
+                        {{ assetHistory[i].metadata.bc_metadata[field.property] }}
+                    </ng-template>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+

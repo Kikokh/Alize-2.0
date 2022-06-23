@@ -3,7 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
 import { MaterialTheme } from 'src/app/models/theme.model';
-import { IUser } from 'src/app/models/user.model';
+import { User } from 'src/app/models/user.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { LoginService } from '../../login/services/login.service';
 
@@ -16,20 +16,20 @@ export class LayoutComponent implements OnInit {
   @Input() themesStyles: MaterialTheme;
   @ViewChild('drawer', { static: true }) public sideBar!: MatDrawer;
   materialTheme = new MaterialTheme();
-  user: IUser;
+  user: User;
 
   constructor(
     private _globalStylesService: GlobalStylesService,
-    public overlayContainer: OverlayContainer,
+    public _overlayContainer: OverlayContainer,
     public _loginService: LoginService,
-    public translate: TranslateService) {
-    this.translate.addLangs(['es', 'en']);
+    public _translate: TranslateService) {
+    this._translate.addLangs(['es', 'en']);
 
     const lang = localStorage.getItem('lang');
     if (lang !== null) {
-      this.translate.setDefaultLang(lang);
+      this._translate.setDefaultLang(lang);
     } else {
-      this.translate.setDefaultLang('en');
+      this._translate.setDefaultLang('en');
     }
   }
 

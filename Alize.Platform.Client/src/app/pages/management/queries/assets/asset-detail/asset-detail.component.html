@@ -1,47 +1,43 @@
-<div *ngIf="!isLoading; else gridSkeleton" class="container">
-    <app-breadcrumb></app-breadcrumb>
-    <h1 class="title">Detalle del activo</h1>
-    <div class="details flex">
-        <div class="date">
-            <p class="day">{{day}}</p>
-            <p class="month">{{month}}</p>
-            <p class="day">{{year}}</p>
-        </div>
-        <div class="properties flex">
-            <h2>{{asset.id}}</h2>
-            <span *ngFor="let field of assetTemplate?.fields">
-                <b>{{ field.header }}:</b> {{ asset.data[field.property] }}
-            </span>
-        </div>
-    </div>
-    <div class="table">
-        <h2 class="title">Registros</h2>
-        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <ng-container [matColumnDef]="column.property" *ngFor="let column of assetTemplate?.columns">
-                <mat-header-cell *matHeaderCellDef> {{ column.header }} </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ element[column.property] }} </mat-cell>
-            </ng-container>
 
-            <mat-header-row *matHeaderRowDef="rowDefs"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: rowDefs"></mat-row>
-        </mat-table>
-    </div>
-    <div class="alert-container">
-        <button mat-raised-button class="alert-bar-button">
-            <div class="button-container">
-                <mat-icon>info</mat-icon>
-                <span>
-                    El contenido de esta tabla ha sido validado usando tecnologias Blockchain
-                    y cifrado SHA256. Haga click en el check para obtener mas informacion
-                </span>
-                <mat-icon (click)="openEncryptedPopUp()">file_download_done</mat-icon>
+    <div *ngIf="!isLoading; else gridSkeleton" class="container">
+        <app-breadcrumb></app-breadcrumb>
+        <h1 class="title">{{ 'asset.details' | translate }}</h1>
+        <div class="details flex">
+            <div class="date">
+                <p class="day">{{ day }}</p>
+                <p class="month">{{ month }}</p>
+                <p class="day">{{ year }}</p>
             </div>
-        </button>
+            <div class="properties flex">
+                <h2>{{ asset.id }}</h2>
+                <span *ngFor="let field of assetTemplate?.fields">
+                    <b>{{ field.header }}:</b> {{ resolve(field.property, asset) }}
+                </span>
+            </div>
+        </div>
+        <app-asset-detail-table 
+            *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length"
+            [tableTemplate]="assetTemplate?.columns ?? []">
+        </app-asset-detail-table>
+        <app-asset-detail-stepper 
+            *ngIf="assetTemplate?.steps && assetTemplate?.steps?.length"
+            [stepperTemplate]="assetTemplate?.steps ?? []">
+        </app-asset-detail-stepper>
+        <div class="alert-container">
+            <button mat-raised-button class="alert-bar-button">
+                <div class="button-container">
+                    <mat-icon>info</mat-icon>
+                    <span [title]="'alertBlockchain' | translate" class="alert-text">
+                        {{ 'alertBlockchain' | translate }}
+                    </span>
+                    <mat-icon (click)="openEncryptedPopUp()">file_download_done</mat-icon>
+                </div>
+            </button>
+        </div>
     </div>
-</div>
 
-<ng-template #gridSkeleton>
-    <div class="grid-skeleton">
-        <app-grid-skeleton></app-grid-skeleton>
-    </div>
-</ng-template>
+    <ng-template #gridSkeleton>
+        <div class="grid-skeleton">
+            <app-grid-skeleton></app-grid-skeleton>
+        </div>
+    </ng-template>

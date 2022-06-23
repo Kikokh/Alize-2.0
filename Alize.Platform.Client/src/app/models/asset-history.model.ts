@@ -1,4 +1,4 @@
 export class AssetHistory {
-    id: string;
+    transactionId: string;
     metadata: any;
 }

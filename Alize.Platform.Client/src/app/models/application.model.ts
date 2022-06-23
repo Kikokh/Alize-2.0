@@ -12,4 +12,5 @@ export class Application {
     companyName: string;
     dataType?: string;
     action: ModePopUpType;
+    showChartAction?: boolean
 }

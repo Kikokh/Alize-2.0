@@ -27,7 +27,6 @@ export class UsersComponent implements OnInit {
   actions: IOperationsModel[] = [
     // { optionName: ModePopUpType.DISPLAY, icon: 'search' },
     { optionName: ModePopUpType.EDIT, icon: 'edit_note' },
-    { optionName: ModePopUpType.GROUP, icon: 'groups' },
     { optionName: ModePopUpType.PASSWORD, icon: 'key' },
     // { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }
   ]

@@ -3,6 +3,7 @@ using Alize.Platform.Api.Responses.Assets;
 using Alize.Platform.Core.Constants;
 using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Extensions;
 using Alize.Platform.Infrastructure.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -47,8 +48,8 @@ namespace Alize.Platform.Api.Controllers
 
             var assets = await service.GetAssetsPageAsync(queries, pageSize, pageNumber);
 
-            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
-            _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            var user = await _securityService.GetUserAsync(User.GetUserId());
+            await _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
             {
                 ApplicationId = applicationId,
                 UserId = user!.Id,
@@ -69,8 +70,8 @@ namespace Alize.Platform.Api.Controllers
 
             var asset = await service.GetAssetAsync(assetId);
 
-            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
-            _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            var user = await _securityService.GetUserAsync(User.GetUserId());
+            await _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
             {
                 ApplicationId = applicationId,
                 UserId = user!.Id,
@@ -108,8 +109,8 @@ namespace Alize.Platform.Api.Controllers
                 .GetAssetRepository(applicationId)
                 .CreateAssetAsync(asset);
 
-            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
-            _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            var user = await _securityService.GetUserAsync(User.GetUserId());
+            await _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
             {
                 ApplicationId = applicationId,
                 UserId = user!.Id,

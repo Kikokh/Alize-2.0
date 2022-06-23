@@ -3,11 +3,11 @@ using Alize.Platform.Api.Responses.Applications;
 using Alize.Platform.Core.Constants;
 using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Extensions;
 using Alize.Platform.Infrastructure.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Alize.Platform.Api.Controllers
 {
@@ -32,26 +32,32 @@ namespace Alize.Platform.Api.Controllers
 
         // GET: api/<ApplicationsController>
         [HttpGet]
+        [AllowAnonymous]
+        [Authorize(Policy = Modules.Queries)]
         [ProducesResponseType(typeof(IEnumerable<ApplicationResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+            if (User.Identity is null || !User.Identity.IsAuthenticated)
+                return Unauthorized();
 
-            if (user == null)
-                return NotFound();
-
-            var apps = await _applicationRepository.GetApplicationsForUserAsync(user);
+            var userId = User.GetUserId();
+            var apps = await _applicationRepository.GetApplicationsForUserAsync(userId);
 
             return Ok(_mapper.Map<IEnumerable<ApplicationResponse>>(apps));
         }
 
         // GET api/<ApplicationsController>/4B900A74-E2D9-4837-B9A4-9E828752716E
         [HttpGet("{id}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(ApplicationResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(Guid id)
         {
-            var app = await _applicationRepository.GetApplicationAsync(id);
+            if (User.Identity is null || !User.Identity.IsAuthenticated)
+                return Unauthorized();
+
+            var userId = User.GetUserId();
+            var app = await _applicationRepository.GetApplicationForUserAsync(userId, id);
 
             if (app is null)
                 return NotFound();
@@ -64,11 +70,18 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(ApplicationResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Post([FromBody] CreateApplicationRequest request)
         {
+            var user = await _securityService.GetUserAsync(User.GetUserId());
 
-            var app = await _applicationRepository.AddApplicationAsync(_mapper.Map<Application>(request));
-            await _templateRepositoryFactory.CreateApplicationContainerAsync(app.Id);
+            if (user is null)
+                return Unauthorized();
 
-            return CreatedAtAction(nameof(Get), new { id = app.Id }, _mapper.Map<ApplicationResponse>(app));
+            var newApp = _mapper.Map<Application>(request);
+            newApp.CompanyId = user.CompanyId;
+
+            await _applicationRepository.AddApplicationAsync(newApp);
+            await _templateRepositoryFactory.CreateApplicationContainerAsync(newApp.Id);
+
+            return CreatedAtAction(nameof(Get), new { id = newApp.Id }, _mapper.Map<ApplicationResponse>(newApp));
         }
 
         // PUT api/<ApplicationsController>/4B900A74-E2D9-4837-B9A4-9E828752716E
@@ -83,7 +96,8 @@ namespace Alize.Platform.Api.Controllers
                 return BadRequest();
             }
 
-            var app = await _applicationRepository.GetApplicationAsync(id);
+            var userId = User.GetUserId();
+            var app = await _applicationRepository.GetApplicationForUserAsync(userId, id);
 
             if (app is null)
                 return NotFound();
@@ -99,12 +113,26 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var app = await _applicationRepository.GetApplicationAsync(id);
+            var userId = User.GetUserId();
+            var app = await _applicationRepository.GetApplicationForUserAsync(userId, id);
 
             if (app is null) 
                 return NotFound();
 
             await _applicationRepository.DeleteApplicationAsync(app);
+
+            return NoContent();
+        }
+
+        [HttpPost("{id}/Users")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GrantApplicationAccess(Guid id, IEnumerable<SetApplicationAccessRequest> accessRequests)
+        {
+            foreach (var request in accessRequests)
+            {
+                await _applicationRepository.SetUserApplicationAccessAsync(id, request.UserId, request.CanAccess);
+            }
 
             return NoContent();
         }

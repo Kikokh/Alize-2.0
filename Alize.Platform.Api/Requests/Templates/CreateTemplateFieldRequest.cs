@@ -4,8 +4,7 @@ namespace Alize.Platform.Api.Requests.Templates
 {
     public class CreateTemplateFieldRequest
     {
-        [Required]
-        public string Header { get; set; }
+        public string? Header { get; set; }
 
         [Required]
         public string Property { get; set; }

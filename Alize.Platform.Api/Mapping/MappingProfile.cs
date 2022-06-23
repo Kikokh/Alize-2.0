@@ -59,7 +59,8 @@ namespace Alize.Platform.Api.Mapping
         {
             CreateMap<CreateApplicationRequest, Application>();
             CreateMap<UpdateApplicationRequest, Application>();
-            CreateMap<Application, ApplicationResponse>();
+            CreateMap<Application, ApplicationResponse>()
+                .ForMember(d => d.CompanyName, o => o.MapFrom(s => s.Company != null ? s.Company.Name : string.Empty));
         }
 
         private void UserMappings()
@@ -70,6 +71,7 @@ namespace Alize.Platform.Api.Mapping
                 //.ForMember(d => d.IsActive, o => o.MapFrom(s => true))
                 .ForMember(d => d.EmailConfirmed, o => o.MapFrom(s => true));
             CreateMap<User, UserResponse>()
+                .ForMember(d => d.RoleId, o => o.MapFrom(s => s.Role != null ? s.Role.Id : default))
                 .ForMember(d => d.CompanyName, o => o.MapFrom(s => s.Company != null ? s.Company.Name : string.Empty))
                 .ForMember(d => d.CompanyLogo, o => o.MapFrom(s => s.Company != null ? s.Company.Logo : string.Empty))
                 .ForMember(d => d.RoleName, o => o.MapFrom(s => s.Role != null ? s.Role.Name : string.Empty))
@@ -90,10 +92,12 @@ namespace Alize.Platform.Api.Mapping
             CreateMap<TemplateColumn, TemplateColumnResponse>();
             CreateMap<ApplicationTemplate, ApplicationTemplateResponse>();
             CreateMap<AssetTemplate, AssetTemplateResponse>();
+            CreateMap<TemplateStep, TemplateStepResponse>();
             CreateMap<CreateTemplateColumnRequest, TemplateColumn>();
             CreateMap<CreateTemplateRequest, ApplicationTemplate>();
             CreateMap<CreateTemplateFieldRequest, TemplateField>();
             CreateMap<CreateAssetTemplateRequest, AssetTemplate>();
+            CreateMap<CreateTemplateStepRequest, TemplateStep>();
         }
     }
 }

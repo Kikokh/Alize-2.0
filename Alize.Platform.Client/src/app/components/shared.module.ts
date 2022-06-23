@@ -28,9 +28,9 @@ import { SafePipe } from '../pipes/safe.pipe';
 import { TotalizatorComponent } from './totalizator/totalizator.component';
 import { FormErrorComponent } from './form-error/form-error.component';
 import { EncryptionPopUpComponent } from './pop-up/encryption-pop-up/encryption-pop-up.component';
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
+import { TimelineComponent } from './timeline/timeline.component';
+import { AssetDetailTableComponent } from './asset-detail-table/asset-detail-table.component';
+import { AssetDetailStepperComponent } from './asset-detail-stepper/asset-detail-stepper.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +55,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     SafePipe,
     TotalizatorComponent,
     FormErrorComponent,
-    EncryptionPopUpComponent
+    EncryptionPopUpComponent,
+    TimelineComponent,
+    AssetDetailTableComponent,
+    AssetDetailStepperComponent
   ],
   imports: [
     CommonModule,
@@ -64,13 +67,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
+    TranslateModule
   ],
   exports: [
     NavBarComponent,
@@ -84,6 +81,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     GridSkeletonComponent,
     TotalizatorComponent,
     FormErrorComponent,
+    TimelineComponent,
+    AssetDetailTableComponent,
+    AssetDetailStepperComponent
   ],
 })
 export class SharedModule {}

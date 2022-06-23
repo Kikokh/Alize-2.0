@@ -1,0 +1,95 @@
+.properties {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.content-space-evenly {
+    justify-content: space-evenly;
+}
+
+.content-space-around {
+    justify-content: space-around;
+}
+
+.content-space-between {
+    justify-content: space-between;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.relative {
+    position: relative;
+}
+
+.container {
+    background: white;
+    padding: 15px;
+    border-radius: 2px;
+
+    .title {
+        color: #73879c;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1.471;
+    }
+}
+
+.step {
+    .step-name {
+        font-weight: bold;
+    }
+
+    .step-circle {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 100px;
+        font-size: 16px;
+        background: #ccc;
+        color: #fff;
+        position: relative;
+        z-index: 1;
+    }
+
+    &:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 17.5px;
+        left: 50%;
+        width: 50%;
+        height: 5px;
+        background: #ccc;
+    }
+
+    &:not(:first-child)::before {
+        content: "";
+        position: absolute;
+        top: 17.5px;
+        right: 50%;
+        width: 50%;
+        height: 5px;
+        background: #ccc;
+    }
+}

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Azure.Cosmos;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Alize.Platform.Api.Extensions
+namespace Alize.Platform.Infrastructure.Extensions
 {
     public static class CosmosDbExtensions
     {

@@ -4,6 +4,7 @@ using Alize.Platform.Api.Responses;
 using Alize.Platform.Core.Constants;
 using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<UserResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var users = await _securityService.GetUsersAsync();
+            var users = await _securityService.GetUserListForUserAsync(User.GetUserId());
 
             return Ok(_mapper.Map<IEnumerable<UserResponse>>(users));
         }
@@ -39,7 +40,7 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMe()
         {
-            var user = await _securityService.GetUserAsync(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
+            var user = await _securityService.GetUserAsync(User.GetUserId());
 
             return Ok(_mapper.Map<UserResponse>(user));
         }
@@ -88,6 +89,7 @@ namespace Alize.Platform.Api.Controllers
             try
             {
                 await _securityService.RegisterUserAsync(user, request.Password);
+                await _securityService.SetUserRoleAsync(user.Id.ToString(), request.RoleId.ToString());
             }
             catch (ApplicationException)
             {
@@ -132,7 +134,8 @@ namespace Alize.Platform.Api.Controllers
 
             _mapper.Map(userUpdate, user);
 
-            await _securityService.UpdateUserAsync(user);   
+            await _securityService.UpdateUserAsync(user);
+            await _securityService.SetUserRoleAsync(user.Id.ToString(), userUpdate.RoleId.ToString());
 
             return NoContent();
         }
@@ -160,7 +163,7 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateCurrentUserPassword(UserUpdatePasswordRequest userPasswordUpdate)
         {
-            return await UpdateUserPassword(Guid.Parse(User.Claims.Single(c => c.Type == ClaimTypes.Sid).Value), userPasswordUpdate);
+            return await UpdateUserPassword(User.GetUserId(), userPasswordUpdate);
         }
     }
 }

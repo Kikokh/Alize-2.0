@@ -1,5 +1,5 @@
 ﻿
-using Alize.Platform.Core.Models;
+using Alize.Platform.Api.Responses.Companies;
 
 namespace Alize.Platform.Api.Responses.Applications
 {
@@ -12,7 +12,7 @@ namespace Alize.Platform.Api.Responses.Applications
 
         public DateTime CreationDate { get; set; }
 
-        public Company? Company { get; set; }
+        public CompanyResponse? Company { get; set; }
 
         public Guid? CompanyId { get; set; }
 

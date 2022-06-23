@@ -1,14 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
-import { LoginRoutingModule } from './login-routing.module';
-import { HttpLoaderFactory, SharedModule } from 'src/app/components/shared.module';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/components/shared.module';
 import { MaterialModule } from 'src/app/material.module';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient } from '@angular/common/http';
-
-
+import { LoginRoutingModule } from './login-routing.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -17,15 +14,9 @@ import { HttpClient } from '@angular/common/http';
     LoginRoutingModule,
     MaterialModule,
     SharedModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule,
   ], exports: [
     LoginComponent
   ]

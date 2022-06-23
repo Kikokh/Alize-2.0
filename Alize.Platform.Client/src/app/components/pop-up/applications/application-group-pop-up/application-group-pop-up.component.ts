@@ -1,61 +1,64 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { RequestApplication } from 'src/app/components/models/application.model';
-import { UserResponse } from '../../models/IUser';
-import { UserService } from '../../services/user.service';
+import { Application } from 'src/app/models/application.model';
+import { Dialog } from 'src/app/models/dialog.model';
+import { User } from 'src/app/models/users.model';
+import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
+import { UsersService } from 'src/app/pages/administration/users/users.service';
 @Component({
   selector: 'app-application-group-pop-up',
   templateUrl: './application-group-pop-up.component.html',
   styleUrls: ['./application-group-pop-up.component.scss']
 })
-export class ApplicationGroupPopUpComponent {
+export class ApplicationGroupPopUpComponent implements OnInit {
 
+  form: FormGroup;
   title = '';
   subtitle = '';
   infoText = '';
-  userList: UserResponse[];
+  userList: User[];
 
-  constructor(  
-    private _userService: UserService,
-    public dialogRef: MatDialogRef<ApplicationGroupPopUpComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      Id: string;
-      nombre: string;
-      description: string;
-      importantInfo: string;
-      mode: string;
-      date: Date;
-      isActive: boolean;
-    },
-    public translate: TranslateService) {
-      
-    const lang = localStorage.getItem('lang');
-    if (lang !== null) {
-      this.translate.setDefaultLang(lang);
-    } else {
-      this.translate.setDefaultLang('en');
-    }
+  get users() {
+    return this.form?.get('users') as FormArray;
+  }
+
+  constructor(
+    private _userService: UsersService,
+    private _fb: FormBuilder,
+    private dialogRef: MatDialogRef<ApplicationGroupPopUpComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Dialog<Application>,
+    private _applicationServices: ApplicationsService
+  ) { }
+
+  ngOnInit(): void {
     this.title = 'GrupoPopUpTitulo'
     this.subtitle = 'GrupoPopUpSubTitulo';
     this.infoText = 'GrupoPopUpInfoText';
-    
+
+    this.form = this.createForm();
     this._userService.getUsers().subscribe(userList => {
-      let filterUsers = userList.filter( u => u.roleName != "Distribuidor" && u.roleName != "Administrador Pro");
-      this.userList = filterUsers;
+      this.userList = userList.filter(u => u.roleName !== "Distribuidor" && u.roleName !== "Administrador Pro");
+      this.userList
+        .forEach(u => this.users.push(this._fb.control(u.applications.some(a => a.id === this.data.value.id))));
     });
   }
 
-  onClick() {
-    let requestApplication = new RequestApplication();
-    requestApplication.name = 'Nombre';
-    requestApplication.importantInfo = 'Important Info';
-    requestApplication.description = 'description';
-    this.dialogRef.close(requestApplication);
+  onSave() {
+    const request = this.userList.map((user, index) => ({ userId: user.id, canAccess: this.users.at(index).value as boolean }));
+    
+    this._applicationServices
+      .grantApplicationAccess(this.data.value.id, request)
+      .subscribe(() => this.dialogRef.close(this.data));
   }
 
   close() {
     this.dialogRef.close(false);
   }
 
+  private createForm(): FormGroup {
+    return this._fb.group({
+      users: this._fb.array([])
+    });
+  }
 }

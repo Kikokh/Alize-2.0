@@ -2,8 +2,10 @@
 {
     public class AssetTemplateResponse
     {
-        public IEnumerable<TemplateColumnResponse> Columns { get; set; }
+        public IEnumerable<TemplateColumnResponse>? Columns { get; set; }
 
-        public IEnumerable<TemplateFieldResponse> Fields { get; set; }
+        public IEnumerable<TemplateFieldResponse>? Fields { get; set; }
+
+        public IEnumerable<TemplateStepResponse>? Steps { get; set; }
     }
 }

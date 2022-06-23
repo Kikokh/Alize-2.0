@@ -3,30 +3,26 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { zip } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
 import { Application } from 'src/app/models/application.model';
 import { Asset } from 'src/app/models/asset.model';
-import { Company } from 'src/app/models/company.model';
 import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
-import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { FilterService } from 'src/app/services/filter.service';
 import { SelectComponent } from 'src/app/Templates/controls-list/select/select.component';
 import { TextBoxComponent } from 'src/app/Templates/controls-list/text-box/text-box.component';
 import { DynamicHostDirective } from 'src/app/Templates/dynamic-host.directive';
-import { ApplicationTemplate } from 'src/app/Templates/models/application-template.model';
-import { DropdownValues } from 'src/app/Templates/models/filters.model';
+import { ApplicationTemplate } from 'src/app/models/application-template.model';
+import { DropdownValues } from 'src/app/models/filters.model';
 import { TemplatesService } from 'src/app/Templates/services/templates.service';
 import { AssetService } from './asset.service';
 @Component({
   selector: 'app-assets',
   templateUrl: './assets.component.html',
-  styleUrls: ['./assets.component.scss']
+  styleUrls: ['./assets.component.scss','../../../layout-main.scss']
 })
 export class AssetsComponent implements OnInit {
   @ViewChild(DynamicHostDirective, { static: false }) dynamicHost: DynamicHostDirective;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  company: Company;
   application: Application
   assets: Asset[];
   dataSource = new MatTableDataSource<Asset>();
@@ -44,7 +40,6 @@ export class AssetsComponent implements OnInit {
     private _route: ActivatedRoute,
     private _assetService: AssetService,
     private _templateService: TemplatesService,
-    private _companyService: CompaniesService,
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _changeDetector: ChangeDetectorRef,
     private _router: Router,
@@ -54,14 +49,11 @@ export class AssetsComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     zip(
-      this._applicationsService.getApplication(String(this._route.snapshot.paramMap.get('applicationId'))).pipe(
-        tap(application => this.application = application),
-        switchMap(application => this._companyService.getCompany(application.companyId))
-      ),
+      this._applicationsService.getApplication(String(this._route.snapshot.paramMap.get('applicationId'))),
       this._templateService.getApplicationTemplate(String(this._route.snapshot.paramMap.get('applicationId')))
     ).subscribe(
       responses => {
-        this.company = responses[0];
+        this.application = responses[0];
         this.template = responses[1];
         this.isLoading = false;
         this._changeDetector.detectChanges();
@@ -100,9 +92,14 @@ export class AssetsComponent implements OnInit {
   getData(): void {
     this._assetService.getApplicationAssets(String(this._route.snapshot.paramMap.get('applicationId')), this.paginator.pageIndex + 1, this.paginator.pageSize, this.filters).subscribe(
       resp => {
-        this.dataSource.data = resp.assets.map(asset => ({ id: asset.id, ...asset.data }));
+        this.dataSource.data = resp.assets;
         this.paginator.length = resp.total;
       }
     );
+  }
+
+  resolve(path: any, obj: any, separator = '.') {
+    var properties = Array.isArray(path) ? path : path.split(separator)
+    return properties.reduce((prev: any, curr: any) => prev && prev[curr], obj)
   }
 }

@@ -40,7 +40,7 @@ export interface IElementDataModules {
     Activo: boolean;
 }
 
-export interface IElementDataRoles {
+export interface Roles {
   id: string;
   name: string;
   description: string;
@@ -110,5 +110,5 @@ export class GridDataRequest {
 
 export class GridDataRoles {
     columnDef: IColumnDef[];
-    data: IElementDataRoles[];
+    data: Roles[];
 }
