@@ -4,6 +4,7 @@ using Alize.Platform.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alize.Platform.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220622141936_addTrazabilidadRacks")]
+    partial class addTrazabilidadRacks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -699,7 +701,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMINPRO.COM",
                             NormalizedUserName = "TESTADMINPRO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBn1uKhDIxZe9VmCrFYeA9lli4wpI4QQXVc5oM0g8sah3C1j+/4MIeyGXasc5dXRAg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENqkATMDtXSuhSFSMXBOJQn0/Puv1U22G94dFwlCINm51x6oZ3PBFgaQHBHcIF4q3g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "840411eb-2f77-4444-8f29-76c094834b56",
                             TwoFactorEnabled = false,
@@ -719,7 +721,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@DISTRIBUTOR.COM",
                             NormalizedUserName = "TESTDESTRIBUTOR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKHsURHeptyJhZdFiSy8jCyG+cTp5JtrypL8+OLwMW/sI4rwNI6tQps1BC15nNklLQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA/KdrAVwf+EiWLU+f4wFqZ7YX/iYp+znDG7B4Ny6fp3wdAQO/dB3Etcci9ypBKfEQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "004286d4-a835-45c7-8f36-1f9359d7d955",
                             TwoFactorEnabled = false,
@@ -739,7 +741,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMIN.COM",
                             NormalizedUserName = "TESTADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAqL1AoP/nXopJm43lLqnBIIiTVLUvtUhONQ00xwUQV77aofCrCU+9X+djlCSUhpMg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJX53Tpky17jJZ00ndSA0wgQSzxVJ7icolmGwzsZ7OnioGPw4LRXqlePIQhhKSp72g==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "1c822965-eb67-4092-9cf7-cf62806d5395",
                             TwoFactorEnabled = false,
@@ -759,7 +761,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@USER.COM",
                             NormalizedUserName = "TESTUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPXzIURhVcsHM9XpNq70DpSzoW2hb9XISuX+JYr+WkanQ6o+u11BNtpyEVNRCvBJAg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAED2+IfT+J2vRkpGRWnMRH5k3ZZL3XDjL3X1wY4hBDVOpAjrjQja9Yt0DVPWFUiWA1w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "95ada776-f3e1-42db-aa39-382f91b74cd4",
                             TwoFactorEnabled = false,
@@ -779,7 +781,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@GUEST.COM",
                             NormalizedUserName = "TESTGUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHlL5BW2VGxasNdLE9v5a5zTKzx8OAMNWipEidn0BdelkXNOA4jo1AEWKURECNDNkg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHCHsUwpSLatI7IIOLF/+dra+xFc1/xAlx3XMuHS1Z2KVbEtywLL5JQTFVkz+BtkBA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "b6091148-6b17-4e26-9dc7-97d1b34fb025",
                             TwoFactorEnabled = false,
