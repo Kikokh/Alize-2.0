@@ -26,6 +26,7 @@ namespace Alize.Platform.Api.Controllers
             _mapper = mapper;
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet]
         [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(typeof(IEnumerable<UserResponse>), StatusCodes.Status200OK)]
@@ -36,6 +37,7 @@ namespace Alize.Platform.Api.Controllers
             return Ok(_mapper.Map<IEnumerable<UserResponse>>(users));
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("Me")]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMe()
@@ -47,6 +49,7 @@ namespace Alize.Platform.Api.Controllers
 
         [HttpGet("{id}")]
         [Authorize(Policy = Modules.Users)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Get(Guid id)
@@ -59,6 +62,11 @@ namespace Alize.Platform.Api.Controllers
             return Ok(_mapper.Map<UserResponse>(user));
         }
 
+        /// <summary>
+        /// Endpoint used to log into the app
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>JWT Token</returns>
         [HttpPost("Login")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
@@ -81,7 +89,8 @@ namespace Alize.Platform.Api.Controllers
         [HttpPost("Register")]
         [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(typeof(UserResponse), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]        
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> Register(UserCreateRequest request)
         {
             var user = _mapper.Map<User>(request);
@@ -103,6 +112,7 @@ namespace Alize.Platform.Api.Controllers
         [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> SetRole(string id, string roleId)
         {
             try
@@ -122,6 +132,7 @@ namespace Alize.Platform.Api.Controllers
         [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> UpdateUser(Guid id, UserUpdateRequest userUpdate)
         {
             if (id != userUpdate.Id)
@@ -144,6 +155,7 @@ namespace Alize.Platform.Api.Controllers
         [Authorize(Policy = Modules.Users)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> UpdateUserPassword(Guid id, UserUpdatePasswordRequest userPasswordUpdate)
         {
             try
@@ -161,6 +173,7 @@ namespace Alize.Platform.Api.Controllers
         [HttpPut("Me/Password")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> UpdateCurrentUserPassword(UserUpdatePasswordRequest userPasswordUpdate)
         {
             return await UpdateUserPassword(User.GetUserId(), userPasswordUpdate);
