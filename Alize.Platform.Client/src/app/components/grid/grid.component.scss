@@ -35,7 +35,7 @@
                 font-size: 18px;
 
                 .title {
-                    
+
                     font-weight: bold;
                 }
 
@@ -73,4 +73,33 @@
 .main-theme-header {
     background-color: $blue-background;
     color: mat-color($my-primary) !important;
+}
+
+.mat-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  display: table;
+  border-collapse: collapse;
+  margin: 0px;
+}
+
+.mat-row,
+.mat-header-row {
+  display: table-row;
+}
+
+.mat-cell,.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 0px 5px;
+  line-break: unset;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.mat-header-cell {
+padding: 10px 5px;
 }
