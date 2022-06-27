@@ -63,5 +63,23 @@
                 </a>
 
             </mat-expansion-panel>
+            <mat-expansion-panel class="nav-menu user_nav_menu" hideToggle (click)="home()">
+                <mat-expansion-panel-header>
+                    <mat-panel-title class="user_component">
+      
+                        <img src="./../../../../assets/user_logo.svg">
+                        <div class="flex">
+                            <div class="user_name_title">
+                                {{user?.firstName}} {{user?.lastName}}
+                            </div>
+                            <div class="user_role_subtitle">
+                                {{user?.roleName}}
+                            </div>
+                        </div>
+    
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+
+            </mat-expansion-panel>
         </mat-accordion>
     </div>
