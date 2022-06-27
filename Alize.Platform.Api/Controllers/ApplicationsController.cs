@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Alize.Platform.Api.Controllers
 {
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [ApiController]
     [Authorize(Policy = Modules.Applications)]
     [Produces("application/json")]

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Alize.Platform.Api.Controllers
 {
     [Route("api/Applications/{applicationId}/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     [ApiController]
     [Authorize]
     public class TemplatesController : ControllerBase
