@@ -1,5 +1,6 @@
 @import "~@angular/material/theming";
 @import "../../../scss-variables/variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 .sidebar-container {
     display: flex;
@@ -115,4 +116,32 @@
 
 .main-theme-subtitle {
     color: mat-color($my-primary);
+}
+
+.user_name_title {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+}
+
+.user_role_subtitle {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-size: 10px;
+    line-height: 15px;
+    color: #105B5E;
+}
+
+.user_component {
+    display: flex;
+    justify-content: space-around;
+}
+
+.user_nav_menu {
+    position: absolute;
+    width: 100%;
+    bottom: 1em;
+    left: 0;
 }
