@@ -37,7 +37,6 @@ export class SideBarComponent implements OnInit {
       this.materialTheme.isPrimaryMain = (value === 'main-theme');
       this.materialTheme.isDarkMode = (value === 'dark-theme');
     });
-    console.log(this.user);
   }
 
   home() {
