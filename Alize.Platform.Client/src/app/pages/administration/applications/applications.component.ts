@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Application } from 'src/app/models/application.model';
-import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
+import { IColumnDef, IOperationsModel } from 'src/app/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { ApplicationsService } from './applications.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';

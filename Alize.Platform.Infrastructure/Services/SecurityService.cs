@@ -174,5 +174,10 @@ namespace Alize.Platform.Infrastructure.Services
 
             return true;
         }
+
+        public async Task DeleteUserAsync(User user)
+        {
+            await _userManager.DeleteAsync(user);
+        }
     }
 }

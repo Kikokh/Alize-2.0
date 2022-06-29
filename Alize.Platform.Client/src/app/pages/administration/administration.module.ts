@@ -7,6 +7,7 @@ import { CompaniesComponent } from './companies/companies.component';
 import { RolesComponent } from './roles/roles.component';
 import { ModulesComponent } from './modules/modules.component';
 import { UsersComponent } from './users/users.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -21,7 +22,8 @@ import { UsersComponent } from './users/users.component';
   imports: [
     CommonModule,
     AdminitrationRoutingModule,
-    SharedModule
+    SharedModule,
+    TranslateModule
   ],
 })
 export class AdministrationModule { }

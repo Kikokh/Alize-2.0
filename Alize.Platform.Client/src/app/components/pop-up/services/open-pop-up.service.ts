@@ -242,6 +242,7 @@ export class OpenPopUpService {
       case ModePopUpType.DELETE: {
         matDialogConfigModel.component = DeleteUserPopUpComponent;
         matDialogConfigModel.data = {
+          id: data.id,
           nombre: data.Nombre,
         }
         break;

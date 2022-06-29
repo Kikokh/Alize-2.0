@@ -1,4 +1,4 @@
-<div *ngIf="!isLoading; else gridSkeleton" class="container">
+<div *ngIf="template" class="container">
     <app-breadcrumb></app-breadcrumb>
     <div class="header">
         <div class="titles">
@@ -40,8 +40,3 @@
         <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
     </div>
 </div>
-<ng-template #gridSkeleton>
-    <div class="grid-skeleton">
-        <app-grid-skeleton></app-grid-skeleton>
-    </div>
-</ng-template>

@@ -178,5 +178,21 @@ namespace Alize.Platform.Api.Controllers
         {
             return await UpdateUserPassword(User.GetUserId(), userPasswordUpdate);
         }
+
+        [HttpDelete("{id}")]
+        [Authorize(Policy = Modules.Users, Roles = Roles.AdminPro)]
+        [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var user = await _securityService.GetUserAsync(id);
+
+            if (user is null)
+                return NotFound();
+
+            await _securityService.DeleteUserAsync(user);
+
+            return NoContent();
+        }
     }
 }

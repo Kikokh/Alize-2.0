@@ -5,6 +5,7 @@ import { finalize, map, switchMap, tap } from 'rxjs/operators';
 import { ProgressSpinnerService } from 'src/app/components/progress-spinner/services/progress-spinner.service';
 import { Modules } from 'src/app/constants/modules.constants';
 import { User } from 'src/app/models/user.model';
+import { LoadingService } from 'src/app/services/loading.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { environment } from 'src/environments/environment';
 import { __metadata } from 'tslib';
@@ -33,7 +34,7 @@ export class LoginService {
   }
 
   constructor(
-    public progressSpinnerService: ProgressSpinnerService,
+    public _loadingService: LoadingService,
     private _http: HttpClient,
     private _localStorageService: LocalStorageService) { }
 
@@ -45,7 +46,7 @@ export class LoginService {
       })
     };
 
-    this.progressSpinnerService.open();
+    this._loadingService.startLoading();
 
     return this._http.post<any>(`${this._baseUrl}/Users/Login`, loginData, httpOptions).pipe(
       tap(data => this._localStorageService.addItem('token', data.accessToken)),
@@ -55,7 +56,7 @@ export class LoginService {
         this._localStorageService.addItem('user', JSON.stringify(user))
       }),
       finalize(() => {
-        this.progressSpinnerService.close();
+        this._loadingService.stopLoading();
       })
     );
   }

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
+import { IColumnDef, IOperationsModel } from 'src/app/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { DialogResult } from 'src/app/components/pop-up/users/group-user-pop-up/group-user-pop-up.component';
 import { PasswordModel } from 'src/app/components/pop-up/users/password-user-pop-up/models/password.model';
 import { User } from 'src/app/models/users.model';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { UsersService } from './users.service';
+import { Roles } from 'src/app/constants/roles.constants';
 
 @Component({
   selector: 'app-users',
@@ -28,7 +29,7 @@ export class UsersComponent implements OnInit {
     // { optionName: ModePopUpType.DISPLAY, icon: 'search' },
     { optionName: ModePopUpType.EDIT, icon: 'edit_note' },
     { optionName: ModePopUpType.PASSWORD, icon: 'key' },
-    // { optionName: ModePopUpType.DELETE, icon: 'delete_outline' }
+    { optionName: ModePopUpType.DELETE, icon: 'delete_outline', requiredRoles: [Roles.AdminPro] }
   ]
 
   get entity(): EntityType {
@@ -105,6 +106,20 @@ export class UsersComponent implements OnInit {
           .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
       },
     });
+  }
+
+  deleteUser(userId: string) {
+    this.isLoading = true;
+    this._userService.deleteUser(userId).pipe(
+      switchMap(() => this._userService.getUsers())
+    ).subscribe(
+      (users) => {
+        this.elementData = users;
+        this._snackBarService.showSnackBar('Entidad eliminada con éxito.');
+      },
+      (err) => this._snackBarService.showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde'),
+      () => this.isLoading = false
+    )
   }
 
   updatePassword(passwordModel: PasswordModel) {

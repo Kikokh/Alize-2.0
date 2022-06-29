@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
+import { IColumnDef, IOperationsModel } from 'src/app/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { Module } from 'src/app/models/module.model';
 import { ModulesService } from './modules.service';

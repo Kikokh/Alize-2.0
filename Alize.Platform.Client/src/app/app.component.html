@@ -7,3 +7,5 @@
 <router-outlet></router-outlet>
 
 <app-float-button></app-float-button>
+
+<mat-progress-spinner *ngIf="isLoading$ | async" color="accent" [mode]="'indeterminate'"></mat-progress-spinner>

@@ -5,7 +5,7 @@
         </div>
         <div class="grid">
             <div *ngIf="!isLoading; else gridSkeleton">
-                <app-grid (add)="add($event)" (update)="update($event)" (delete)="delete($event)"
+                <app-grid [title]="'Administration' | translate" [subtitle]="'ListadoEmpresas' | translate" (add)="add($event)" (update)="update($event)" (delete)="delete($event)"
                     [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.COMPANIES"
                     [actions]="actions"></app-grid>
             </div>

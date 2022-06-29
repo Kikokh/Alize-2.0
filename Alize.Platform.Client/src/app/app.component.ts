@@ -3,6 +3,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { LoginService } from './pages/login/services/login.service';
 import { ThemeEnum } from './scss-variables/models/theme.enum';
+import { LoadingService } from './services/loading.service';
 import { LocalStorageService } from './services/local-storage.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { LocalStorageService } from './services/local-storage.service';
 })
 export class AppComponent implements OnInit {
   isUserLoggued = false;
+  isLoading$ = this._loadingService.loading$;
 
   checked = false;
   disabled = false;
@@ -33,6 +35,7 @@ export class AppComponent implements OnInit {
     public overlayContainer: OverlayContainer,
     public _loginService: LoginService,
     private _localStorageService: LocalStorageService,
+    private _loadingService: LoadingService
   ) {
 
 

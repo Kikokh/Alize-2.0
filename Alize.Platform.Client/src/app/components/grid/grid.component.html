@@ -7,11 +7,11 @@
         </mat-form-field>
     </div>
 
-    <div class="main-grid" [ngClass]="getContentStyles()">
+    <div class="main-grid main-theme-background-grid">
         <div class="toolbar">
             <div>
                 <p class="title" color="primary">{{title | translate}}</p>
-                <p class="sub-title">{{subTitle | translate}}</p>
+                <p class="sub-title">{{subtitle | translate}}</p>
             </div>
             <button *ngIf="entity === Entity.APPLICATIONS || entity === Entity.USERS" mat-stroked-button color="accent"
                 (click)="showDialog(ModePopUpType.ADD)">
@@ -23,7 +23,7 @@
         <div class="table-container">
             <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                 <ng-container *ngFor="let column of columns; let i = index" matColumnDef="{{column.columnDef}}">
-                    <mat-header-cell [ngClass]="getColorHeaderTable()" *matHeaderCellDef>{{column.header | translate}}</mat-header-cell>
+                    <mat-header-cell class="main-theme-header" *matHeaderCellDef>{{column.header | translate}}</mat-header-cell>
 
                     <mat-cell *matCellDef="let row">
                         <div *ngIf="column.header === 'Activo'">
@@ -39,11 +39,11 @@
                 </ng-container>
 
                 <ng-container matColumnDef="operations">
-                    <mat-header-cell [ngClass]="getColorHeaderTable()" *matHeaderCellDef> {{ 'Operaciones' | translate }} </mat-header-cell>
+                    <mat-header-cell class="main-theme-header" *matHeaderCellDef> {{ 'Operaciones' | translate }} </mat-header-cell>
                     <mat-cell class="operation-column" *matCellDef="let row">
                         <ng-container *ngFor="let action of actions">
                             <button class="icon-button" mat-icon-button color="accent"
-                                  *ngIf="action.optionName !== ModePopUpType.CHARTS || (row.showChartAction && action.optionName === ModePopUpType.CHARTS)"
+                                  *ngIf="(userActionIsAllowed(action) | async) && (action.optionName !== ModePopUpType.CHARTS || (row.showChartAction && action.optionName === ModePopUpType.CHARTS))"
                                   (click)="showDialog(action.optionName, row)">
                                 <mat-icon>{{action.icon}}</mat-icon>
                             </button>

@@ -1,9 +1,7 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { RequestApplication } from 'src/app/components/models/application.model';
-
+import { Application } from 'src/app/models/application.model';
 @Component({
   selector: 'app-delete-user-pop-up',
   templateUrl: './delete-user-pop-up.component.html',
@@ -17,6 +15,7 @@ export class DeleteUserPopUpComponent {
 
   constructor(public dialogRef: MatDialogRef<DeleteUserPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
+      id: string,
       nombre: string;
     },
     public translate: TranslateService) {
@@ -31,11 +30,7 @@ export class DeleteUserPopUpComponent {
   }
 
   onClick() {
-    let requestApplication = new RequestApplication();
-    requestApplication.name = 'Nombre';
-    requestApplication.importantInfo = 'Important Info';
-    requestApplication.description = 'description';
-    this.dialogRef.close(requestApplication);
+    this.dialogRef.close(this.data.id);
   }
 
   close() {

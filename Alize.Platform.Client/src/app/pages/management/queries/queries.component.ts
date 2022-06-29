@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
+import { IColumnDef, IOperationsModel } from 'src/app/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { Application } from 'src/app/models/application.model';
 import { ManagementService } from '../management.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-management',
@@ -10,8 +11,6 @@ import { ManagementService } from '../management.service';
   styleUrls: ['./queries.component.scss']
 })
 export class QueriesComponent implements OnInit {
-  isLoading = true;
-
   displayedColumns: IColumnDef[]  = [
     { columnDef: 'name', header: 'Nombre', cell: (element: Application) => `${element.name}` },
     { columnDef: 'description', header: 'Descripcion', cell: (element: Application) => `${element.description}` },
@@ -30,15 +29,17 @@ export class QueriesComponent implements OnInit {
     return EntityType;
   }
 
-  constructor(private _managementService: ManagementService) {
+  constructor(private _managementService: ManagementService, private _loadingService: LoadingService) {
   }
 
   ngOnInit(): void {
-    this._managementService.getApplication().subscribe(
-      applicaction =>{
-        this.isLoading = false; 
+    this._loadingService.startLoading()
+
+    this._managementService.getApplication().subscribe({
+      next: applicaction =>{
         this.elementData = applicaction; 
-      }
+      },
+      complete: () => this._loadingService.stopLoading() }
     );
   }
 

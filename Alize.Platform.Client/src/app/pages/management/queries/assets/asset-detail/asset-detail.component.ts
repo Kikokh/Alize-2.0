@@ -7,6 +7,7 @@ import { Asset } from 'src/app/models/asset.model';
 import { AssetTemplate } from 'src/app/models/asset-template.model';
 import { TemplatesService } from 'src/app/Templates/services/templates.service';
 import { AssetService } from '../asset.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-asset-detail',
@@ -34,24 +35,27 @@ export class AssetDetailComponent implements OnInit {
     private _route: ActivatedRoute,
     private _templateService: TemplatesService,
     private _assetService: AssetService,
-    private _openPopUpService: OpenPopUpService
+    private _openPopUpService: OpenPopUpService,
+    private _loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
     this.isLoading = true;
+    this._loadingService.startLoading();
     const applicationId = String(this._route.snapshot.paramMap.get('applicationId'));
     const assetId = String(this._route.snapshot.paramMap.get('assetId'));
     zip(
       this._templateService.getAssetTemplate(applicationId),
       this._assetService.getApplicationAsset(applicationId, assetId),
-    ).subscribe(
-      responses => {
+    ).subscribe({
+      next: responses => {
         this.assetTemplate = responses[0];
         this.asset = responses[1];
 
         this.isLoading = false;
-      }
-    );
+      },
+      complete: () => this._loadingService.stopLoading()
+    });
   }
 
   openEncryptedPopUp() {
