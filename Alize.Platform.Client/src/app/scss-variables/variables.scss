@@ -14,7 +14,16 @@
 
 @import '~@angular/material/theming';
 
-@include mat-core();
+$custom-typography: mat-typography-config(
+    $font-family: 'Poppins',
+);
+
+.bold{
+    font-weight:700;
+    font-size: 16px;
+}
+
+@include mat-core($custom-typography);
 
 $my-primary: mat-palette($mat-grey,  100, 300, 900);
 $my-accent: mat-palette($mat-grey, 900, 300, 900);
