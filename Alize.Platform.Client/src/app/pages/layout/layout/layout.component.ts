@@ -2,7 +2,6 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
-import { MaterialTheme } from 'src/app/models/theme.model';
 import { User } from 'src/app/models/user.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { LoginService } from '../../login/services/login.service';
@@ -13,13 +12,15 @@ import { LoginService } from '../../login/services/login.service';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-  @Input() themesStyles: MaterialTheme;
   @ViewChild('drawer', { static: true }) public sideBar!: MatDrawer;
-  materialTheme = new MaterialTheme();
   user: User;
+  isSideBarExpanded: boolean = true;
+
+  get isSideBarExpandedProp() {
+    return this.isSideBarExpanded;
+  }
 
   constructor(
-    private _globalStylesService: GlobalStylesService,
     public _overlayContainer: OverlayContainer,
     public _loginService: LoginService,
     public _translate: TranslateService) {
@@ -44,30 +45,26 @@ export class LayoutComponent implements OnInit {
       }
       this.user = user;
     });
+  }
 
-    this._globalStylesService.theme.subscribe(value => {
-      this.materialTheme.isDarkMode = (value === 'dark-theme');
-      this.materialTheme.isPrimaryMain = (value === 'main-theme');
-    });
+  handlerSideBarToggle(isSideBarExpanded: boolean) {
+    this.isSideBarExpanded = isSideBarExpanded;
+  }
+
+  openSideBarExpanded(isSideBarExpanded: boolean) {
+    this.isSideBarExpanded = isSideBarExpanded;
   }
 
   getSideBarStyles(): string {
-    if (this.materialTheme.isDarkMode) {
-      return 'side-bar dark-theme-sidebar';
-    } if (this.materialTheme.isPrimaryMain) {
-      return 'side-bar main-theme-sidebar';
+    if (this.isSideBarExpanded) {
+      return 'side-bar-expanded main-theme-sidebar';
+
     } else {
-      return '';
+      return 'side-bar-collapsed main-theme-sidebar';
     }
   }
 
   getContentStyles() {
-    if (this.materialTheme.isDarkMode) {
-      return 'dark-theme-content';
-    } if (this.materialTheme.isPrimaryMain) {
-      return 'main-theme-content';
-    } else {
-      return '';
-    }
+    return 'main-theme-content';
   }
 }

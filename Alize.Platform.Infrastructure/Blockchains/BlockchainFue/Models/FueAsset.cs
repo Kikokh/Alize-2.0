@@ -1,10 +1,11 @@
-﻿using System.Text.Json.Serialization;
+﻿
+using Newtonsoft.Json;
 
 namespace Alize.Platform.Services.BlockchainFue.Models
 {
     public class FueAsset : FueResponse
     {
-        [JsonPropertyName("asset")]
+        [JsonProperty("asset")]
         public FueAssetItem AssetItem { get; set; }
     }
 }

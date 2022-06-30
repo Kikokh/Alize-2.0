@@ -6,71 +6,121 @@
     display: flex;
     flex-direction: column;
 
-    & > .logo {
-        height: 50px;
-        margin: 0 auto;
+    &>.logo {
+        height: 60px;
+        margin: 40px auto;
 
-        & > img {
-            margin: 10px auto;
+        &>img {
+            margin: 0 auto;
             height: 100%;
         }
     }
 
-    .profile {
-        display: flex;
-        flex-direction: row;
-        margin-top: 30px;
-        & > .logo {
-            margin: 0 10px;
-            align-self: center;
 
-            & > img {
-                height: 60px;
-                margin: auto;
-                border-radius: 50%;
-            }
-        }
-
-        .user-profile {
-            margin-left: 10px;
-
-            .welcome {
-                font-weight: 700;
-                font-size: 17px;
-                opacity: 0.5;
-            }
-
-            .user-name {
-                font-size: 15px;
-            }
-        }
-    }
-
-    .nav-menu {
-        background-color: $blue-background;
-        color: mat-color($my-primary) !important;  
-        box-shadow: none;
-
-        
-
-        .mat-expansion-panel-header-title {
+    .mat-accordion-expanded {
+        .nav-menu {
+            background-color: $blue-background;
             color: mat-color($my-primary) !important;
-            
-            .mat-icon {
-                margin-right: 10px;
+            box-shadow: none;
+
+
+
+            .mat-expansion-panel-header-title {
+                color: mat-color($my-primary) !important;
+
+                span:first-child {
+                    margin-right: 10px;
+                    font-size: 30px;
+                }
+
+                span:last-child {
+                    margin-right: 10px;
+                    font-family: 'Poppins';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+            }
+
+            &.mat-expanded .mat-expansion-panel-header,
+            .active-link {
+                background: #409396;
+                box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.25);
+            }
+
+            .opt-menu {
+                .nav-option {
+                    color: #fff;
+                    text-decoration: none;
+                }
             }
         }
-        
-        &.mat-expanded .mat-expansion-panel-header, .active-link {
-            border-right: 5px solid turquoise;
-            border-radius: 5px;
-        }
+    }
 
-        .nav-option {
-            color: #fff;
-            text-decoration: none;
+    .mat-accordion-collapsed {
+        margin-top: 140px;
+
+        .nav-menu {
+            background-color: $blue-background;
+            color: mat-color($my-primary) !important;
+            box-shadow: none;
+
+
+
+            .mat-expansion-panel-header-title {
+                color: mat-color($my-primary) !important;
+                margin-right: 0px;
+            }
+
+            &.mat-expanded .mat-expansion-panel-header,
+            .active-link {
+                background: #409396;
+                box-shadow: 0px 2px 3px 1px rgba(0, 0, 0, 0.25);
+            }
+
+            .opt-menu {
+                position: fixed;
+                z-index: 10;
+                margin-left: 73px;
+                margin-top: -48px;
+                background: $blue-background;
+
+                .nav-option {
+                    font-family: 'Poppins';
+                    font-style: normal;
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: #FFFFFF;
+                    text-decoration: none;
+                    height: 30px;
+                    padding: 10px 10px 10px 10px;
+                }
+            }
         }
     }
+
+}
+
+::ng-deep .mat-menu-content {
+    background-color: #409396;
+}
+
+.user-menu-items {
+    width: 260px;
+    font-family: 'Poppins';
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.expand-menu {
+    background: rgba(255, 0, 26, 0.2);
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
 }
 
 .flex {
@@ -90,32 +140,11 @@
     .mat-expansion-indicator::after {
         color: mat-color($my-primary) !important;
     }
-} 
-
-
-.flex {
-    display: flex;
-    flex-direction: column;
 }
+
 
 ::ng-deep .nav-menu .mat-expansion-indicator::after {
     color: mat-color($my-primary) !important;
-}
-
-.dark-theme-title {
-    color: mat-color($my-accent-dark);
-}
-
-.main-theme-title {
-    color: mat-color($my-primary);
-}
-
-.dark-theme-subtitle {
-    color: mat-color($my-accent-dark);
-}
-
-.main-theme-subtitle {
-    color: mat-color($my-primary);
 }
 
 .user_name_title {
@@ -144,4 +173,9 @@
     width: 100%;
     bottom: 1em;
     left: 0;
+}
+
+.company-img {
+    width: 25%;
+    border-radius: 50%;
 }

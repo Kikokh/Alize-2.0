@@ -4,12 +4,16 @@
 .app-container {
     height: 100%;
     width: 100%;
-
+    
     mat-drawer-container {
         height: 100%;
 
-        .side-bar {
+        .side-bar-expanded {
             min-width: 260px;
+        }
+
+        .side-bar-collapsed {
+            min-width: auto;
         }
 
         mat-drawer-content {
@@ -24,5 +28,10 @@
 }
 
 .main-theme-content {
-    background: transparent;
+    background: url(..\..\..\..\assets\Alize-background.svg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
 }

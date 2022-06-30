@@ -1,13 +1,14 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Alize.Platform.Services.BlockchainFue.Models
 {
     public class FueAssetList : FueResponse
     {
-        [JsonPropertyName("count")]
+        [JsonProperty("count")]
         public FueResponseCount Count { get; set; }
 
-        [JsonPropertyName("assets")]
+        [JsonProperty("assets")]
         public IEnumerable<FueAssetItem> Assets { get; set; }
     }
 }

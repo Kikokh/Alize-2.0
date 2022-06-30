@@ -1,7 +1,7 @@
 ﻿using Alize.Platform.Core.Models;
 using Alize.Platform.Services.BlockchainFue.Models;
+using Newtonsoft.Json;
 using System.Net.Http.Json;
-using System.Text.Json;
 
 namespace Alize.Platform.Infrastructure.Services.BlockchainFue
 {
@@ -18,7 +18,7 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
 
         public async Task<Asset?> GetAssetAsync(string assetId)
         {
-            var url = $"asset?query={JsonSerializer.Serialize(new { id = assetId })}";
+            var url = $"asset?query={JsonConvert.SerializeObject(new { id = assetId })}";
 
             try
             {
@@ -40,7 +40,7 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
 
         public async Task<IEnumerable<AssetHistory>> GetAssetHistoryAsync(string assetId)
         {
-            var url = $"asset/history?query={JsonSerializer.Serialize(new { id = assetId })}";
+            var url = $"asset/history?query={JsonConvert.SerializeObject(new { id = assetId })}";
 
             try
             {
@@ -58,6 +58,38 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
             }
         }
 
+        public async Task<IEnumerable<Asset>> GetAssets()
+        {
+            var parameters = new
+            {
+                page_num = 1,
+                per_page = 500
+            };
+
+            var url = $"asset?query={JsonConvert.SerializeObject(parameters)}";
+
+            try
+            {
+                var response = await GetHttpClient().GetAsync(url);
+
+                var content = await response.Content.ReadAsStringAsync();
+
+                var assetList = JsonConvert.DeserializeObject<FueAssetList>(content);
+
+                return assetList is not null ? assetList.Assets.Select(a => new Asset()
+                {
+                    Id = a.Id,
+                    Data = a.Data.BlockchainData,
+                    CreatedAt = a.Data.CreatedAt,
+                    Namespace = a.Data.Namespace
+                }) : Enumerable.Empty<Asset>();
+            }
+            catch (HttpRequestException)
+            {
+                return default;
+            }
+        }
+
         public async Task<AssetsPage?> GetAssetsPageAsync(Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
         {
             var parameters = new
@@ -67,7 +99,7 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
                 data = queries.Where(q => q.Key != "pageSize" && q.Key != "pageNumber").ToDictionary(q => $"bc_data.{q.Key}", q => q.Value)
             };
 
-            var url = $"asset?query={JsonSerializer.Serialize(parameters)}";
+            var url = $"asset?query={JsonConvert.SerializeObject(parameters)}";
 
             var response = await GetHttpClient().GetFromJsonAsync<FueAssetList>(url);
 

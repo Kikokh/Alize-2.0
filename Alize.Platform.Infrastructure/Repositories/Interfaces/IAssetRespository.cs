@@ -6,5 +6,8 @@ namespace Alize.Platform.Infrastructure.Repositories
     {
         Task<IEnumerable<Asset>> GetAssetsAsync(Guid applicationId);
         Task<Asset> CreateAssetAsync(Asset asset);
+        Task<IEnumerable<Asset>> CreateAssetsAsync(IEnumerable<Asset> assets);
+        Task<AssetsPage> GetAssetsPageAsync(Dictionary<string, string> queries, int pageSize, int pageNumber);
+        Task DeleteAssetsAsync();
     }
 }

@@ -3,18 +3,23 @@
 }
 
 mat-toolbar {
-    background: transparent !important;
+    background-color: transparent;
+    height: 100px;
+
+    .button-expand-menu {
+        margin-left: 30px;
+
+        span {
+            font-size: 50px;
+        }
+    }
 }
 
-img {
-    width: 2%;
-    border-radius: 50%;
-}
+.logo {
+    height: 60%;
+    margin: 0 auto;
 
-.btn-nav-menu {
-line-height: 18px;
-}
-
-.btn-nav-menu .nav-role {
-  color:#696262;
+    &> .app-img {
+        height: 100%;
+    }
 }

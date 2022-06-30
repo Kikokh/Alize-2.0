@@ -1,0 +1,9 @@
+<div class="card">
+  <h3 class="card-title">{{ application.companyName }}</h3>
+  <span class="card-switch">
+    <img *ngIf="application.isActive" src="../../../../../assets/on.png" alt="">
+    <img *ngIf="!application.isActive" src="../../../../../assets/off.png" alt="">
+  </span>
+  <h3 class="card-caption">{{ application.name }}</h3>
+  <h3 class="card-description">{{ application.description }}</h3>
+</div>

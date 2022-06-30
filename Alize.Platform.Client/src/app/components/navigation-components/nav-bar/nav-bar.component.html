@@ -1,25 +1,25 @@
 <mat-toolbar>
-  <button *ngIf="isSideBarCollapsedEnabler" color="accent" mat-icon-button class="example-icon" (click)="handleSideBarToggle()"
+  <div class="logo" *ngIf="!isExpanded">
+    <img class="app-img" src="../../../../assets/logo-alice-negro_250.png" alt="">
+  </div>
+  <button color="accent" mat-icon-button class="button-expand-menu" (click)="handleSideBarToggle()"
     aria-label="Example icon-button with menu icon">
-    <mat-icon aria-hidden="false" aria-label="Example reorder icon">reorder</mat-icon>
+    <span class="material-symbols-outlined" *ngIf="!isExpanded">
+      keyboard_double_arrow_right
+    </span>
+    <span class="material-symbols-outlined" *ngIf="isExpanded">
+      keyboard_double_arrow_left
+    </span>
   </button>
   <span class="example-spacer"></span>
 
   <button color="accent" mat-button [matMenuTriggerFor]="menuLang">
     <mat-icon>language</mat-icon> {{currentLang}}
   </button>
-  <mat-menu  color="accent" #menuLang="matMenu" xPosition="before">
+  <mat-menu color="accent" #menuLang="matMenu" xPosition="before">
     <button (click)="ChangeLanguaje('es')" mat-menu-item>{{"Espanol" | translate}}</button>
     <button (click)="ChangeLanguaje('en')" mat-menu-item>{{"Ingles" | translate}}</button>
   </mat-menu>
-
-
-  <img [src]="img" alt="">
-
-  <button color="accent" class="btn-nav-menu" mat-button [matMenuTriggerFor]="menuUser">
-    <span class="nav-email">{{user?.email}}</span><br class="break" />
-    <span class="nav-role"> {{user?.roleName}}</span>
-  </button>
 
   <mat-menu #menuUser="matMenu" xPosition="before" class="user-menu">
     <button color="primary" mat-menu-item (click)="showPasswordPopUp('Oscar Valente')">

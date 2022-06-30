@@ -1,13 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Alize.Platform.Services.BlockchainFue.Models
 {
     public class FueResponse
     {
-        [JsonPropertyName("ok")]
+        [JsonProperty("ok")]
         public bool IsSuccessful { get; set; }
 
-        [JsonPropertyName("msg")]
+        [JsonProperty("msg")]
         public string Message { get; set; }
     }
 }

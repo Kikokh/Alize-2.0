@@ -4,6 +4,7 @@ import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/enti
 import { Application } from 'src/app/models/application.model';
 import { ManagementService } from '../management.service';
 import { LoadingService } from 'src/app/services/loading.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-management',
@@ -29,7 +30,11 @@ export class QueriesComponent implements OnInit {
     return EntityType;
   }
 
-  constructor(private _managementService: ManagementService, private _loadingService: LoadingService) {
+  constructor(
+    private _managementService: ManagementService,
+    private _loadingService: LoadingService,
+    private _router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -37,10 +42,14 @@ export class QueriesComponent implements OnInit {
 
     this._managementService.getApplication().subscribe({
       next: applicaction =>{
-        this.elementData = applicaction; 
+        this.elementData = applicaction;
       },
       complete: () => this._loadingService.stopLoading() }
     );
+  }
+
+  goToAssets(id: string): void {
+    this._router.navigate([`management/queries/${id}/assets`])
   }
 
 }
