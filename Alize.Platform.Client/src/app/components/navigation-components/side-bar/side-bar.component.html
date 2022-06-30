@@ -1,34 +1,31 @@
+<div class="sidebar-container">
+    <div class="logo" *ngIf="isSideBarExpanded">
+        <img src="../../../../../assets/logo-alice-blanco.png" alt="">
+    </div>
 
-    <div class="sidebar-container">
-        <div class="logo">
-            <img src="../../../../../assets/logo-alice-blanco.png" alt="">
-        </div>
+    <mat-accordion [ngClass]="getMenuMargin()" displayMode="flat">
+        <mat-expansion-panel class="nav-menu" hideToggle (click)="home()">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span class="material-symbols-outlined">
+                        warehouse
+                    </span>
+                    <span *ngIf="isSideBarExpanded">{{"Inicio" | translate }}</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
 
-        <div class="profile">
-            <div class="logo">
-                <img [src]="img" alt="">
-            </div>
-            <div class="user-profile">
-                <p class="welcome" [ngClass]="getThemeTitle()">{{"welcome" | translate}}</p>
-                <p class="user-name" [ngClass]="getThemeSubtitle()">{{user?.userName}}</p>
-            </div>
-        </div>
-
-        <mat-accordion displayMode="flat">
-            <mat-expansion-panel class="nav-menu" hideToggle (click)="home()">
-                <mat-expansion-panel-header>
-                    <mat-panel-title class="bold">
-                        <mat-icon>home</mat-icon>{{"Inicio" | translate }}
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-
-            </mat-expansion-panel>
-            <mat-expansion-panel *ngIf="userCanAccessAdministration() | async" class="nav-menu flex">
-                <mat-expansion-panel-header>
-                    <mat-panel-title class="bold">
-                        <mat-icon>settings</mat-icon>{{"Administracion" | translate }}
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
+        </mat-expansion-panel>
+        <mat-expansion-panel *ngIf="userCanAccessAdministration() | async" class="nav-menu flex"
+            [hideToggle]="!isSideBarExpanded" (click)="showMenuNotExpanded()">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span class="material-symbols-outlined">
+                        settings
+                    </span>
+                    <span *ngIf="isSideBarExpanded">{{"Administracion" | translate}}</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="opt-menu" *ngIf="isSideBarExpanded || (!isSideBarExpanded && showMenuSideBarCollapsed)">
                 <a *ngIf="userCanAccessModule(Modules.Applications) | async" class="nav-option flex"
                     routerLinkActive="active-link" [routerLink]="['/administration/applications']">
                     <button mat-button> {{"Aplicaciones" | translate }}</button>
@@ -49,37 +46,51 @@
                     routerLinkActive="active-link" [routerLink]="['/administration/users']">
                     <button mat-button> {{"Usuarios" | translate }}</button>
                 </a>
+            </div>
 
-            </mat-expansion-panel>
-            <mat-expansion-panel class="nav-menu flex">
-                <mat-expansion-panel-header>
-                    <mat-panel-title class="bold">
-                        <mat-icon>edit_note</mat-icon>{{"Gestion" | translate }}
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-
+        </mat-expansion-panel>
+        <mat-expansion-panel class="nav-menu flex" [hideToggle]="!isSideBarExpanded" (click)="showMenuNotExpanded()">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span class="material-symbols-outlined">
+                        edit_note
+                    </span>
+                    <span *ngIf="isSideBarExpanded">{{"Gestion" | translate }}</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="opt-menu" *ngIf="isSideBarExpanded || (!isSideBarExpanded && showMenuSideBarCollapsed) ">
                 <a class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/management/queries']">
                     <button mat-button> {{"Consultas" | translate }}</button>
                 </a>
+            </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel (click)="expandMenu()" class="nav-menu flex" *ngIf="!isSideBarExpanded"
+            [hideToggle]="!isSideBarExpanded">
+            <mat-expansion-panel-header class="expand-menu">
+                <mat-panel-title>
+                    <span class="material-symbols-outlined">
+                        chevron_right
+                    </span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
 
-            </mat-expansion-panel>
-            <mat-expansion-panel class="nav-menu user_nav_menu" hideToggle (click)="home()">
-                <mat-expansion-panel-header>
-                    <mat-panel-title class="user_component">
-      
-                        <img src="./../../../../assets/user_logo.svg">
-                        <div class="flex">
-                            <div class="user_name_title">
-                                {{user?.firstName}} {{user?.lastName}}
-                            </div>
-                            <div class="user_role_subtitle">
-                                {{user?.roleName}}
-                            </div>
-                        </div>
-    
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
+        <button  *ngIf="isSideBarExpanded" mat-button class="nav-menu user_nav_menu" [matMenuTriggerFor]="menu">
+            <div style="display: flex;">
+                <img class="company-img" [src]="img">
+                <div class="flex" style="margin-left: 20px;">
+                    <div class="user_name_title">
+                        {{user?.firstName}} {{user?.lastName}}
+                    </div>
+                    <div class="user_role_subtitle">
+                        {{user?.roleName}}
+                    </div>
+                </div>
+            </div>
+        </button>
+        <mat-menu #menu="matMenu" yPosition="above">
+            <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">Cerrar Sesion</button>
+        </mat-menu>
 
-            </mat-expansion-panel>
-        </mat-accordion>
-    </div>
+    </mat-accordion>
+</div>
