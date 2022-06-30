@@ -11,6 +11,6 @@ export class FilterService {
   constructor() { }
 
   addFilter(key: string, value: string): void {
-    this._filters$.next(this._filters$.value.set(key, value));
+    this._filters$.next(this._filters$.value.set(key.startsWith('data.') ? key.substring(5) : key, value));
   }
 }

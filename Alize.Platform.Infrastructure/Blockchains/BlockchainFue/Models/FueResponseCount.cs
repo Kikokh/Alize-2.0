@@ -1,10 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace Alize.Platform.Services.BlockchainFue.Models
 {
     public class FueResponseCount
     {
-        [JsonPropertyName("total")]
+        [JsonProperty("total")]
         public int Total { get; set; }
     }
 }

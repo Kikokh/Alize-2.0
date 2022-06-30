@@ -1,30 +1,31 @@
 ﻿using Alize.Platform.Infrastructure.Services.BlockchainFue;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Alize.Platform.Services.BlockchainFue.Models
 {
     public class FueAssetData
     {
-        [JsonPropertyName("type")]
+        [JsonProperty("type")]
         public string Type { get; set; }
 
-        [JsonPropertyName("bc_data")]
-        public Dictionary<string, object> BlockchainData { get; set; }
+        [JsonProperty("bc_data")]
+        public Dictionary<string, dynamic> BlockchainData { get; set; }
 
-        [JsonPropertyName("app")]
+        [JsonProperty("app")]
         public string Application { get; set; }
 
-        [JsonPropertyName("from")]
+        [JsonProperty("from")]
         public string From { get; set; }
 
-        [JsonPropertyName("token")]
+        [JsonProperty("token")]
         public bool Token { get; set; }
 
-        [JsonPropertyName("namespace")]
+        [JsonProperty("namespace")]
         public string Namespace { get; set; }
 
-        [JsonPropertyName("created_at")]
+        [JsonProperty("created_at")]
         [JsonConverter(typeof(DateTimeTicksConverter))]
+        //[JsonIgnore]
         public DateTime CreatedAt { get; set; }
     }
 }
