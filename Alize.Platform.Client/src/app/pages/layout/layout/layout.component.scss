@@ -4,7 +4,7 @@
 .app-container {
     height: 100%;
     width: 100%;
-
+    
     mat-drawer-container {
         height: 100%;
 
@@ -24,5 +24,10 @@
 }
 
 .main-theme-content {
-    background: $background-main-content;
+    background: url(..\..\..\..\assets\Alize-background.svg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    
 }

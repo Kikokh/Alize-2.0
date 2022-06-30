@@ -17,7 +17,7 @@
         <mat-accordion displayMode="flat">
             <mat-expansion-panel class="nav-menu" hideToggle (click)="home()">
                 <mat-expansion-panel-header>
-                    <mat-panel-title>
+                    <mat-panel-title class="bold">
                         <mat-icon>home</mat-icon>{{"Inicio" | translate }}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -25,7 +25,7 @@
             </mat-expansion-panel>
             <mat-expansion-panel *ngIf="userCanAccessAdministration() | async" class="nav-menu flex">
                 <mat-expansion-panel-header>
-                    <mat-panel-title>
+                    <mat-panel-title class="bold">
                         <mat-icon>settings</mat-icon>{{"Administracion" | translate }}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
@@ -53,7 +53,7 @@
             </mat-expansion-panel>
             <mat-expansion-panel class="nav-menu flex">
                 <mat-expansion-panel-header>
-                    <mat-panel-title>
+                    <mat-panel-title class="bold">
                         <mat-icon>edit_note</mat-icon>{{"Gestion" | translate }}
                     </mat-panel-title>
                 </mat-expansion-panel-header>
