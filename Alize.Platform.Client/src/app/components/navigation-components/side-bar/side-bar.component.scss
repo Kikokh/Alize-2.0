@@ -176,6 +176,12 @@
 }
 
 .company-img {
-    width: 25%;
+    width: 20%;
     border-radius: 50%;
+}
+
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
 }
