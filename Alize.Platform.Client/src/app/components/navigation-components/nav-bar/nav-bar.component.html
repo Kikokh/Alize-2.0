@@ -13,26 +13,14 @@
   </button>
   <span class="example-spacer"></span>
 
-  <button color="accent" mat-button [matMenuTriggerFor]="menuLang">
-    <mat-icon>language</mat-icon> {{currentLang}}
+  <button color="accent" class="lang-button" mat-button [matMenuTriggerFor]="menuLang">
+    {{currentLang | uppercase}} <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
   <mat-menu color="accent" #menuLang="matMenu" xPosition="before">
-    <button (click)="ChangeLanguaje('es')" mat-menu-item>{{"Espanol" | translate}}</button>
-    <button (click)="ChangeLanguaje('en')" mat-menu-item>{{"Ingles" | translate}}</button>
+    <button (click)="ChangeLanguaje('es')" mat-menu-item class="lang-button">{{"Espanol" | translate}}</button>
+    <button (click)="ChangeLanguaje('en')" mat-menu-item class="lang-button">{{"Ingles" | translate}}</button>
   </mat-menu>
-
-  <mat-menu #menuUser="matMenu" xPosition="before" class="user-menu">
-    <button color="primary" mat-menu-item (click)="showPasswordPopUp('Oscar Valente')">
-      <span style="margin-right: 60px">Cambiar Contraseña</span>
-      <mat-icon style="position: absolute;
-      right: 10px;
-      top: 10px;">key</mat-icon>
-    </button>
-    <button color=primary mat-menu-item (click)="closeSession()">
-      <span style="margin-right: 60px">Cerrar Sesion</span>
-      <mat-icon style="  position: absolute;
-      right: 10px;
-      top: 10px;">logout</mat-icon>
-    </button>
-  </mat-menu>
+  <button color="accent" class="lang-button" mat-button>
+    <mat-icon>notifications</mat-icon>
+  </button>
 </mat-toolbar>
