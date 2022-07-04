@@ -1,31 +1,26 @@
 ﻿using Alize.Platform.Core.Constants;
-using Alize.Platform.Infrastructure.Repositories;
+using Alize.Platform.Infrastructure.Alastria;
 using Alize.Platform.Infrastructure.Services.BlockchainFue;
 
 namespace Alize.Platform.Infrastructure
 {
     public class BlockchainFactory : IBlockchainFactory
     {
-        private readonly IApplicationCredentialsRepository _applicationCredentialsRepository;
-        private readonly ICryptographyService _cryptographyService;
+        private readonly IEnumerable<IBlockchainService> _blockchainServices;
 
-        public BlockchainFactory(IApplicationCredentialsRepository applicationCredentialsRepository, ICryptographyService cryptographyService)
+        public BlockchainFactory(IEnumerable<IBlockchainService> blockchainServices)
         {
-            _applicationCredentialsRepository = applicationCredentialsRepository;
-            _cryptographyService = cryptographyService;
+            _blockchainServices = blockchainServices;
         }
 
-        public async Task<IBlockchainService> CreateAsync(Guid blockchainId, Guid applicationId)
+        public IBlockchainService Resolve(Guid blockchainId)
         {
-            var credentials = await _applicationCredentialsRepository.GetApplicationCredentialsAsync(applicationId, blockchainId);
-
-            if (credentials is null)
-                throw new ArgumentNullException(nameof(credentials));
-
             switch (blockchainId.ToString())
             {
+                case Blockchains.Alastria:
+                    return _blockchainServices.Single(service => service is AlastriaService);
                 case Blockchains.BlockchainFue:
-                    return new BlockchainFueService(credentials, _cryptographyService);
+                    return _blockchainServices.Single(service => service is BlockchainFueService);
                 default:
                     throw new NotImplementedException();
             }

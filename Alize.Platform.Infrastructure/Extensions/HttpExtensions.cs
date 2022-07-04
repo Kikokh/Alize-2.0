@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Alize.Platform.Infrastructure.Extensions
 {
@@ -12,6 +13,18 @@ namespace Alize.Platform.Infrastructure.Extensions
         public static bool IsAuthenticated(this ClaimsPrincipal claimsPrincipal)
         {
             return claimsPrincipal.Identity?.IsAuthenticated ?? false;
+        }
+
+        public static async Task<T> GetResult<T>(this HttpContent content)
+        {
+            var result = await content.ReadAsStringAsync();
+
+            var item = JsonConvert.DeserializeObject<T>(result);
+
+            if (item is null)
+                throw new InvalidCastException();
+
+            return item;
         }
     }
 }

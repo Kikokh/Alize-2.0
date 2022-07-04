@@ -17,7 +17,7 @@ namespace Alize.Platform.Infrastructure.Repositories
 
         public async Task<Asset> CreateAssetAsync(Asset asset)
         {
-            asset.Id = Guid.NewGuid().ToString();
+            asset.Id = Guid.NewGuid().ToString();   
             var response = await _container.CreateItemAsync(asset);
 
             return response.Resource;

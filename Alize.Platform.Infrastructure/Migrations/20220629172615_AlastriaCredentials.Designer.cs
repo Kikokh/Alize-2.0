@@ -4,6 +4,7 @@ using Alize.Platform.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alize.Platform.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220629172615_AlastriaCredentials")]
+    partial class AlastriaCredentials
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,7 +105,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                     b.Property<Guid>("BlockchainId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("EncryptedPassword")
+                    b.Property<string>("EncriptedPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -125,7 +127,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             Id = new Guid("864d7440-d42e-42e0-9e29-bac987a31028"),
                             ApplicationId = new Guid("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"),
                             BlockchainId = new Guid("56eab269-09ce-4332-b395-7dfcb17b073d"),
-                            EncryptedPassword = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436",
+                            EncriptedPassword = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436",
                             Username = "60ffbe3ef24524680871dc75"
                         },
                         new
@@ -133,7 +135,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             Id = new Guid("558ae1ca-63d2-4dd2-b18a-e80136d9315e"),
                             ApplicationId = new Guid("de017cbb-fc9f-45e0-9f2c-c777a257fee7"),
                             BlockchainId = new Guid("56eab269-09ce-4332-b395-7dfcb17b073d"),
-                            EncryptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d",
+                            EncriptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d",
                             Username = "61e844e4f245240292cf8641"
                         },
                         new
@@ -141,7 +143,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             Id = new Guid("76053ad3-d72b-46c3-b4a0-691ed4d13ca6"),
                             ApplicationId = new Guid("892494ab-f4f5-4b76-a2f8-aa1e042e6b87"),
                             BlockchainId = new Guid("56eab269-09ce-4332-b395-7dfcb17b073d"),
-                            EncryptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d",
+                            EncriptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d",
                             Username = "61e844e4f245240292cf8641"
                         },
                         new
@@ -149,7 +151,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             Id = new Guid("86bbad1a-0653-44a0-8ca7-4b8458f80fde"),
                             ApplicationId = new Guid("0f5bc658-7223-4c5a-b272-31e878f181d6"),
                             BlockchainId = new Guid("56eab269-09ce-4332-b395-7dfcb17b073d"),
-                            EncryptedPassword = "1f893f83132b8b5946e4cb37d205fb0ba6314380020139b23e48e6c6f06037be",
+                            EncriptedPassword = "1f893f83132b8b5946e4cb37d205fb0ba6314380020139b23e48e6c6f06037be",
                             Username = "6155a34df2452452c3c75a1a"
                         },
                         new
@@ -157,32 +159,8 @@ namespace Alize.Platform.Infrastructure.Migrations
                             Id = new Guid("0af7dff5-9b0f-448a-994a-ef8b54a68708"),
                             ApplicationId = new Guid("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"),
                             BlockchainId = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
-                            EncryptedPassword = "bSdT/34j9DB3VObnxn6wuQ==",
-                            Username = "admin_kh_calidad_mapex"
-                        },
-                        new
-                        {
-                            Id = new Guid("258ae1ca-63d2-4dd2-b18a-e80136d9315e"),
-                            ApplicationId = new Guid("de017cbb-fc9f-45e0-9f2c-c777a257fee7"),
-                            BlockchainId = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
-                            EncryptedPassword = "iC4glPRztsdBn/u1Ll6txQ==",
-                            Username = "admin_kh_trazabilidad_ws"
-                        },
-                        new
-                        {
-                            Id = new Guid("26053ad3-d72b-46c3-b4a0-691ed4d13ca6"),
-                            ApplicationId = new Guid("892494ab-f4f5-4b76-a2f8-aa1e042e6b87"),
-                            BlockchainId = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
-                            EncryptedPassword = "iC4glPRztsdBn/u1Ll6txQ==",
-                            Username = "admin_kh_trazabilidad_ws"
-                        },
-                        new
-                        {
-                            Id = new Guid("26bbad1a-0653-44a0-8ca7-4b8458f80fde"),
-                            ApplicationId = new Guid("0f5bc658-7223-4c5a-b272-31e878f181d6"),
-                            BlockchainId = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
-                            EncryptedPassword = "TLC+5AObeVZds5qQktvujQ==",
-                            Username = "admin_kh_racks"
+                            EncriptedPassword = "password1234",
+                            Username = "admin_calidad_mapex_test"
                         });
                 });
 
@@ -200,12 +178,6 @@ namespace Alize.Platform.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RootEncryptedPassword")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RootUserName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Blockchains");
@@ -221,9 +193,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                         {
                             Id = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
                             ApiUrl = "https://20.73.2.29:443/api/",
-                            Name = "Alastria",
-                            RootEncryptedPassword = "hfnqSR5BhccxGBclgTzR2Q==",
-                            RootUserName = "root"
+                            Name = "Alastria"
                         });
                 });
 
@@ -745,7 +715,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMINPRO.COM",
                             NormalizedUserName = "TESTADMINPRO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEK6y+hsknueMZTNJA826t9WuL7yUPneGOLmOfxHwcI6+urARuVyqiIHnd4qW96U6zw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOlkkniiCAq35pJmOwLPHUxAiJ2ca2PYPsRYMjnCZPR825FHdMPuI5TUBSOmjEV6Dg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "840411eb-2f77-4444-8f29-76c094834b56",
                             TwoFactorEnabled = false,
@@ -765,7 +735,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@DISTRIBUTOR.COM",
                             NormalizedUserName = "TESTDESTRIBUTOR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJxm17ThcoDrYApVxo8Oo/MUJcZXviAJp9uhHROcvd6OS+ScDUcnOovCgwnalyPbHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGkbOUIl1t3C7lNswTy/lndX4Vkjc81iPJJDo18LZkC+sdFdx7/fSHWtI/C4wEcqBA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "004286d4-a835-45c7-8f36-1f9359d7d955",
                             TwoFactorEnabled = false,
@@ -785,7 +755,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMIN.COM",
                             NormalizedUserName = "TESTADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEO6wBYLYVNjXG7i1u+I3FNkHXHrlNuM0JO7ZV9FhC3fOvuBi3J1rp0OXTd9UPLftQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHuT69hSSeyXZGOdBRF3mpAVv/8BAIjjKK53gd7qJ8AsWaYaucx8hAlW3UR1NO/VQg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "1c822965-eb67-4092-9cf7-cf62806d5395",
                             TwoFactorEnabled = false,
@@ -805,7 +775,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@USER.COM",
                             NormalizedUserName = "TESTUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEHjXjYmxiBggBy9rtDxHddiIXZcOpnkViCMob4aJl/hbNs9xNtQN843gDoaTQbx/A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO44310weAuVYg9xIHsFPvWN4cQ1xhSL6AqR9VTFiGXqS5Q70/EcF6XNyGTp5E8QPg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "95ada776-f3e1-42db-aa39-382f91b74cd4",
                             TwoFactorEnabled = false,
@@ -825,7 +795,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@GUEST.COM",
                             NormalizedUserName = "TESTGUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAECRGj7MgUukkHCQocmabE8PRFX/lTy8FLCHQXYR3XZ4P82B+Ngrmel3AJg+GMbIOCg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIsVGewJSv8OMt5nc5dMNkfmMw/nCGdiFIPyZhyRPkPinEJQ0dLv7DeQQaaJOM5M4w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "b6091148-6b17-4e26-9dc7-97d1b34fb025",
                             TwoFactorEnabled = false,

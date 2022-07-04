@@ -20,6 +20,6 @@ namespace Alize.Platform.Core.Models
 
         public string Username { get; set; }
 
-        public string EncriptedPassword { get; set; }
+        public string EncryptedPassword { get; set; }
     }
 }

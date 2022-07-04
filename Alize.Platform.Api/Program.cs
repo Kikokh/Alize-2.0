@@ -1,10 +1,13 @@
+using Alize.Platform.Api.Mapping;
 using Alize.Platform.Api.Policies;
 using Alize.Platform.Core.Constants;
 using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Alastria;
 using Alize.Platform.Infrastructure.Extensions;
 using Alize.Platform.Infrastructure.Repositories;
 using Alize.Platform.Infrastructure.Services;
+using Alize.Platform.Infrastructure.Services.BlockchainFue;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
@@ -74,12 +77,21 @@ builder.Services
 builder.Services.InitializeCosmosClientInstance(builder.Configuration.GetSection("CosmosDb"));
 builder.Services.InitializeBlobServiceClientInstance(builder.Configuration.GetConnectionString("BlobStorage"));
 builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("HttpClientWithSSLUntrusted").ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler
+{
+    ClientCertificateOptions = ClientCertificateOption.Manual,
+    ServerCertificateCustomValidationCallback =
+            (httpRequestMessage, cert, cetChain, policyErrors) =>
+            {
+                return true;
+            }
+});
 builder.Services.AddDataProtection()
     .PersistKeysToDbContext<ApplicationDbContext>();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<IAuthorizationHandler, ModuleHandler>();
 builder.Services.AddScoped<IAuthorizationHandler, QueryHandler>();
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(MappingProfile), typeof(AlastriaMappingProfile));
 
 builder.Services.AddScoped<IApplicationRepository, ApplicationRepository>();
 builder.Services.AddScoped<IApplicationCredentialsRepository, ApplicationCredentialsRepository>();
@@ -90,6 +102,8 @@ builder.Services.AddScoped<IVideoRepository, MediaRepository>();
 builder.Services.AddScoped<IBlockchainRepository, BlockchainRepository>();
 builder.Services.AddScoped<IRequestLogEntryRepository, RequestLogEntryRepository>();
 builder.Services.AddScoped<ICosmosRepositoryFactory, CosmosRepositoryFactory>();
+builder.Services.AddScoped<IBlockchainService, AlastriaService>();
+builder.Services.AddScoped<IBlockchainService, BlockchainFueService>();
 builder.Services.AddScoped<ISecurityService, SecurityService>();
 builder.Services.AddScoped<ICryptographyService, CryptographyService>();
 builder.Services.AddScoped<IBlockchainFactory, BlockchainFactory>();
