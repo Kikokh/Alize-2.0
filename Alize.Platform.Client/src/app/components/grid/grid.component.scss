@@ -84,8 +84,7 @@
   margin: 0px;
 }
 
-.mat-row,
-.mat-header-row {
+.mat-row,.mat-header-row {
   display: table-row;
 }
 
@@ -95,11 +94,13 @@
   padding: 0px 5px;
   line-break: unset;
   width: auto;
-  white-space: nowrap;
   overflow: hidden;
   vertical-align: middle;
 }
 
+
 .mat-header-cell {
 padding: 10px 5px;
 }
+
+
