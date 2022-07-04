@@ -1,0 +1,33 @@
+<mat-accordion>
+  <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ title }} Self aware panel Currently I am a big description
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div id="video-grapper">
+      <div class="video-container">
+        <video
+          id="my_video_1"
+          class="video-js vjs-default-skin"
+          width="640px" height="267px"
+          controls
+          preload="none"
+          data-setup='{ "aspectRatio":"640:267", "playbackRates": [1, 1.5, 2] }'
+        >
+          <source src="{{ videoUrl }}" />
+          <!-- <source src="https://vjs.zencdn.net/v/oceans.webm" type='video/webm' /> -->
+        </video>
+      </div>
+      <div class="video-controls" *ngIf="showControls">
+        <button mat-raised-button (click)="playPause()">Play/Pause</button>&nbsp;
+        <button mat-raised-button (click)="makeBig()">Big</button>&nbsp;
+        <button mat-raised-button (click)="makeSmall()">Small</button>&nbsp;
+        <button mat-raised-button (click)="makeNormal()">Normal</button>&nbsp;
+        <button mat-raised-button (click)="restart()">Restart</button>&nbsp;
+        <button mat-raised-button (click)="skip(-10)">Rewind</button>&nbsp;
+        <button mat-raised-button (click)="skip(10)">Fastforward</button>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

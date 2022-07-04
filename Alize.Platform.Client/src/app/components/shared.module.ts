@@ -29,6 +29,7 @@ import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.co
 import { SearchComponent } from './search/search.component';
 import { GridSkeletonComponent } from './skeleton/grid-skeleton/grid-skeleton.component';
 import { TotalizatorComponent } from './totalizator/totalizator.component';
+import { VideoLoadComponent } from './video-load/video-load.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { TotalizatorComponent } from './totalizator/totalizator.component';
     FormErrorComponent,
     EncryptionPopUpComponent,
     AssetDetailTableComponent,
-    AssetDetailStepperComponent
+    AssetDetailStepperComponent,
+    VideoLoadComponent
   ],
   imports: [
     CommonModule,
@@ -79,7 +81,8 @@ import { TotalizatorComponent } from './totalizator/totalizator.component';
     TotalizatorComponent,
     FormErrorComponent,
     AssetDetailTableComponent,
-    AssetDetailStepperComponent
+    AssetDetailStepperComponent,
+    VideoLoadComponent
   ],
 })
 export class SharedModule {}
