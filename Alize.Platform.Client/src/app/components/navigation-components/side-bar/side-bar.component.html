@@ -7,8 +7,8 @@
         <mat-expansion-panel class="nav-menu" hideToggle (click)="home()">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <span class="material-symbols-outlined">
-                        warehouse
+                    <span class="material-symbols-rounded">
+                        home
                     </span>
                     <span *ngIf="isSideBarExpanded">{{"Inicio" | translate }}</span>
                 </mat-panel-title>
@@ -19,7 +19,7 @@
             [hideToggle]="!isSideBarExpanded" (click)="showMenuNotExpanded()">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-rounded">
                         settings
                     </span>
                     <span *ngIf="isSideBarExpanded">{{"Administracion" | translate}}</span>
@@ -52,7 +52,7 @@
         <mat-expansion-panel class="nav-menu flex" [hideToggle]="!isSideBarExpanded" (click)="showMenuNotExpanded()">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <span class="material-symbols-outlined">
+                    <span class="material-symbols-rounded">
                         edit_note
                     </span>
                     <span *ngIf="isSideBarExpanded">{{"Gestion" | translate }}</span>
@@ -64,7 +64,7 @@
                 </a>
             </div>
         </mat-expansion-panel>
-        <mat-expansion-panel (click)="expandMenu()" class="nav-menu flex" *ngIf="!isSideBarExpanded"
+       <!-- <mat-expansion-panel (click)="expandMenu()" class="nav-menu flex" *ngIf="!isSideBarExpanded"
             [hideToggle]="!isSideBarExpanded">
             <mat-expansion-panel-header class="expand-menu">
                 <mat-panel-title>
@@ -73,7 +73,7 @@
                     </span>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-        </mat-expansion-panel>
+        </mat-expansion-panel>-->
 
         <button  *ngIf="isSideBarExpanded" mat-button class="nav-menu user_nav_menu" [matMenuTriggerFor]="menu">
             <div class="login-container">
