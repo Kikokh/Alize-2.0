@@ -23,7 +23,7 @@ export class ApplicationsComponent implements OnInit {
   actions: IOperationsModel[] = [
     { optionName: ModePopUpType.DISPLAY, icon: 'search' },
     { optionName: ModePopUpType.EDIT, icon: 'edit_note' },
-    { optionName: ModePopUpType.GROUP, icon: 'groups' }
+    { optionName: ModePopUpType.GROUP, icon: 'group' }
   ]
 
   public get entity(): EntityType {

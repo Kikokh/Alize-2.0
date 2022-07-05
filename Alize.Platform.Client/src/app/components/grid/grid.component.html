@@ -45,7 +45,7 @@
                             <button class="icon-button" mat-icon-button color="accent"
                                   *ngIf="(userActionIsAllowed(action) | async) && (action.optionName !== ModePopUpType.CHARTS || (row.showChartAction && action.optionName === ModePopUpType.CHARTS))"
                                   (click)="showDialog(action.optionName, row)">
-                                <mat-icon>{{action.icon}}</mat-icon>
+                                  <span class="material-symbols-outlined">{{action.icon}}</span>
                             </button>
                         </ng-container>
                     </mat-cell>
