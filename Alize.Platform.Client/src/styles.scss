@@ -3,25 +3,24 @@ body,
 app-root,
 app-progress-spinner,
 app-layout {
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body {
-    background: #f0f0f0;
-    font-family: Poppins, 'Helvetice New', 'Arial', sans-serif;
+  background: #f0f0f0;
+  font-family: Poppins, 'Helvetice New', 'Arial', sans-serif;
 }
 
 
 
 .error-form-message {
-    color: red;
-    ;
+  color: red;
 }
 
 
@@ -29,19 +28,18 @@ body {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1rem;
-  display: table;
   border-collapse: collapse;
   margin: 0px;
+  overflow: auto;
 }
 
 .mat-row,
 .mat-header-row {
-  display: table-row;
 }
 
-.mat-cell,.mat-header-cell {
+.mat-cell,
+.mat-header-cell {
   word-wrap: initial;
-  display: table-cell;
   padding: 0px 5px;
   line-break: anywhere;
   width: auto;
@@ -50,5 +48,5 @@ body {
 }
 
 .mat-header-cell {
-padding: 10px 5px;
+  padding: 10px 5px;
 }

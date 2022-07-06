@@ -82,14 +82,12 @@
     width: 100%;
     max-width: 100%;
     margin-bottom: 1rem;
-    display: table;
     border-collapse: collapse;
     margin: 0px;
 }
 
 .mat-row,
 .mat-header-row {
-    display: table-row;
     background: rgba(89, 129, 152, 0.4);
     height: 8px;
     font-family: 'Poppins';
@@ -105,15 +103,8 @@
 }
 
 .mat-cell,
-.mat-row,
-.mat-header-row {
-    display: table-row;
-}
-
-.mat-cell,
 .mat-header-cell {
     word-wrap: initial;
-    display: table-cell;
     padding: 10px 5px;
     line-break: unset;
     width: auto;
