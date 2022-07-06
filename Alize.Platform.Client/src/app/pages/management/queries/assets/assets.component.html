@@ -21,15 +21,15 @@
         </div>
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
             <ng-container [matColumnDef]="column.property" *ngFor="let column of template?.columns">
-                <mat-header-cell *matHeaderCellDef> {{ column.header }} </mat-header-cell>
+                <mat-header-cell  class="main-theme-header" *matHeaderCellDef> {{ column.header }} </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{ resolve(column.property, element) }} </mat-cell>
             </ng-container>
 
             <ng-container matColumnDef="Operaciones">
-                <mat-header-cell *matHeaderCellDef> Operaciones </mat-header-cell>
+                <mat-header-cell class="main-theme-header" *matHeaderCellDef> Operaciones </mat-header-cell>
                 <mat-cell *matCellDef="let element">
                     <button class="icon-button" mat-icon-button color="accent" (click)="showDetails(element.id)">
-                        <mat-icon>search</mat-icon>
+                        <span class="material-symbols-outlined">search</span>
                     </button>
                 </mat-cell>
             </ng-container>

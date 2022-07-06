@@ -1,3 +1,4 @@
+
 .flex {
     display: flex;
 }
@@ -44,11 +45,11 @@ app-select {
         border-radius: 2px;       
 
         .title {
-            color: #73879c;
-            font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-            font-size: 18px;
-            font-weight: 400;
-            line-height: 1.471;
+            // color: #73879c;
+            // font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+            // font-size: 18px;
+            // font-weight: 400;
+            // line-height: 1.471;
 
             &:after,
             form:after {
@@ -60,13 +61,70 @@ app-select {
             }
         }
 
-        .mat-header-row {
-            background: #2a3f54;
-
-            .mat-header-cell {
-                color: white;
-                font-weight: 600;
-            }
+        .main-theme-header {
+            background: #217280;
+            box-shadow: 0px -1px 10px rgba(154, 180, 193, 0.1);
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 24px;
         }
+    }
+}
+
+.mat-row {
+    height: 80px;
+}
+
+.mat-cell,
+.mat-row,
+.mat-header-row {
+    display: table-row;
+}
+
+.mat-cell,
+.mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 10px 5px;
+    line-break: unset;
+    width: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    background: rgba(89, 129, 152, 0.4);
+}
+
+
+.mat-header-cell:first-child {
+    border-radius: 5px 0 0 5px;
+}
+
+.mat-header-cell:last-child {
+    border-radius: 0 5px 5px 0;
+}
+
+:host ::ng-deep .mat-paginator-container {
+    .mat-paginator-page-size-label {
+        color: #217280;
+        font-size: 18px;
+
+    }
+
+    .mat-form-field-infix {
+        border: 2px solid #217280;
+        padding: 10px 10px 10px 10px !important;
+    }
+
+    .mat-paginator-range-actions {
+        color: #217280;
+        font-size: 15px;
+    }
+
+    .mat-select-arrow {
+        color: #217280;
     }
 }
