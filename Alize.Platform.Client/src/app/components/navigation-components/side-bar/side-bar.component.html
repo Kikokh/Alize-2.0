@@ -28,23 +28,23 @@
             <div class="opt-menu" *ngIf="isSideBarExpanded || (!isSideBarExpanded && showMenuSideBarCollapsed)">
                 <a *ngIf="userCanAccessModule(Modules.Applications) | async" class="nav-option flex"
                     routerLinkActive="active-link" [routerLink]="['/administration/applications']">
-                    <button mat-button> {{"Aplicaciones" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Aplicaciones" | translate }}</button>
                 </a>
                 <a *ngIf="userCanAccessModule(Modules.Companies) | async" class="nav-option flex"
                     routerLinkActive="active-link" [routerLink]="['/administration/companies']">
-                    <button mat-button> {{"Empresas" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Empresas" | translate }}</button>
                 </a>
                 <a *ngIf="userCanAccessModule(Modules.Roles) | async" class="nav-option flex"
                     routerLinkActive="active-link" [routerLink]="['/administration/roles']">
-                    <button mat-button> {{"Roles" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Roles" | translate }}</button>
                 </a>
                 <a *ngIf="userCanAccessModule(Modules.Modules) | async" class="nav-option flex"
                     routerLinkActive="active-link" [routerLink]="['/administration/modules']">
-                    <button mat-button> {{"Modulos" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Modulos" | translate }}</button>
                 </a>
                 <a *ngIf="userCanAccessModule(Modules.Users) | async" class="nav-option flex"
                     routerLinkActive="active-link" [routerLink]="['/administration/users']">
-                    <button mat-button> {{"Usuarios" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Usuarios" | translate }}</button>
                 </a>
             </div>
 
@@ -60,7 +60,7 @@
             </mat-expansion-panel-header>
             <div class="opt-menu" *ngIf="isSideBarExpanded || (!isSideBarExpanded && showMenuSideBarCollapsed) ">
                 <a class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/management/queries']">
-                    <button mat-button> {{"Consultas" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Consultas" | translate }}</button>
                 </a>
             </div>
         </mat-expansion-panel>
