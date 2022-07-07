@@ -14,6 +14,7 @@ import { ApplicationTemplate } from 'src/app/models/application-template.model';
 import { DropdownValues } from 'src/app/models/filters.model';
 import { TemplatesService } from 'src/app/Templates/services/templates.service';
 import { AssetService } from './asset.service';
+import { LoadingService } from 'src/app/services/loading.service';
 @Component({
   selector: 'app-assets',
   templateUrl: './assets.component.html',
@@ -24,10 +25,8 @@ export class AssetsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   application: Application
-  assets: Asset[];
   dataSource = new MatTableDataSource<Asset>();
   template: ApplicationTemplate;
-  isLoading = false;
   filters: Map<string, string>;
   assetId: string = '';
 
@@ -43,24 +42,25 @@ export class AssetsComponent implements OnInit {
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _changeDetector: ChangeDetectorRef,
     private _router: Router,
-    private _filterService: FilterService
+    private _filterService: FilterService,
+    private _loadingService: LoadingService
   ) { }
 
   ngOnInit(): void {
-    this.isLoading = true;
+    this._loadingService.startLoading()
     zip(
       this._applicationsService.getApplication(String(this._route.snapshot.paramMap.get('applicationId'))),
       this._templateService.getApplicationTemplate(String(this._route.snapshot.paramMap.get('applicationId')))
-    ).subscribe(
-      responses => {
+    ).subscribe({
+      next: responses => {
         this.application = responses[0];
         this.template = responses[1];
-        this.isLoading = false;
         this._changeDetector.detectChanges();
         this.getFilters();
         this.getData();
-      }
-    )
+      },
+      complete: () => this._loadingService.stopLoading()
+    })
   }
 
   showDetails(assetId: any) {
@@ -90,12 +90,14 @@ export class AssetsComponent implements OnInit {
   }
 
   getData(): void {
-    this._assetService.getApplicationAssets(String(this._route.snapshot.paramMap.get('applicationId')), this.paginator.pageIndex + 1, this.paginator.pageSize, this.filters).subscribe(
-      resp => {
+    this._loadingService.startLoading();
+    this._assetService.getApplicationAssets(String(this._route.snapshot.paramMap.get('applicationId')), this.paginator.pageIndex + 1, this.paginator.pageSize, this.filters).subscribe({
+      next: resp => {
         this.dataSource.data = resp.assets;
         this.paginator.length = resp.total;
-      }
-    );
+      },
+      complete: () => this._loadingService.stopLoading()
+  });
   }
 
   resolve(path: any, obj: any, separator = '.') {

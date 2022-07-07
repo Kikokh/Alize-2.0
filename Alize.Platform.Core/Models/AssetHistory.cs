@@ -8,6 +8,6 @@ namespace Alize.Platform.Core.Models
         public string TransactionId { get; set; }
 
         [JsonPropertyName("metadata")]
-        public Dictionary<string, object> Metadata { get; set; }
+        public Dictionary<string, dynamic> Metadata { get; set; }
     }
 }

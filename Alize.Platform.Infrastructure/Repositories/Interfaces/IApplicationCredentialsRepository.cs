@@ -5,5 +5,6 @@ namespace Alize.Platform.Infrastructure.Repositories
     public interface IApplicationCredentialsRepository
     {
         Task<ApplicationCredentials?> GetApplicationCredentialsAsync(Guid applicationId, Guid blockchainId);
+        Task<ApplicationCredentials> CreateApplicationCredentialsAsync(ApplicationCredentials credentials);
     }
 }

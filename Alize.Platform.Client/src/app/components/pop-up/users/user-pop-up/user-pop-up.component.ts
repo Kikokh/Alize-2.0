@@ -4,14 +4,12 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { RequestApplication } from 'src/app/components/models/application.model';
-import { Roles } from 'src/app/components/models/column.models';
+import { Role } from "src/app/models/role.model";
 import { Company } from 'src/app/models/company.model';
 import { User } from 'src/app/models/users.model';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
@@ -36,11 +34,10 @@ export class UserPopUpComponent implements OnDestroy {
   }
 
   companies: Company[];
-  roles: Roles[];
+  roles: Role[];
 
   constructor(
     private _companyService: CompaniesService,
-    private _userService: UsersService,
     private _rolesService: RolesService,
     public dialogRef: MatDialogRef<UserPopUpComponent>,
     @Inject(MAT_DIALOG_DATA)

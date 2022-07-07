@@ -55,6 +55,7 @@
   "ListadoUsuarios": "User List",
   "ListadoRoles": "Roles List",
   "ListadoModulos": "Module List",
+  "ListadoConsultas": "Queries",
   "EmailIncorrecto": "The email has an incorrect format",
   "EmailVacio": "The email field cannot be empty",
   "PasswordVacio": "The password field cannot be empty",

@@ -20,7 +20,8 @@ export class AssetService {
       .append('pageSize', pageSize);
 
     queryItems?.forEach((value, key) => {
-      params = params.append(key, value)
+      const keyValue = key.split('.');
+      params = params.append(keyValue[keyValue.length - 1], value)
     });
 
     return this._http.get<AssetsPage>(`${this._baseUrl}/Applications/${applicationId}/Assets`, { params });

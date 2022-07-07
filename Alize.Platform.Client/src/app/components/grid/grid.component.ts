@@ -1,16 +1,16 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { Application } from 'src/app/models/application.model';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { MaterialTheme } from 'src/app/models/theme.model';
+import { LoginService } from 'src/app/pages/login/services/login.service';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
-import { RequestApplication } from '../models/application.model';
-import { IColumnDef, IElementDataApp, IOperationsModel } from '../models/column.models';
+import { IColumnDef, IOperationsModel } from '../../models/column.models';
 import { EntityType, ModePopUpType } from '../pop-up/models/entity-type.enum';
 import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
 
@@ -27,9 +27,10 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.dataSource.data = value;
   }
   @Input() entity: EntityType;
+  @Input() title: string;
+  @Input() subtitle: string;
   @Input() actions?: IOperationsModel[];
-  @Input() title: string = 'Administracion';
-  @Input() subTitle: string = '';
+  // @Input() subTitle: string = '';
 
   @Output() update = new EventEmitter<any>();
   @Output() updateRole = new EventEmitter<any>();
@@ -37,39 +38,29 @@ export class GridComponent implements OnInit, AfterViewInit {
   @Output() add = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
 
-  public get Entity(): typeof EntityType {
-    return EntityType;
-  }
-
-  dataSource: MatTableDataSource<IElementDataApp> = new MatTableDataSource();
-  displayedColumns: string[];
-
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  // MatPaginator Inputs
-  length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [5, 10, 25, 100];
+  dataSource: MatTableDataSource<any> = new MatTableDataSource();
+  displayedColumns: string[];
 
   // MatPaginator Output
   pageEvent: PageEvent;
-  materialTheme = new MaterialTheme();
 
-  ModePopUpType = ModePopUpType;
+  get ModePopUpType() {
+    return ModePopUpType;
+  }
 
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => + str);
-    }
+  get Entity(): typeof EntityType {
+    return EntityType;
   }
 
   constructor(
     public dialog: MatDialog,
-    private _globalStylesService: GlobalStylesService,
     private _openPopUpService: OpenPopUpService,
     private _router: Router,
-    public translate: TranslateService) {
+    public translate: TranslateService,
+    private _loginService: LoginService) {
 
     const lang = localStorage.getItem('lang');
     if (lang !== null) {
@@ -85,45 +76,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.displayedColumns = [...this.columns.map(c => c.columnDef), 'operations'];
-    if (this.entity === EntityType.APPLICATIONS) {
-      this.subTitle = 'ListadoAplicaciones';
-    } else if (this.entity === EntityType.COMPANIES) {
-      this.subTitle = 'ListadoEmpresas';
-    } else if (this.entity === EntityType.USERS) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoUsuarios'
-    } else if (this.entity === EntityType.MODULES) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoModulos'
-    } else if (this.entity === EntityType.ROLES) {
-      this.title = 'Administracion'
-      this.subTitle = 'ListadoRoles'
-    }
-
-    this._globalStylesService.theme.subscribe(value => {
-      this.materialTheme.isDarkMode = (value === 'dark-theme');
-      this.materialTheme.isPrimaryMain = (value === 'main-theme');
-    });
   }
-
-
-  getContentStyles(): string {
-    if (this.materialTheme.isPrimaryMain) {
-      return 'main-theme-background-grid';
-    } else {
-      return '';
-    }
-  }
-
-
-  getColorHeaderTable(): string {
-    if (this.materialTheme.isPrimaryMain) {
-      return 'main-theme-header';
-    } else {
-      return '';
-    }
-  }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -146,11 +99,17 @@ export class GridComponent implements OnInit, AfterViewInit {
           this.updateRole.emit(entity);
         } else if (entity.action === ModePopUpType.PASSWORD) {
           this.updatePassword.emit(entity);
-        } else {
+        } else if (entity.action === ModePopUpType.DELETE){
           this.delete.emit(entity);
         }
       });
     }
-
   }
+
+  userActionIsAllowed(action: IOperationsModel): Observable<boolean> {
+    return this._loginService.$me.pipe(
+      map(user => action.requiredRoles?.includes(user.roleName) ?? true)
+    );
+  }
+
 }

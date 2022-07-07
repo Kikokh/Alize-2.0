@@ -1,12 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { RequestApplication } from 'src/app/components/models/application.model';
 import { FormValidation } from 'src/app/models/validation.model';
 import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
-import { PasswordService } from '../services/password.service';
 import { PasswordModel } from './models/password.model';
 
 @Component({
@@ -34,7 +32,6 @@ export class PasswordUserPopUpComponent {
   }
 
   constructor(
-    private _usersService: UsersService,
     public dialogRef: MatDialogRef<PasswordUserPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {
       id: string;

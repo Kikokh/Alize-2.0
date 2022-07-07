@@ -14,7 +14,16 @@
 
 @import '~@angular/material/theming';
 
-@include mat-core();
+$custom-typography: mat-typography-config(
+    $font-family: 'Poppins',
+);
+
+.bold{
+    font-weight:700;
+    font-size: 16px;
+}
+
+@include mat-core($custom-typography);
 
 $my-primary: mat-palette($mat-grey,  100, 300, 900);
 $my-accent: mat-palette($mat-grey, 900, 300, 900);
@@ -46,7 +55,7 @@ $my-theme-dark: mat-dark-theme($my-primary-dark, $my-accent-dark, $my-warn-dark)
 }
 
 
-$blue-background: #2A3F54;
+$blue-background: #142636;
 $background-grid-color: #fff;
 $background-main-content: #EDEDED;
 // $background-main-container:$my-primary;

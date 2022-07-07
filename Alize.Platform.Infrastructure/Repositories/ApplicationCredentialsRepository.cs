@@ -12,6 +12,14 @@ namespace Alize.Platform.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<ApplicationCredentials> CreateApplicationCredentialsAsync(ApplicationCredentials credentials)
+        {
+            await _dbContext.ApplicationCredentials.AddAsync(credentials);
+            await _dbContext.SaveChangesAsync();
+
+            return credentials;
+        }
+
         public async Task<ApplicationCredentials?> GetApplicationCredentialsAsync(Guid applicationId, Guid blockchainId)
         {
             return await _dbContext

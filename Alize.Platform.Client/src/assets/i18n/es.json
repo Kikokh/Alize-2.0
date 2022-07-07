@@ -63,6 +63,7 @@
     "ListadoUsuarios": "Listado de Usuarios",
     "ListadoModulos": "Listado de Módulos",
     "ListadoRoles": "Listado de Roles",
+    "ListadoConsultas": "Listado de Consultas",
     "EmailIncorrecto": "El email tiene un formato incorrecto",
     "EmailVacio": "El campo email no puede estar vacio",
     "PasswordVacio": "El campo password no puede estar vacio",

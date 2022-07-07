@@ -12,6 +12,11 @@ namespace Alize.Platform.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<Blockchain?> GetBlockchainAsync(Guid guid)
+        {
+            return await _dbContext.Blockchains.SingleOrDefaultAsync(b => b.Id == guid);
+        }
+
         public async Task<IEnumerable<Blockchain>> GetBlockchainsAsync()
         {
             return await _dbContext.Blockchains.ToListAsync();

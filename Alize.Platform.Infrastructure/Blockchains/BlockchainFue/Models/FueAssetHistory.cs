@@ -1,13 +1,14 @@
-﻿using System.Text.Json.Serialization;
+﻿
+using Newtonsoft.Json;
 
 namespace Alize.Platform.Services.BlockchainFue.Models
 {
     public class FueAssetHistory
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public string TransactionId { get; set; }
 
-        [JsonPropertyName("metadata")]
+        [JsonProperty("metadata")]
         public Dictionary<string, object> Metadata { get; set; }
     }
 }

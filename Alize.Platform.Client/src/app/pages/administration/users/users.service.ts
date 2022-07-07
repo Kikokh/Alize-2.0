@@ -9,6 +9,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   providedIn: 'root'
 })
 export class UsersService {
+ 
 
   private _baseUrl = `${environment.apiUrl}/Users`
   public token: string
@@ -50,5 +51,9 @@ export class UsersService {
 
   updateUserRole(user_id: string, newUserRole: string): Observable<User[]> {
     return this._http.put<User[]>(this._baseUrl + '/' + user_id + '/Role?roleId=' + newUserRole, {}, this.httpOptions);
+  }
+
+  deleteUser(userId: string) {
+    return this._http.delete<User[]>(this._baseUrl + '/' + userId, this.httpOptions);
   }
 }

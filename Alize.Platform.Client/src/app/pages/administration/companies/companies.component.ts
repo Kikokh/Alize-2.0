@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { IColumnDef, IOperationsModel } from 'src/app/components/models/column.models';
+import { IColumnDef, IOperationsModel } from 'src/app/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { Company } from 'src/app/models/company.model';
 import { SnackBarService } from 'src/app/services/snack-bar.service';

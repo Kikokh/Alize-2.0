@@ -3,22 +3,50 @@ body,
 app-root,
 app-progress-spinner,
 app-layout {
-    margin: 0px;
-    padding: 0px;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body {
-    background-color: #f0f0f0;
-    font-family: Roboto, 'Helvetice New', 'Arial', sans-serif
+  background: #f0f0f0;
+  font-family: Poppins, 'Helvetice New', 'Arial', sans-serif;
 }
 
 
+
 .error-form-message {
-    color: red;
-    ;
+  color: red;
+}
+
+
+.mat-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  margin: 0px;
+  overflow: auto;
+}
+
+.mat-row,
+.mat-header-row {
+}
+
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  padding: 0px 5px;
+  line-break: anywhere;
+  width: auto;
+  overflow: hidden;
+  vertical-align: middle;
+}
+
+.mat-header-cell {
+  padding: 10px 5px;
 }

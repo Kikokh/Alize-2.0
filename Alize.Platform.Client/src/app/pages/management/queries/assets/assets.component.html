@@ -1,47 +1,47 @@
-<div *ngIf="!isLoading; else gridSkeleton" class="container">
-    <app-breadcrumb></app-breadcrumb>
-    <div class="header">
-        <div class="titles">
-            <h1 class="title">{{application?.company?.name}} | {{application?.name}}</h1>
-            <h3 class="description">{{application?.description}}</h3>
-        </div>
-        <mat-form-field class="search-by-id" appearance="outline" color="accent">
-            <mat-label>{{ 'searchById' | translate }}</mat-label>
-            <input type="text" matInput [(ngModel)]="assetId">
-            <button matSuffix mat-raised-button color="accent" (click)="showDetails(assetId)">
-                {{ 'search' | translate }}
-            </button>
-        </mat-form-field>
-    </div>
-    <div class="table">
-        <h2 class="title">Ultimos activos publicados en <i>{{ application?.name }}</i></h2>
-        <div class="filters">
-            <ng-template appDynamicHost></ng-template>
-            <button mat-raised-button color="accent" class="search-button" (click)="getData()">{{ 'search' | translate }}</button>
-        </div>
-        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-            <ng-container [matColumnDef]="column.property" *ngFor="let column of template?.columns">
-                <mat-header-cell *matHeaderCellDef> {{ column.header }} </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{ resolve(column.property, element) }} </mat-cell>
-            </ng-container>
 
-            <ng-container matColumnDef="Operaciones">
-                <mat-header-cell *matHeaderCellDef> Operaciones </mat-header-cell>
-                <mat-cell *matCellDef="let element">
-                    <button class="icon-button" mat-icon-button color="accent" (click)="showDetails(element.id)">
-                        <mat-icon>search</mat-icon>
-                    </button>
-                </mat-cell>
-            </ng-container>
-            <mat-header-row *matHeaderRowDef="rowDefs"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: rowDefs"></mat-row>
+    <div *ngIf="template" class="container">
+        <app-breadcrumb></app-breadcrumb>
+        <div class="header">
+            <div class="titles">
+                <h1 class="title">{{ application?.company?.name }} | {{ application?.name }}</h1>
+                <h3 class="description">{{ application?.description }}</h3>
+            </div>
+            <mat-form-field class="search-by-id" appearance="outline" color="accent">
+                <mat-label>{{ 'searchById' | translate }}</mat-label>
+                <input type="text" matInput [(ngModel)]="assetId">
+                <button matSuffix mat-raised-button color="accent" (click)="showDetails(assetId)">
+                    {{ 'search' | translate }}
+                </button>
+            </mat-form-field>
+        </div>
+        <app-asset-stats *ngIf="template?.stats && template?.stats?.length && dataSource.data"
+            [stats]="template?.stats ?? []" [assets]="dataSource.data">
+        </app-asset-stats>
+        <div class="table">
+            <h2 class="title">Ultimos activos publicados en <i>{{ application?.name }}</i></h2>
+            <div class="filters">
+                <ng-template appDynamicHost></ng-template>
+                <button mat-raised-button color="accent" class="search-button" (click)="getData()">{{ 'search' |
+                        translate
+                }}</button>
+            </div>
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container [matColumnDef]="column.property" *ngFor="let column of template?.columns">
+                    <mat-header-cell class="main-theme-header" *matHeaderCellDef> {{ column.header }} </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{ resolve(column.property, element) }} </mat-cell>
+                </ng-container>
 
-        </mat-table>
-        <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+                <ng-container matColumnDef="Operaciones">
+                    <mat-header-cell class="main-theme-header" *matHeaderCellDef> Operaciones </mat-header-cell>
+                    <mat-cell *matCellDef="let element">
+                        <button class="icon-button" mat-icon-button color="accent" (click)="showDetails(element.id)">
+                            <span class="material-symbols-outlined">search</span>
+                        </button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="rowDefs"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: rowDefs"></mat-row>
+            </mat-table>
+            <mat-paginator [pageSizeOptions]="[10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
     </div>
-</div>
-<ng-template #gridSkeleton>
-    <div class="grid-skeleton">
-        <app-grid-skeleton></app-grid-skeleton>
-    </div>
-</ng-template>

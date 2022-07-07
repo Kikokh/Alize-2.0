@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { Roles } from "../../../components/models/column.models";
+import { Role } from "../../../models/role.model";
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class RolesService {
   }
 
   getRoles() {
-    return this._http.get<Roles[]>(this._baseUrl, this.httpOptions)
+    return this._http.get<Role[]>(this._baseUrl, this.httpOptions)
   }
 
   updateRole(id: string, active: boolean) {

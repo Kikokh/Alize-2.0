@@ -10,8 +10,9 @@ import { AssetDetailComponent } from './queries/assets/asset-detail/asset-detail
 import { AssetsComponent } from './queries/assets/assets.component';
 import { ChartsComponent } from './queries/charts/charts.component';
 import { QueriesComponent } from './queries/queries.component';
+import { QueryCardComponent } from './queries/query-card/query-card.component';
 @NgModule({
-  declarations: [QueriesComponent, AssetsComponent, AssetDetailComponent, ChartsComponent],
+  declarations: [QueriesComponent, AssetsComponent, AssetDetailComponent, ChartsComponent, QueryCardComponent],
   imports: [
     CommonModule,
     FormsModule,

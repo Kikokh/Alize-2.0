@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { RequestApplication } from 'src/app/components/models/application.model';
+import { Application } from 'src/app/models/application.model';
 
 @Component({
   selector: 'app-timer-pop-up',
@@ -32,7 +32,7 @@ export class TimerPopUpComponent {
   }
 
   onClick() {
-    let requestApplication = new RequestApplication();
+    let requestApplication = new Application();
     requestApplication.name = 'Nombre';
     requestApplication.importantInfo = 'Important Info';
     requestApplication.description = 'description';

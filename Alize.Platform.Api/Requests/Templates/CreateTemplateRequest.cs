@@ -6,5 +6,7 @@ namespace Alize.Platform.Api.Requests.Templates
     {
         [Required]
         public IEnumerable<CreateTemplateColumnRequest> Columns { get; set; }
+
+        public IEnumerable<CreateTemplateStatRequest>? Stats { get; set; }
     }
 }

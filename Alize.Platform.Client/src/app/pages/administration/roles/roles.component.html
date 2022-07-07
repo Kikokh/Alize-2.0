@@ -5,7 +5,7 @@
         </div>
         <div class="grid">
             <div *ngIf="!isLoading; else gridSkeleton">
-                <app-grid #dataTable [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.ROLES" [actions]="actions"></app-grid>
+                <app-grid [title]="'Administration' | translate" [subtitle]="'ListadoRoles' | translate" #dataTable [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.ROLES" [actions]="actions"></app-grid>
             </div>
             <ng-template #gridSkeleton>
                 <div class="grid-skeleton">

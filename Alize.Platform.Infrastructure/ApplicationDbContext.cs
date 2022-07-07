@@ -72,7 +72,16 @@ namespace Alize.Platform.Infrastructure
                     Id = Guid.Parse(Core.Constants.Blockchains.BlockchainFue),
                     Name = "FUE",
                     ApiUrl = "https://api-v22.blockchainfue.com/api/"
-                });
+                },
+                 new Blockchain
+                 {
+                     Id = Guid.Parse(Core.Constants.Blockchains.Alastria),
+                     Name = "Alastria",
+                     ApiUrl = "https://20.73.2.29:443/api/",
+                     RootUserName = "root",
+                     RootEncryptedPassword = "hfnqSR5BhccxGBclgTzR2Q=="
+                 }
+            );
         }
         private void SeedApplications(ModelBuilder builder)
         {
@@ -118,37 +127,79 @@ namespace Alize.Platform.Infrastructure
         private void SeedApplicationCredentials(ModelBuilder builder)
         {
             builder.Entity<ApplicationCredentials>().HasData(
+                // Blockchain FUE
+                // Calidad Mapex
                 new ApplicationCredentials
                 {
                     Id = Guid.Parse("864d7440-d42e-42e0-9e29-bac987a31028"),
                     ApplicationId = Guid.Parse("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"),
                     BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
                     Username = "60ffbe3ef24524680871dc75",
-                    EncriptedPassword = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436"
+                    EncryptedPassword = "fcc11ca743e9c7a0fd24b3dee879d5f9bba35864e28a1d7c2ef1a3813bbc5436"
                 },
+                // Huella de carbono
                 new ApplicationCredentials
                 {
                     Id = Guid.Parse("558ae1ca-63d2-4dd2-b18a-e80136d9315e"),
                     ApplicationId = Guid.Parse("de017cbb-fc9f-45e0-9f2c-c777a257fee7"),
                     BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
                     Username = "61e844e4f245240292cf8641",
-                    EncriptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d"
+                    EncryptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d"
                 },
+                // Montaje parabrisas
                 new ApplicationCredentials
                 {
                     Id = Guid.Parse("76053ad3-d72b-46c3-b4a0-691ed4d13ca6"),
                     ApplicationId = Guid.Parse("892494ab-f4f5-4b76-a2f8-aa1e042e6b87"),
                     BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
                     Username = "61e844e4f245240292cf8641",
-                    EncriptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d"
+                    EncryptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d"
                 },
+                // Trazabilidad Racks
                 new ApplicationCredentials
                 {
                     Id = Guid.Parse("86bbad1a-0653-44a0-8ca7-4b8458f80fde"),
                     ApplicationId = Guid.Parse("0f5bc658-7223-4c5a-b272-31e878f181d6"),
                     BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
                     Username = "6155a34df2452452c3c75a1a",
-                    EncriptedPassword = "1f893f83132b8b5946e4cb37d205fb0ba6314380020139b23e48e6c6f06037be"
+                    EncryptedPassword = "1f893f83132b8b5946e4cb37d205fb0ba6314380020139b23e48e6c6f06037be"
+                },
+                // Alastria
+                // Calidad Mapex
+                new ApplicationCredentials
+                {
+                    Id = Guid.Parse("0af7dff5-9b0f-448a-994a-ef8b54a68708"),
+                    ApplicationId = Guid.Parse("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"),
+                    BlockchainId = Guid.Parse(Core.Constants.Blockchains.Alastria),
+                    Username = "admin_kh_calidad_mapex",
+                    EncryptedPassword = "bSdT/34j9DB3VObnxn6wuQ=="
+                },
+                // Huella de carbono
+                new ApplicationCredentials
+                {
+                    Id = Guid.Parse("258ae1ca-63d2-4dd2-b18a-e80136d9315e"),
+                    ApplicationId = Guid.Parse("de017cbb-fc9f-45e0-9f2c-c777a257fee7"),
+                    BlockchainId = Guid.Parse(Core.Constants.Blockchains.Alastria),
+                    Username = "admin_kh_trazabilidad_ws",
+                    EncryptedPassword = "iC4glPRztsdBn/u1Ll6txQ=="
+                },
+                // Montaje parabrisas
+                new ApplicationCredentials
+                {
+                    Id = Guid.Parse("26053ad3-d72b-46c3-b4a0-691ed4d13ca6"),
+                    ApplicationId = Guid.Parse("892494ab-f4f5-4b76-a2f8-aa1e042e6b87"),
+                    BlockchainId = Guid.Parse(Core.Constants.Blockchains.Alastria),
+                    Username = "admin_kh_trazabilidad_ws",
+                    EncryptedPassword = "iC4glPRztsdBn/u1Ll6txQ=="
+                },
+                // Trazabilidad Racks
+                new ApplicationCredentials
+                {
+                    Id = Guid.Parse("26bbad1a-0653-44a0-8ca7-4b8458f80fde"),
+                    ApplicationId = Guid.Parse("0f5bc658-7223-4c5a-b272-31e878f181d6"),
+                    BlockchainId = Guid.Parse(Core.Constants.Blockchains.Alastria),
+                    Username = "admin_kh_racks",
+                    EncryptedPassword = "TLC+5AObeVZds5qQktvujQ=="
                 }
             );
         }

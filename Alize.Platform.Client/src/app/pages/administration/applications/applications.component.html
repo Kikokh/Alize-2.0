@@ -4,7 +4,7 @@
     </div>
     <div class="grid">
         <div *ngIf="!isLoading; else gridSkeleton">
-            <app-grid (add)="add($event)" (update)="update($event)" (delete)="delete($event)" [columns]="displayedColumns"
+            <app-grid [title]="'Administration' | translate" [subtitle]="'ListadoAplicaciones' | translate" (add)="add($event)" (update)="update($event)" (delete)="delete($event)" [columns]="displayedColumns"
             [elementData]="elementData" [entity]="entity" [actions]="actions"></app-grid>
         </div>
         <ng-template #gridSkeleton>

@@ -1,62 +1,53 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Modules } from 'src/app/constants/modules.constants';
-import { MaterialTheme } from 'src/app/models/theme.model';
 import { User } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/pages/login/services/login.service';
-import { ThemeEnum } from 'src/app/scss-variables/models/theme.enum';
-import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.scss']
+  styleUrls: ['./side-bar.component.scss'],
 })
-export class SideBarComponent implements OnInit {
+export class SideBarComponent {
   @Input() user?: User;
-  materialTheme = new MaterialTheme();
-  Modules = Modules;
+  @Input() isSideBarExpanded?: boolean;
+  @Output() openSideBarExpanded = new EventEmitter<boolean>();
+  
+  showMenuSideBarCollapsed: boolean;
 
-  public get theme(): typeof ThemeEnum {
-    return ThemeEnum;
-  }
+  Modules = Modules;
 
   get img(): string {
     return this.user ? this.user.companyLogo : '';
   }
 
+
   constructor(
     private _router: Router,
-    private _globalStylesService: GlobalStylesService,
+    private _localStorageService: LocalStorageService,
     private _loginService: LoginService
   ) { }
 
-  ngOnInit(): void {
-    this._globalStylesService.theme.subscribe(value => {
-      this.materialTheme.isPrimaryMain = (value === 'main-theme');
-      this.materialTheme.isDarkMode = (value === 'dark-theme');
-    });
-  }
 
   home() {
     this._router.navigate(['/home']);
+    this.showMenuSideBarCollapsed = false;
   }
 
-  getThemeTitle(): string {
-    if (this.materialTheme.isPrimaryMain) {
-      return 'main-theme-title';
-    } else {
-      return 'dark-theme-title';
-    }
+  getMenuMargin(): string {
+    return (this.isSideBarExpanded) ? 'mat-accordion-expanded' : 'mat-accordion-collapsed'
   }
 
-  getThemeSubtitle(): string {
-    if (this.materialTheme.isPrimaryMain) {
-      return 'main-theme-subtitle';
-    } else {
-      return 'dark-theme-subtitle';
-    }
+  showMenuNotExpanded() {
+    this.showMenuSideBarCollapsed = true;
+  }
+
+  expandMenu() {
+    this.isSideBarExpanded = true;
+    this.openSideBarExpanded.emit(true);
   }
 
   userCanAccessAdministration() {
@@ -65,5 +56,10 @@ export class SideBarComponent implements OnInit {
 
   userCanAccessModule(module: string): Observable<boolean> {
     return this._loginService.userCanAccessModule(module);
+  }
+
+  closeSession() {
+    this._localStorageService.removeItem('token');
+    window.location.reload();
   }
 }

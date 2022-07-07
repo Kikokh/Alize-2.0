@@ -10,7 +10,7 @@ namespace Alize.Platform.Core.Models
         public string BlockHash { get; set; }
 
         [JsonProperty(PropertyName = "data")]
-        public Dictionary<string, object> Data { get; set; }
+        public Dictionary<string, dynamic> Data { get; set; }
 
         [JsonProperty(PropertyName = "createdAt")]
         public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;

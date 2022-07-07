@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { MaterialTheme } from 'src/app/models/theme.model';
@@ -12,8 +12,9 @@ import { PasswordUserPopUpComponent } from '../../pop-up/users/password-user-pop
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.scss']
 })
-export class NavBarComponent {
-  @Output() isSideBarExpanded = new EventEmitter<any>();
+export class NavBarComponent implements OnChanges {
+  @Output() isSideBarExpanded = new EventEmitter<boolean>();
+  @Input() SideBarExpanded: boolean;
   @Input() user: User;
   currentLang: string;
   isExpanded = true;
@@ -21,7 +22,7 @@ export class NavBarComponent {
   isSideBarCollapsedEnabler = true;
 
   get img(): string {
-    return (this.user?.companyLogo);
+    return this.user ? this.user.companyLogo : '';
   }
 
   constructor(
@@ -34,9 +35,13 @@ export class NavBarComponent {
 
     this.currentLang = (currentLang !== null) ? currentLang : 'en';
   }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    this.isExpanded = changes.SideBarExpanded.currentValue;
+  }
 
   handleSideBarToggle() {
-    this.isSideBarExpanded.emit();
+    this.isSideBarExpanded.emit(this.isExpanded = !this.isExpanded);
 
     this._globalStylesService.theme.subscribe(value => {
       this.materialTheme.isPrimaryMain = (value === 'main-theme');
