@@ -7,5 +7,7 @@
         public IEnumerable<CreateTemplateFieldRequest>? Fields { get; set; }
 
         public IEnumerable<CreateTemplateStepRequest>? Steps { get; set; }
+
+        public bool? HasVideo { get; set; }
     }
 }

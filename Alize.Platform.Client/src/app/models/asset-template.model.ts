@@ -5,5 +5,6 @@ import { TemplateStep } from "./template-step.model";
 export class AssetTemplate {
     columns?: TemplateColumn[];
     steps?: TemplateStep[];
-    fields?: TemplateField[]
+    fields?: TemplateField[];
+    hasVideo?: boolean;
 }

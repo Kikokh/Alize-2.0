@@ -1,10 +1,6 @@
-.flex {
-    display: flex;
-}
-
 .container {
     padding: 15px;
-    color: #73879c;
+    color: #ffffff;
 
     .title {
         font-size: 2rem;
@@ -13,32 +9,26 @@
 
     .details {
         align-items: baseline;
+        display: flex;
+        flex-direction: column;
 
         .date {
-            background: #ccc;
-            margin: 0 10px;
-            border-radius: 10px;
-            padding: 5px 10px;
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 156.3%;
+            text-align: center;
+            color: #f2f9ff;
+            text-align: center;
 
             .day,
             .year {
-                text-align: center;
-                color: #fff;
-                font-size: 27px;
-                margin: 0;
-                line-height: 27px;
-                font-weight: bold;
-            }
-
-            .month {
-                margin: 0;
-                text-align: center;
-                color: #fff;
+                font-size: 36px;
             }
         }
 
         .properties {
             flex-direction: column;
+            display: flex;
         }
     }
 
@@ -77,6 +67,10 @@
     }
 }
 
+.wrap {
+    flex-wrap: wrap;
+}
+
 :host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: transparent !important;
-  }
+}

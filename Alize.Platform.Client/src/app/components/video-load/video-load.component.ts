@@ -8,6 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-video-load',
@@ -18,16 +19,16 @@ export class VideoLoadComponent implements OnInit, AfterViewInit {
   @Input() url: string;
   @Input() type: string;
   @Input() title: string;
-  @Input() width: number =640;
-  @Input() height: number =267;
-  @Input() showControls:boolean = false;
+  @Input() width: number = 640;
+  @Input() height: number = 480;
+  @Input() showControls: boolean = false;
 
   videoUrl: string | null;
   @ViewChild('videoPlayer', { static: false }) videoplayer: ElementRef;
   isPlay: boolean = false;
-  dataSetup = { aspectRatio:`${this.width}:${this.height}`, "playbackRates": [1, 1.5, 2] }
+  dataSetup = { aspectRatio: `${this.width}:${this.height}`, "playbackRates": [1, 1.5, 2] }
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.videoUrl = this.sanitizer.sanitize(SecurityContext.URL, this.url);
@@ -37,7 +38,7 @@ export class VideoLoadComponent implements OnInit, AfterViewInit {
     const myVideo: any = document.getElementById('my_video_1');
     myVideo.height = this.height;
     myVideo.width = this.width;
-    this.changeRatio(myVideo.width,myVideo.height);
+    this.changeRatio(myVideo.width, myVideo.height);
   }
 
   toggleVideo(event: any) {
@@ -54,15 +55,15 @@ export class VideoLoadComponent implements OnInit, AfterViewInit {
     var myVideo: any = document.getElementById('my_video_1');
     myVideo.width += 20;
     myVideo.height += 20;
-    this.changeRatio(myVideo.width,myVideo.height);
+    this.changeRatio(myVideo.width, myVideo.height);
   }
 
   makeSmall() {
     var myVideo: any = document.getElementById('my_video_1');
     myVideo.width -= 20;
     myVideo.height -= 20;
-    this.changeRatio(myVideo.width,myVideo.height);
-    }
+    this.changeRatio(myVideo.width, myVideo.height);
+  }
 
   makeNormal() {
     var myVideo: any = document.getElementById('my_video_1');
@@ -80,9 +81,9 @@ export class VideoLoadComponent implements OnInit, AfterViewInit {
     video.currentTime = 0;
   }
 
-  changeRatio(width: number,height: number) {
+  changeRatio(width: number, height: number) {
     this.dataSetup.aspectRatio = `${width}:${height}`;
     const myVideo: any = document.getElementById('my_video_1');
-    myVideo.dataset.setup =  JSON.stringify(this.dataSetup);
+    myVideo.dataset.setup = JSON.stringify(this.dataSetup);
   }
 }

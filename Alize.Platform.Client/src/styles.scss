@@ -14,15 +14,12 @@ app-layout {
 
 body {
   background: #f0f0f0;
-  font-family: Poppins, 'Helvetice New', 'Arial', sans-serif;
+  font-family: Poppins, "Helvetice New", "Arial", sans-serif;
 }
-
-
 
 .error-form-message {
   color: red;
 }
-
 
 .mat-table {
   width: 100%;
@@ -49,4 +46,16 @@ body {
 
 .mat-header-cell {
   padding: 10px 5px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
 }
