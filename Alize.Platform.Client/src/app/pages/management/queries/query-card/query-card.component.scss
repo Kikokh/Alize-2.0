@@ -1,6 +1,9 @@
 .card {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 195px;
   font-family: 'Poppins';
-  background-image: linear-gradient(#384261, #4d5763);
+  background-image: linear-gradient(#38426180, #4d576380);
   color: white;
   cursor: pointer;
   border-radius: 10px;
