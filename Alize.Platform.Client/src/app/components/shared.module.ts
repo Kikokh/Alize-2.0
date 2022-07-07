@@ -30,6 +30,7 @@ import { SearchComponent } from './search/search.component';
 import { GridSkeletonComponent } from './skeleton/grid-skeleton/grid-skeleton.component';
 import { TotalizatorComponent } from './totalizator/totalizator.component';
 import { VideoLoadComponent } from './video-load/video-load.component';
+import { AssetStatsComponent } from './asset-stats/asset-stats.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { VideoLoadComponent } from './video-load/video-load.component';
     EncryptionPopUpComponent,
     AssetDetailTableComponent,
     AssetDetailStepperComponent,
-    VideoLoadComponent
+    VideoLoadComponent,
+    AssetStatsComponent
   ],
   imports: [
     CommonModule,
@@ -82,7 +84,8 @@ import { VideoLoadComponent } from './video-load/video-load.component';
     FormErrorComponent,
     AssetDetailTableComponent,
     AssetDetailStepperComponent,
-    VideoLoadComponent
+    VideoLoadComponent,
+    AssetStatsComponent
   ],
 })
 export class SharedModule {}

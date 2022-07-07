@@ -25,7 +25,6 @@ export class AssetsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
   application: Application
-  assets: Asset[];
   dataSource = new MatTableDataSource<Asset>();
   template: ApplicationTemplate;
   filters: Map<string, string>;

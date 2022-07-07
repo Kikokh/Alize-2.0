@@ -6,6 +6,8 @@ namespace Alize.Platform.Core.Models
     {
         public IEnumerable<TemplateColumn> Columns { get; set; }
 
+        public IEnumerable<TemplateStat>? Stats { get; set; }
+
         public override string Type => ApplicationItemTypes.ApplicationTemplate;
     }
 }

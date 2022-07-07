@@ -93,11 +93,13 @@ namespace Alize.Platform.Api.Mapping
             CreateMap<ApplicationTemplate, ApplicationTemplateResponse>();
             CreateMap<AssetTemplate, AssetTemplateResponse>();
             CreateMap<TemplateStep, TemplateStepResponse>();
+            CreateMap<TemplateStat, TemplateStatResponse>();
             CreateMap<CreateTemplateColumnRequest, TemplateColumn>();
             CreateMap<CreateTemplateRequest, ApplicationTemplate>();
             CreateMap<CreateTemplateFieldRequest, TemplateField>();
             CreateMap<CreateAssetTemplateRequest, AssetTemplate>();
             CreateMap<CreateTemplateStepRequest, TemplateStep>();
+            CreateMap<CreateTemplateStatRequest, TemplateStat>();
         }
     }
 }
