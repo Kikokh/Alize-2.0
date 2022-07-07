@@ -45,7 +45,6 @@ app-select {
 
         .title {
             color: #73879c;
-            font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
             font-size: 18px;
             font-weight: 400;
             line-height: 1.471;
@@ -61,21 +60,13 @@ app-select {
         }
 
         .mat-table {
-            .main-theme-header {
-                background: #217280;
-                box-shadow: 0px -1px 10px rgba(154, 180, 193, 0.1);
-                color: #ffffff;
-                font-weight: 700;
-                font-size: 16px;
-                line-height: 24px;
-            }
 
             .main-theme-header {
                 background: #217280;
                 box-shadow: 0px -1px 10px rgba(154, 180, 193, 0.1);
                 color: #ffffff;
                 font-weight: 700;
-                font-size: 16px;
+                font-size: 14px;
                 line-height: 24px;
             }
         }
@@ -94,8 +85,8 @@ app-select {
         white-space: nowrap;
         overflow: hidden;
         vertical-align: middle;
-        font-weight: 700;
-        font-size: 16px;
+        font-weight: 400;
+        font-size: 14px;
         line-height: 24px;
         background: rgba(89, 129, 152, 0.4);
     }
