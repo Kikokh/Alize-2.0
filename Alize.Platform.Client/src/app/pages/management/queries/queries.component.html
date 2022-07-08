@@ -5,7 +5,7 @@
             <app-breadcrumb></app-breadcrumb>
         </div>
          <div class="query-cards_container">
-            <app-query-card *ngFor="let application of elementData; let i = index" [application]="application" (click)="goToAssets(application.id)" ></app-query-card>
+            <app-query-card *ngFor="let application of elementData; let i = index" [application]="application" (click)="goToAssets($event, application.id)" ></app-query-card>
          </div>
     </div>
 </div>
