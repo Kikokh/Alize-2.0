@@ -50,6 +50,12 @@ export class SideBarComponent {
     this.openSideBarExpanded.emit(true);
   }
 
+  hideOptItem () {
+    this.showMenuSideBarCollapsed = false;
+    this.isSideBarExpanded = true;
+    this.openSideBarExpanded.emit(true);
+  }
+
   userCanAccessAdministration() {
     return this._loginService.userCanAccessAdministration();
   }
