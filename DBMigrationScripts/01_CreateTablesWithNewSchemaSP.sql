@@ -44,7 +44,7 @@ FROM
 				 FROM sys.tables t
 				 join sys.schemas s
 				 ON t.schema_id = s.schema_id
-				 WHERE CHARINDEX('|'+t.name+'|', @TablesToMigrate) > 0 ) t
+				 WHERE t.name IN (SELECT Value FROM #TablesToCheck) ) t
              ON c.object_id = t.object_id
              GROUP BY s_name, t.name) t
 	   JOIN
@@ -146,6 +146,7 @@ SELECT (CASE WHEN rownum = 1 THEN 'CREATE TABLE ['+s_name+'].['+t_name+'_NEW] ('
                         WHEN datatype = 'FLOAT' AND precision <> 24 THEN UPPER(datatype+'('+cast(precision as varchar)+')')
                         WHEN datatype IN ('NUMERIC', 'DECIMAL') AND scale = 0 THEN UPPER(datatype+'('+cast(precision as varchar)+')')
                         WHEN datatype IN ('NUMERIC', 'DECIMAL') AND scale > 0 THEN UPPER(datatype+'('+cast(precision as varchar)+','+cast(scale as varchar)+')')
+						WHEN c_name LIKE '%_Id' THEN 'UNIQUEIDENTIFIER'
                         ELSE UPPER(datatype) END)+' '+
                   --(CASE WHEN c.identity_seed IS NOT NULL
                   --      THEN 'IDENTITY(' + CAST(identity_seed AS VARCHAR) + ',' + CAST(identity_increment AS VARCHAR) + ') '
@@ -155,7 +156,7 @@ SELECT (CASE WHEN rownum = 1 THEN 'CREATE TABLE ['+s_name+'].['+t_name+'_NEW] ('
                         THEN ' DEFAULT '+default_definition ELSE '' END) +
                   (CASE WHEN max_column_id = column_id AND pk_name IS NULL THEN '' ELSE ',' END)
             WHEN rownum = max_column_id + 2 and pk_name IS NOT NULL
-            THEN '  PRIMARY KEY ([Id])'
+            THEN FORMATMESSAGE('  CONSTRAINT [PK_%s.%s_NEW] PRIMARY KEY (%s)', s_name, t_name, pk_columns)
             WHEN rownum = max_column_id + 3 THEN ')'
             WHEN rownum = max_column_id + 4 THEN 'GO'
             WHEN rownum = max_column_id + 5 THEN ''
