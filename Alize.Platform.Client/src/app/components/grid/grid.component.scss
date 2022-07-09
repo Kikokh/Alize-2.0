@@ -46,6 +46,7 @@
 
         .table-container {
             margin: 40px auto;
+            overflow: auto;
 
             .mat-table {
                 .main-theme-header {
@@ -56,6 +57,7 @@
 
                 td {
                     border-radius: 5px;
+                    white-space: normal;
 
                     .operation-column {
                         .icon-button {
