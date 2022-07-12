@@ -102,6 +102,7 @@
   "Provincia": "Province",
   "Pais": "Country",
   "MapUrl": "Map Url",
+  "showTable": "Show table",
   "errors": {
     "saveUser": "Error saving user",
     "updateUser": "Error updating user"

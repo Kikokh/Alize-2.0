@@ -14,14 +14,19 @@
                         {{ field.header }}: {{ resolve(field.property, asset) }}
                     </span>
                 </div>
+                <div class="button-wrapper" *ngIf="assetTemplate?.hasVideo">
+                  <button mat-stroked-button (click)="tableClick()">{{'showTable' | translate}}</button>
+                </div>
             </div>
             <div *ngIf="assetTemplate?.hasVideo">
                 <app-video-load [url]="videoUri"></app-video-load>
             </div>
         </div>
-        <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length && !assetTemplate?.hasVideo"
+        <div *ngIf="showTable">
+          <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length && !assetTemplate?.hasVideo"
             [tableTemplate]="assetTemplate?.columns ?? []">
-        </app-asset-detail-table>
+          </app-asset-detail-table>
+        </div>
         <app-asset-detail-stepper *ngIf="assetTemplate?.steps && assetTemplate?.steps?.length"
             [stepperTemplate]="assetTemplate?.steps ?? []">
         </app-asset-detail-stepper>
