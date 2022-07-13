@@ -1,33 +1,37 @@
-@use "src/app/scss-variables/variables" as c;
-
 // Activate this styles to put image background
-// background-image: url(../../../../assets/backgroudImage.png);
-// background-position: center;
-// background-size: cover;
-// background-repeat: no-repeat;
-
 
 .login-form {
-    max-width: 450px;
+    background-image: url(../../../../assets/login.png);
+    background-size: cover;
+    height: 100%;
     display: flex;
-    margin: auto;
+    flex-direction: column;
     align-items: center;
-    background-color: transparent;
-    display: flex;
     justify-content: center;
-    align-items: center;
 
     mat-card {
-        width: 100%;
+        background-color: transparent;
+        background: #1E4A64;
+        width: 570px;
+        height: 680px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
         padding: 50px 50px 50px 50px;
         border-radius: 8px 8px 8px 8px;
+
+        .example-full-width {
+            width: 80%;
+        }
 
         mat-card-header {
             display: flex;
             flex-direction: column;
+
+            img {
+                width: 500px;
+            }
         }
 
         form {
@@ -54,19 +58,17 @@
 
                 button {
                     margin-top: 10px;
-                    // background-color: c.$primary-color;
-                    width: 50%;
-                    height: 60px;
-                    font-size: 15px;
-                    border-radius: 30px 30px 30px 30px;
-                }
-
-                .login-btn {
-                    margin-top: 10px;
-                    // background-color: c.$primary-color;
-                    width: 50%;
-                    height: 60px;
+                    width: 223px;
+                    height: 43px;
+                    font-family: 'Poppins';
+                    font-style: normal;
+                    font-weight: 400;
                     font-size: 20px;
+                    line-height: 30px;
+                    color: #FFFFFF;
+                    border-radius: 30px 30px 30px 30px;
+                    background: #142636;
+                    border-bottom: 1px solid #FFFFFF;
                 }
 
                 a {
@@ -78,24 +80,42 @@
 
         mat-card-footer {
             text-align: center;
-            color: grey;
+            font-family: 'Poppins';
+            font-style: normal;
+            font-weight: 300;
+            font-size: 21.4506px;
+            line-height: 32px;
+            color: #FFFFFF;
+            margin-top: 30px;
         }
     }
 }
 
 
-.dark-theme-background {
-    background-color: #222;
-}
 
-.main-theme-background {
-    background-color: #f0f0f0;
-}
-
-.login-form {
-    margin: 0 auto;
-
-    .example-full-width {
-        width: 80%;
+:host ::ng-deep .login-mat-form {
+    .mat-form-field-outline {
+        color: transparent;
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.47), inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+        height: 68px;
     }
+
+    .mat-focused {
+        /*change color of label*/
+        color: transparent;
+        background-color:  red;
+    }
+
+}
+
+
+:host ::ng-deep .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: transparent;
+}
+
+//mat-input focused color
+:host  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: transparent!important;
 }

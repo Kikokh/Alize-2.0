@@ -27,8 +27,6 @@ export class GridComponent implements OnInit, AfterViewInit {
     this.dataSource.data = value;
   }
   @Input() entity: EntityType;
-  @Input() title: string;
-  @Input() subtitle: string;
   @Input() actions?: IOperationsModel[];
   // @Input() subTitle: string = '';
 

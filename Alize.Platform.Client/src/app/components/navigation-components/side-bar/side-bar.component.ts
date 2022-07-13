@@ -1,23 +1,39 @@
-import { Component, EventEmitter, Input, Output, } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, QueryList, SimpleChanges, ViewChild, ViewChildren, } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatAccordion, MatExpansionPanel } from '@angular/material/expansion';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Modules } from 'src/app/constants/modules.constants';
 import { User } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/pages/login/services/login.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { ModePopUpType } from '../../pop-up/models/entity-type.enum';
+import { PasswordUserPopUpComponent } from '../../pop-up/users/password-user-pop-up/password-user-pop-up.component';
+import { PasswordService } from '../../pop-up/users/services/password.service';
 
 @Component({
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss'],
 })
-export class SideBarComponent {
+export class SideBarComponent implements AfterViewInit, OnChanges {
   @Input() user?: User;
   @Input() isSideBarExpanded?: boolean;
+  firstChange = true;
+  showSubMenuProp = false;
   @Output() openSideBarExpanded = new EventEmitter<boolean>();
-  
-  showMenuSideBarCollapsed: boolean;
+  @ViewChild(MatAccordion) accordion: MatAccordion;
+  @ViewChildren(MatExpansionPanel) matExpansionPanel: QueryList<MatExpansionPanel>;
 
+  private dialogRef: MatDialogRef<PasswordUserPopUpComponent>;
+
+  panelOpenStateAdm = false;
+  panelOpenStateManag = false;
+  panelState = false;
+  homePanel = false;
+  closeOptPanel = false;
   Modules = Modules;
 
   get img(): string {
@@ -28,32 +44,81 @@ export class SideBarComponent {
   constructor(
     private _router: Router,
     private _localStorageService: LocalStorageService,
-    private _loginService: LoginService
+    private _loginService: LoginService,
+    private _dialog: MatDialog,
+    private _passwordService: PasswordService,
+    private _snackBarService: SnackBarService,
   ) { }
 
-
-  home() {
-    this._router.navigate(['/home']);
-    this.showMenuSideBarCollapsed = false;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.isSideBarExpanded.currentValue === false) {
+      this.panelOpenStateManag = false;
+      this.panelOpenStateAdm = false;
+    }
   }
 
-  getMenuMargin(): string {
-    return (this.isSideBarExpanded) ? 'mat-accordion-expanded' : 'mat-accordion-collapsed'
+  ngAfterViewInit(): void {
+    this.accordion.closeAll();
   }
 
-  showMenuNotExpanded() {
-    this.showMenuSideBarCollapsed = true;
+
+  handleMenu(itemMenu: string) {
+    if (itemMenu === 'Home') {
+      this._router.navigate(['/home']);
+      this.panelOpenStateManag = false;
+      this.panelOpenStateAdm = false;
+      this.homePanel = true;
+    } else if (itemMenu === 'Administracion') {
+      this.panelOpenStateAdm = true;
+      this.panelOpenStateManag = false;
+      this.homePanel = false;
+    } else {
+      this.panelOpenStateManag = true;
+      this.panelOpenStateAdm = false;
+      this.homePanel = false;
+    }
   }
+
 
   expandMenu() {
     this.isSideBarExpanded = true;
     this.openSideBarExpanded.emit(true);
   }
 
-  hideOptItem () {
-    this.showMenuSideBarCollapsed = false;
-    this.isSideBarExpanded = true;
-    this.openSideBarExpanded.emit(true);
+  closePanelOpt() {
+    if (!this.isSideBarExpanded) {
+      this.matExpansionPanel.forEach(panel => {
+        panel.close();
+      });
+    }
+  }
+
+  showPasswordPopUp(nombre?: string) {
+    this.dialogRef = this._dialog.open(PasswordUserPopUpComponent, {
+      data: {
+        nombre: nombre,
+        mode: ModePopUpType.EDIT
+      }
+    });
+
+    this.dialogRef.afterClosed().pipe(
+      map(passwordModel => {
+        if (passwordModel) {
+          this._passwordService.updatePassword(passwordModel).pipe()
+        };
+      })).subscribe({
+        next: (applications) => {
+          this._snackBarService.showSnackBar('Password actualizada con éxito.');
+        },
+        error: () => {
+          this._snackBarService
+            .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
+        }
+      });
+  }
+
+  getMenuMargin(): string {
+    return (this.isSideBarExpanded) ? 'mat-accordion-expanded' : 'mat-accordion-collapsed'
   }
 
   userCanAccessAdministration() {

@@ -14,6 +14,7 @@
         button {
             margin: 25px auto;
             height: 50%;
+            background: #217280;
         }
 
         div {
@@ -29,6 +30,11 @@
 
         .toolbar {
             margin: 0 auto;
+
+            button {
+                background: #217280;
+                color: #ffffff;
+            }
 
             div {
                 display: flex;
@@ -112,7 +118,7 @@
     white-space: nowrap;
     overflow: hidden;
     vertical-align: middle;
-    font-weight: 400;
+    font-weight: 600;
     font-size: 14px;
     line-height: 24px;
 }

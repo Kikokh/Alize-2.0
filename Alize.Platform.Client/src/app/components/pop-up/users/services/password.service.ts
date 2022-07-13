@@ -22,13 +22,6 @@ export class PasswordService {
       ConfirmPassword: passwordModel.repeatPassword
     }
 
-    this.progressSpinnerService.open();
-    return this._http.put<any>(`${this._baseUrl}/Users/Me/Password`, body).pipe(
-      tap(data => {
-      }),
-      finalize(() => {
-        this.progressSpinnerService.close();
-      })
-    );
+    return this._http.put<any>(`${this._baseUrl}/Users/Me/Password`, body).pipe();
   }
 }

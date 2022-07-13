@@ -38,15 +38,13 @@ export class LoginService {
     private _http: HttpClient,
     private _localStorageService: LocalStorageService) { }
 
-  login(loginData: LoginData) {
+  login(loginData: LoginData, isLoading: boolean) {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'accept': '*/*'
       })
     };
-
-    this._loadingService.startLoading();
 
     return this._http.post<any>(`${this._baseUrl}/Users/Login`, loginData, httpOptions).pipe(
       tap(data => this._localStorageService.addItem('token', data.accessToken)),
@@ -56,7 +54,7 @@ export class LoginService {
         this._localStorageService.addItem('user', JSON.stringify(user))
       }),
       finalize(() => {
-        this._loadingService.stopLoading();
+        isLoading = false;
       })
     );
   }

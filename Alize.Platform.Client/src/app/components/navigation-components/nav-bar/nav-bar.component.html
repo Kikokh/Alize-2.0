@@ -1,13 +1,7 @@
 <mat-toolbar>
-  <div class="logo" *ngIf="!isExpanded">
-    <img class="app-img" src="../../../../assets/logo-alice-blanco.png" alt="">
-  </div>
   <button color="accent" mat-icon-button class="button-expand-menu" (click)="handleSideBarToggle()"
     aria-label="Example icon-button with menu icon">
-    <span class="material-symbols-outlined" *ngIf="!isExpanded">
-      keyboard_double_arrow_right
-    </span>
-    <span class="material-symbols-outlined" *ngIf="isExpanded">
+    <span class="material-symbols-outlined arrow" [ngClass]="{'expanded': !isExpanded}">
       keyboard_double_arrow_left
     </span>
   </button>

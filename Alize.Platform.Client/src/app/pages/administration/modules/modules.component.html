@@ -3,9 +3,13 @@
         <div class="breadcrumb">
             <app-breadcrumb></app-breadcrumb>
         </div>
+        <div class="sub-header">
+            <p class="title">{{ 'Administration' | translate }}</p>
+            <p class="sub-title">{{ 'ListadoModulos' | translate }}</p>
+        </div>
         <div class="grid">
             <div *ngIf="!isLoading; else gridSkeleton">
-                <app-grid [title]="'Administration' | translate" [subtitle]="'ListadoModulos' | translate" [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions"
+                <app-grid [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions"
                     title="Administracion" subTitle="ListadoModulos">
                 </app-grid>
             </div>

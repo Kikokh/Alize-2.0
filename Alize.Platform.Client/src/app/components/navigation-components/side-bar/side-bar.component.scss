@@ -5,10 +5,15 @@
 .sidebar-container {
     display: flex;
     flex-direction: column;
-
     &>.logo {
         height: 60px;
-        margin: 40px auto;
+        margin: 40px;
+        position: fixed;
+        overflow: visible;
+
+        &.foo {
+            margin-left: 100px;
+        }
 
         &>img {
             margin: 0 auto;
@@ -18,6 +23,8 @@
 
 
     .mat-accordion-expanded {
+        margin-top: 140px;
+
         .nav-menu {
             background-color: $blue-background;
             color: mat-color($my-primary) !important;
@@ -107,6 +114,9 @@
 
 }
 
+.info-user {
+    display:none
+}
 ::ng-deep .mat-menu-content {
     background-color: #409396;
 }

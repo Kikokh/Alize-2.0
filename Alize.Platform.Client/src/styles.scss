@@ -12,6 +12,11 @@ app-layout {
   justify-content: center;
 }
 
+app-login {
+  height: 100%;
+  width: 100%;
+}
+
 body {
   background: #f0f0f0;
   font-family: Poppins, "Helvetice New", "Arial", sans-serif;
@@ -33,7 +38,7 @@ body {
 .main-theme {
   .mat-form-field {
     color: rgba(0, 0, 0, 0.87);
-    
+
     &.mat-focused {
       .mat-form-field-label {
         color: rgb(0, 0, 0, 0.6);

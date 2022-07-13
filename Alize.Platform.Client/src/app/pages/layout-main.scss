@@ -14,3 +14,22 @@
     align-items: center;
     justify-content: center;
 }
+
+.sub-header {
+    display: flex;
+    margin-top: 40px;
+    color: #ffffff;
+    .title {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 32px;
+    }
+
+    .sub-title {
+        font-family: 'Poppins';
+        font-size: 26px;
+        margin-left: 20px;
+        line-height: 85%;
+    }
+}
