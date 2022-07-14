@@ -1,16 +1,16 @@
 
     <div class="container" *ngIf="assetTemplate">
         <app-breadcrumb></app-breadcrumb>
-        <div class="flex wrap">
+        <div class="flex">
             <div *ngIf="asset" class="details flex flex-column">
                 <h1 class="date">
                     <span class="day">{{ day }} </span>
                     <span class="month"> {{ month | uppercase }} </span>
                     <span class="year"> {{ year }}</span>
                 </h1>
-                <div class="properties flex">
-                    <h4>{{ asset?.id }}</h4>
-                    <span *ngFor="let field of assetTemplate?.fields">
+                <div class="properties">
+                    <h4 class="size" >{{ asset?.id }}</h4>
+                    <span class="size" *ngFor="let field of assetTemplate?.fields">
                         {{ field.header }}: {{ resolve(field.property, asset) }}
                     </span>
                 </div>
@@ -21,15 +21,16 @@
             <div *ngIf="assetTemplate?.hasVideo">
                 <app-video-load [url]="videoUri"></app-video-load>
             </div>
+            <div>
+                <app-asset-detail-stepper *ngIf="assetTemplate?.steps && assetTemplate?.steps?.length"
+                [stepperTemplate]="assetTemplate?.steps ?? []">
+                </app-asset-detail-stepper>
+            </div>
         </div>
         <div *ngIf="showTable">
           <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length && !assetTemplate?.hasVideo"
             [tableTemplate]="assetTemplate?.columns ?? []">
-          </app-asset-detail-table>
-        </div>
-        <app-asset-detail-stepper *ngIf="assetTemplate?.steps && assetTemplate?.steps?.length"
-            [stepperTemplate]="assetTemplate?.steps ?? []">
-        </app-asset-detail-stepper>
+        </app-asset-detail-table>
         <div class="alert-container">
             <button mat-raised-button class="alert-bar-button">
                 <div class="button-container">

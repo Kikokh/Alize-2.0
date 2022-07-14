@@ -11,15 +11,21 @@
         align-items: baseline;
         display: flex;
         flex-direction: column;
-        position: relative;
+        background: rgb(0,0,0,0.2);
+        padding-left: 1rem;
+        margin-right: 1rem;
+        flex: 1;
+        text-overflow: ellipsis;
+        
 
         .date {
-            font-weight: 700;
+            font-weight: 500;
             font-size: 24px;
             line-height: 156.3%;
             text-align: center;
-            color: #f2f9ff;
+            color: #fff;
             text-align: center;
+            padding-top: 2rem;
 
             .day,
             .year {
@@ -30,6 +36,11 @@
         .properties {
             flex-direction: column;
             display: flex;
+            padding-right: 1rem;
+        }
+
+        .size{
+            font-size: 14px;
         }
 
         .button-wrapper {
@@ -78,9 +89,6 @@
   border-color: #ffffff !important;
 }
 
-.wrap {
-    flex-wrap: wrap;
-}
 
 :host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: transparent !important;
