@@ -20,6 +20,7 @@ export class AssetDetailComponent implements OnInit {
   asset: Asset;
   isLoading: boolean;
   videoUri: string;
+  showTable: boolean =false;
 
   get day(): number {
     return new Date(this.asset?.createdAt).getDate();
@@ -57,6 +58,9 @@ export class AssetDetailComponent implements OnInit {
         this.asset = responses[1];
         this.videoUri = responses[2];
         this.isLoading = false;
+        if (!this.assetTemplate || !this.assetTemplate?.hasVideo) {
+          this.showTable = true;
+        }
       },
       complete: () => this._loadingService.stopLoading()
     });
@@ -79,5 +83,9 @@ export class AssetDetailComponent implements OnInit {
   resolve(path: any, obj: any, separator = '.') {
     var properties = Array.isArray(path) ? path : path.split(separator)
     return properties.reduce((prev: any, curr: any) => prev && prev[curr], obj)
+  }
+
+  tableClick() {
+    this.showTable = !this.showTable;
   }
 }

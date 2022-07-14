@@ -11,6 +11,7 @@
         align-items: baseline;
         display: flex;
         flex-direction: column;
+        position: relative;
 
         .date {
             font-weight: 700;
@@ -29,6 +30,11 @@
         .properties {
             flex-direction: column;
             display: flex;
+        }
+
+        .button-wrapper {
+          position: absolute;
+          bottom: 2%;
         }
     }
 
@@ -67,10 +73,27 @@
     }
 }
 
+
+.button-wrapper .mat-stroked-button {
+  border-color: #ffffff !important;
+}
+
 .wrap {
     flex-wrap: wrap;
 }
 
 :host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: transparent !important;
+}
+
+
+@media (max-width: 1611px) {
+  .container {
+    .details {
+    margin-bottom: 35px;
+      .button-wrapper {
+        bottom: -18%;
+      }
+    }
+  }
 }
