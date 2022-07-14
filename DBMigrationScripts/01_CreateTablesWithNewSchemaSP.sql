@@ -146,7 +146,7 @@ SELECT (CASE WHEN rownum = 1 THEN 'CREATE TABLE ['+s_name+'].['+t_name+'_NEW] ('
                         WHEN datatype = 'FLOAT' AND precision <> 24 THEN UPPER(datatype+'('+cast(precision as varchar)+')')
                         WHEN datatype IN ('NUMERIC', 'DECIMAL') AND scale = 0 THEN UPPER(datatype+'('+cast(precision as varchar)+')')
                         WHEN datatype IN ('NUMERIC', 'DECIMAL') AND scale > 0 THEN UPPER(datatype+'('+cast(precision as varchar)+','+cast(scale as varchar)+')')
-						WHEN c_name LIKE '%_Id' THEN 'UNIQUEIDENTIFIER'
+						WHEN c_name LIKE '%[_]Id' THEN 'UNIQUEIDENTIFIER'
                         ELSE UPPER(datatype) END)+' '+
                   --(CASE WHEN c.identity_seed IS NOT NULL
                   --      THEN 'IDENTITY(' + CAST(identity_seed AS VARCHAR) + ',' + CAST(identity_increment AS VARCHAR) + ') '
