@@ -37,7 +37,7 @@ BEGIN
 
 	IF @Columns IS NOT NULL
 	BEGIN
-		SET @Cmd_Columns = (SELECT FORMATMESSAGE('sp_RENAME ''%s.%s'' , ''%s.Id''',@TableNm_New, @Columns, @TableNm_New))
+		SET @Cmd_Columns = (SELECT FORMATMESSAGE('ALTER TABLE %s DROP COLUMN %s',@TableNm_New, @Columns))
 		EXEC (@Cmd_Columns)
 	END
 
