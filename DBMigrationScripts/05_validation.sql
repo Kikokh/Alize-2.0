@@ -36,7 +36,7 @@ BEGIN
 		SELECT * FROM %s
 		EXCEPT
 		SELECT * FROM %s)',@TableNm_Old, @TableNm_New))
-		EXEC (@Cmd)
+	EXEC (@Cmd)
 
 	IF @Error_Validation IS NULL RAISERROR(N' Validation Failed', 16, 1);
 	
