@@ -32,7 +32,7 @@ ORDER BY 1
 
 SELECT A.s_name, A.t_name, A.rownum, A.max_column_id, C.column_id, C.c_name, C.datatype, C.systemtype,
 C.length, C.precision, C.scale, C.is_nullable, C.default_definition, C.identity_seed,
-C.identity_increment, PK.pk_name, PK.pk_columns
+C.identity_increment, PK.pk_name, PK.pk_columns, C.[is_FK_column]
 INTO #GetCurrentTablesInfo
 FROM
 	  (SELECT t.s_name, t.t_name, rownum, max_column_id
@@ -51,7 +51,8 @@ FROM
 		(SELECT ROW_NUMBER() OVER (ORDER BY object_id) as rownum FROM sys.columns c) ctr
        ON ctr.rownum <= t.max_column_id + 5) A
 LEFT JOIN
-      (SELECT t.name as t_name, c.column_id, c.name AS c_name, u.name as datatype,
+      (SELECT DISTINCT
+			  t.name as t_name, c.column_id, c.name AS c_name, u.name as datatype,
               ISNULL(baset.name, N'') AS systemtype,
               CAST(CASE WHEN baset.name IN (N'nchar', N'nvarchar') AND c.max_length <> -1
                         THEN c.max_length/2 ELSE c.max_length END AS INT) AS length,
@@ -59,7 +60,8 @@ LEFT JOIN
               c.scale as scale,
               c.is_nullable,
               dc.definition as default_definition,
-              idc.seed_value as identity_seed, idc.increment_value as identity_increment
+              idc.seed_value as identity_seed, idc.increment_value as identity_increment,
+			  CASE WHEN FKC.constraint_object_id IS NOT NULL THEN 1 ELSE 0 END AS [is_FK_column]
        FROM sys.tables t
 	   JOIN sys.all_columns AS c
        ON c.object_id = t.object_id
@@ -73,7 +75,10 @@ LEFT JOIN
 	   AND c.column_id = dc.parent_column_id
 	   LEFT JOIN sys.identity_columns idc
 	   ON c.object_id = idc.object_id
-	   AND c.column_id = idc.column_id) C
+	   AND c.column_id = idc.column_id
+	   LEFT JOIN sys.foreign_key_columns FKC
+	   ON t.object_id = FKC.parent_object_id
+	   AND c.column_id = FKC.parent_column_id) C
 ON A.t_name = C.t_name
 AND C.column_id + 1 = A.rownum
 LEFT JOIN
@@ -131,7 +136,7 @@ INSERT INTO #GetCurrentTablesInfo
 SELECT DISTINCT G.s_name, T.t_name, 2 [rownum], G.max_column_id, 1 [column_id], 'Id' [c_name],
 'uniqueidentifier' [datatype], 'uniqueidentifier' [systemtype], 16 [length], 0 [precision], 
 0 [scale], 0 [is_nullable], 'NEWID()' [default_definition], NULL [identity_seed],
-NULL [identity_increment], G.pk_name+'_NEW' [pk_name], '[Id]' [pk_columns]
+NULL [identity_increment], G.pk_name+'_NEW' [pk_name], '[Id]' [pk_columns], 0 AS [is_FK_column]
 FROM #GetCurrentTablesInfo G
 JOIN #TablesWithIdentity T
 ON G.t_name = T.t_name
@@ -147,6 +152,11 @@ SELECT (CASE WHEN rownum = 1 THEN 'CREATE TABLE ['+s_name+'].['+t_name+'_NEW] ('
                         WHEN datatype IN ('NUMERIC', 'DECIMAL') AND scale = 0 THEN UPPER(datatype+'('+cast(precision as varchar)+')')
                         WHEN datatype IN ('NUMERIC', 'DECIMAL') AND scale > 0 THEN UPPER(datatype+'('+cast(precision as varchar)+','+cast(scale as varchar)+')')
 						WHEN c_name LIKE '%[_]Id' THEN 'UNIQUEIDENTIFIER'
+						WHEN is_FK_column = 1 THEN 'UNIQUEIDENTIFIER'
+						-- Feo, pero no tienen FK --
+						WHEN t_name = 'Petitions' AND c_name IN ('IdUser', 'IdCompany') THEN 'UNIQUEIDENTIFIER' 
+						WHEN t_name = 'Roles' AND c_name IN ('CompanyId') THEN 'UNIQUEIDENTIFIER' 
+						----------------------------
                         ELSE UPPER(datatype) END)+' '+
                   --(CASE WHEN c.identity_seed IS NOT NULL
                   --      THEN 'IDENTITY(' + CAST(identity_seed AS VARCHAR) + ',' + CAST(identity_increment AS VARCHAR) + ') '
