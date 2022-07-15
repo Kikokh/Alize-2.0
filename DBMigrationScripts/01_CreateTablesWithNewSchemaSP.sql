@@ -196,15 +196,42 @@ DECLARE @CurrentTable VARCHAR(100)
 DECLARE @DropCmd VARCHAR(1000)
 DECLARE @ExecCmd VARCHAR(MAX)
 
+-- Drop constraints --
+
+BEGIN
+ 
+	DECLARE @stmt VARCHAR(300)
+
+	DECLARE cur CURSOR FOR
+		SELECT 'ALTER TABLE [' + OBJECT_SCHEMA_NAME(parent_object_id) + '].[' + OBJECT_NAME(parent_object_id) +
+					'] DROP CONSTRAINT [' + name + ']'
+		FROM sys.foreign_keys 
+		WHERE OBJECT_SCHEMA_NAME(referenced_object_id) = 'dbo' AND 
+				OBJECT_NAME(referenced_object_id) LIKE '%[_]NEW'
+ 
+	OPEN cur
+	FETCH cur INTO @stmt
+ 
+	WHILE @@FETCH_STATUS = 0
+		BEGIN
+			EXEC (@stmt)
+			FETCH cur INTO @stmt
+		END
+
+	CLOSE cur
+	DEALLOCATE cur
+ 
+END
+
+-- Drop table and (re)create --
+
 WHILE EXISTS(SELECT 1 FROM #FinalResult)
 BEGIN
 	SET @CurrentTable = (SELECT TableNm FROM #FinalResult WHERE Id = @CurrentId)
 
-	-- Drop new table in case it exists --
 	SET @DropCmd = (SELECT FORMATMESSAGE('USE [%s] DROP TABLE IF EXISTS %s', DB_NAME(), @CurrentTable))
 	EXEC (@DropCmd)
 
-	-- Create table --
 	SET @ExecCmd = (SELECT Cmd FROM #FinalResult WHERE Id = @CurrentId)
 	EXEC (@ExecCmd)
 
