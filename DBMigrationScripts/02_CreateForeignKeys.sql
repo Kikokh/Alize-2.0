@@ -2,70 +2,56 @@ DROP PROCEDURE IF EXISTS [dbo].[CreateForeignKeys]
 
 GO
 
-CREATE PROCEDURE [dbo].[MigrateDataToNewTablesSP]
-	@TablesToMigrate VARCHAR(MAX)
+CREATE PROCEDURE [dbo].[CreateForeignKeys]
 AS
 DECLARE @CurrentId SMALLINT = 1
-DECLARE @TableNm VARCHAR(100)
 DECLARE @Cmd VARCHAR(MAX)
-DECLARE @fk_name VARCHAR(MAX)
-DECLARE @schema_name VARCHAR(MAX)
-DECLARE @table VARCHAR(MAX)
-DECLARE @column VARCHAR(MAX)
-DECLARE @referenced_table VARCHAR(MAX)
-DECLARE @referenced_column VARCHAR(MAX)
 
 -- Drop temp tables if they exist --
 
-IF OBJECT_ID('tempdb..#TablesToCheck') IS NOT NULL DROP TABLE #TablesToCheck
 IF OBJECT_ID('tempdb..#FKRelationships') IS NOT NULL DROP TABLE #FKRelationships
 
-SELECT IDENTITY(INT,1,1) AS Id, [Value]
-INTO #TablesToCheck
-FROM STRING_SPLIT(@TablesToMigrate, '|')
-WHERE RTRIM(LTRIM([Value])) <> ''
-ORDER BY 1
+SELECT IDENTITY(INT,1,1) AS Id, N'
+ALTER TABLE ' 
+   + QUOTENAME(cs.name) + '.' + QUOTENAME(ct.name+'_NEW') 
+   + ' ADD CONSTRAINT ' + QUOTENAME(fk.name+'_NEW') 
+   + ' FOREIGN KEY (' + STUFF((SELECT ',' + QUOTENAME(c.name)
+    FROM sys.columns AS c 
+    INNER JOIN sys.foreign_key_columns AS fkc 
+    ON fkc.parent_column_id = c.column_id
+    AND fkc.parent_object_id = c.[object_id]
+    WHERE fkc.constraint_object_id = fk.[object_id]
+    ORDER BY fkc.constraint_column_id 
+    FOR XML PATH(N''), TYPE).value(N'.[1]', N'nvarchar(max)'), 1, 1, N'')
+  + ') REFERENCES ' + QUOTENAME(rs.name) + '.' + QUOTENAME(rt.name+'_NEW')
+  + '(' + STUFF((SELECT ',' + QUOTENAME(c.name)
+    FROM sys.columns AS c 
+    INNER JOIN sys.foreign_key_columns AS fkc 
+    ON fkc.referenced_column_id = c.column_id
+    AND fkc.referenced_object_id = c.[object_id]
+    WHERE fkc.constraint_object_id = fk.[object_id]
+    ORDER BY fkc.constraint_column_id 
+    FOR XML PATH(N''), TYPE).value(N'.[1]', N'nvarchar(max)'), 1, 1, N'') + ');' [Cmd]
+INTO #FKRelationships
+FROM sys.foreign_keys AS fk
+INNER JOIN sys.tables AS rt -- referenced table
+  ON fk.referenced_object_id = rt.[object_id]
+INNER JOIN sys.schemas AS rs 
+  ON rt.[schema_id] = rs.[schema_id]
+INNER JOIN sys.tables AS ct -- constraint table
+  ON fk.parent_object_id = ct.[object_id]
+INNER JOIN sys.schemas AS cs 
+  ON ct.[schema_id] = cs.[schema_id]
+WHERE rt.is_ms_shipped = 0 AND ct.is_ms_shipped = 0
 
-WHILE EXISTS(SELECT 1 FROM #TablesToCheck)
+WHILE EXISTS(SELECT 1 FROM #FKRelationships)
 BEGIN
-SET @TableNm = (SELECT Value FROM #TablesToCheck WHERE Id = @CurrentId)
 
-SELECT  obj.name AS FK_NAME,
-			sch.name AS [schema_name],
-			tab1.name AS [table],
-			col1.name AS [column],
-			tab2.name AS [referenced_table],
-			col2.name AS [referenced_column]
-		INTO #FKRelationships
-		FROM sys.foreign_key_columns fkc
-		INNER JOIN sys.objects obj
-			ON obj.object_id = fkc.constraint_object_id
-		INNER JOIN sys.tables tab1
-			ON tab1.object_id = fkc.parent_object_id
-		INNER JOIN sys.schemas sch
-			ON tab1.schema_id = sch.schema_id
-		INNER JOIN sys.columns col1
-			ON col1.column_id = parent_column_id
-			AND col1.object_id = tab1.object_id
-		INNER JOIN sys.tables tab2
-			ON tab2.object_id = fkc.referenced_object_id
-		INNER JOIN sys.columns col2
-			ON col2.column_id = referenced_column_id
-			AND col2.object_id = tab2.object_id
-		WHERE tab1.name = @TableNm
+	SET @Cmd = (SELECT Cmd FROM #FKRelationships WHERE Id = @CurrentId)
 
-		SET @fk_name = (SELECT TOP 1 FK_NAME FROM #FKRelationships WHERE [table] = @TableNm)
-		SET @schema_name = (SELECT TOP 1 [schema_name] FROM #FKRelationships WHERE [table] = @TableNm)
-		SET @table = (SELECT TOP 1 [table] FROM #FKRelationships WHERE [table] = @TableNm)
-		SET @column = (SELECT TOP 1 [column] FROM #FKRelationships WHERE [table] = @TableNm)
-		SET @referenced_table = (SELECT TOP 1 [referenced_table] FROM #FKRelationships WHERE [table] = @TableNm)
-		SET @referenced_column = (SELECT TOP 1 [referenced_column] FROM #FKRelationships WHERE [table] = @TableNm)
+	EXEC (@Cmd)
 
-SET @Cmd = (SELECT FORMATMESSAGE('ALTER TABLE %s.%s_NEW ADD CONSTRAINT [FK_%s.%s] FOREIGN KEY (%s) REFERENCES %s.%s_NEW(%s)',
-		@schema_name, @table, @table, @referenced_table, @column, @schema_name, @referenced_table, @referenced_column))
+	DELETE FROM #FKRelationships WHERE Id = @CurrentId
+	SET @CurrentId = @CurrentId+1
 
-EXEC (@Cmd)
-
-DELETE FROM #TablesToCheck WHERE Id = @CurrentId
-		SET @CurrentId = @CurrentId+1
 END
