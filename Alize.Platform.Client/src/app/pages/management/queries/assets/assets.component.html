@@ -1,6 +1,6 @@
 
     <div *ngIf="template" class="container">
-        <app-breadcrumb></app-breadcrumb>
+        <app-breadcrumb [application]="application"></app-breadcrumb>
         <div class="header">
             <div class="titles">
                 <h1 class="title">{{ application?.company?.name }} | {{ application?.name }}</h1>
