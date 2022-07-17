@@ -11,7 +11,10 @@ DECLARE @Cmd VARCHAR(MAX)
 
 IF OBJECT_ID('tempdb..#FKRelationships') IS NOT NULL DROP TABLE #FKRelationships
 
-SELECT IDENTITY(INT,1,1) AS Id, N'
+SELECT IDENTITY(INT,1,1) AS Id, Cmd
+INTO #FKRelationships
+FROM
+(SELECT N'
 ALTER TABLE ' 
    + QUOTENAME(cs.name) + '.' + QUOTENAME(ct.name+'_NEW') 
    + ' ADD CONSTRAINT ' + QUOTENAME(fk.name+'_NEW') 
@@ -32,7 +35,6 @@ ALTER TABLE '
     WHERE fkc.constraint_object_id = fk.[object_id]
     ORDER BY fkc.constraint_column_id 
     FOR XML PATH(N''), TYPE).value(N'.[1]', N'nvarchar(max)'), 1, 1, N'') + ');' [Cmd]
-INTO #FKRelationships
 FROM sys.foreign_keys AS fk
 INNER JOIN sys.tables AS rt -- referenced table
   ON fk.referenced_object_id = rt.[object_id]
@@ -43,6 +45,12 @@ INNER JOIN sys.tables AS ct -- constraint table
 INNER JOIN sys.schemas AS cs 
   ON ct.[schema_id] = cs.[schema_id]
 WHERE rt.is_ms_shipped = 0 AND ct.is_ms_shipped = 0
+AND ct.name NOT LIKE '%[_]NEW'
+  UNION ALL
+SELECT N'  ALTER TABLE [dbo].[Petitions_NEW] ADD CONSTRAINT [FK_dbo.Petitions_dbo.Users_UserId_NEW] FOREIGN KEY ([IdUser]) REFERENCES [dbo].[Users_NEW]([Id]);' UNION ALL
+SELECT N'  ALTER TABLE [dbo].[Petitions_NEW] ADD CONSTRAINT [FK_dbo.Petitions_dbo.Companies_CompanyId_NEW] FOREIGN KEY ([IdCompany]) REFERENCES [dbo].[Companies_NEW]([Id]);' UNION ALL
+SELECT N'  ALTER TABLE [dbo].[Roles_NEW] ADD CONSTRAINT [FK_dbo.Roles_dbo.Roles_CompanyId_NEW] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Companies_NEW]([Id]);' UNION ALL
+SELECT N'  ALTER TABLE [dbo].[Users_NEW] ADD CONSTRAINT [FK_dbo.Users_dbo.Users_ParentId_NEW] FOREIGN KEY ([ParentId]) REFERENCES [dbo].[Users_NEW]([Id]);') A
 
 WHILE EXISTS(SELECT 1 FROM #FKRelationships)
 BEGIN

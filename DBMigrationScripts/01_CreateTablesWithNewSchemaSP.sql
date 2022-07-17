@@ -156,6 +156,7 @@ SELECT (CASE WHEN rownum = 1 THEN 'CREATE TABLE ['+s_name+'].['+t_name+'_NEW] ('
 						-- Feo, pero no tienen FK --
 						WHEN t_name = 'Petitions' AND c_name IN ('IdUser', 'IdCompany') THEN 'UNIQUEIDENTIFIER' 
 						WHEN t_name = 'Roles' AND c_name IN ('CompanyId') THEN 'UNIQUEIDENTIFIER' 
+						WHEN t_name = 'Users' AND c_name IN ('ParentId') THEN 'UNIQUEIDENTIFIER' 
 						----------------------------
                         ELSE UPPER(datatype) END)+' '+
                   --(CASE WHEN c.identity_seed IS NOT NULL
