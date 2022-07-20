@@ -48,8 +48,10 @@ export class QueriesComponent implements OnInit {
     );
   }
 
-  goToAssets(id: string): void {
-    this._router.navigate([`management/queries/${id}/assets`])
+  goToAssets(event: any, id: string): void {
+    if(event.target.nodeName !== 'IMG') {
+      this._router.navigate([`management/queries/${id}/assets`])
+    }
   }
 
 }

@@ -1,70 +1,71 @@
 <div class="sidebar-container">
-    <div class="logo" *ngIf="isSideBarExpanded">
+    <div class="logo" [ngClass]="{ 'foo': !isSideBarExpanded}">
         <img src="../../../../../assets/logo-alice-blanco.png" alt="">
     </div>
 
-    <mat-accordion [ngClass]="getMenuMargin()" displayMode="flat">
-        <mat-expansion-panel class="nav-menu" hideToggle (click)="home()">
+    <mat-accordion [ngClass]="getMenuMargin()" displayMode="flat" multi>
+        <mat-expansion-panel class="nav-menu" [expanded]="homePanel" hideToggle (click)="handleMenu('Home')">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
                         home
                     </span>
-                    <span *ngIf="isSideBarExpanded">{{"Inicio" | translate }}</span>
+                    <span [hidden]="!isSideBarExpanded">{{"Inicio" | translate }}</span>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-
         </mat-expansion-panel>
-        <mat-expansion-panel *ngIf="userCanAccessAdministration() | async" class="nav-menu flex"
-            [hideToggle]="!isSideBarExpanded" (click)="showMenuNotExpanded()">
+        <mat-expansion-panel [expanded]="panelOpenStateAdm && isSideBarExpanded" (click)="handleMenu('Administracion')"
+            *ngIf="userCanAccessAdministration() | async" class="nav-menu flex" [hideToggle]="!isSideBarExpanded">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
                         settings
                     </span>
-                    <span *ngIf="isSideBarExpanded">{{"Administracion" | translate}}</span>
+                    <span [hidden]="!isSideBarExpanded">{{"Administracion" | translate}}</span>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="opt-menu" *ngIf="isSideBarExpanded || (!isSideBarExpanded && showMenuSideBarCollapsed)">
-                <a *ngIf="userCanAccessModule(Modules.Applications) | async" class="nav-option flex"
+            <div class="opt-menu">
+                <a *ngIf="userCanAccessModule(Modules.Applications) | async" class="nav-option flex" (click)="closePanelOpt()"
                     routerLinkActive="active-link" [routerLink]="['/administration/applications']">
-                    <button mat-button> {{"Aplicaciones" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Aplicaciones" | translate }}</button>
                 </a>
-                <a *ngIf="userCanAccessModule(Modules.Companies) | async" class="nav-option flex"
+                <a *ngIf="userCanAccessModule(Modules.Companies) | async" class="nav-option flex"  (click)="closePanelOpt()"
                     routerLinkActive="active-link" [routerLink]="['/administration/companies']">
-                    <button mat-button> {{"Empresas" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Empresas" | translate }}</button>
                 </a>
-                <a *ngIf="userCanAccessModule(Modules.Roles) | async" class="nav-option flex"
+                <a *ngIf="userCanAccessModule(Modules.Roles) | async" class="nav-option flex"  (click)="closePanelOpt()"
                     routerLinkActive="active-link" [routerLink]="['/administration/roles']">
-                    <button mat-button> {{"Roles" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Roles" | translate }}</button>
                 </a>
-                <a *ngIf="userCanAccessModule(Modules.Modules) | async" class="nav-option flex"
+                <a *ngIf="userCanAccessModule(Modules.Modules) | async" class="nav-option flex"  (click)="closePanelOpt()"
                     routerLinkActive="active-link" [routerLink]="['/administration/modules']">
-                    <button mat-button> {{"Modulos" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Modulos" | translate }}</button>
                 </a>
-                <a *ngIf="userCanAccessModule(Modules.Users) | async" class="nav-option flex"
+                <a *ngIf="userCanAccessModule(Modules.Users) | async" class="nav-option flex"  (click)="closePanelOpt()"
                     routerLinkActive="active-link" [routerLink]="['/administration/users']">
-                    <button mat-button> {{"Usuarios" | translate }}</button>
+                    <button mat-button class="buttonText"> {{"Usuarios" | translate }}</button>
                 </a>
             </div>
-
         </mat-expansion-panel>
-        <mat-expansion-panel class="nav-menu flex" [hideToggle]="!isSideBarExpanded" (click)="showMenuNotExpanded()">
+
+        <mat-expansion-panel [expanded]="panelOpenStateManag && isSideBarExpanded" (click)="handleMenu('Gestion')"
+            class="nav-menu flex" [hideToggle]="!isSideBarExpanded">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
                         edit_note
                     </span>
-                    <span *ngIf="isSideBarExpanded">{{"Gestion" | translate }}</span>
+                    <span [hidden]="!isSideBarExpanded">{{"Gestion" | translate }}</span>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="opt-menu" *ngIf="isSideBarExpanded || (!isSideBarExpanded && showMenuSideBarCollapsed) ">
-                <a class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/management/queries']">
-                    <button mat-button> {{"Consultas" | translate }}</button>
+            <div class="opt-menu">
+                <a class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/management/queries']"  (click)="closePanelOpt()">
+                    <button mat-button class="buttonText"> {{"Consultas" | translate }}</button>
                 </a>
             </div>
         </mat-expansion-panel>
-       <!-- <mat-expansion-panel (click)="expandMenu()" class="nav-menu flex" *ngIf="!isSideBarExpanded"
+
+        <mat-expansion-panel (click)="expandMenu()" class="nav-menu flex" *ngIf="!isSideBarExpanded"
             [hideToggle]="!isSideBarExpanded">
             <mat-expansion-panel-header class="expand-menu">
                 <mat-panel-title>
@@ -73,23 +74,26 @@
                     </span>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-        </mat-expansion-panel>-->
+        </mat-expansion-panel>
 
-        <button  *ngIf="isSideBarExpanded" mat-button class="nav-menu user_nav_menu" [matMenuTriggerFor]="menu">
+        <button mat-button class="nav-menu user_nav_menu" [matMenuTriggerFor]="menu">
             <div class="login-container">
                 <img class="company-img" [src]="img">
                 <div class="flex">
-                    <div class="user_name_title">
+                    <div class="user_name_title" [ngClass]="{'info-user' : !isSideBarExpanded}">
                         {{user?.firstName}} {{user?.lastName}}
                     </div>
-                    <div class="user_role_subtitle">
+                    <div class="user_role_subtitle" [ngClass]="{'info-user' : !isSideBarExpanded}">
                         {{user?.roleName}}
                     </div>
                 </div>
             </div>
         </button>
         <mat-menu #menu="matMenu" yPosition="above">
-            <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">Cerrar Sesion</button>
+            <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">Cerrar
+                Sesion</button>
+            <button (click)="showPasswordPopUp(user?.firstName)" id="myPanelId" mat-menu-item
+                class="user-menu-items">Cambiar contraseña</button>
         </mat-menu>
 
     </mat-accordion>

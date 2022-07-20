@@ -5,9 +5,8 @@
 
     .title {
         color: #73879c;
-        font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
         font-size: 18px;
-        font-weight: 400;
+        font-weight: 700;
         line-height: 1.471;
 
         &:after,
@@ -25,7 +24,8 @@
 
         .mat-header-cell {
             color: white;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 14px;
         }
     }
 }

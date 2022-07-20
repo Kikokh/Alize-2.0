@@ -1,6 +1,9 @@
 .card {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 195px;
   font-family: 'Poppins';
-  background-image: linear-gradient(#384261, #4d5763);
+  background-image: linear-gradient(#38426180, #4d576380);
   color: white;
   cursor: pointer;
   border-radius: 10px;
@@ -25,18 +28,21 @@
   position: absolute;
   top: 15px;
   right: 15px;
+  &:hover {
+  cursor: default;
+  }
 }
 
 .card-caption {
   font-family: 'Poppins';
-  font-size: 24px;
+  font-size: 22px;
   text-align: center;
-  font-weight: bold;
+  font-weight: 400;
   margin-bottom: 20px;
 }
 
 .card-description {
   font-family: 'Poppins';
-  font-size: 16px;
+  font-size: 14px;
   text-align: center;
 }

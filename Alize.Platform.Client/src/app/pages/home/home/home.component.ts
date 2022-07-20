@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent {
   public innerHeight: string;
   constructor() { 
-    this.innerHeight = (window.innerHeight - 70).toString() + 'px';
+    // this.innerHeight = (window.innerHeight - 70).toString() + 'px';
   }
 
 }

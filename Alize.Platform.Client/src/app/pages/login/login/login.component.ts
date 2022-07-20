@@ -15,7 +15,7 @@ import { LoginService } from '../services/login.service';
 export class LoginComponent implements OnInit {
   @ViewChild('myIdentifier') myIdentifier: ElementRef;
   formValidation = new FormValidation();
-
+  isLoading: boolean;
   materialTheme = new MaterialTheme();
 
   loginForm = new FormGroup({
@@ -39,14 +39,14 @@ export class LoginComponent implements OnInit {
     private _globalStylesService: GlobalStylesService,
     public translate: TranslateService) {
 
-  const lang = localStorage.getItem('lang');
-  if (lang !== null) {
-    this.translate.setDefaultLang(lang);
-  } else {
-    this.translate.setDefaultLang('en');
+    const lang = localStorage.getItem('lang');
+    if (lang !== null) {
+      this.translate.setDefaultLang(lang);
+    } else {
+      this.translate.setDefaultLang('en');
     }
   }
-  
+
   ngOnInit(): void {
     const height = this._el.nativeElement.offsetHeight;
     this._globalStylesService.changeColor('red');
@@ -70,14 +70,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this._loginService.login(this.loginForm.value).subscribe(
+      this.isLoading = true;
+      this._loginService.login(this.loginForm.value, this.isLoading).subscribe(
         success => this._router.navigate(['/home']),
-        err => this.loginError = true
+        err => {
+          this.isLoading = false;
+          this.loginError = true
+        }
       );
     }
   }
-
-  // changeTheme() {
-  //   this.isTrue = !this.isTrue;
-  // }
 }

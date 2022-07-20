@@ -2,6 +2,15 @@
     flex: 1 1 auto;
 }
 
+.arrow {
+    transition: transform 300ms;
+
+    &.expanded {
+        margin-left: 180px;
+        transform: rotateY(0.5turn);
+    }
+}
+
 mat-toolbar {
     background-color: transparent !important;
     height: 100px;

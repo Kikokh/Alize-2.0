@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alize.Platform.Api.Controllers
 {
-    [Route("api/Applications/{applicationId}/[controller]")]
+    [Route("api/Applications/{applicationId}/Assets/{assetId}/[controller]")]
     [ApiController]
     [Authorize]
     public class MediaController : ControllerBase
@@ -19,49 +19,47 @@ namespace Alize.Platform.Api.Controllers
         }
 
         [HttpPost("Images")]
-        public async Task<IActionResult> UploadImage(Guid applicationId, IFormFile file)
+        public async Task<IActionResult> UploadImage(Guid applicationId, string assetId, IFormFile file)
         {
             if (file.ContentType != "image/jpeg")
                 return BadRequest(GetValidationProblem("image/jpeg"));
 
             using var stream = file.OpenReadStream();
 
-            var hash = await _imageRepository.UploadImageAsync(applicationId, stream, file.FileName);
+            var hash = await _imageRepository.UploadImageAsync(applicationId, assetId, stream);
 
-            return CreatedAtAction(nameof(GetImage), new { fileName = file.FileName }, hash);
+            return CreatedAtAction(nameof(GetImage), new { applicationId, assetId }, hash);
         }
 
         [HttpGet("Images")]
         [Produces("image/jpeg")]
         [ProducesResponseType(typeof(FileStreamResult), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetImage(Guid applicationId, string fileName)
+        public async Task<IActionResult> GetImage(Guid applicationId, string assetId)
         {
-            var stream = await _imageRepository.DownloadImageAsync(applicationId, fileName);
+            var stream = await _imageRepository.DownloadImageAsync(applicationId, assetId);
 
             return File(stream, "image/jpeg");
         }
 
         [HttpPost("Video")]
-        public async Task<IActionResult> UploadVideo(Guid applicationId, [FromForm] IFormFile file)
+        public async Task<IActionResult> UploadVideo(Guid applicationId, string assetId, IFormFile file)
         {
             if (file.ContentType != "video/mp4")
                 return BadRequest(GetValidationProblem("video/mp4"));
 
             using var stream = file.OpenReadStream();
 
-            var hash = await _videoRepository.UploadVideoAsync(applicationId, stream, file.FileName);
+            var hash = await _videoRepository.UploadVideoAsync(applicationId, assetId, stream);
 
-            return CreatedAtAction(nameof(GetVideo), new { fileName = file.FileName }, hash);
+            return CreatedAtAction(nameof(GetVideo), new { applicationId, assetId }, hash);
         }
 
         [HttpGet("Video")]
-        [Produces("video/mp4")]
-        [ProducesResponseType(typeof(FileStreamResult), StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetVideo(Guid applicationId, string fileName)
+        public async Task<IActionResult> GetVideo(Guid applicationId, string assetId)
         {
-            var stream = await _videoRepository.DownloadVideoAsync(applicationId, fileName);
+            var uri = _videoRepository.GetVideoUri(applicationId, assetId);
 
-            return File(stream, "video/mp4");
+            return Ok(uri);
         }
 
         private ValidationProblemDetails GetValidationProblem(string validType)

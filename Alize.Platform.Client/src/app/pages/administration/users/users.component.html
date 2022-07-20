@@ -3,9 +3,13 @@
         <div class="breadcrumb">
             <app-breadcrumb></app-breadcrumb>
         </div>
+        <div class="sub-header">
+            <p class="title">{{ 'Administration' | translate }}</p>
+            <p class="sub-title">{{ 'ListadoUsuarios' | translate }}</p>
+        </div>
         <div class="grid">
             <div *ngIf="!isLoading; else gridSkeleton">
-                <app-grid [title]="'Administration' | translate" [subtitle]="'ListadoUsuarios' | translate" (add)="add($event)" (updatePassword)="updatePassword($event)" (delete)="deleteUser($event)" (update)="update($event)" (updateRole)="updateRole($event)" (delete)="delete($event)"
+                <app-grid (add)="add($event)" (updatePassword)="updatePassword($event)" (delete)="deleteUser($event)" (update)="update($event)" (updateRole)="updateRole($event)" (delete)="delete($event)"
                     [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions">
                 </app-grid>
 

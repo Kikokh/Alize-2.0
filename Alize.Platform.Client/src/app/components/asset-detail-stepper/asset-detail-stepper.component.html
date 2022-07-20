@@ -1,10 +1,17 @@
 <div class="container">
-    <h2 class="title">{{ 'asset.records' | translate }}</h2>
-    <div class="flex flex-row content-space-evenly">
-        <div class="flex flex-1 flex-column text-center step items-center relative"
+    <h2 class="title text-center">
+        <span>{{ 'asset.records' | translate }}</span>
+    </h2>
+    
+    <div class="flex flex-column content-space-evenly">
+        <div class="flex flex-1 flex-row text-center step items-left relative"
             *ngFor="let step of stepperTemplate; let i = index">
-            <span class="step-circle">{{ i }}</span>
-            <span class="step-name">{{ step.name }}</span>
+            <span class="material-symbols-rounded">check_box_outline_blank</span>
+            <div class="vl"></div>
+            <div class="step-box flex-row">
+                <span class="step-num">{{ i+1 }}</span>
+                <span class="step-name">{{ step.name }}</span>
+            </div>
             <div *ngIf="assetHistory && assetHistory[i]" class="properties flex flex-column">
                 <span *ngFor="let field of step.fields" [ngSwitch]="field.dataType">
                     <ng-template ngSwitchCase="date">

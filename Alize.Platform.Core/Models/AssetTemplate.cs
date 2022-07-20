@@ -10,6 +10,8 @@ namespace Alize.Platform.Core.Models
 
         public IEnumerable<TemplateStep>? Steps { get; set; }
 
+        public bool? HasVideo { get; set; }
+
         public override string Type => ApplicationItemTypes.AssetTemplate;
     }
 }

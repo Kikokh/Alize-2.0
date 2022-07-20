@@ -13,10 +13,11 @@
 
 .query-cards {
   &_container {
-    padding: 1em;
+    padding: 45px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px
+    grid-auto-rows: 1fr;
+    grid-gap: 40px
   }
 }
 

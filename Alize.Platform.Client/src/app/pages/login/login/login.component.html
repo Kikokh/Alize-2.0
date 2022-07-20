@@ -1,13 +1,12 @@
-<div class="login-form" [ngClass]="getBackgroundColor()">
+<div class="login-form">
     <mat-card>
         <mat-card-header>
             <a href="https://www.khxpander.com/">
-                <img src="../../../../assets/logo-alice-negro_250.png" class="img-fluid" /></a>
+                <img src="../../../../assets/logo-alice-blanco.png" class="img-fluid" /></a>
         </mat-card-header>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <mat-card-content>
-                <mat-form-field class="example-full-width" appearance="fill">
-                    <mat-label>Email</mat-label>
+                <mat-form-field class="login-mat-form" color="accent" appearance="outline">
                     <input matInput placeholder="email" formControlName="email">
                 </mat-form-field>
                 <div class="error-form-message" *ngIf="formValidation.isValidInput(emailFormControls)">
@@ -16,8 +15,7 @@
                 <div class="error-form-message" *ngIf="formValidation.isEmptyField(emailFormControls)">
                     {{"EmailVacio" | translate}}
                 </div>
-                <mat-form-field type="password" class="example-full-width" appearance="fill">
-                    <mat-label>{{ "Password" | translate }}</mat-label>
+                <mat-form-field color="accent" type="password" class="login-mat-form" appearance="outline">
                     <input matInput placeholder="Password" type="password" formControlName="password">
                 </mat-form-field>
                 <div class="error-form-message" *ngIf="formValidation.isEmptyField(passwordFormControls)">
@@ -26,13 +24,16 @@
             </mat-card-content>
             <mat-card-actions>
                 <!-- <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="warn">Iniciar sesion</button> -->
-                <button type="submit" [disabled]="!loginForm.valid" class="login-btn" mat-raised-button
-                    color="primary">{{ "IniciarSesion" | translate }}</button>
+                <button type="submit" [disabled]="!loginForm.valid" class="login-btn" mat-raised-button>{{
+                    "IniciarSesion" | translate }}</button>
                 <div class="error-form-message" *ngIf="loginError">
                     {{"EmailPassIncorrecto" | translate}}
                 </div>
             </mat-card-actions>
         </form>
+
+        <mat-progress-bar *ngIf="isLoading" color="accent" mode="indeterminate"></mat-progress-bar>
+
         <mat-card-footer>
             ©2021 All Rights Reserved. Alize Trust Builder Hub by Xpander. Privacy and Terms
         </mat-card-footer>

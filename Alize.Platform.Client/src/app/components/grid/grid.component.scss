@@ -14,6 +14,7 @@
         button {
             margin: 25px auto;
             height: 50%;
+            background: #217280;
         }
 
         div {
@@ -30,12 +31,16 @@
         .toolbar {
             margin: 0 auto;
 
+            button {
+                background: #217280;
+                color: #ffffff;
+            }
+
             div {
                 display: flex;
                 font-size: 18px;
 
                 .title {
-
                     font-weight: bold;
                 }
 
@@ -47,6 +52,7 @@
 
         .table-container {
             margin: 40px auto;
+            overflow: auto;
 
             .mat-table {
                 .main-theme-header {
@@ -57,6 +63,7 @@
 
                 td {
                     border-radius: 5px;
+                    white-space: normal;
 
                     .operation-column {
                         .icon-button {
@@ -93,7 +100,7 @@
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 24px;
     color: #000000;
 }
@@ -111,8 +118,8 @@
     white-space: nowrap;
     overflow: hidden;
     vertical-align: middle;
-    font-weight: 700;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 14px;
     line-height: 24px;
 }
 
@@ -139,7 +146,7 @@
 
     .mat-paginator-range-actions {
         color: #217280;
-        font-size: 15px;
+        font-size: 14px;
     }
 
     .mat-select-arrow {

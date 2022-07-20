@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { User } from 'src/app/models/user.model';
@@ -35,7 +35,7 @@ export class NavBarComponent implements OnChanges {
 
     this.currentLang = (currentLang !== null) ? currentLang : 'en';
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     this.isExpanded = changes.SideBarExpanded.currentValue;
   }
@@ -60,15 +60,6 @@ export class NavBarComponent implements OnChanges {
     } else {
       return 'dark-theme';
     }
-  }
-
-  showPasswordPopUp(nombre: string) {
-    this._dialog.open(PasswordUserPopUpComponent, {
-      data: {
-        nombre: nombre,
-        mode: ModePopUpType.EDIT
-      }
-    });
   }
 
   closeSession() {

@@ -12,17 +12,19 @@ app-layout {
   justify-content: center;
 }
 
-body {
-  background: #f0f0f0;
-  font-family: Poppins, 'Helvetice New', 'Arial', sans-serif;
+app-login {
+  height: 100%;
+  width: 100%;
 }
 
-
+body {
+  background: #f0f0f0;
+  font-family: Poppins, "Helvetice New", "Arial", sans-serif;
+}
 
 .error-form-message {
   color: red;
 }
-
 
 .mat-table {
   width: 100%;
@@ -33,8 +35,24 @@ body {
   overflow: auto;
 }
 
-.mat-row,
-.mat-header-row {
+.main-theme {
+  .mat-form-field {
+    color: rgba(0, 0, 0, 0.87);
+
+    &.mat-focused {
+      .mat-form-field-label {
+        color: rgb(0, 0, 0, 0.6);
+      }
+
+      .mat-form-field-ripple {
+        background-color: rgb(0, 0, 0, 0.6);
+      }
+    }
+  }
+
+  .mat-input-element {
+    caret-color: black;
+  }
 }
 
 .mat-cell,
@@ -49,4 +67,16 @@ body {
 
 .mat-header-cell {
   padding: 10px 5px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
 }
