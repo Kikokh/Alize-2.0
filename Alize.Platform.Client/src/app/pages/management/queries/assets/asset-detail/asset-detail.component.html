@@ -1,6 +1,6 @@
 
     <div class="container" *ngIf="assetTemplate">
-        <app-breadcrumb></app-breadcrumb>
+        <app-breadcrumb [application]="application" [asset]="asset"></app-breadcrumb>
         <div class="flex">
             <div *ngIf="asset" class="details flex flex-column">
                 <h1 class="date">
