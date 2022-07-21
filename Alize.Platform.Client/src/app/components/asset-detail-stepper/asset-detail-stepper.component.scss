@@ -37,6 +37,7 @@
 
 .items-center {
     align-items: center;
+    align-content: center;
 }
 
 .relative {
@@ -45,18 +46,22 @@
 
 .container {
     background: white;
+    width: 500px;
     padding: 15px;
     border-radius: 2px;
     float: right;
+    height: 100%;
 
     .title {
         color: #fff;
-        font-size: 18px;
-        font-weight: 400;
+        font-size: 20px;
+        font-weight: 300;
         line-height: 1.471;
+        text-transform: uppercase;
     }
     .title span{
         background-color: #142636;
+        box-shadow:2.24px 4.48px 11.2px rgba(0, 0, 0, 0.25);
         padding: 0.5rem 8rem;
         border-radius: 25px;
         width: 910px;
@@ -64,8 +69,9 @@
 }
 
 .material-symbols-rounded{
-    padding-top:0.9rem;
-    color:#142636;   
+    align-self: center;
+    color:#142636; 
+    margin:none;  
 }
 .vl{
     width: 5px;
@@ -77,8 +83,8 @@
     
     .step-box {
         width: 365px;
-        height: 40px;
-        line-height: 40px;
+        height: 60px;
+        line-height: 60px;
         border-radius: 5px;
         font-size: 14px;
         font-weight: bold;
@@ -86,33 +92,18 @@
         color: #fff;
         position: relative;
         z-index: 1;
-        margin: 0.5rem;
+        margin: 1rem;
         box-shadow:10px 10px 6px rgba(0, 0, 0, 0.25);
     }
 
     .step-num{
         float: left;
+        font-weight: 700;
+        font-size: 24px;
         padding-left: 1rem;
     }
-/*
-    &:not(:last-child)::after {
-        content: "";
-        position: absolute;
-        top: 17.5px;
-        left: 50%;
-        width: 50%;
-        height: 5px;
-        background: #ccc;
+    .step-name{
+        font-weight: 400;
+        font-size:20px;
     }
-
-    &:not(:first-child)::before {
-        content: "";
-        position: absolute;
-        top: 17.5px;
-        right: 50%;
-        width: 50%;
-        height: 5px;
-        background: #ccc;
-    }
-*/
 }
