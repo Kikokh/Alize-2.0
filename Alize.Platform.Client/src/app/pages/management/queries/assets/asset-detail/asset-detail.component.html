@@ -28,7 +28,7 @@
             </div>
         </div>
         <div *ngIf="showTable">
-          <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length && !assetTemplate?.hasVideo"
+          <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length"
             [tableTemplate]="assetTemplate?.columns ?? []">
         </app-asset-detail-table>
         <div class="alert-container">
