@@ -9,6 +9,8 @@ import { TemplatesService } from 'src/app/Templates/services/templates.service';
 import { AssetService } from '../asset.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { MediaService } from 'src/app/services/media.service';
+import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
+import { Application } from 'src/app/models/application.model';
 
 @Component({
   selector: 'app-asset-detail',
@@ -21,6 +23,7 @@ export class AssetDetailComponent implements OnInit {
   isLoading: boolean;
   videoUri: string;
   showTable: boolean =false;
+  application: Application;
 
   get day(): number {
     return new Date(this.asset?.createdAt).getDate();
@@ -40,7 +43,9 @@ export class AssetDetailComponent implements OnInit {
     private _assetService: AssetService,
     private _openPopUpService: OpenPopUpService,
     private _loadingService: LoadingService,
-    private _mediaService: MediaService
+    private _mediaService: MediaService,
+
+    private _applicationService: ApplicationsService
   ) { }
 
   ngOnInit(): void {
@@ -51,12 +56,14 @@ export class AssetDetailComponent implements OnInit {
     zip(
       this._templateService.getAssetTemplate(applicationId),
       this._assetService.getApplicationAsset(applicationId, assetId),
-      this._mediaService.getVideoUri(applicationId, assetId)
+      this._mediaService.getVideoUri(applicationId, assetId),
+      this._applicationService.getApplication(applicationId)
     ).subscribe({
       next: responses => {
         this.assetTemplate = responses[0];
         this.asset = responses[1];
         this.videoUri = responses[2];
+        this.application = responses[3]
         this.isLoading = false;
         if (!this.assetTemplate || !this.assetTemplate?.hasVideo) {
           this.showTable = true;
