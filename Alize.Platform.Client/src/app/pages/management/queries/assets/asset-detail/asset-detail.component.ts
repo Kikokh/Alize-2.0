@@ -9,6 +9,7 @@ import { TemplatesService } from 'src/app/Templates/services/templates.service';
 import { AssetService } from '../asset.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { MediaService } from 'src/app/services/media.service';
+import { TranslateService } from '@ngx-translate/core';
 import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
 import { Application } from 'src/app/models/application.model';
 
@@ -23,6 +24,7 @@ export class AssetDetailComponent implements OnInit {
   isLoading: boolean;
   videoUri: string;
   showTable: boolean =false;
+  buttonText: string;
   application: Application;
 
   get day(): number {
@@ -44,11 +46,12 @@ export class AssetDetailComponent implements OnInit {
     private _openPopUpService: OpenPopUpService,
     private _loadingService: LoadingService,
     private _mediaService: MediaService,
-
+    private translate: TranslateService,
     private _applicationService: ApplicationsService
   ) { }
 
   ngOnInit(): void {
+    this.buttonText = this.translate.instant('showTable');
     this.isLoading = true;
     this._loadingService.startLoading();
     const applicationId = String(this._route.snapshot.paramMap.get('applicationId'));
@@ -94,5 +97,7 @@ export class AssetDetailComponent implements OnInit {
 
   tableClick() {
     this.showTable = !this.showTable;
+    const text = this.showTable ? 'hideTable' : 'showTable';
+    this.buttonText = this.translate.instant(text);
   }
 }

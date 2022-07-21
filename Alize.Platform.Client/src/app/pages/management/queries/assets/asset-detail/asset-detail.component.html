@@ -15,7 +15,7 @@
                     </span>
                 </div>
                 <div class="button-wrapper" *ngIf="assetTemplate?.hasVideo">
-                  <button mat-stroked-button (click)="tableClick()">{{'showTable' | translate}}</button>
+                  <button mat-stroked-button (click)="tableClick()">{{buttonText | translate}}</button>
                 </div>
             </div>
             <div *ngIf="assetTemplate?.hasVideo">
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div *ngIf="showTable">
-          <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length && !assetTemplate?.hasVideo"
+          <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length"
             [tableTemplate]="assetTemplate?.columns ?? []">
         </app-asset-detail-table>
         <div class="alert-container">
