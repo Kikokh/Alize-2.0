@@ -111,6 +111,7 @@
     "Pais": "Pais",
     "MapUrl": "Url del Mapa",
     "showTable": "Mostrar tabla",
+    "hideTable": "Ocultar tabla",
     "TraceabilityHash": "Hash de trazabilidad",
     "TraceabilityData": "Datos de trazabilidad",
     "EncryptionDescOne": "Para Validar la informacion de trazabilidad que puede ver en la tabla copie el contenido del campo. ",
