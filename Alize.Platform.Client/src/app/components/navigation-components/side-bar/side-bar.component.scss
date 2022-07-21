@@ -59,7 +59,7 @@
                     text-decoration: none;
                 }
                 .active-link{
-                    background: rgba(255,0,26,0.2);   
+                    background: rgba(255,0,26,0.2);
                 }
             }
         }
@@ -106,7 +106,7 @@
                     padding: 10px 10px 10px 10px;
                 }
                 .active-link{
-                    background: rgba(255,0,26,0.2);   
+                    background: rgba(255,0,26,0.2);
                 }
             }
         }
@@ -204,4 +204,8 @@
 .buttonText{
     text-align: left;
     margin-left: 60px;
+}
+
+.logo.foo {
+  display: none;
 }
