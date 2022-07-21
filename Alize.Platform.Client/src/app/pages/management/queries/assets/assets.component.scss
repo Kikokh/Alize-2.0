@@ -81,11 +81,10 @@ app-select {
 
   .mat-cell,
   .mat-header-cell {
-    word-wrap: initial;
+    word-wrap: break-word;
     padding: 10px 5px;
     line-break: unset;
-    width: auto;
-    white-space: nowrap;
+    max-width: 150px;
     overflow: hidden;
     vertical-align: middle;
     font-weight: 400;
