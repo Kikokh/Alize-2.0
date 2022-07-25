@@ -6,6 +6,12 @@
     width: 100%;
     mat-drawer-container {
         height: 100%;
+        background: url(../../../../assets/Alize-back.PNG) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
         .side-bar-expanded {
             min-width: 260px;
         }
@@ -24,13 +30,4 @@
 
 .main-theme-sidebar {
     background: $blue-background;
-}
-
-.main-theme-content {
-    background: url(../../../../assets/Alize-back.PNG) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-
 }
