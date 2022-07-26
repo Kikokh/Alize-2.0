@@ -44,7 +44,7 @@ export class GroupUserPopUpComponent {
     this.userForm = fb.group({
       roleId: null,
     })
-    this._rolesService.getRoles().subscribe(
+    this._rolesService.getRolesForUser().subscribe(
       (roles) => {
         this.roles = roles
         const currentRole = this.roles.find((role: any) => role.name === this.data.grupos)

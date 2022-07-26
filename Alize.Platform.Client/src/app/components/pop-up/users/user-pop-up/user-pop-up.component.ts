@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -9,12 +9,11 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
-import { Role } from "src/app/models/role.model";
 import { Company } from 'src/app/models/company.model';
+import { Role } from "src/app/models/role.model";
 import { User } from 'src/app/models/users.model';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { RolesService } from 'src/app/pages/administration/roles/roles.service';
-import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
@@ -23,7 +22,7 @@ import { ModePopUpType } from '../../models/entity-type.enum';
   templateUrl: './user-pop-up.component.html',
   styleUrls: ['./user-pop-up.component.scss'],
 })
-export class UserPopUpComponent implements OnDestroy {
+export class UserPopUpComponent implements OnInit, OnDestroy {
   title = 'NuevoUsuario';
   userForm: FormGroup;
 
@@ -58,12 +57,15 @@ export class UserPopUpComponent implements OnDestroy {
     public fb: FormBuilder,
     public snackBar: SnackbarService
   ) {
+  }
+
+  ngOnInit(): void {
     this._companyService
       .getCompanies()
       .subscribe((companies) => (this.companies = companies));
 
     this._rolesService
-      .getRoles()
+      .getRolesForUser()
       .subscribe((roles) => (this.roles = roles));
 
     this.title =
@@ -112,11 +114,11 @@ export class UserPopUpComponent implements OnDestroy {
           [Validators.required, Validators.maxLength(100), Validators.email]
         ),
         company: new FormControl(
-          { value:  this.data?.empresaId, disabled: this.data.mode === ModePopUpType.DISPLAY },
+          { value: this.data?.empresaId, disabled: this.data.mode === ModePopUpType.DISPLAY },
           [Validators.required]
         ),
         role: new FormControl(
-          { value:  this.data?.roleId, disabled: this.data.mode === ModePopUpType.DISPLAY },
+          { value: this.data?.roleId, disabled: this.data.mode === ModePopUpType.DISPLAY },
           [Validators.required]
         ),
         password: new FormControl(

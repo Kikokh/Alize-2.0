@@ -74,15 +74,11 @@ namespace Alize.Platform.Infrastructure.Services
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
 
-        public async Task UpdateUserPasswordAsync(string userId, string newPassword)
+        public async Task UpdateUserPasswordAsync(User user, string newPassword)
         {
-            var user = await _userManager.FindByIdAsync(userId) ?? throw new KeyNotFoundException(userId);
-
             await _userManager.RemovePasswordAsync(user);
             await _userManager.AddPasswordAsync(user, newPassword);
         }
-
-        public async Task UpdateUserPasswordAsync(Guid userId, string newPassword) => await this.UpdateUserPasswordAsync(userId.ToString(), newPassword);
 
         public async Task<IEnumerable<User>> GetUserListForUserAsync(Guid userId)
         {
@@ -100,9 +96,11 @@ namespace Alize.Platform.Infrastructure.Services
                 Roles.AdminPro => await usersQuery.ToListAsync(),
                 Roles.Distributor => await usersQuery
                         .Where(u => u.CompanyId == user.CompanyId || u.Company.ParentCompanyId == user.CompanyId)
+                        .Where(u => u.Roles.All(r => r.Name != Roles.AdminPro))
                         .ToListAsync(),
                 Roles.Admin => await usersQuery
                         .Where(u => u.CompanyId == user.CompanyId)
+                        .Where(u => u.Roles.All(r => r.Name != Roles.AdminPro && r.Name != Roles.Distributor))
                         .ToListAsync(),
                 _ => new List<User>() { user }
             };
@@ -144,6 +142,34 @@ namespace Alize.Platform.Infrastructure.Services
         public async Task<IEnumerable<Role>> GetRolesAsync()
         {
             return await _roleManager.Roles.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Role>> GetRolesForUserAsync(Guid userId)
+        {
+            var user = await _userManager.Users
+                .Include(u => u.Roles)
+                .SingleAsync(u => u.Id == userId);
+
+            var rolesQuery = _roleManager.Roles;
+
+            switch (user.Role?.Name)
+            {
+                case Roles.AdminPro:
+                    return await rolesQuery.ToListAsync();
+
+                case Roles.Distributor:
+                    return await rolesQuery
+                        .Where(r => r.Name != Roles.AdminPro)
+                        .ToListAsync();
+
+                case Roles.Admin:
+                    return await rolesQuery
+                        .Where(r => r.Name != Roles.AdminPro && r.Name != Roles.Distributor)
+                        .ToListAsync();
+
+                default:
+                    return new List<Role>() { user.Role };
+            }
         }
 
         public async Task<Role?> GetRoleAsync(Guid guid)
