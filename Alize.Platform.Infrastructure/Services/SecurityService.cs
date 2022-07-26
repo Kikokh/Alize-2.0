@@ -95,24 +95,17 @@ namespace Alize.Platform.Infrastructure.Services
                     .Include(u => u.Company)
                     .Include(u => u.Roles);
 
-            switch (user.Role?.Name)
+            return user.Role?.Name switch
             {
-                case Roles.AdminPro:
-                    return await usersQuery.ToListAsync();
-
-                case Roles.Distributor:
-                    return await usersQuery
+                Roles.AdminPro => await usersQuery.ToListAsync(),
+                Roles.Distributor => await usersQuery
                         .Where(u => u.CompanyId == user.CompanyId || u.Company.ParentCompanyId == user.CompanyId)
-                        .ToListAsync();
-
-                case Roles.Admin:
-                    return await usersQuery
+                        .ToListAsync(),
+                Roles.Admin => await usersQuery
                         .Where(u => u.CompanyId == user.CompanyId)
-                        .ToListAsync();
-
-                default:
-                    return new List<User>() { user };
-            }
+                        .ToListAsync(),
+                _ => new List<User>() { user }
+            };
         }
 
         public async Task<User?> GetUserAsync(string id)

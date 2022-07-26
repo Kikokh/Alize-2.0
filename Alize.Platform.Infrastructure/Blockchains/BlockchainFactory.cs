@@ -1,6 +1,5 @@
 ﻿using Alize.Platform.Core.Constants;
 using Alize.Platform.Infrastructure.Alastria;
-using Alize.Platform.Infrastructure.Services.BlockchainFue;
 
 namespace Alize.Platform.Infrastructure
 {
@@ -15,15 +14,12 @@ namespace Alize.Platform.Infrastructure
 
         public IBlockchainService Resolve(Guid blockchainId)
         {
-            switch (blockchainId.ToString())
+            return blockchainId.ToString() switch
             {
-                case Blockchains.Alastria:
-                    return _blockchainServices.Single(service => service is AlastriaService);
-                case Blockchains.BlockchainFue:
-                    return _blockchainServices.Single(service => service is BlockchainFueService);
-                default:
-                    throw new NotImplementedException();
-            }
+                Blockchains.Alastria => _blockchainServices.Single(service => service is AlastriaService),
+                Blockchains.BlockchainFue => _blockchainServices.Single(service => service is AlastriaService),
+                _ => throw new NotImplementedException()
+            };
         }
     }
 }

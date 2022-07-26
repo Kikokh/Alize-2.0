@@ -88,7 +88,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       this._router.navigate([`management/charts/${data.id}/chart`]);
     } else {
       this._openPopUpService.open(this.entity, optionName, data).subscribe(entity => {
-
         if (entity.action === ModePopUpType.EDIT) {
           this.update.emit(entity);
         } else if (entity.action === ModePopUpType.ADD) {

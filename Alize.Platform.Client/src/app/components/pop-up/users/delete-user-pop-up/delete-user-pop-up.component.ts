@@ -2,6 +2,8 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Application } from 'src/app/models/application.model';
+import { ModePopUpType } from '../../models/entity-type.enum';
+import { DialogResult } from '../group-user-pop-up/group-user-pop-up.component';
 @Component({
   selector: 'app-delete-user-pop-up',
   templateUrl: './delete-user-pop-up.component.html',
@@ -17,20 +19,16 @@ export class DeleteUserPopUpComponent {
     @Inject(MAT_DIALOG_DATA) public data: {
       id: string,
       nombre: string;
-    },
-    public translate: TranslateService) {
-      const lang = localStorage.getItem('lang');
-    if (lang !== null) {
-      this.translate.setDefaultLang(lang);
-    } else {
-      this.translate.setDefaultLang('en');
-    }
+    }) {
     this.subtitle1 = 'BorrarUsuarioSubTitulo1';
     this.subtitle2 = 'BorrarUsuarioSubTitulo2';
   }
 
   onClick() {
-    this.dialogRef.close(this.data.id);
+    const dialogResult = new DialogResult();
+    dialogResult.id = this.data.id;
+    dialogResult.action = ModePopUpType.DELETE;
+    this.dialogRef.close(dialogResult);
   }
 
   close() {
