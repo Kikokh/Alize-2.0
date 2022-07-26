@@ -22,6 +22,7 @@ import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
 export class GridComponent implements OnInit, AfterViewInit {
 
   @Input() columns: IColumnDef[];
+  @Input() canInsert: boolean = false;
   @Input()
   set elementData(value: any) {
     this.dataSource.data = value;

@@ -12,10 +12,24 @@
       <mat-form-field appearance="outline">
         <mat-label>{{"Nombre" | translate}}</mat-label>
         <input matInput name="name" formControlName="name">
+        <mat-error>
+          <app-form-error [form]="applicationForm" field="name" [errors]="applicationForm.get('name')?.errors"></app-form-error>
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>{{"Descripcion" | translate}}</mat-label>
         <input matInput name="description" formControlName="description">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{"Empresa" | translate}}</mat-label>
+        <mat-select formControlName="company">
+          <mat-option *ngFor="let company of companies" [value]="company.id">
+            {{ company.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <app-form-error [form]="applicationForm" field="company" [errors]="applicationForm.get('company')?.errors"></app-form-error>
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" *ngIf="data.mode === 'ADD'">
         <mat-label>{{"DatosRelevantes" | translate}}</mat-label>
@@ -35,7 +49,6 @@
         formControlName="active" [checked]="data.isActive">{{"Activo" | translate}}</mat-checkbox>
     </form>
   </div>
-
 
   <div class="mat-dialog-actions" mat-dialog-actions>
     <div class="fill"></div>

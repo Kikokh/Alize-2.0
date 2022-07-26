@@ -71,12 +71,7 @@ export class CompanyPopUpComponent implements OnInit {
       country: new FormControl({ value: (this.data.country) ? this.data.country : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) })
     });
 
-    if (this.data.mode == ModePopUpType.DISPLAY) {
-      this.title = 'VerEmpresa';
-    }
-    else {
-      this.title = 'EditarEmpresa';
-    }
+      this.title = this.data.mode === ModePopUpType.ADD ? 'NuevaEmpresa' : this.data.mode === ModePopUpType.DISPLAY ? 'VerEmpresa' : 'EditarEmpresa';
   }
 
   onClick() {
