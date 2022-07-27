@@ -71,7 +71,7 @@ export class CompanyPopUpComponent implements OnInit {
       country: new FormControl({ value: (this.data.country) ? this.data.country : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) })
     });
 
-      this.title = this.data.mode === ModePopUpType.ADD ? 'NuevaEmpresa' : this.data.mode === ModePopUpType.DISPLAY ? 'VerEmpresa' : 'EditarEmpresa';
+    this.title = this.data.mode === ModePopUpType.ADD ? 'NuevaEmpresa' : this.data.mode === ModePopUpType.DISPLAY ? 'VerEmpresa' : 'EditarEmpresa';
   }
 
   onClick() {
@@ -83,27 +83,50 @@ export class CompanyPopUpComponent implements OnInit {
   }
 
   buildCompany(): Company {
-    return {
-      id: this.data.id,
-      name: this.form.value.name,
-      description: this.form.value.description,
-      cif: this.form.value.cif,
-      isActive: this.form.value.active,
-      activity: this.form.value.activity,
-      businessName: this.form.value.businessName,
-      language: this.form.value.language,
-      phoneNumber: this.form.value.phoneNumber,
-      email: this.form.value.email,
-      web: this.form.value.web,
-      contactName: this.form.value.contactName,
-      logo: "logo",
-      address: this.form.value.address,
-      zip: this.form.value.zip,
-      city: this.form.value.city,
-      province: this.form.value.province,
-      country: this.form.value.country,
-      action: ModePopUpType.EDIT
+    if (this.data.mode === ModePopUpType.ADD) {
+      return {
+        id: this.data.id,
+        name: this.form.value.name,
+        description: this.form.value.description,
+        cif: this.form.value.cif,
+        isActive: this.form.value.active,
+        activity: this.form.value.activity,
+        businessName: this.form.value.businessName,
+        language: this.form.value.language,
+        phoneNumber: this.form.value.phoneNumber,
+        email: this.form.value.email,
+        web: this.form.value.web,
+        contactName: this.form.value.contactName,
+        logo: "logo",
+        address: this.form.value.address,
+        zip: this.form.value.zip,
+        city: this.form.value.city,
+        province: this.form.value.province,
+        country: this.form.value.country,
+        action: ModePopUpType.ADD
+      }
+    } else {
+      return {
+        id: this.data.id,
+        name: this.form.value.name,
+        description: this.form.value.description,
+        cif: this.form.value.cif,
+        isActive: this.form.value.active,
+        activity: this.form.value.activity,
+        businessName: this.form.value.businessName,
+        language: this.form.value.language,
+        phoneNumber: this.form.value.phoneNumber,
+        email: this.form.value.email,
+        web: this.form.value.web,
+        contactName: this.form.value.contactName,
+        logo: "logo",
+        address: this.form.value.address,
+        zip: this.form.value.zip,
+        city: this.form.value.city,
+        province: this.form.value.province,
+        country: this.form.value.country,
+        action: ModePopUpType.EDIT
+      }
     }
   }
-
 }
