@@ -143,6 +143,11 @@ namespace Alize.Platform.Api.Controllers
             if (user is null)
                 return NotFound();
 
+            var currentRole = User.GetUserRole();
+
+            if (!_securityService.VerifyRolePermit(currentRole, user.Role.Name))
+                return Forbid();
+
             _mapper.Map(userUpdate, user);
 
             await _securityService.UpdateUserAsync(user);
@@ -160,7 +165,17 @@ namespace Alize.Platform.Api.Controllers
         {
             try
             {
-                await _securityService.UpdateUserPasswordAsync(id, userPasswordUpdate.NewPassword);
+                var user = await _securityService.GetUserAsync(id);
+
+                if (user is null)
+                    return NotFound();
+
+                var currentRole = User.GetUserRole();
+
+                if (!_securityService.VerifyRolePermit(currentRole, user.Role.Name))
+                    return Forbid();
+
+                await _securityService.UpdateUserPasswordAsync(user, userPasswordUpdate.NewPassword);
             }
             catch (KeyNotFoundException)
             {
@@ -189,6 +204,11 @@ namespace Alize.Platform.Api.Controllers
 
             if (user is null)
                 return NotFound();
+
+            var currentRole = User.GetUserRole();
+
+            if (!_securityService.VerifyRolePermit(currentRole, user.Role.Name))
+                return Forbid();            
 
             await _securityService.DeleteUserAsync(user);
 

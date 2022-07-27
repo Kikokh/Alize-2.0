@@ -22,6 +22,7 @@ import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
 export class GridComponent implements OnInit, AfterViewInit {
 
   @Input() columns: IColumnDef[];
+  @Input() canInsert: boolean = false;
   @Input()
   set elementData(value: any) {
     this.dataSource.data = value;
@@ -88,7 +89,6 @@ export class GridComponent implements OnInit, AfterViewInit {
       this._router.navigate([`management/charts/${data.id}/chart`]);
     } else {
       this._openPopUpService.open(this.entity, optionName, data).subscribe(entity => {
-
         if (entity.action === ModePopUpType.EDIT) {
           this.update.emit(entity);
         } else if (entity.action === ModePopUpType.ADD) {

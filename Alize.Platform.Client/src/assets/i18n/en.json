@@ -85,6 +85,7 @@
   "TimerPopUpTextInfo": "Do you want to continue with the operation?",
   "VerModulo": "View Module",
   "Controlador": "Controller",
+  "NuevaEmpresa": "New Company",
   "VerEmpresa": "View Company",
   "EditarEmpresa": "Edit Company",
   "Datos": "Data",
@@ -103,6 +104,7 @@
   "Pais": "Country",
   "MapUrl": "Map Url",
   "showTable": "Show table",
+  "hideTable": "Hide table",
   "errors": {
     "saveUser": "Error saving user",
     "updateUser": "Error updating user"

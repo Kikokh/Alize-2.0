@@ -40,9 +40,12 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(AssetsPageResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(Guid applicationId, [FromQuery] Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
         {
-            var assets = await _cosmosRepositoryFactory
-                .GetAssetRepository(applicationId)
-                .GetAssetsPageAsync(queries, pageSize, pageNumber);
+            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.BlockchainFue));
+
+            if (service is null)
+                return NotFound();
+
+            var assets = await service.GetAssetsPageAsync(applicationId, queries, pageSize, pageNumber);
 
             var user = await _securityService.GetUserAsync(User.GetUserId());
             await _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()

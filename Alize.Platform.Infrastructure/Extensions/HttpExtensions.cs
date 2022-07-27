@@ -10,6 +10,11 @@ namespace Alize.Platform.Infrastructure.Extensions
             return Guid.Parse(claimsPrincipal.Claims.Single(c => c.Type == ClaimTypes.Sid).Value);
         }
 
+        public static string GetUserRole(this ClaimsPrincipal claimsPrincipal)
+        {
+            return claimsPrincipal.Claims.Single(c => c.Type == ClaimTypes.Role).Value;
+        }
+
         public static bool IsAuthenticated(this ClaimsPrincipal claimsPrincipal)
         {
             return claimsPrincipal.Identity?.IsAuthenticated ?? false;

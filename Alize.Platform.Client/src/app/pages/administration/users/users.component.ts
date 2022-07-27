@@ -108,9 +108,9 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  deleteUser(userId: string) {
+  deleteUser(dialogResult: DialogResult) {
     this.isLoading = true;
-    this._userService.deleteUser(userId).pipe(
+    this._userService.deleteUser(dialogResult.id).pipe(
       switchMap(() => this._userService.getUsers())
     ).subscribe(
       (users) => {

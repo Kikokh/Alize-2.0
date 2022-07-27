@@ -4,8 +4,20 @@
 .app-container {
     height: 100%;
     width: 100%;
+
+    .main-container-page {
+        flex: 1;
+        // display: flex;
+    }
+
     mat-drawer-container {
         height: 100%;
+        background: url(../../../../assets/Alize-back.PNG) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
         .side-bar-expanded {
             min-width: 260px;
         }
@@ -16,6 +28,8 @@
 
         mat-drawer-content {
             height: 100%;
+            display: flex;
+            flex-direction: column;
             transition: all .25s linear;
         }
 
@@ -24,13 +38,4 @@
 
 .main-theme-sidebar {
     background: $blue-background;
-}
-
-.main-theme-content {
-    background: url(../../../../assets/Alize-back.PNG) no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-
 }

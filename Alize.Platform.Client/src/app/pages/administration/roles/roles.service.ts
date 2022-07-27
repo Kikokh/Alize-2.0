@@ -27,8 +27,12 @@ export class RolesService {
     }
   }
 
-  getRoles() {
+  getRolesForUser() {
     return this._http.get<Role[]>(this._baseUrl, this.httpOptions)
+  }
+
+  getRoles() {
+    return this._http.get<Role[]>(`${this._baseUrl}/all`, this.httpOptions)
   }
 
   updateRole(id: string, active: boolean) {

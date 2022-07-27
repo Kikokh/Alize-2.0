@@ -126,15 +126,21 @@ namespace Alize.Platform.Infrastructure.Alastria
 
             using var client = await AppLoginAsync(applicationCredentials);
             var response = await client.GetAsync(url);
-            var result = await response.Content.GetResult<AlastriaResponse>();
 
-            var assets = _mapper.Map<IEnumerable<Asset>>(result.Assets?.Skip(pageNumber * pageSize).Take(pageSize));
-
-            return new AssetsPage()
+            if (response.IsSuccessStatusCode)
             {
-                Assets = assets,
-                Total = result.Assets?.Count() ?? 0
-            };
+                var result = await response.Content.GetResult<AlastriaResponse>();
+
+                var assets = _mapper.Map<IEnumerable<Asset>>(result.Assets?.Skip(pageNumber * pageSize).Take(pageSize));
+
+                return new AssetsPage()
+                {
+                    Assets = assets,
+                    Total = result.Assets?.Count() ?? 0
+                };
+            }
+
+            return null;            
         }
 
         public async Task<IEnumerable<Asset>> GetAssets(Guid applicationId)
@@ -191,7 +197,8 @@ namespace Alize.Platform.Infrastructure.Alastria
         {
             var httpClient = await GetHttpClient();
 
-            var body = JsonConvert.SerializeObject(new { username = applicationCredentials.Username, password = applicationCredentials.EncryptedPassword });
+            var password = _cryptographyService.DecryptString(applicationCredentials.EncryptedPassword);
+            var body = JsonConvert.SerializeObject(new { username = applicationCredentials.Username, password });
 
             var content = new StringContent(body, Encoding.UTF8, "application/json");
 

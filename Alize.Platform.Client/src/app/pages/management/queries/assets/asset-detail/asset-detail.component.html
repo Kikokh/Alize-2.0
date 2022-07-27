@@ -1,21 +1,31 @@
 
     <div class="container" *ngIf="assetTemplate">
-        <app-breadcrumb></app-breadcrumb>
+        <app-breadcrumb [application]="application" [asset]="asset"></app-breadcrumb>
         <div class="flex">
             <div *ngIf="asset" class="details flex flex-column">
+                <h1 class="header">Asset Detail</h1>
                 <h1 class="date">
                     <span class="day">{{ day }} </span>
                     <span class="month"> {{ month | uppercase }} </span>
                     <span class="year"> {{ year }}</span>
                 </h1>
                 <div class="properties">
-                    <h4 class="size" >{{ asset?.id }}</h4>
-                    <span class="size" *ngFor="let field of assetTemplate?.fields">
+                    <h4 class="size-16" >{{ asset?.id }}</h4>
+                    <span class="size-14" *ngFor="let field of assetTemplate?.fields">
                         {{ field.header }}: {{ resolve(field.property, asset) }}
                     </span>
                 </div>
-                <div class="button-wrapper" *ngIf="assetTemplate?.hasVideo">
-                  <button mat-stroked-button (click)="tableClick()">{{'showTable' | translate}}</button>
+                <button mat-stroked-button *ngIf="assetTemplate?.hasVideo" (click)="tableClick()">{{buttonText | translate}}</button>
+                <div class="alert-container">
+                    <button mat-raised-button class="alert-bar-button">
+                        <div class="button-container">
+                            <mat-icon>info</mat-icon>
+                            <span [title]="'alertBlockchain' | translate" class="alert-text">
+                                {{ 'alertBlockchain' | translate }}
+                            </span>
+                            <mat-icon (click)="openEncryptedPopUp()">file_download_done</mat-icon>
+                        </div>
+                    </button>
                 </div>
             </div>
             <div *ngIf="assetTemplate?.hasVideo">
@@ -28,18 +38,9 @@
             </div>
         </div>
         <div *ngIf="showTable">
-          <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length && !assetTemplate?.hasVideo"
+          <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length"
             [tableTemplate]="assetTemplate?.columns ?? []">
-        </app-asset-detail-table>
-        <div class="alert-container">
-            <button mat-raised-button class="alert-bar-button">
-                <div class="button-container">
-                    <mat-icon>info</mat-icon>
-                    <span [title]="'alertBlockchain' | translate" class="alert-text">
-                        {{ 'alertBlockchain' | translate }}
-                    </span>
-                    <mat-icon (click)="openEncryptedPopUp()">file_download_done</mat-icon>
-                </div>
-            </button>
+            </app-asset-detail-table>
+            
         </div>
-    </div>
+    </div> 

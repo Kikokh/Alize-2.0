@@ -10,7 +10,7 @@
 
         <div class="main-grid main-theme-background-grid">
             <div class="toolbar">
-                <button *ngIf="entity === Entity.APPLICATIONS || entity === Entity.USERS" mat-stroked-button
+                <button *ngIf="canInsert" mat-stroked-button
                     (click)="showDialog(ModePopUpType.ADD)">
                     <mat-icon>add</mat-icon>
                     <span>{{ "nuevo" | translate }}</span>

@@ -1,6 +1,7 @@
 ﻿using Alize.Platform.Api.Responses.Roles;
 using Alize.Platform.Core.Constants;
 using Alize.Platform.Infrastructure;
+using Alize.Platform.Infrastructure.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,11 +24,20 @@ namespace Alize.Platform.Api.Controllers
             _mapper = mapper;
         }
 
+        [HttpGet("all")]
+        [ProducesResponseType(typeof(IEnumerable<RoleResponse>), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllRoles()
+        {
+            var roles = await _securityService.GetRolesAsync();
+
+            return Ok(_mapper.Map<IEnumerable<RoleResponse>>(roles));
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<RoleResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
-            var roles = await _securityService.GetRolesAsync();
+            var roles = await _securityService.GetRolesForUserAsync(User.GetUserId());
 
             return Ok(_mapper.Map<IEnumerable<RoleResponse>>(roles));
         }
@@ -52,11 +62,11 @@ namespace Alize.Platform.Api.Controllers
             if (role is null) 
                 return NotFound();
 
-            var currentRole = User.Claims.Single(c => c.Type == ClaimTypes.Role).Value;
+            var currentRole = User.GetUserRole();
+
             if (!_securityService.VerifyRolePermit(currentRole, role.Name))
-            {
-                return BadRequest();
-            }
+                return Forbid();
+
             role.IsActive = enabled;
             await _securityService.UpdateRoleAsync(role); 
             return NoContent();
