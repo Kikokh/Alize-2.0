@@ -5,13 +5,17 @@ GO
 CREATE PROCEDURE [dbo].[DropAndRenameTablesSP]
 AS
 
-DECLARE @CurrentId SMALLINT = 1
+DECLARE @SpecialTables TABLE (TableNm VARCHAR(100), NewTableNm VARCHAR(100))
+INSERT INTO @SpecialTables VALUES ('Users', 'AspNetUsers_NEW'), ('Roles', 'AspNetRoles_NEW')
+
+DECLARE @CurrentId SMALLINT = 2
 DECLARE @Columns VARCHAR(MAX)
 DECLARE @TableNm_New VARCHAR(100)
 DECLARE @TableNm_Old VARCHAR(100)
 DECLARE @Cmd_Columns VARCHAR(MAX)
 DECLARE @Cmd_Tables VARCHAR(MAX)
-DECLARE @Cmd_DropOldFKs VARCHAR(MAX)
+DECLARE @Cmd_DropOldFK VARCHAR(MAX)
+DECLARE @Cmd_DropOldFKs TABLE ([Cmd] VARCHAR(MAX))
 DECLARE @Cmd_DropOldTables VARCHAR(MAX)
 
 -- Drop temp tables if they exist --
@@ -28,8 +32,14 @@ WHILE EXISTS(SELECT 1 FROM #TablesToCheck)
 BEGIN
 
 	SET @TableNm_New = (SELECT tc.name FROM #TablesToCheck tc WHERE Id = @CurrentId)
-	SET @TableNm_Old = (SELECT REPLACE(tc.name, '_NEW','') FROM #TablesToCheck tc WHERE Id = @CurrentId)
-
+	IF EXISTS (SELECT 1 FROM @SpecialTables WHERE NewTableNm = @TableNm_New)
+	BEGIN
+		SET @TableNm_Old = (SELECT TableNm FROM @SpecialTables WHERE NewTableNm = @TableNm_New)
+	END
+	IF NOT EXISTS (SELECT 1 FROM @SpecialTables WHERE NewTableNm = @TableNm_New)
+	BEGIN
+		SET @TableNm_Old = (SELECT REPLACE(tc.name, '_NEW','') FROM #TablesToCheck tc WHERE Id = @CurrentId)
+	END
 	
 	SET @Columns = (SELECT ac.name
 				FROM sys.all_objects ao
@@ -43,14 +53,19 @@ BEGIN
 		EXEC (@Cmd_Columns)
 	END
 
-	SET @Cmd_DropOldFKs =
-	(SELECT 'ALTER TABLE [' + OBJECT_SCHEMA_NAME(parent_object_id) + '].[' + OBJECT_NAME(parent_object_id) +
+	INSERT INTO @Cmd_DropOldFKs
+	SELECT 'ALTER TABLE [' + OBJECT_SCHEMA_NAME(parent_object_id) + '].[' + OBJECT_NAME(parent_object_id) +
 				'] DROP CONSTRAINT [' + name + ']'
 	FROM sys.foreign_keys 
 	WHERE OBJECT_SCHEMA_NAME(referenced_object_id) = 'dbo'
-	AND OBJECT_NAME(referenced_object_id) = @TableNm_Old)
-	
-	EXEC (@Cmd_DropOldFKs)
+	AND OBJECT_NAME(referenced_object_id) = @TableNm_Old
+
+	WHILE EXISTS (SELECT 1 FROM @Cmd_DropOldFKs)
+	BEGIN
+		SET @Cmd_DropOldFK = (SELECT TOP 1 Cmd FROM @Cmd_DropOldFKs)
+		EXEC (@Cmd_DropOldFK)
+		DELETE FROM @Cmd_DropOldFKs WHERE Cmd = @Cmd_DropOldFK
+	END
 
 	SET @Cmd_DropOldTables = (SELECT FORMATMESSAGE('DROP TABLE %s', @TableNm_Old))
 

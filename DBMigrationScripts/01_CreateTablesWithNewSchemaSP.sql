@@ -12,6 +12,9 @@ i.e.: 'Applications|Companies|Users'
 
 */
 
+DECLARE @SpecialTables TABLE (TableNm VARCHAR(100))
+INSERT INTO @SpecialTables VALUES ('Users'), ('Roles')
+
 -- Drop temp tables if they exist --
 
 IF OBJECT_ID('tempdb..#TablesToCheck') IS NOT NULL DROP TABLE #TablesToCheck
@@ -20,9 +23,13 @@ IF OBJECT_ID('tempdb..#TablesWithIdentity') IS NOT NULL DROP TABLE #TablesWithId
 IF OBJECT_ID('tempdb..#Results') IS NOT NULL DROP TABLE #Results
 IF OBJECT_ID('tempdb..#FinalResult') IS NOT NULL DROP TABLE #FinalResult
 
--- Convert INCLUSIONLIST values into a table --
+-- Convert TablesToMigrate values into a table --
 
-SELECT [Value]
+SELECT [Value],
+	CASE WHEN [Value] IN (SELECT TableNm FROM @SpecialTables)
+	THEN CAST(1 AS BIT)
+	ELSE CAST(0 AS BIT)
+	END [HasSpecialCmd]
 INTO #TablesToCheck
 FROM STRING_SPLIT(@TablesToMigrate, '|')
 WHERE RTRIM(LTRIM([Value])) <> ''
@@ -44,7 +51,7 @@ FROM
 				 FROM sys.tables t
 				 join sys.schemas s
 				 ON t.schema_id = s.schema_id
-				 WHERE t.name IN (SELECT Value FROM #TablesToCheck) ) t
+				 WHERE t.name IN (SELECT Value FROM #TablesToCheck WHERE [HasSpecialCmd] = 0) ) t
              ON c.object_id = t.object_id
              GROUP BY s_name, t.name) t
 	   JOIN
@@ -120,6 +127,7 @@ FROM #GetCurrentTablesInfo G
 JOIN #TablesToCheck T
 ON G.t_name = T.[Value]
 WHERE G.identity_seed = 1
+AND T.[HasSpecialCmd] = 0
 
 UPDATE G
 SET rownum = (CASE WHEN G.rownum > 1 THEN G.rownum+1 ELSE G.rownum END),
@@ -189,6 +197,62 @@ FROM STRING_SPLIT(
 	FROM #Results),
 	'¿') AS [A]
 WHERE [value] <> ''
+
+-- Commands for special tables --
+
+	-- AspNetUsers --
+	IF EXISTS (SELECT 1 FROM #TablesToCheck WHERE [Value] = 'Users')
+	BEGIN
+		INSERT INTO #FinalResult
+		SELECT 'AspNetUsers_NEW',
+		'USE ['+DB_NAME()+'] '+N'
+		CREATE TABLE [dbo].[AspNetUsers_NEW] (
+		[Id] UNIQUEIDENTIFIER NOT NULL DEFAULT (newid()),
+		[Id_OLD] INT NULL,
+		[IsActive] BIT NOT NULL,
+		[FirstName] NVARCHAR(MAX) NOT NULL,
+		[LastName] NVARCHAR(MAX) NOT NULL,
+		[EntryDate] DATETIME2 NULL,
+		[LeavingDate] DATETIME2 NULL,
+		[CompanyId] UNIQUEIDENTIFIER NULL,
+		[Pin] NVARCHAR(10) NULL,
+		[UserName] NVARCHAR(256) NULL,
+		[NormalizedUserName] NVARCHAR(256) NULL,
+		[Email] NVARCHAR(256) NULL,
+		[NormalizedEmail] NVARCHAR(256) NULL,
+		[EmailConfirmed] BIT NOT NULL,
+		[PasswordHash] NVARCHAR(MAX) NULL,
+		[SecurityStamp] NVARCHAR(MAX) NULL,
+		[ConcurrencyStamp] NVARCHAR(MAX) NULL,
+		[PhoneNumber] NVARCHAR(MAX) NULL,
+		[PhoneNumberConfirmed] BIT NOT NULL,
+		[TwoFactorEnabled] BIT NOT NULL,
+		[LockoutEnd] DATETIMEOFFSET NULL,
+		[LockoutEnabled] BIT NOT NULL,
+		[AccessFailedCount] INT NOT NULL,
+		CONSTRAINT [PK_AspNetUsers_NEW] PRIMARY KEY ([Id])
+		)
+		'
+	END
+
+	-- AspNetUsers --
+	IF EXISTS (SELECT 1 FROM #TablesToCheck WHERE [Value] = 'Roles')
+	BEGIN
+		INSERT INTO #FinalResult
+		SELECT 'AspNetRoles_NEW',
+		'USE ['+DB_NAME()+'] '+N'
+		CREATE TABLE [dbo].[AspNetRoles_NEW] (
+		[Id] UNIQUEIDENTIFIER NOT NULL DEFAULT (newid()),
+		[Id_OLD] INT NULL,
+		[Description] NVARCHAR(MAX) NOT NULL,
+		[IsActive] BIT NOT NULL,
+		[Name] NVARCHAR(256) NULL,
+		[NormalizedName] NVARCHAR(256) NULL,
+		[ConcurrencyStamp] NVARCHAR(MAX) NULL,
+		CONSTRAINT [PK_AspNetRoles_NEW] PRIMARY KEY ([Id])
+		)
+		'
+	END
 
 -- (Re)create the new tables --
 
