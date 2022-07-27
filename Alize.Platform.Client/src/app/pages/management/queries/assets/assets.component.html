@@ -6,13 +6,15 @@
                 <h1 class="title">{{ application?.company?.name }} | {{ application?.name }}</h1>
                 <h3 class="description">{{ application?.description }}</h3>
             </div>
-            <mat-form-field class="search-by-id" appearance="outline" color="accent">
-                <mat-label>{{ 'searchById' | translate }}</mat-label>
-                <input type="text" matInput [(ngModel)]="assetId">
-                <button matSuffix mat-raised-button color="accent" (click)="showDetails(assetId)">
-                    {{ 'search' | translate }}
-                </button>
-            </mat-form-field>
+            <div class="formContainer">
+                <mat-form-field class="search-by-id" color="accent" floatLabel="never">
+                    <button mat-icon-button matPrefix mat-raised (click)="showDetails(assetId)"> 
+                        <img src="/assets/search.svg">
+                    </button>
+                    <input class="search-input" matInput type="text"matInput [(ngModel)]="assetId">
+                    <mat-label class="placeholder">{{ 'searchById' | translate }}</mat-label>
+                </mat-form-field>
+            </div>
         </div>
         <app-asset-stats *ngIf="template?.stats && template?.stats?.length && dataSource.data"
             [stats]="template?.stats ?? []" [assets]="dataSource.data">
