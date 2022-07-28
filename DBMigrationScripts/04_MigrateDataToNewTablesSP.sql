@@ -57,6 +57,14 @@ BEGIN
 		INSERT INTO @FKData
 		EXEC sp_fkeys @fktable_name=@TableNm
 
+		UPDATE @FKData
+		SET PKTABLE_NAME = 'AspNetUsers'
+		WHERE PKTABLE_NAME = 'Users'
+
+		UPDATE @FKData
+		SET PKTABLE_NAME = 'AspNetRoles'
+		WHERE PKTABLE_NAME = 'Roles'
+
 		IF EXISTS(SELECT 1 FROM @FKData)
 		BEGIN
 
@@ -159,6 +167,11 @@ BEGIN
 			AND col2.object_id = tab2.object_id
 		WHERE tab1.name = @TableNm
 
+		UPDATE #FKRelationships
+		SET [referenced_table] = CASE WHEN [referenced_table] = 'Users' THEN 'AspNetUsers'
+									  WHEN [referenced_table] = 'Roles' THEN 'AspNetRoles'
+									  ELSE [referenced_table] END
+
 		SET @RefTable1 = (SELECT TOP 1 referenced_table FROM #FKRelationships WHERE [table] = @TableNm)
 		SET @RefTable2 = (SELECT TOP 1 referenced_table FROM #FKRelationships WHERE referenced_table <> @RefTable1 AND [table] = @TableNm)
 		SET @RefTCol1 = (SELECT referenced_column FROM #FKRelationships WHERE [table] = @TableNm AND referenced_table = @RefTable1)
@@ -194,49 +207,32 @@ END
 IF EXISTS (SELECT 1 FROM #SpecialTablesToCheck)
 BEGIN
 	IF EXISTS (SELECT 1 FROM #SpecialTablesToCheck WHERE [Value] = 'Users')
-	BEGIN
+	BEGIN		
 		SET @Cmd = N'
-		ALTER TABLE [dbo].[Users_NEW] DROP CONSTRAINT [FK_dbo.Users_dbo.Users_ParentId_NEW]
-		ALTER TABLE [dbo].[Users_NEW] ALTER COLUMN ParentId VARCHAR(100)'
-
-		EXEC (@Cmd)
-		
-		SET @Cmd = N'
-		INSERT INTO [dbo].[Users_NEW] (Id_OLD, Name,
-		LastName, Email, Password, EntryDate, LeavingDate,
-		CompanyId, ParentId, Pin)
-		SELECT U.Id, U.Name, U.LastName, U.Email,
+		INSERT INTO [dbo].[AspNetUsers_NEW] (Id_OLD, IsActive,
+		FirstName, LastName, Email, NormalizedEmail, PasswordHash, 
+		EntryDate, LeavingDate, CompanyId, Pin, EmailConfirmed,
+		PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnabled,
+		AccessFailedCount)
+		SELECT U.Id, 1, U.Name, U.LastName, U.Email,
+		RTRIM(LTRIM(LOWER(U.Email))) [NormalizedEmail],
 		U.Password, U.EntryDate, U.LeavingDate,
-		CN.Id [CompanyId], U.ParentId, U.Pin
+		CN.Id [CompanyId], U.Pin, 1, 0, 0, 0, 0
 		FROM dbo.Users U
 		JOIN dbo.Companies_NEW CN
-		ON U.CompanyId = CN.Id_OLD
-
-		UPDATE UN1
-		SET ParentId = UN2.Id
-		FROM [dbo].[Users_NEW] UN1
-		JOIN [dbo].[Users_NEW] UN2
-		ON UN1.ParentId = UN2.Id_OLD'
+		ON U.CompanyId = CN.Id_OLD'
 		
-		EXEC (@Cmd)
-
-		SET @Cmd = N'
-		ALTER TABLE [dbo].[Users_NEW] ALTER COLUMN ParentId UNIQUEIDENTIFIER
-		ALTER TABLE [dbo].[Users_NEW] ADD CONSTRAINT [FK_dbo.Users_dbo.Users_ParentId_NEW] FOREIGN KEY ([ParentId]) REFERENCES [dbo].[Users_NEW]([Id])'
-
 		EXEC (@Cmd)
 	END
 
 	IF EXISTS (SELECT 1 FROM #SpecialTablesToCheck WHERE [Value] = 'Roles')
 	BEGIN
 		SET @Cmd = N'
-		INSERT INTO dbo.Roles_NEW (Id_OLD,
-		Name, Description, Activate, CompanyId)
-		SELECT R.Id, R.Name, R.Description,
-		R.Activate, C.Id
-		FROM dbo.Roles R (NOLOCK)
-		LEFT JOIN dbo.Companies_NEW C (NOLOCK)
-		ON R.CompanyId = C.Id_OLD
+		INSERT INTO [dbo].[AspNetRoles_NEW] (Id_OLD,
+		[Description], IsActive, [Name], NormalizedName)
+		SELECT Id, [Description], Activate,
+		[Name], LTRIM(RTRIM([Name])) [NormalizedName]
+		FROM dbo.Roles
 		'
 		EXEC (@Cmd)
 	END
@@ -251,7 +247,7 @@ BEGIN
 		FROM dbo.Petitions P (NOLOCK)
 		LEFT JOIN dbo.Companies_NEW C (NOLOCK)
 		ON P.IdCompany = C.Id_OLD
-		LEFT JOIN dbo.Users_NEW U (NOLOCK)
+		LEFT JOIN [dbo].[AspNetUsers_NEW] U (NOLOCK)
 		ON P.IdUser = U.Id_OLD
 		'
 		EXEC (@Cmd)

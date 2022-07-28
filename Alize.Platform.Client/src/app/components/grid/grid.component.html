@@ -1,60 +1,58 @@
+<div class="grid-container">
 
-    <div class="grid-container">
-        <div class="filter">
-            <div></div>
-            <mat-form-field appearance="standard" color="primary">
-                <mat-label>{{ "filtro" | translate }}</mat-label>
-                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-            </mat-form-field>
-        </div>
-
-        <div class="main-grid main-theme-background-grid">
-            <div class="toolbar">
-                <button *ngIf="entity === Entity.APPLICATIONS || entity === Entity.USERS" mat-stroked-button
-                    (click)="showDialog(ModePopUpType.ADD)">
-                    <mat-icon>add</mat-icon>
-                    <span>{{ "nuevo" | translate }}</span>
-                </button>
+    <div class="main-grid main-theme-background-grid">
+        <div class="toolbar">
+            <div class="filter">
+                <mat-form-field appearance="standard" color="primary">
+                    <mat-label>{{ "filtro" | translate }}</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+                </mat-form-field>
             </div>
 
-            <div class="table-container">
-                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                    <ng-container *ngFor="let column of columns; let i = index" matColumnDef="{{column.columnDef}}">
-                        <th mat-header-cell class="main-theme-header" *matHeaderCellDef>{{ column.header | translate }}
-                        </th>
-
-                        <td mat-cell *matCellDef="let row">
-                            <div *ngIf="column.header === 'Activo'">
-                                <mat-slide-toggle color="accent" disabled [ngModel]="row.isActive"></mat-slide-toggle>
-                            </div>
-                            <div *ngIf="column.header === 'Permiso'">
-                                <mat-slide-toggle color="accent" disabled [ngModel]="row.isActive"></mat-slide-toggle>
-                            </div>
-                            <div class="common-row"
-                                *ngIf="column.header !== 'Operaciones' && column.header !== 'Activo' && column.header !== 'Permiso'">
-                                {{ column.cell(row) }}
-                            </div>
-                        </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="operations">
-                        <th mat-header-cell class="main-theme-header" *matHeaderCellDef> {{ 'Operaciones' | translate }}
-                        </th>
-                        <td mat-cell class="operation-column" *matCellDef="let row">
-                            <ng-container *ngFor="let action of actions">
-                                <button class="icon-button" mat-icon-button color="accent"
-                                    *ngIf="(userActionIsAllowed(action) | async) && (action.optionName !== ModePopUpType.CHARTS || (row.showChartAction && action.optionName === ModePopUpType.CHARTS))"
-                                    (click)="showDialog(action.optionName, row)">
-                                    <span class="material-symbols-outlined">{{ action.icon }}</span>
-                                </button>
-                            </ng-container>
-                        </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-            </div>
+            <button *ngIf="canInsert" class="add-button" mat-stroked-button (click)="showDialog(ModePopUpType.ADD)">
+                <mat-icon>add</mat-icon>
+                <span>{{ "nuevo" | translate }}</span>
+            </button>
         </div>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container *ngFor="let column of columns; let i = index" matColumnDef="{{column.columnDef}}">
+                    <th mat-header-cell class="main-theme-header" *matHeaderCellDef>{{ column.header | translate }}
+                    </th>
+
+                    <td mat-cell *matCellDef="let row">
+                        <div *ngIf="column.header === 'Activo'">
+                            <mat-slide-toggle color="accent" disabled [ngModel]="row.isActive"></mat-slide-toggle>
+                        </div>
+                        <div *ngIf="column.header === 'Permiso'">
+                            <mat-slide-toggle color="accent" disabled [ngModel]="row.isActive"></mat-slide-toggle>
+                        </div>
+                        <div class="common-row"
+                            *ngIf="column.header !== 'Operaciones' && column.header !== 'Activo' && column.header !== 'Permiso'">
+                            {{ column.cell(row) }}
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="operations">
+                    <th mat-header-cell class="main-theme-header" *matHeaderCellDef> {{ 'Operaciones' | translate }}
+                    </th>
+                    <td mat-cell class="operation-column" *matCellDef="let row">
+                        <ng-container *ngFor="let action of actions">
+                            <button class="icon-button" mat-icon-button color="accent"
+                                *ngIf="(userActionIsAllowed(action, row) | async) && (action.optionName !== ModePopUpType.CHARTS || (row.showChartAction && action.optionName === ModePopUpType.CHARTS))"
+                                (click)="showDialog(action.optionName, row)">
+                                <span class="material-symbols-outlined">{{ action.icon }}</span>
+                            </button>
+                        </ng-container>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
     </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>

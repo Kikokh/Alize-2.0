@@ -10,7 +10,7 @@ export class Company {
     contactName: string;
     country: string;
     email: string;
-    id: string;
+    id?: string;
     imageTypeMime?: string;
     isActive: boolean;
     language: string;

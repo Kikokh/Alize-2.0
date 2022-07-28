@@ -29,24 +29,26 @@
         color: #73879c;
 
         .toolbar {
-            margin: 0 auto;
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
 
-            button {
-                background: #217280;
-                color: #ffffff;
+            .filter {
+                flex-grow: 1;
+
+                .mat-form-field {
+                    width: 100%;
+                }
             }
 
-            div {
+            .add-button {
                 display: flex;
-                font-size: 18px;
-
-                .title {
-                    font-weight: bold;
-                }
-
-                .sub-title {
-                    margin-left: 20px;
-                }
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                height: 50%;
+                background: #217280;
+                color: #ffffff;
             }
         }
 
@@ -62,9 +64,6 @@
                 }
 
                 td {
-                    border-radius: 5px;
-                    white-space: normal;
-
                     .operation-column {
                         .icon-button {
                             margin-left: 20px;
@@ -83,7 +82,15 @@
 }
 
 
+.mat-header-cell {
+    font-weight: 400;
+    font-size: 16px;
+}
 
+.mat-cell {
+    font-weight: 300;
+    font-size: 16px;
+}
 
 .mat-table {
     width: 100%;
@@ -97,8 +104,6 @@
 .mat-header-row {
     background: rgba(89, 129, 152, 0.4);
     height: 8px;
-    font-family: 'Poppins';
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
@@ -118,7 +123,6 @@
     white-space: nowrap;
     overflow: hidden;
     vertical-align: middle;
-    font-weight: 600;
     font-size: 14px;
     line-height: 24px;
 }

@@ -10,7 +10,7 @@
         <div class="grid">
             <div *ngIf="!isLoading; else gridSkeleton">
                 <app-grid (add)="add($event)" (updatePassword)="updatePassword($event)" (delete)="deleteUser($event)" (update)="update($event)" (updateRole)="updateRole($event)" (delete)="delete($event)"
-                    [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions">
+                    [columns]="displayedColumns" [elementData]="elementData" [entity]="entity" [actions]="actions" [canInsert]="true">
                 </app-grid>
 
             </div>

@@ -26,10 +26,25 @@ export class UsersComponent implements OnInit {
     { columnDef: 'Activo', header: 'Activo', cell: (element: User) => `${element.isActive}` }
   ];
   actions: IOperationsModel[] = [
-    // { optionName: ModePopUpType.DISPLAY, icon: 'search' },
-    { optionName: ModePopUpType.EDIT, icon: 'edit_note' },
-    { optionName: ModePopUpType.PASSWORD, icon: 'key' },
-    { optionName: ModePopUpType.DELETE, icon: 'delete_outline', requiredRoles: [Roles.AdminPro] }
+    {
+      optionName: ModePopUpType.DISPLAY,
+      icon: 'search'
+    },
+    {
+      optionName: ModePopUpType.EDIT,
+      icon: 'edit_note',
+      getIsAllowed: (userRole: Roles, row: User) => userRole === Roles.AdminPro || userRole === Roles.Distributor || (userRole === Roles.Admin && row.roleName !== Roles.Distributor)
+    },
+    {
+      optionName: ModePopUpType.PASSWORD,
+      icon: 'key',
+      getIsAllowed: (userRole: Roles, row: User) => userRole === Roles.AdminPro || userRole === Roles.Distributor || (userRole === Roles.Admin && row.roleName !== Roles.Distributor)
+    },
+    {
+      optionName: ModePopUpType.DELETE,
+      icon: 'delete_outline',
+      getIsAllowed: (userRole: Roles, row: User) => userRole === Roles.AdminPro || userRole === Roles.Distributor || (userRole === Roles.Admin && row.roleName !== Roles.Distributor)
+    }
   ]
 
   get entity(): EntityType {
@@ -108,9 +123,9 @@ export class UsersComponent implements OnInit {
     });
   }
 
-  deleteUser(userId: string) {
+  deleteUser(dialogResult: DialogResult) {
     this.isLoading = true;
-    this._userService.deleteUser(userId).pipe(
+    this._userService.deleteUser(dialogResult.id).pipe(
       switchMap(() => this._userService.getUsers())
     ).subscribe(
       (users) => {

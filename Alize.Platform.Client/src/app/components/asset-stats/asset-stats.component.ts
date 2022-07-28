@@ -8,15 +8,11 @@ import { TemplateStat } from 'src/app/models/template-stats.model';
   templateUrl: './asset-stats.component.html',
   styleUrls: ['./asset-stats.component.scss']
 })
-export class AssetStatsComponent implements OnInit {
+export class AssetStatsComponent {
   @Input() stats: TemplateStat[];
   @Input() assets: Asset[];
 
   constructor() { }
-
-  ngOnInit(): void {
-    console.log(this.stats);
-  }
 
   getStat(stat: TemplateStat) {
     switch (stat.type) {

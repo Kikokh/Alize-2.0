@@ -6,14 +6,14 @@
 
     <div class="mat-dialog-content" mat-dialog-content>
         <form [formGroup]="form">
-            <mat-form-field appearance="outline">
-                <mat-label>{{"Nombre" | translate}}</mat-label>
-                <input matInput name="name" formControlName="name">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>{{"Descripcion" | translate}}</mat-label>
-                <input matInput name="description" formControlName="description">
-            </mat-form-field>
+            <div class="control" appearance="outline">
+                <label>{{"Nombre" | translate}}</label>
+                <input name="name" formControlName="name">
+            </div>
+            <div class="control" appearance="outline">
+                <label>{{"Descripcion" | translate}}</label>
+                <input name="description" formControlName="description">
+            </div>
             <mat-slide-toggle color="accent" formControlName="active">Activo</mat-slide-toggle>
             <div *ngIf="data.mode !== 'ADD'" style="margin-top: 30px; display: flex; flex-direction: column;">
                 <h1 class="modules" mat-dialog-title>{{availableModules | translate}}</h1>

@@ -1,8 +1,6 @@
 <mat-label class="accent">
-    <div class="breadcrumbContainer">
-        <ng-template ngFor let-fragment let-i="index" [ngForOf]="fragments">
-            <a [routerLink]="getLink(i)" [class.activeLink]="i + 1 === fragments.length"> {{ fragment | titlecase | translate }} </a>
-            <span *ngIf="i + 1  < fragments.length"> > </span>
-        </ng-template>
-    </div>
+    <ng-template ngFor let-fragment let-i="index" [ngForOf]="fragments">
+        <a  [routerLink]="getLink(i)" [class.activeLink]="i + 1 === fragments.length"> {{ fragment | titlecase | translate }} </a>
+        <span *ngIf="i + 1  < fragments.length"> > </span>
+    </ng-template>
 </mat-label>

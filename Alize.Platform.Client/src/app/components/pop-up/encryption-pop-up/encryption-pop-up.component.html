@@ -1,15 +1,15 @@
 <div class="main">
     <h1 class="title color-bold" mat-dialog-title>{{"TraceabilityHash" | translate}}</h1>
-    <mat-form-field appearance="outline">
-        <mat-label>{{data.hash}}</mat-label>
-        <input matInput name="name" disabled>
-    </mat-form-field>
+    <div class="control" appearance="outline">
+        <label>{{data.hash}}</label>
+        <input name="name" disabled>
+    </div>
 
     <h1 class="title color-bold" mat-dialog-title>{{"TraceabilityData" | translate}}</h1>
-    <mat-form-field appearance="outline">
-        <mat-label>{{hashData}}</mat-label>
-        <input matInput name="name" disabled>
-    </mat-form-field>
+    <div class="control" appearance="outline">
+        <label>{{hashData}}</label>
+        <input name="name" disabled>
+    </div>
 
     <span class="color">
         {{"EncryptionDescOne" | translate}}

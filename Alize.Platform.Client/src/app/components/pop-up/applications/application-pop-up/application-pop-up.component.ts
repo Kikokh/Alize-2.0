@@ -1,9 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Application } from 'src/app/models/application.model';
+import { Company } from 'src/app/models/company.model';
 import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
+import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
@@ -12,11 +14,12 @@ import { ModePopUpType } from '../../models/entity-type.enum';
   templateUrl: './application-pop-up.component.html',
   styleUrls: ['./application-pop-up.component.scss']
 })
-export class ApplicationPopUpComponent {
+export class ApplicationPopUpComponent implements OnInit {
 
   title = '';
   subtitle = '';
   infoText = '';
+  companies: Company[];
 
   applicationForm: FormGroup;
 
@@ -33,13 +36,16 @@ export class ApplicationPopUpComponent {
       importantInfo: string;
       mode: string;
       creationDate: Date;
+      company: Company;
       isActive: boolean;
     },
-    public translate: TranslateService) {
+    private _companiesService: CompaniesService
+  ) {
 
     this.applicationForm = new FormGroup({
       name: new FormControl({ value: (this.data.name) ? this.data.name : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
       description: new FormControl({ value: (this.data.description) ? this.data.description : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      company: new FormControl({ value: this.data.company?.id, disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
       importantInfo: new FormControl({ value: (this.data.importantInfo) ? this.data.importantInfo : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       date: new FormControl({ value: this.data.creationDate, disabled: true }),
       active: new FormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
@@ -53,13 +59,12 @@ export class ApplicationPopUpComponent {
       this.title = 'AddTitulo';
       this.subtitle = 'AddSubTitulo';
     }
+  }
 
-    const lang = localStorage.getItem('lang');
-    if (lang !== null) {
-      this.translate.setDefaultLang(lang);
-    } else {
-      this.translate.setDefaultLang('en');
-    }
+  ngOnInit() {
+    this._companiesService
+      .getCompanies()
+      .subscribe(companies => this.companies = companies);
   }
 
   onClick() {

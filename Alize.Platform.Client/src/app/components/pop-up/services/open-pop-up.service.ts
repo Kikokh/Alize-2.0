@@ -146,6 +146,7 @@ export class OpenPopUpService {
           name: data.name,
           description: data.description,
           fecha: new Date(),
+          company: data.company,
           creationDate: data.creationDate,
           dataType: data.dataType,
           isActive: data.isActive,
@@ -160,6 +161,7 @@ export class OpenPopUpService {
           name: data.name,
           description: data.description,
           fecha: new Date(),
+          company: data.company,
           creationDate: data.creationDate,
           dataType: data.dataType,
           isActive: data.isActive,
@@ -216,6 +218,8 @@ export class OpenPopUpService {
           empresaId: data.companyId,
           grupos: data.roleName,
           isActive: data.isActive,
+          roleName: data.roleName,
+          roleId: data.roleId,
           mode: mode
         }
         break;
@@ -258,7 +262,7 @@ export class OpenPopUpService {
   }
   resolveCompaniesPopUp(mode: ModePopUpType, matDialogConfigModel: MatDialogConfigModel, data?: Company) {
     switch (mode) {
-      case ModePopUpType.DISPLAY: {
+      case ModePopUpType.DISPLAY:
         matDialogConfigModel.component = CompanyPopUpComponent;
         matDialogConfigModel.data = {
           id: data?.id,
@@ -284,12 +288,14 @@ export class OpenPopUpService {
           mode: mode
         }
         break;
-      }
-      case ModePopUpType.EDIT: {
+      case ModePopUpType.EDIT:
         matDialogConfigModel.component = CompanyPopUpComponent;
-        matDialogConfigModel.data = data
+        matDialogConfigModel.data = { ...data, mode }
         break;
-      }
+      case ModePopUpType.ADD:
+        matDialogConfigModel.component = CompanyPopUpComponent;
+        matDialogConfigModel.data = { ...data, mode }
+        break;
     }
   }
 }

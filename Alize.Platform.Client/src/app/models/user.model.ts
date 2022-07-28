@@ -1,3 +1,4 @@
+import { Roles } from "../constants/roles.constants";
 import { Application } from "./application.model";
 import { Module } from "./module.model";
 
@@ -9,7 +10,7 @@ export class User {
     id: string;
     isActive: boolean;
     lastName: string;
-    roleName: string;
+    roleName: Roles;
     userName: string;
     modules: Module[];
     applications: Application[];

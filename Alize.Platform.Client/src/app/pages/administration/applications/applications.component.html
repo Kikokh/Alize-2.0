@@ -9,7 +9,7 @@
     <div class="grid">
         <div *ngIf="!isLoading; else gridSkeleton">
             <app-grid (add)="add($event)" (update)="update($event)" (delete)="delete($event)" [columns]="displayedColumns"
-            [elementData]="elementData" [entity]="entity" [actions]="actions"></app-grid>
+            [elementData]="elementData" [entity]="entity" [actions]="actions" [canInsert]="canInsert | async"></app-grid>
         </div>
         <ng-template #gridSkeleton>
             <div class="grid-skeleton">

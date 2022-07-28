@@ -5,22 +5,22 @@
 
     <div class="mat-dialog-content" mat-dialog-content>
         <form [formGroup]="modulesForm">
-            <mat-form-field appearance="outline">
-                <mat-label>{{"Nombre" | translate}}</mat-label>
-                <input matInput name="name" formControlName="name">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>{{"Descripcion" | translate}}</mat-label>
-                <input matInput name="description" formControlName="description">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Root</mat-label>
-                <input matInput name="grupo" formControlName="grupo">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>{{"Controlador" | translate}}</mat-label>
-                <input matInput name="controlador" formControlName="controlador">
-            </mat-form-field>
+            <div class="control" appearance="outline">
+                <label>{{"Nombre" | translate}}</label>
+                <input name="name" formControlName="name">
+            </div>
+            <div class="control" appearance="outline">
+                <label>{{"Descripcion" | translate}}</label>
+                <input name="description" formControlName="description">
+            </div>
+            <div class="control" appearance="outline">
+                <label>Root</label>
+                <input name="grupo" formControlName="grupo">
+            </div>
+            <div class="control" appearance="outline">
+                <label>{{"Controlador" | translate}}</label>
+                <input name="controlador" formControlName="controlador">
+            </div>
             <mat-slide-toggle color="accent" formControlName="active">{{"Activo" | translate}}</mat-slide-toggle>
         </form>
     </div>

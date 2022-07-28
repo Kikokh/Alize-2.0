@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Company } from 'src/app/models/company.model';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
+import { DialogResult } from '../../users/group-user-pop-up/group-user-pop-up.component';
 
 @Component({
   selector: 'app-company-pop-up',
@@ -12,14 +13,30 @@ import { ModePopUpType } from '../../models/entity-type.enum';
   styleUrls: ['./company-pop-up.component.scss']
 })
 export class CompanyPopUpComponent implements OnInit {
-  title = 'Ver Empresa';
   form: FormGroup;
+  selectedIndex = 0;
+  mode: ModePopUpType;
+  logo?: File;
+  logoSrc?: string;
+
   public get _modePopUpType(): typeof ModePopUpType {
     return ModePopUpType;
   }
 
   get urlMap() {
     return this.form?.value ? `https://maps.google.com/maps?q=${this.form.value.address}%20%${this.form.value.city}&t=&z=20&ie=UTF8&iwloc=&output=embed` : '';
+  }
+
+  get isEdit(): boolean {
+    return this.mode === ModePopUpType.EDIT;
+  }
+
+  get isView(): boolean {
+    return this.mode === ModePopUpType.DISPLAY;
+  }
+
+  get title(): string {
+    return this.data.mode === ModePopUpType.ADD ? 'NuevaEmpresa' : this.data.mode === ModePopUpType.DISPLAY ? 'VerEmpresa' : 'EditarEmpresa';
   }
 
   constructor(public dialogRef: MatDialogRef<CompanyPopUpComponent>,
@@ -44,42 +61,40 @@ export class CompanyPopUpComponent implements OnInit {
       city: string;
       province: string;
       country: string;
-      mode: string;
+      mode: ModePopUpType;
     },
     private _companiesService: CompaniesService,
     public translate: TranslateService) {
   }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      name: new FormControl({ value: (this.data.name) ? this.data.name : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
-      description: new FormControl({ value: (this.data.description) ? this.data.description : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      active: new FormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      activity: new FormControl({ value: (this.data.activity) ? this.data.activity : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      businessName: new FormControl({ value: (this.data.businessName) ? this.data.businessName : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      cif: new FormControl({ value: (this.data.cif) ? this.data.cif : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
-      language: new FormControl({ value: (this.data.language) ? this.data.language : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      phoneNumber: new FormControl({ value: (this.data.phoneNumber) ? this.data.phoneNumber : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      email: new FormControl({ value: (this.data.email) ? this.data.email : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
-      web: new FormControl({ value: (this.data.web) ? this.data.web : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      contactName: new FormControl({ value: (this.data.contactName) ? this.data.contactName : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
-      logo: new FormControl({ value: (this.data.logo) ? this.data.logo : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      address: new FormControl({ value: (this.data.address) ? this.data.address : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      zip: new FormControl({ value: (this.data.zip) ? this.data.zip : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      city: new FormControl({ value: (this.data.city) ? this.data.city : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      province: new FormControl({ value: (this.data.province) ? this.data.province : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      country: new FormControl({ value: (this.data.country) ? this.data.country : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) })
-    });
-
-    if (this.data.mode == ModePopUpType.DISPLAY) {
-      this.title = 'VerEmpresa';
-    }
-    else {
-      this.title = 'EditarEmpresa';
-    }
+    this.mode = this.data.mode;
+    this.createForm();
   }
 
-  onClick() {
+  createForm() {
+    this.form = new FormGroup({
+      name: new FormControl({ value: this.data.name, disabled: this.isView }, Validators.required),
+      description: new FormControl({ value: this.data.description, disabled: this.isView }),
+      isActive: new FormControl({ value: this.data.isActive, disabled: this.isView }),
+      activity: new FormControl({ value: this.data.activity, disabled: this.isView }),
+      businessName: new FormControl({ value: this.data.businessName, disabled: this.isView }),
+      cif: new FormControl({ value: this.data.cif, disabled: this.isView }, Validators.required),
+      language: new FormControl({ value: this.data.language, disabled: this.isView }),
+      phoneNumber: new FormControl({ value: this.data.phoneNumber, disabled: this.isView }),
+      email: new FormControl({ value: this.data.email, disabled: this.isView }, Validators.required),
+      web: new FormControl({ value: this.data.web, disabled: this.isView }),
+      contactName: new FormControl({ value: this.data.contactName, disabled: this.isView }, Validators.required),
+      logo: new FormControl({ value: this.data.logo, disabled: this.isView }),
+      address: new FormControl({ value: this.data.address, disabled: this.isView }),
+      zip: new FormControl({ value: this.data.zip, disabled: this.isView }),
+      city: new FormControl({ value: this.data.city, disabled: this.isView }),
+      province: new FormControl({ value: this.data.province, disabled: this.isView }),
+      country: new FormControl({ value: this.data.country, disabled: this.isView })
+    });
+  }
+
+  submit() {
     this.dialogRef.close(this.buildCompany());
   }
 
@@ -87,28 +102,41 @@ export class CompanyPopUpComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  buildCompany(): Company {
-    return {
-      id: this.data.id,
-      name: this.form.value.name,
-      description: this.form.value.description,
-      cif: this.form.value.cif,
-      isActive: this.form.value.active,
-      activity: this.form.value.activity,
-      businessName: this.form.value.businessName,
-      language: this.form.value.language,
-      phoneNumber: this.form.value.phoneNumber,
-      email: this.form.value.email,
-      web: this.form.value.web,
-      contactName: this.form.value.contactName,
-      logo: "logo",
-      address: this.form.value.address,
-      zip: this.form.value.zip,
-      city: this.form.value.city,
-      province: this.form.value.province,
-      country: this.form.value.country,
-      action: ModePopUpType.EDIT
-    }
+  toggleEdit() {
+    this.mode = ModePopUpType.EDIT;
+    this.form.enable();
   }
 
+  delete() {
+    const result = new DialogResult();
+
+    result.action = ModePopUpType.DELETE;
+    result.id = this.data.id;
+
+    this.dialogRef.close(result);
+  }
+
+  onFileChanged(event: any) {
+    const [file] = event.target.files;
+    this.logo = file;
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      this.logoSrc = reader.result as string;
+    };
+  }
+
+  buildCompany(): Company {
+    console.log(this.isEdit)
+    if (this.isEdit) return {
+      id: this.data.id,
+      ...this.form.value,
+      action: ModePopUpType.EDIT
+    }
+    else return {
+      ...this.form.value,
+      action: ModePopUpType.ADD 
+    }
+  }
 }

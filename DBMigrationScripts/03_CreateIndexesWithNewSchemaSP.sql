@@ -12,6 +12,9 @@ i.e.: 'Applications|Companies|Users'
 
 */
 
+DECLARE @SpecialTables TABLE (TableNm VARCHAR(100), NewTableNm VARCHAR(100))
+INSERT INTO @SpecialTables VALUES ('Users', 'AspNetUsers'), ('Roles', 'AspNetRoles')
+
 DECLARE @SchemaName VARCHAR(100)
 DECLARE @TableName VARCHAR(256)
 DECLARE @IndexName VARCHAR(256)
@@ -145,6 +148,12 @@ WHILE ( @@fetch_status = 0 )
       --  print @IncludedColumns
       SET @TSQLScripCreationIndex =''
       SET @TSQLScripDisableIndex =''
+
+	  IF @TableName IN (SELECT TableNm FROM @SpecialTables)
+	  BEGIN
+		SET @TableName = (SELECT NewTableNm FROM @SpecialTables WHERE TableNm = @TableName)
+	  END
+
       SET @TSQLScripCreationIndex='CREATE ' + @is_unique + @IndexTypeDesc
                                   + ' INDEX ' + Quotename(@IndexName) + ' ON '
                                   + Quotename(@SchemaName) + '.'
