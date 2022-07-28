@@ -46,7 +46,23 @@ export class CompaniesComponent {
     });
   }
 
-  add(company: Company) { }
+  add(company: Company) {
+    this.isLoading = true;
+
+    this._companiesService.addCompany(company).pipe(
+      switchMap(() => this._companiesService.getCompanies())
+    ).subscribe({
+      next: (company) => {
+        this.elementData = company;
+        this.isLoading = false;
+        this._snackBarService.showSnackBar('Entidad agregada con éxito.');
+      },
+      error: () => {
+        this._snackBarService
+          .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
+      },
+    });
+  }
 
   update(company: Company) {
     this.isLoading = true;

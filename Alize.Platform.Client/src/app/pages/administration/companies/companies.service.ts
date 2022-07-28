@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CompaniesService {
   private _baseUrl = `${environment.apiUrl}/Companies`
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) { }
 
   getCompanies(): Observable<Company[]> {
     return this._http.get<Company[]>(this._baseUrl);
@@ -21,26 +21,51 @@ export class CompaniesService {
     return this._http.get<Company>(`${this._baseUrl}/${companyId}`);
   }
 
+  addCompany(company: Company) {
+    const body = {
+      id: company.id,
+      name: company.name,
+      description: company.description,
+      cif: company.cif,
+      isActive: company.isActive,
+      activity: company.activity,
+      businessName: company.businessName,
+      language: company.language,
+      phoneNumber: company.phoneNumber,
+      email: company.email,
+      web: company.web,
+      contactName: company.contactName,
+      logo: company.logo,
+      address: company.address,
+      zip: company.zip,
+      city: company.city,
+      province: company.province,
+      country: company.country,
+    }
+
+    return this._http.post<any>(`${this._baseUrl}`, body);
+  }
+
   updateCompany(company: Company) {
     const body = {
-    id: company.id,
-    name: company.name,
-    description: company.description,
-    cif: company.cif,
-    isActive: company.isActive,
-    activity: company.activity,
-    businessName: company.businessName,
-    language: company.language,
-    phoneNumber: company.phoneNumber,
-    email: company.email,
-    web: company.web,
-    contactName: company.contactName,
-    logo: company.logo,
-    address: company.address,
-    zip: company.zip,
-    city: company.city,
-    province: company.province,
-    country: company.country,
+      id: company.id,
+      name: company.name,
+      description: company.description,
+      cif: company.cif,
+      isActive: company.isActive,
+      activity: company.activity,
+      businessName: company.businessName,
+      language: company.language,
+      phoneNumber: company.phoneNumber,
+      email: company.email,
+      web: company.web,
+      contactName: company.contactName,
+      logo: company.logo,
+      address: company.address,
+      zip: company.zip,
+      city: company.city,
+      province: company.province,
+      country: company.country,
     }
 
     return this._http.put<any>(`${this._baseUrl}/${company.id}`, body);
