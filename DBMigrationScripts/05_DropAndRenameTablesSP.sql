@@ -8,7 +8,7 @@ AS
 DECLARE @SpecialTables TABLE (TableNm VARCHAR(100), NewTableNm VARCHAR(100))
 INSERT INTO @SpecialTables VALUES ('Users', 'AspNetUsers_NEW'), ('Roles', 'AspNetRoles_NEW')
 
-DECLARE @CurrentId SMALLINT = 2
+DECLARE @CurrentId SMALLINT = 1
 DECLARE @Columns VARCHAR(MAX)
 DECLARE @TableNm_New VARCHAR(100)
 DECLARE @TableNm_Old VARCHAR(100)
@@ -71,11 +71,17 @@ BEGIN
 
 	EXEC (@Cmd_DropOldTables)
 
-	SET @Cmd_Tables = (SELECT FORMATMESSAGE('sp_RENAME ''%s'' , ''%s''',@TableNm_New, @TableNm_Old))
+	IF NOT EXISTS (SELECT 1 FROM @SpecialTables WHERE NewTableNm = @TableNm_New)
+	BEGIN
+		SET @Cmd_Tables = (SELECT FORMATMESSAGE('sp_RENAME ''%s'' , ''%s''',@TableNm_New, @TableNm_Old))
+	END
+	IF EXISTS (SELECT 1 FROM @SpecialTables WHERE NewTableNm = @TableNm_New)
+	BEGIN
+		SET @Cmd_Tables = (SELECT FORMATMESSAGE('sp_RENAME ''%s'' , ''%s''',@TableNm_New, REPLACE(@TableNm_New, '_NEW', '')))
+	END
 		
 	EXEC (@Cmd_Tables)
 
 	DELETE FROM #TablesToCheck WHERE Id = @CurrentId
 	SET @CurrentId = @CurrentId+1
-
 END
