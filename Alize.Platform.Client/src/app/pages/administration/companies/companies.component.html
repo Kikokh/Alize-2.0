@@ -11,7 +11,7 @@
             <div *ngIf="!isLoading; else gridSkeleton">
                 <app-grid (add)="add($event)" (update)="update($event)" (delete)="delete($event)"
                     [columns]="displayedColumns" [elementData]="elementData" [entity]="Entity.COMPANIES"
-                    [actions]="actions" [canInsert]="true"></app-grid>
+                    [actions]="actions" [canInsert]="canInsert | async"></app-grid>
             </div>
             <ng-template #gridSkeleton>
                 <div class="grid-skeleton">

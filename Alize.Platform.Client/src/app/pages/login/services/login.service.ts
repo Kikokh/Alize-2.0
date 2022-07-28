@@ -28,6 +28,7 @@ export class LoginService {
   private _me = new BehaviorSubject<User>(JSON.parse(this._localStorageService.getItem('user')) as User);
 
   $me: Observable<User> = this._me.asObservable();
+  $roleName = this.$me.pipe(map(user => user?.roleName))
 
   get isLoggedin() {
     return this._localStorageService.getItem('token')

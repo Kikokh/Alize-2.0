@@ -5,51 +5,51 @@
 
   <div class="mat-dialog-content" mat-dialog-content>
     <form [formGroup]="userForm">
-      <mat-form-field color="accent" appearance="outline">
-        <mat-label>{{ "Nombre" | translate }}</mat-label>
-        <input matInput name="name" formControlName="firstName" />
+      <div class="control" color="accent" appearance="outline">
+        <label>{{ "Nombre" | translate }}</label>
+        <input name="name" formControlName="firstName" />
         <mat-error>
           <app-form-error [form]="userForm" field="firstName" [errors]="userForm.get('firstName')?.errors">
           </app-form-error>
         </mat-error>
-      </mat-form-field>
-      <mat-form-field color="accent" appearance="outline">
-        <mat-label>{{ "Apellidos" | translate }}</mat-label>
-        <input matInput name="lastName" formControlName="lastName" />
+      </div>
+      <div class="control" color="accent" appearance="outline">
+        <label>{{ "Apellidos" | translate }}</label>
+        <input name="lastName" formControlName="lastName" />
         <mat-error>
           <app-form-error [form]="userForm" field="lastName" [errors]="userForm.get('lastName')?.errors">
           </app-form-error>
         </mat-error>
-      </mat-form-field>
-      <mat-form-field color="accent" appearance="outline">
-        <mat-label>Email</mat-label>
-        <input matInput name="email" formControlName="email" />
+      </div>
+      <div class="control" color="accent" appearance="outline">
+        <label>Email</label>
+        <input name="email" formControlName="email" />
         <mat-error>
           <app-form-error [form]="userForm" field="email" [errors]="userForm.get('email')?.errors"></app-form-error>
         </mat-error>
-      </mat-form-field>
+      </div>
 
       <div class="password-field" *ngIf="data.mode === ModePopUpType.ADD">
-        <mat-form-field color="accent" appearance="outline">
-          <mat-label>{{ "Password" | translate }}</mat-label>
-          <input type="password" matInput name="password" formControlName="password" />
+        <div class="control" color="accent" appearance="outline">
+          <label>{{ "Password" | translate }}</label>
+          <input type="password" name="password" formControlName="password" />
           <mat-error>
             <app-form-error [form]="userForm" field="password" [errors]="userForm.get('password')?.errors">
             </app-form-error>
           </mat-error>
-        </mat-form-field>
-        <mat-form-field color="accent" appearance="outline" *ngIf="data.mode === ModePopUpType.ADD">
-          <mat-label>{{ "Repeat Password" | translate }}</mat-label>
-          <input type="password" matInput name="repassword" formControlName="repassword" />
+        </div>
+        <div class="control" color="accent" appearance="outline" *ngIf="data.mode === ModePopUpType.ADD">
+          <label>{{ "Repeat Password" | translate }}</label>
+          <input type="password" name="repassword" formControlName="repassword" />
           <mat-error>
             <app-form-error [form]="userForm" field="repassword" [errors]="userForm.get('repassword')?.errors">
             </app-form-error>
           </mat-error>
-        </mat-form-field>
+        </div>
       </div>
 
-      <mat-form-field appearance="fill" *ngIf="data.mode === ModePopUpType.ADD || data.mode === ModePopUpType.EDIT">
-        <mat-label>{{ "Empresa" | translate }}</mat-label>
+      <div class="control" appearance="fill" *ngIf="data.mode === ModePopUpType.ADD || data.mode === ModePopUpType.EDIT">
+        <label>{{ "Empresa" | translate }}</label>
         <mat-select formControlName="company">
           <mat-option *ngFor="let company of companies" [value]="company.id">
             {{ company.name }}
@@ -58,16 +58,16 @@
         <mat-error>
           <app-form-error [form]="userForm" field="company" [errors]="userForm.get('company')?.errors"></app-form-error>
         </mat-error>
-      </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>{{ "Roles" | translate }}</mat-label>
+      <div class="control" appearance="fill">
+        <label>{{ "Roles" | translate }}</label>
         <mat-select formControlName="role">
           <mat-option *ngFor="let role of roles" [value]="role.id">
             {{ role.name }}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </div>
 
       <mat-slide-toggle color="accent" formControlName="isActive">{{
         "Activo" | translate

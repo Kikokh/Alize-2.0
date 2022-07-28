@@ -30,10 +30,11 @@
 
         .toolbar {
             display: flex;
+            gap: 20px;
             justify-content: space-between;
 
             .filter {
-                width: 90%;
+                flex-grow: 1;
 
                 .mat-form-field {
                     width: 100%;
@@ -45,12 +46,9 @@
                 justify-content: center;
                 display: flex;
                 align-items: center;
-
-                button {
-                    height: 50%;
-                    background: #217280;
-                    color: #ffffff;
-                }
+                height: 50%;
+                background: #217280;
+                color: #ffffff;
             }
         }
 

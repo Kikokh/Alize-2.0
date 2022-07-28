@@ -1,4 +1,4 @@
-<span id="formError" *ngIf="form?.get(field)?.dirty || form?.get(field)?.touched" [ngSwitch]="fieldError">
+<span class="form-error" id="formError" *ngIf="form?.get(field)?.dirty || form?.get(field)?.touched" [ngSwitch]="fieldError">
   <span *ngSwitchDefault>
     {{displayedError | translate}}
   </span>

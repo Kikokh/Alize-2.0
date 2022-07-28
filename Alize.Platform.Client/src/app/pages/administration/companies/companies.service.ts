@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { Company } from 'src/app/models/company.model';
 import { environment } from 'src/environments/environment';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +19,10 @@ export class CompaniesService {
     return this._http.get<Company>(`${this._baseUrl}/${companyId}`);
   }
 
+  deleteCompany(companyId: string): Observable<Company> {
+    return this._http.delete<Company>(`${this._baseUrl}/${companyId}`);
+  }
+  
   addCompany(company: Company) {
     const body = {
       id: company.id,

@@ -22,7 +22,7 @@ import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
 export class GridComponent implements OnInit, AfterViewInit {
 
   @Input() columns: IColumnDef[];
-  @Input() canInsert: boolean = false;
+  @Input() canInsert: boolean | null = false;
   @Input()
   set elementData(value: any) {
     this.dataSource.data = value;
@@ -89,16 +89,24 @@ export class GridComponent implements OnInit, AfterViewInit {
       this._router.navigate([`management/charts/${data.id}/chart`]);
     } else {
       this._openPopUpService.open(this.entity, optionName, data).subscribe(entity => {
-        if (entity.action === ModePopUpType.EDIT) {
-          this.update.emit(entity);
-        } else if (entity.action === ModePopUpType.ADD) {
-          this.add.emit(entity);
-        } else if (entity.action === ModePopUpType.GROUP) {
-          this.updateRole.emit(entity);
-        } else if (entity.action === ModePopUpType.PASSWORD) {
-          this.updatePassword.emit(entity);
-        } else if (entity.action === ModePopUpType.DELETE){
-          this.delete.emit(entity);
+        if (entity && entity.action) {
+          switch (entity.action) {
+            case ModePopUpType.EDIT:
+              this.update.emit(entity);
+              break;
+            case ModePopUpType.ADD:
+              this.add.emit(entity);
+              break;
+            case ModePopUpType.GROUP:
+              this.updateRole.emit(entity);
+              break;
+            case ModePopUpType.PASSWORD:
+              this.updatePassword.emit(entity);
+              break;
+            case ModePopUpType.DELETE:
+              this.delete.emit(entity);
+              break;
+          }
         }
       });
     }

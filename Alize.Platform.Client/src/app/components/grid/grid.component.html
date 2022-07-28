@@ -9,13 +9,10 @@
                 </mat-form-field>
             </div>
 
-            <div class="add-button">
-                <button *ngIf="canInsert" mat-stroked-button (click)="showDialog(ModePopUpType.ADD)">
-                    <mat-icon>add</mat-icon>
-                    <span>{{ "nuevo" | translate }}</span>
-                </button>
-            </div>
-
+            <button *ngIf="canInsert" class="add-button" mat-stroked-button (click)="showDialog(ModePopUpType.ADD)">
+                <mat-icon>add</mat-icon>
+                <span>{{ "nuevo" | translate }}</span>
+            </button>
         </div>
 
         <div class="table-container">
