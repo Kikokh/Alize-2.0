@@ -32,7 +32,7 @@
       <div class="password-field" *ngIf="data.mode === ModePopUpType.ADD">
         <div class="control" color="accent" appearance="outline">
           <label>{{ "Password" | translate }}</label>
-          <input type="password" name="password" formControlName="password" />
+          <input type="password" name="password" formControlName="password"  autocomplete="password"/>
           <mat-error>
             <app-form-error [form]="userForm" field="password" [errors]="userForm.get('password')?.errors">
             </app-form-error>
@@ -40,7 +40,7 @@
         </div>
         <div class="control" color="accent" appearance="outline" *ngIf="data.mode === ModePopUpType.ADD">
           <label>{{ "Repeat Password" | translate }}</label>
-          <input type="password" name="repassword" formControlName="repassword" />
+          <input type="password" name="repassword" formControlName="repassword" autocomplete="password" />
           <mat-error>
             <app-form-error [form]="userForm" field="repassword" [errors]="userForm.get('repassword')?.errors">
             </app-form-error>
@@ -63,7 +63,7 @@
       <div class="control" appearance="fill">
         <label>{{ "Roles" | translate }}</label>
         <mat-select formControlName="role">
-          <mat-option *ngFor="let role of roles" [value]="role.id">
+          <mat-option *ngFor="let role of filteredRoles" [value]="role.id">
             {{ role.name }}
           </mat-option>
         </mat-select>

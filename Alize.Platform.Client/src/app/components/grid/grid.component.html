@@ -41,7 +41,7 @@
                     <td mat-cell class="operation-column" *matCellDef="let row">
                         <ng-container *ngFor="let action of actions">
                             <button class="icon-button" mat-icon-button color="accent"
-                                *ngIf="(userActionIsAllowed(action) | async) && (action.optionName !== ModePopUpType.CHARTS || (row.showChartAction && action.optionName === ModePopUpType.CHARTS))"
+                                *ngIf="(userActionIsAllowed(action, row) | async) && (action.optionName !== ModePopUpType.CHARTS || (row.showChartAction && action.optionName === ModePopUpType.CHARTS))"
                                 (click)="showDialog(action.optionName, row)">
                                 <span class="material-symbols-outlined">{{ action.icon }}</span>
                             </button>

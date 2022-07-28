@@ -6,10 +6,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { MaterialTheme } from 'src/app/models/theme.model';
+import { map } from 'rxjs/operators';
+import { Roles } from 'src/app/constants/roles.constants';
 import { LoginService } from 'src/app/pages/login/services/login.service';
-import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
 import { IColumnDef, IOperationsModel } from '../../models/column.models';
 import { EntityType, ModePopUpType } from '../pop-up/models/entity-type.enum';
 import { OpenPopUpService } from '../pop-up/services/open-pop-up.service';
@@ -45,6 +44,7 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   // MatPaginator Output
   pageEvent: PageEvent;
+  userRole?: Roles;
 
   get ModePopUpType() {
     return ModePopUpType;
@@ -112,7 +112,13 @@ export class GridComponent implements OnInit, AfterViewInit {
     }
   }
 
-  userActionIsAllowed(action: IOperationsModel): Observable<boolean> {
+  userActionIsAllowed(action: IOperationsModel, row: any): Observable<boolean> {
+    if (action.getIsAllowed) {
+      return this._loginService.$roleName.pipe(
+        map(roleName => action.getIsAllowed ? action.getIsAllowed(roleName, row) : false)
+      );
+    }
+
     return this._loginService.$me.pipe(
       map(user => action.requiredRoles?.includes(user.roleName) ?? true)
     );

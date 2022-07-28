@@ -100,7 +100,7 @@ namespace Alize.Platform.Infrastructure.Services
                         .ToListAsync(),
                 Roles.Admin => await usersQuery
                         .Where(u => u.CompanyId == user.CompanyId)
-                        .Where(u => u.Roles.All(r => r.Name != Roles.AdminPro && r.Name != Roles.Distributor))
+                        .Where(u => u.Roles.All(r => r.Name != Roles.AdminPro))
                         .ToListAsync(),
                 _ => new List<User>() { user }
             };
@@ -152,24 +152,15 @@ namespace Alize.Platform.Infrastructure.Services
 
             var rolesQuery = _roleManager.Roles;
 
-            switch (user.Role?.Name)
+            return user.Role?.Name switch
             {
-                case Roles.AdminPro:
-                    return await rolesQuery.ToListAsync();
-
-                case Roles.Distributor:
-                    return await rolesQuery
+                Roles.AdminPro => await rolesQuery.ToListAsync(),
+                Roles.Distributor or
+                Roles.Admin => await rolesQuery
                         .Where(r => r.Name != Roles.AdminPro)
-                        .ToListAsync();
-
-                case Roles.Admin:
-                    return await rolesQuery
-                        .Where(r => r.Name != Roles.AdminPro && r.Name != Roles.Distributor)
-                        .ToListAsync();
-
-                default:
-                    return new List<Role>() { user.Role };
-            }
+                        .ToListAsync(),
+                _ => new List<Role>() { user.Role }
+            };
         }
 
         public async Task<Role?> GetRoleAsync(Guid guid)

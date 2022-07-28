@@ -218,6 +218,8 @@ export class OpenPopUpService {
           empresaId: data.companyId,
           grupos: data.roleName,
           isActive: data.isActive,
+          roleName: data.roleName,
+          roleId: data.roleId,
           mode: mode
         }
         break;

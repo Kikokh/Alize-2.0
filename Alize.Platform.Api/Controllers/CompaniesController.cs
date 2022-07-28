@@ -61,7 +61,14 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(CompanyResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> Post([FromBody] CreateCompanyRequest request)
         {
-            var company = await _companyRepository.AddCompanyAsync(_mapper.Map<Company>(request));
+            var company = _mapper.Map<Company>(request);
+
+            var user = await _securityService.GetUserAsync(User.GetUserId());
+
+            if (user?.Role?.Name == Roles.Distributor)
+                company.ParentCompanyId = user.CompanyId;
+
+            await _companyRepository.AddCompanyAsync(company);
 
             return CreatedAtAction(nameof(Get), new { id = company.Id }, _mapper.Map<CompanyResponse>(company));
         }

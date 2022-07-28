@@ -4,7 +4,10 @@ import { IColumnDef, IOperationsModel } from 'src/app/models/column.models';
 import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/entity-type.enum';
 import { ApplicationsService } from './applications.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
+import { Roles } from 'src/app/constants/roles.constants';
+import { LoginService } from '../../login/services/login.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-applications',
@@ -23,18 +26,23 @@ export class ApplicationsComponent implements OnInit {
   actions: IOperationsModel[] = [
     { optionName: ModePopUpType.DISPLAY, icon: 'search' },
     { optionName: ModePopUpType.EDIT, icon: 'edit_note' },
-    { optionName: ModePopUpType.GROUP, icon: 'group' }
+    { optionName: ModePopUpType.GROUP, icon: 'group', requiredRoles: [Roles.AdminPro, Roles.Admin] }
   ]
+  isLoading = true;
 
   public get entity(): EntityType {
     return EntityType.APPLICATIONS;
   }
 
-  isLoading = true;
+  get canInsert(): Observable<boolean> {
+    return this._loginService.$roleName.pipe(map(roleName => [Roles.AdminPro, Roles.Admin, Roles.Distributor].includes(roleName)))
+  }
 
   constructor(
     private _snackBarService: SnackBarService,
-    private _applicationsService: ApplicationsService) { }
+    private _applicationsService: ApplicationsService,
+    private _loginService: LoginService
+  ) { }
 
   ngOnInit() {
     this._applicationsService.getApplications().subscribe(

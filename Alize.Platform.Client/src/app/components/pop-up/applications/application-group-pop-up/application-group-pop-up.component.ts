@@ -38,7 +38,7 @@ export class ApplicationGroupPopUpComponent implements OnInit {
 
     this.form = this.createForm();
     this._userService.getUsers().subscribe(userList => {
-      this.userList = userList.filter(u => u.roleName !== "Distribuidor" && u.roleName !== "Administrador Pro");
+      this.userList = userList.filter(u => u.roleName !== "Administrador" && u.roleName !== "Administrador Pro");
       this.userList
         .forEach(u => this.users.push(this._fb.control(u.applications.some(a => a.id === this.data.value.id))));
     });

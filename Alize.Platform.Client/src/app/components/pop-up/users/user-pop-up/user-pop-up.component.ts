@@ -8,12 +8,14 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { Roles } from 'src/app/constants/roles.constants';
 import { Company } from 'src/app/models/company.model';
 import { Role } from "src/app/models/role.model";
 import { User } from 'src/app/models/users.model';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { RolesService } from 'src/app/pages/administration/roles/roles.service';
+import { LoginService } from 'src/app/pages/login/services/login.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
@@ -34,6 +36,11 @@ export class UserPopUpComponent implements OnInit, OnDestroy {
 
   companies: Company[];
   roles: Role[];
+  userRole?: Roles;
+
+  get filteredRoles(): Role[] {
+    return this.roles?.filter(r => this.data.mode === ModePopUpType.DISPLAY || this.userRole === Roles.AdminPro || r.name !== Roles.Distributor.toString())
+  }
 
   constructor(
     private _companyService: CompaniesService,
@@ -55,7 +62,8 @@ export class UserPopUpComponent implements OnInit, OnDestroy {
     },
     public translate: TranslateService,
     public fb: FormBuilder,
-    public snackBar: SnackbarService
+    public snackBar: SnackbarService,
+    private _loginService: LoginService
   ) {
   }
 
@@ -76,6 +84,8 @@ export class UserPopUpComponent implements OnInit, OnDestroy {
           : 'EditarUsuario';
 
     this.buildForm();
+
+    this._loginService.$roleName.subscribe(role => this.userRole = role);
 
     if (this.data.mode === ModePopUpType.EDIT) {
       this.userForm.controls['company'].clearValidators();

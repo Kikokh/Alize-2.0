@@ -28,11 +28,6 @@ namespace Alize.Platform.Infrastructure.Repositories
                         .Applications
                         .Include(u => u.Company)
                         .ToListAsync(),
-                Roles.Distributor => await _dbContext
-                        .Applications
-                        .Include(u => u.Company)
-                        .Where(a => a.Company != null && (a.CompanyId == user.CompanyId || a.Company.ParentCompanyId == user.CompanyId))
-                        .ToListAsync(),
                 Roles.Admin => await _dbContext
                         .Applications
                         .Include(u => u.Company)

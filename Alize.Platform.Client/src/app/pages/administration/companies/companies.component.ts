@@ -5,8 +5,8 @@ import { EntityType, ModePopUpType } from 'src/app/components/pop-up/models/enti
 import { Company } from 'src/app/models/company.model';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { CompaniesService } from './companies.service';
-import { LoginService } from '../../login/services/login.service';
 import { Roles } from 'src/app/constants/roles.constants';
+import { LoginService } from '../../login/services/login.service';
 import { Observable } from 'rxjs';
 
 @Component({
