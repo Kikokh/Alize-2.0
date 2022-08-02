@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { MaterialTheme } from 'src/app/models/theme.model';
 import { FormValidation } from 'src/app/models/validation.model';
 import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
@@ -23,6 +24,8 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', Validators.required),
   })
 
+  lang: string | null;
+
   get emailFormControls() {
     return this.loginForm.get('email');
   }
@@ -32,6 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   constructor(
+    private toastr: ToastrService,
     public dialog: MatDialog,
     private _router: Router,
     private _loginService: LoginService,
@@ -39,9 +43,10 @@ export class LoginComponent implements OnInit {
     private _globalStylesService: GlobalStylesService,
     public translate: TranslateService) {
 
-    const lang = localStorage.getItem('lang');
-    if (lang !== null) {
-      this.translate.setDefaultLang(lang);
+    this.lang = localStorage.getItem('lang');
+
+    if (this.lang !== null) {
+      this.translate.setDefaultLang(this.lang);
     } else {
       this.translate.setDefaultLang('en');
     }
@@ -72,10 +77,19 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this._loginService.login(this.loginForm.value, this.isLoading).subscribe(
-        success => this._router.navigate(['/home']),
+        success => {
+          this._router.navigate(['/home']) 
+          const successMsg = (this.lang === 'en') ? 'Login successfully' : 'Login exitoso'; 
+          this.toastr.success(successMsg, '', {
+            timeOut: 5000
+          });
+        },
         err => {
           this.isLoading = false;
-          this.loginError = true
+          const erroMsg = (this.lang === 'en') ? 'Invalid credentials' : 'Credenciales invalidas'; 
+          this.toastr.error(erroMsg, '', {
+            timeOut: 5000
+          });
         }
       );
     }

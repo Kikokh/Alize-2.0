@@ -7,15 +7,18 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <mat-card-content>
                 <mat-form-field class="login-mat-form" color="accent" appearance="outline">
-                    <input matInput placeholder="email" formControlName="email">
+                    <span matPrefix class="material-symbols-outlined">
+                        person
+                    </span>
+                    <input matInput placeholder="user" formControlName="email">
                 </mat-form-field>
                 <div class="error-form-message" *ngIf="formValidation.isValidInput(emailFormControls)">
-                    {{"EmailIncorrecto" | translate}}
-                </div>
-                <div class="error-form-message" *ngIf="formValidation.isEmptyField(emailFormControls)">
                     {{"EmailVacio" | translate}}
                 </div>
                 <mat-form-field color="accent" type="password" class="login-mat-form" appearance="outline">
+                    <span matPrefix class="material-symbols-outlined">
+                        lock
+                    </span>
                     <input matInput placeholder="Password" type="password" formControlName="password">
                 </mat-form-field>
                 <div class="error-form-message" *ngIf="formValidation.isEmptyField(passwordFormControls)">
@@ -23,16 +26,18 @@
                 </div>
             </mat-card-content>
             <mat-card-actions>
-                <!-- <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="warn">Iniciar sesion</button> -->
-                <button type="submit" [disabled]="!loginForm.valid" class="login-btn" mat-raised-button>{{
-                    "IniciarSesion" | translate }}</button>
+                <button type="submit" [disabled]="!loginForm.valid" class="login-btn" mat-raised-button>
+                    <span *ngIf="!isLoading">{{"IniciarSesion" | translate }}</span>
+                    <mat-spinner *ngIf="isLoading" [diameter]="50"></mat-spinner>
+                </button>
                 <div class="error-form-message" *ngIf="loginError">
                     {{"EmailPassIncorrecto" | translate}}
                 </div>
             </mat-card-actions>
         </form>
 
-        <mat-progress-bar *ngIf="isLoading" color="accent" mode="indeterminate"></mat-progress-bar>
+        <hr width=434>
+
 
         <mat-card-footer>
             ©2021 All Rights Reserved. Alize Trust Builder Hub by Xpander. Privacy and Terms
