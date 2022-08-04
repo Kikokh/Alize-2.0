@@ -94,10 +94,10 @@
             </div>
         </button>
         <mat-menu #menu="matMenu" yPosition="above">
-            <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">Cerrar
-                Sesion</button>
-            <button (click)="showPasswordPopUp(user?.firstName)" id="myPanelId" mat-menu-item
-                class="user-menu-items">Cambiar contraseña</button>
+            <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">
+                {{"CloseSession" | translate }}</button>
+            <button (click)="showPasswordPopUp(user?.firstName)" id="myPanelId" mat-menu-item class="user-menu-items">
+                {{"CambiarContraseña" | translate }}</button>
         </mat-menu>
 
     </mat-accordion>

@@ -1,5 +1,5 @@
 <mat-form-field appearance="fill" [ngClass]="cssClass" color="accent">
-    <mat-label>{{text}}</mat-label>
+    <mat-label>{{text | translate}}</mat-label>
     <mat-select [(ngModel)]="value" (selectionChange)="onChange($event)" name="type">
         <mat-option *ngFor="let val of dropdownValues" [value]="val.value">{{val.value}}</mat-option>
     </mat-select>

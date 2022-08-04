@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SharedModule } from '../components/shared.module';
 import { MaterialModule } from '../material.module';
@@ -27,7 +28,8 @@ import { FilterRowComponent } from './filter-row/filter-row.component';
     FormsModule,
     ReactiveFormsModule, 
     SharedModule,
-    NgxChartsModule
+    NgxChartsModule,
+    TranslateModule
   ],
   exports: [
     FilterRowComponent,
