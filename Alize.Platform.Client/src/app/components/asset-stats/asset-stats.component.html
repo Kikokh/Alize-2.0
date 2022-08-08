@@ -3,6 +3,6 @@
         <div *ngFor="let stat of stats" class="stat">
             <span class="title">{{ stat.title | translate}}</span>
             <span class="value">{{ getStat(stat) | number: '0.0-2' }}</span>
-            <span class="footer">{{ stat.footer }}</span>
+            <span class="footer">{{ stat.footer | translate}}</span>
         </div>
     </div>
