@@ -144,5 +144,10 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
         {
             throw new NotImplementedException();
         }
+
+        public Task<IDictionary<string, dynamic>> CreateAssetMetadataAsync(Guid applicationId, string assetId, IDictionary<string, dynamic> data)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

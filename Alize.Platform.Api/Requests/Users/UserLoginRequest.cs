@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Alize.Platform.Api.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace Alize.Platform.Api.Requests
 {
@@ -8,6 +9,7 @@ namespace Alize.Platform.Api.Requests
         public string Email { get; set; }
 
         [Required]
+        [Password]
         public string Password { get; set; }
     }
 }
