@@ -50,7 +50,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("Applications");
+                    b.ToTable("Applications", (string)null);
 
                     b.HasData(
                         new
@@ -144,7 +144,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasIndex("BlockchainId");
 
-                    b.ToTable("ApplicationCredentials");
+                    b.ToTable("ApplicationCredentials", (string)null);
 
                     b.HasData(
                         new
@@ -283,7 +283,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Blockchains");
+                    b.ToTable("Blockchains", (string)null);
 
                     b.HasData(
                         new
@@ -392,7 +392,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasIndex("ParentCompanyId");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
 
                     b.HasData(
                         new
@@ -502,7 +502,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Modules");
+                    b.ToTable("Modules", (string)null);
 
                     b.HasData(
                         new
@@ -628,7 +628,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RequestLogsEntries");
+                    b.ToTable("RequestLogsEntries", (string)null);
                 });
 
             modelBuilder.Entity("Alize.Platform.Core.Models.Role", b =>
@@ -920,7 +920,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ApplicationUser");
+                    b.ToTable("ApplicationUser", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.DataProtection.EntityFrameworkCore.DataProtectionKey", b =>
@@ -939,7 +939,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DataProtectionKeys");
+                    b.ToTable("DataProtectionKeys", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -1084,7 +1084,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasIndex("RolesId");
 
-                    b.ToTable("ModuleRole");
+                    b.ToTable("ModuleRole", (string)null);
 
                     b.HasData(
                         new

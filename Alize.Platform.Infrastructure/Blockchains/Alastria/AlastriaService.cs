@@ -85,7 +85,7 @@ namespace Alize.Platform.Infrastructure.Alastria
             var response = await client.GetAsync(url);
             var result = await response.Content.GetResult<AlastriaResponse>();
 
-            return _mapper.Map<IEnumerable<AssetHistory>>(result);
+            return _mapper.Map<IEnumerable<AssetHistory>>(result.History);
         }
 
         public async Task<IDictionary<string, dynamic>?> GetAssetMetadataAsync(Guid applicationId, string assetId)
@@ -131,7 +131,7 @@ namespace Alize.Platform.Infrastructure.Alastria
             {
                 var result = await response.Content.GetResult<AlastriaResponse>();
 
-                var assets = _mapper.Map<IEnumerable<Asset>>(result.Assets?.Skip(pageNumber * pageSize).Take(pageSize));
+                var assets = _mapper.Map<IEnumerable<Asset>>(result.Assets?.Skip((pageNumber - 1) * pageSize).Take(pageSize));
 
                 return new AssetsPage()
                 {

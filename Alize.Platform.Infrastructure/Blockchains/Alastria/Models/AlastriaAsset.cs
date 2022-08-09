@@ -8,7 +8,7 @@ namespace Alize.Platform.Infrastructure.Alastria.Models
         public string Id { get; set; }
 
         [JsonProperty("data")]
-        public Dictionary<string, dynamic> Data { get; set; }
+        public AlastriaAssetData Data { get; set; }
 
         [JsonProperty("metadata")]
         public Dictionary<string, dynamic> Metadata { get; set; }
