@@ -12,5 +12,6 @@ namespace Alize.Platform.Infrastructure
         Task<ApplicationCredentials> CreateApplicationAsync(Application application, string password);
         Task<IEnumerable<Asset>> GetAssets(Guid applicationId);
         Task<Asset> CreateAssetAsync(Guid applicationId, Asset asset);
+        Task<IDictionary<string, dynamic>> CreateAssetMetadataAsync(Guid applicationId, string assetId, IDictionary<string, dynamic> data);
     }
 }

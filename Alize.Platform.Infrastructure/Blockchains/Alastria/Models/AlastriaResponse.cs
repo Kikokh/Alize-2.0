@@ -12,7 +12,7 @@ namespace Alize.Platform.Infrastructure.Alastria.Models
         public bool Found { get; set; }
 
         [JsonProperty("message")]
-        public bool Message { get; set; }
+        public string Message { get; set; }
 
         [JsonProperty("assets")]
         public IEnumerable<AlastriaAsset>? Assets { get; set; }
