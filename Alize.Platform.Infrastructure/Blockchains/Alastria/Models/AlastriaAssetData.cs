@@ -23,8 +23,7 @@ namespace Alize.Platform.Infrastructure.Alastria.Models
         [JsonProperty("namespace")]
         public string Namespace { get; set; }
 
-        [JsonProperty("created_at")]
-        [JsonConverter(typeof(DateTimeTicksConverter))]
+        [JsonProperty("createdAt")]
         public DateTime CreatedAt { get; set; }
     }
 }

@@ -119,7 +119,7 @@ namespace Alize.Platform.Infrastructure.Alastria
 
         public async Task<AssetsPage?> GetAssetsPageAsync(Guid applicationId, Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
         {
-            var url = $"assets";
+            var url = $"assets/?limit={pageSize}&from={(pageNumber - 1)*pageSize}&sort=DESC";
 
             var applicationCredentials = await _applicationCredentialsRepository
                 .GetApplicationCredentialsAsync(applicationId, Guid.Parse(Blockchains.Alastria));
@@ -131,12 +131,12 @@ namespace Alize.Platform.Infrastructure.Alastria
             {
                 var result = await response.Content.GetResult<AlastriaResponse>();
 
-                var assets = _mapper.Map<IEnumerable<Asset>>(result.Assets?.Skip((pageNumber - 1) * pageSize).Take(pageSize));
+                var assets = _mapper.Map<IEnumerable<Asset>>(result.Assets);
 
                 return new AssetsPage()
                 {
                     Assets = assets,
-                    Total = result.Assets?.Count() ?? 0
+                    Total = result.Pagination.TotalAssets
                 };
             }
 
@@ -206,7 +206,7 @@ namespace Alize.Platform.Infrastructure.Alastria
 
             var result = await response.Content.GetResult<AlastriaLoginResponse>();
 
-            httpClient.DefaultRequestHeaders.Add("Authorization", result?.AccessToken);
+            httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + result?.AccessToken);
 
             return httpClient;
         }
