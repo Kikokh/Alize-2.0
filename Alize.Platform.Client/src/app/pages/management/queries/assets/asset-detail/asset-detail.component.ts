@@ -12,6 +12,7 @@ import { MediaService } from 'src/app/services/media.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
 import { Application } from 'src/app/models/application.model';
+import { AssetHistory } from 'src/app/models/asset-history.model';
 
 @Component({
   selector: 'app-asset-detail',
@@ -25,7 +26,9 @@ export class AssetDetailComponent implements OnInit {
   videoUri: string;
   showTable: boolean =false;
   buttonText: string;
+  blockNumber?: number;
   application: Application;
+  assetHistory: AssetHistory[];
 
   get day(): number {
     return new Date(this.asset?.createdAt).getDate();
@@ -60,13 +63,16 @@ export class AssetDetailComponent implements OnInit {
       this._templateService.getAssetTemplate(applicationId),
       this._assetService.getApplicationAsset(applicationId, assetId),
       this._mediaService.getVideoUri(applicationId, assetId),
-      this._applicationService.getApplication(applicationId)
+      this._applicationService.getApplication(applicationId),
+      this._assetService.getApplicationAssetHistory(applicationId, assetId)
     ).subscribe({
       next: responses => {
         this.assetTemplate = responses[0];
         this.asset = responses[1];
         this.videoUri = responses[2];
-        this.application = responses[3]
+        this.application = responses[3];
+        this.assetHistory = responses[4];
+        this.blockNumber = this.assetHistory.shift()?.blockNumber;
         this.isLoading = false;
         if (!this.assetTemplate || !this.assetTemplate?.hasVideo) {
           this.showTable = true;
@@ -87,7 +93,7 @@ export class AssetDetailComponent implements OnInit {
       }]
     };
 
-    this._openPopUpService.open(EntityType.ENCRYPTING, ModePopUpType.ENCRYPTING, data);
+    this._openPopUpService.open(EntityType.ENCRYPTING, ModePopUpType.ENCRYPTING, data).subscribe();
   }
 
   resolve(path: any, obj: any, separator = '.') {

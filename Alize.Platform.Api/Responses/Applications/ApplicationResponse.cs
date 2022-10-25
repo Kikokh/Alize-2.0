@@ -1,4 +1,5 @@
 ﻿
+using Alize.Platform.Api.Responses.Blockchains;
 using Alize.Platform.Api.Responses.Companies;
 
 namespace Alize.Platform.Api.Responses.Applications
@@ -19,6 +20,8 @@ namespace Alize.Platform.Api.Responses.Applications
         public bool IsActive { get; set; }
 
         public string? DataType { get; set; }
+
+        public BlockchainResponse? Blockchain { get; set; }
 
         public string CompanyName => (Company is null) ? String.Empty : Company.Name;
 

@@ -9,7 +9,10 @@
                 <span class="year"> {{ year }}</span>
             </h1>
             <div class="properties">
-                <h4 class="size-16">{{ asset?.id }}</h4>
+                <h4 class="size-16">{{ asset?.id}}</h4>
+                <span *ngIf="blockNumber">Blocknumber:
+                    <a [href]="'https://blkexplorer1.telsius.alastria.io/block/' + blockNumber" target="_blank">{{blockNumber}}</a>
+                </span>
                 <span class="size-14" *ngFor="let field of assetTemplate?.fields">
                     {{ field.header | translate }} : {{ resolve(field.property, asset) }}
                 </span>
@@ -17,13 +20,13 @@
             <button mat-stroked-button *ngIf="assetTemplate?.hasVideo" (click)="tableClick()">{{buttonText |
                 translate}}</button>
             <div class="alert-container">
-                <button mat-raised-button class="alert-bar-button">
+                <button mat-raised-button class="alert-bar-button" (click)="openEncryptedPopUp()">
                     <div class="button-container">
                         <mat-icon>info</mat-icon>
                         <span [title]="'alertBlockchain' | translate" class="alert-text">
                             {{ 'alertBlockchain' | translate }}
                         </span>
-                        <mat-icon (click)="openEncryptedPopUp()">file_download_done</mat-icon>
+                        <mat-icon>file_download_done</mat-icon>
                     </div>
                 </button>
             </div>
@@ -33,13 +36,13 @@
         </div>
         <div>
             <app-asset-detail-stepper *ngIf="assetTemplate?.steps && assetTemplate?.steps?.length"
-                [stepperTemplate]="assetTemplate?.steps ?? []">
+                [stepperTemplate]="assetTemplate?.steps ?? []" [assetHistory]="assetHistory">
             </app-asset-detail-stepper>
         </div>
     </div>
     <div *ngIf="showTable">
         <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length"
-            [tableTemplate]="assetTemplate?.columns ?? []">
+            [tableTemplate]="assetTemplate?.columns ?? []" [assetHistory]="assetHistory">
         </app-asset-detail-table>
 
     </div>

@@ -11,7 +11,7 @@ import { LoadingService } from 'src/app/services/loading.service';
   templateUrl: './asset-detail-table.component.html',
   styleUrls: ['./asset-detail-table.component.scss']
 })
-export class AssetDetailTableComponent implements OnInit {
+export class AssetDetailTableComponent {
   @Input() assetHistory: AssetHistory[];
   @Input() tableTemplate: TemplateColumn[];
 
@@ -19,19 +19,5 @@ export class AssetDetailTableComponent implements OnInit {
     return this.tableTemplate.map(c => c.property) ?? [];
   }
 
-  constructor(private _route: ActivatedRoute, private _assetService: AssetService, private _loadingService: LoadingService) { }
-
-  ngOnInit(): void {
-    const applicationId = String(this._route.snapshot.paramMap.get('applicationId'));
-    const assetId = String(this._route.snapshot.paramMap.get('assetId'));
-
-    this._loadingService.startLoading();
-    this._assetService.getApplicationAssetHistory(applicationId, assetId).pipe(
-      map(data => data.filter(d => d.metadata[this.tableTemplate[0].property]))
-    ).subscribe({
-      next: (assetHistory) => this.assetHistory = assetHistory,
-      complete: () => this._loadingService.stopLoading()
-    });
-  }
-
+  constructor() { }
 }

@@ -41,13 +41,12 @@ namespace Alize.Platform.Infrastructure.Repositories
         {
             var applicationsQuery = _dbContext
                         .Applications
-                        .Include(u => u.Company);
+                        .Include(u => u.Company)
+                        .Include(a => a.ApplicationCredentials)
+                            .ThenInclude(a => a.Blockchain);
 
             var user = await _dbContext.Users
-                .Include(u => u.Applications)
-                .ThenInclude(u => u.Company)
-                .Include(u => u.Roles)
-                .ThenInclude(r => r.Modules)
+                .Include(u => u.Roles)              
                 .SingleAsync(u => u.Id == userId);
 
             return user.Role?.Name switch
@@ -57,10 +56,9 @@ namespace Alize.Platform.Infrastructure.Repositories
                         .Where(a => a.CompanyId == user.CompanyId || a.Company.ParentCompanyId == user.CompanyId)
                         .SingleOrDefaultAsync(a => a.Id == id),
                 Roles.Admin => await applicationsQuery
-                        .Include(u => u.Company)
                         .Where(a => a.CompanyId == user.CompanyId)
                         .SingleOrDefaultAsync(a => a.Id == id),
-                _ => user.Applications.SingleOrDefault(a => a.Id == id)
+                _ => await applicationsQuery.SingleOrDefaultAsync(a => a.Id == id && a.Users!.Contains(user))
             };
         }
 

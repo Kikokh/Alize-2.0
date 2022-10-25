@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://alize-platform-api-dev.azurewebsites.net/api',
-  // apiUrl: 'https://localhost:7228/api',
+  // apiUrl: 'https://alize-platform-api-dev.azurewebsites.net/api',
+  apiUrl: 'https://localhost:7228/api',
 };
 
 /*

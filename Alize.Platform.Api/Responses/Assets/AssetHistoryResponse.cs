@@ -4,6 +4,8 @@
     {
         public string TransactionId { get; set; }
 
+        public long BlockNumber { get; set; }
+
         public IDictionary<string, object> Metadata { get; set; }
     }
 }
