@@ -13,5 +13,6 @@ export class Application {
     dataType?: string;
     action: ModePopUpType;
     showChartAction?: boolean
+    blockchainId?: string;
     importantInfo?: string;
 }

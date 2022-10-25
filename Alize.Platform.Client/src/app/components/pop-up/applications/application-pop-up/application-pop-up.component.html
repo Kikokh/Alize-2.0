@@ -13,7 +13,8 @@
         <label>{{"Nombre" | translate}}</label>
         <input name="name" formControlName="name">
         <mat-error>
-          <app-form-error [form]="applicationForm" field="name" [errors]="applicationForm.get('name')?.errors"></app-form-error>
+          <app-form-error [form]="applicationForm" field="name" [errors]="applicationForm.get('name')?.errors">
+          </app-form-error>
         </mat-error>
       </div>
       <div class="control" appearance="outline">
@@ -28,13 +29,22 @@
           </option>
         </select>
         <mat-error>
-          <app-form-error [form]="applicationForm" field="company" [errors]="applicationForm.get('company')?.errors"></app-form-error>
+          <app-form-error [form]="applicationForm" field="company" [errors]="applicationForm.get('company')?.errors">
+          </app-form-error>
         </mat-error>
       </div>
       <div class="control" appearance="outline" *ngIf="data.mode === 'ADD'">
         <label>{{"DatosRelevantes" | translate}}</label>
-        <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-          cdkAutosizeMaxRows="5" formControlName="importantInfo" name="importantInfo"></textarea>
+        <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+          formControlName="importantInfo" name="importantInfo"></textarea>
+      </div>
+      <div *ngIf="data.mode ===  _modePopUpType.ADD" class="control" appearance="outline">
+        <label>Blockchain</label>
+        <select formControlName="blockchain">
+          <option *ngFor="let blockchain of blockchains" [value]="blockchain.id">
+            {{ blockchain.name }}
+          </option>
+        </select>
       </div>
       <div class="control" appearance="fill"
         *ngIf="data.mode ===  _modePopUpType.DISPLAY || data.mode ===  _modePopUpType.EDIT">

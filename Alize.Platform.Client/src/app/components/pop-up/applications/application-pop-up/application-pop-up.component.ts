@@ -1,12 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import { Application } from 'src/app/models/application.model';
+import { Blockchain } from 'src/app/models/blockchain.model';
 import { Company } from 'src/app/models/company.model';
-import { ApplicationsService } from 'src/app/pages/administration/applications/applications.service';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
-import { UsersService } from 'src/app/pages/administration/users/users.service';
+import { BlockchainService } from 'src/app/services/blockchain.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
 @Component({
@@ -20,6 +19,7 @@ export class ApplicationPopUpComponent implements OnInit {
   subtitle = '';
   infoText = '';
   companies: Company[];
+  blockchains: Blockchain[];
 
   applicationForm: FormGroup;
 
@@ -39,7 +39,8 @@ export class ApplicationPopUpComponent implements OnInit {
       company: Company;
       isActive: boolean;
     },
-    private _companiesService: CompaniesService
+    private _companiesService: CompaniesService,
+    private _blockchainService: BlockchainService
   ) {
 
     this.applicationForm = new FormGroup({
@@ -49,6 +50,7 @@ export class ApplicationPopUpComponent implements OnInit {
       importantInfo: new FormControl({ value: (this.data.importantInfo) ? this.data.importantInfo : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       date: new FormControl({ value: this.data.creationDate, disabled: true }),
       active: new FormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      blockchain: new FormControl({ valur: null, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
     });
 
     if (data.mode === ModePopUpType.DISPLAY) {
@@ -65,6 +67,14 @@ export class ApplicationPopUpComponent implements OnInit {
     this._companiesService
       .getCompanies()
       .subscribe(companies => this.companies = companies);
+
+    this._blockchainService
+      .getBlockchains()
+      .subscribe(blockchains => {
+        this.blockchains = blockchains;
+        const alastria = blockchains.find(b => b.name === 'Alastria');
+        this.applicationForm.get('blockchain')?.setValue(alastria?.id)
+      });
   }
 
   onClick() {
@@ -81,6 +91,7 @@ export class ApplicationPopUpComponent implements OnInit {
       app.name = this.applicationForm.value.name;
       app.description = this.applicationForm.value.description;
       app.dataType = this.applicationForm.value.importantInfo;
+      app.blockchainId = this.applicationForm.value.blockchain;
       app.action = ModePopUpType.ADD;
       return app;
     }
