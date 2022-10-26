@@ -15,22 +15,16 @@
             </mat-expansion-panel-header>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="panelOpenStateManag" (click)="handleMenu('Gestion')"
-            class="nav-menu flex" [hideToggle]="!isSideBarExpanded">
+        <mat-expansion-panel class="nav-menu flex" [expanded]="panelOpenStateManag" hideToggle (click)="handleMenu('Gestion')"
+            routerLinkActive="active-link" [routerLink]="['/applications']">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
                         edit_note
                     </span>
-                    <span [hidden]="!isSideBarExpanded">{{"Gestion" | translate }}</span>
+                    <span [hidden]="!isSideBarExpanded">{{"Aplicaciones" | translate }}</span>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="opt-menu">
-                <a class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/management/queries']"
-                    (click)="closePanelOpt()">
-                    <button mat-button class="buttonText"> {{"Consultas" | translate }}</button>
-                </a>
-            </div>
         </mat-expansion-panel>
 
         <mat-expansion-panel [expanded]="panelOpenStateAdm" (click)="handleMenu('Administracion')"

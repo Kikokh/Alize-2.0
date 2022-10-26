@@ -50,7 +50,7 @@ export class QueriesComponent implements OnInit {
 
   goToAssets(event: any, id: string): void {
     if(event.target.nodeName !== 'IMG') {
-      this._router.navigate([`management/queries/${id}/assets`])
+      this._router.navigate([`applications/${id}/assets`])
     }
   }
 

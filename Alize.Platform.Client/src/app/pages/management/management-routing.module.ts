@@ -9,11 +9,6 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'queries',
-    pathMatch: 'full'
-  },
-  {
-    path: 'queries',
     children: [
       { path: '', component: QueriesComponent },
       { path: ':applicationId/assets', component: AssetsComponent },
