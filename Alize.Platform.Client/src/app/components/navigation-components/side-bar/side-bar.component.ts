@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/pages/login/services/login.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { environment } from 'src/environments/environment';
 import { ModePopUpType } from '../../pop-up/models/entity-type.enum';
 import { PasswordUserPopUpComponent } from '../../pop-up/users/password-user-pop-up/password-user-pop-up.component';
 import { PasswordService } from '../../pop-up/users/services/password.service';
@@ -27,10 +28,14 @@ export class SideBarComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatAccordion) accordion: MatAccordion;
   @ViewChildren(MatExpansionPanel) matExpansionPanel: QueryList<MatExpansionPanel>;
 
+  postmanUrl = environment.postman;
+  swaggerUrl = environment.swagger
+
   private dialogRef: MatDialogRef<PasswordUserPopUpComponent>;
 
   panelOpenStateAdm = false;
   panelOpenStateManag = false;
+  panelOpenStateDev = false;
   panelState = false;
   homePanel = false;
   closeOptPanel = false;
@@ -68,14 +73,22 @@ export class SideBarComponent implements AfterViewInit, OnChanges {
       this.panelOpenStateManag = false;
       this.panelOpenStateAdm = false;
       this.homePanel = true;
+      this.panelOpenStateDev = false;
     } else if (itemMenu === 'Administracion') {
       this.panelOpenStateAdm = true;
       this.panelOpenStateManag = false;
       this.homePanel = false;
-    } else {
+      this.panelOpenStateDev = false;
+    } else if (itemMenu === 'Gestion') {
       this.panelOpenStateManag = true;
       this.panelOpenStateAdm = false;
       this.homePanel = false;
+      this.panelOpenStateDev = false;
+    } else {
+      this.panelOpenStateManag = false;
+      this.panelOpenStateAdm = false;
+      this.homePanel = false;
+      this.panelOpenStateDev = true;
     }
   }
 
