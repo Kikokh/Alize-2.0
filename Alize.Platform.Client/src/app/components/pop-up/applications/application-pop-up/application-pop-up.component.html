@@ -10,7 +10,7 @@
   <div class="mat-dialog-content" mat-dialog-content>
     <form [formGroup]="applicationForm">
       <div class="control" appearance="outline">
-        <label>{{"Nombre" | translate}}</label>
+        <label>{{"Nombre" | translate}}*</label>
         <input name="name" formControlName="name">
         <mat-error>
           <app-form-error [form]="applicationForm" field="name" [errors]="applicationForm.get('name')?.errors">
@@ -22,7 +22,7 @@
         <input name="description" formControlName="description">
       </div>
       <div class="control" appearance="outline">
-        <label>{{"Empresa" | translate}}</label>
+        <label>{{"Empresa" | translate}}*</label>
         <select formControlName="company">
           <option *ngFor="let company of companies" [value]="company.id">
             {{ company.name }}

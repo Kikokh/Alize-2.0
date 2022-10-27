@@ -17,8 +17,7 @@
     }
     
     .mat-dialog-content {
-        height: 350px;
-    
+        max-height: none !important;
         form {
             display: flex;
             flex-direction: column;
