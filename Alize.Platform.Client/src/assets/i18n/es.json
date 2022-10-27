@@ -115,6 +115,24 @@
     "MapUrl": "Url del Mapa",
     "showTable": "Mostrar tabla",
     "hideTable": "Ocultar tabla",
+    "errors": {
+        "saveUser": "Error guardando usuario",
+        "updateUser": "Error actualizando usuario"
+      },
+      "success": {
+        "saveUser": "Usuario guardado!",
+        "updateUser": "Usuario actualizado!"
+      },
+      "form": {
+        "error": {
+          "required": "Es un campo requerido",
+          "maxlength": "Max. {{length}} caracteres",
+          "minlength": "Min. {{length}} caracteres",
+          "email": "Email invalido",
+          "password_pattern": "La contraseña debe contener más que 8 caracteres, 1 letra mayúscula y un caracter especial",
+          "repassword_mismatch": "Las contraseñas no son iguales"
+        }
+      },
     "TraceabilityHash": "Hash de trazabilidad",
     "TraceabilityData": "Datos de trazabilidad",
     "EncryptionDescOne": "Para Validar la informacion de trazabilidad que puede ver en la tabla copie el contenido del campo. ",
