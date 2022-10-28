@@ -10,7 +10,7 @@
     "alertBlockchain": "El contenido de esta tabla ha sido validado usando tecnologias Blockchain y cifrado SHA256. Haga click en el check para obtener mas informacion",
     "Queries": "Consultas",
     "Modules": "Módulos",
-    "Companies": "Companías",
+    "Companies": "Empresas",
     "Users": "Usuarios",
     "Administration": "Administración",
     "Management": "Gestión",
@@ -176,5 +176,5 @@
     "PaginaAnterior":"Pagina anterior",
     "g de CO2": "g de CO2",
     "de":"de",
-    "0 de":"0 de"
+    "0 de":"0 de"    
 }

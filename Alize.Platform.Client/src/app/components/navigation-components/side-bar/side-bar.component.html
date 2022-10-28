@@ -3,8 +3,8 @@
         <img src="../../../../../assets/logo-alice-blanco.png" alt="">
     </div>
 
-    <mat-accordion [ngClass]="getMenuMargin()" displayMode="flat" multi>
-        <mat-expansion-panel class="nav-menu" [expanded]="homePanel" hideToggle (click)="handleMenu('Home')">
+    <mat-accordion [ngClass]="getMenuMargin()" displayMode="flat">
+        <mat-expansion-panel class="nav-menu" hideToggle (click)="navigate('home')">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
@@ -15,8 +15,7 @@
             </mat-expansion-panel-header>
         </mat-expansion-panel>
 
-        <mat-expansion-panel class="nav-menu flex" [expanded]="panelOpenStateManag" hideToggle (click)="handleMenu('Gestion')"
-            routerLinkActive="active-link" [routerLink]="['/applications']">
+        <mat-expansion-panel class="nav-menu flex" hideToggle (click)="navigate('applications')">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
@@ -27,8 +26,8 @@
             </mat-expansion-panel-header>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="panelOpenStateAdm" (click)="handleMenu('Administracion')"
-            *ngIf="userCanAccessAdministration() | async" class="nav-menu flex" [hideToggle]="!isSideBarExpanded">
+        <mat-expansion-panel *ngIf="userCanAccessAdministration() | async" class="nav-menu flex"
+            [hideToggle]="!isSideBarExpanded">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
@@ -63,8 +62,7 @@
             </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel *ngIf="userCanAccessAdministration() | async"
-            [expanded]="panelOpenStateDev" (click)="handleMenu('Dev')" class="nav-menu flex"
+        <mat-expansion-panel *ngIf="userCanAccessAdministration() | async" class="nav-menu flex"
             [hideToggle]="!isSideBarExpanded">
             <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -75,12 +73,12 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="opt-menu">
-                <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link"
-                    [href]="swaggerUrl" target="_blank">
+                <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link" [href]="swaggerUrl"
+                    target="_blank">
                     <button mat-button class="buttonText">Swagger</button>
                 </a>
-                <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link"
-                    [href]="postmanUrl" target="_blank">
+                <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link" [href]="postmanUrl"
+                    target="_blank">
                     <button mat-button class="buttonText">Postman</button>
                 </a>
             </div>

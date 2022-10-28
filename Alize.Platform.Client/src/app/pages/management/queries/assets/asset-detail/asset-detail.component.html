@@ -1,6 +1,6 @@
 <div class="container" *ngIf="assetTemplate">
     <app-breadcrumb [application]="application" [asset]="asset"></app-breadcrumb>
-    <div class="flex">
+    <div class="flex wrap">
         <div *ngIf="asset" class="details flex flex-column">
             <h1 class="header">{{ 'Asset Detail' | translate}}</h1>
             <h1 class="date">
@@ -9,27 +9,18 @@
                 <span class="year"> {{ year }}</span>
             </h1>
             <div class="properties">
-                <h4 class="size-16">{{ asset?.id}}</h4>
+                <h4 class="size-16 overflow-wrap">{{ asset?.id}}</h4>
                 <span *ngIf="blockNumber">Blocknumber:
-                    <a [href]="'https://blkexplorer1.telsius.alastria.io/block/' + blockNumber" target="_blank">{{blockNumber}}</a>
+                    <a [href]="'https://blkexplorer1.telsius.alastria.io/block/' + blockNumber"
+                        target="_blank">{{blockNumber}}</a>
                 </span>
-                <span class="size-14" *ngFor="let field of assetTemplate?.fields">
+                <span class="size-14 overflow-wrap" *ngFor="let field of assetTemplate?.fields">
                     {{ field.header | translate }} : {{ resolve(field.property, asset) }}
                 </span>
             </div>
-            <button mat-stroked-button *ngIf="assetTemplate?.hasVideo" (click)="tableClick()">{{buttonText |
-                translate}}</button>
-            <div class="alert-container">
-                <button mat-raised-button class="alert-bar-button" (click)="openEncryptedPopUp()">
-                    <div class="button-container">
-                        <mat-icon>info</mat-icon>
-                        <span [title]="'alertBlockchain' | translate" class="alert-text">
-                            {{ 'alertBlockchain' | translate }}
-                        </span>
-                        <mat-icon>file_download_done</mat-icon>
-                    </div>
-                </button>
-            </div>
+            <button mat-stroked-button *ngIf="assetTemplate?.hasVideo" (click)="tableClick()">
+                {{buttonText |translate}}
+            </button>
         </div>
         <div *ngIf="assetTemplate?.hasVideo">
             <app-video-load [url]="videoUri"></app-video-load>
@@ -45,5 +36,16 @@
             [tableTemplate]="assetTemplate?.columns ?? []" [assetHistory]="assetHistory">
         </app-asset-detail-table>
 
+    </div>
+    <div class="alert-container">
+        <button mat-raised-button class="alert-bar-button" (click)="openEncryptedPopUp()">
+            <div class="button-container">
+                <mat-icon>info</mat-icon>
+                <span [title]="'alertBlockchain' | translate" class="alert-text">
+                    {{ 'alertBlockchain' | translate }}
+                </span>
+                <mat-icon>file_download_done</mat-icon>
+            </div>
+        </button>
     </div>
 </div>

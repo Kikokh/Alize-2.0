@@ -1,7 +1,6 @@
 .container {
     
     color: #ffffff;
-    height: calc(100% - 30px);
     display: flex;
     flex-direction: column;
 
@@ -19,12 +18,12 @@
         align-items: baseline;
         display: flex;
         flex-direction: column;
-        background: rgb(0,0,0,0.2);
+        background: rgb(0, 0, 0, 0.2);
         padding-left: 1rem;
-        flex: 1;
+        flex: 1 0 400px;
         text-overflow: ellipsis;
 
-        .header{
+        .header {
             margin-top: 1rem;
             font-size: 32px;
         }
@@ -45,15 +44,14 @@
         }
 
         .properties {
-            flex-direction: column;
-            display: flex;
+            display: grid;
             padding-right: 1rem;
         }
 
-        .size-14{
+        .size-14 {
             font-size: 14px;
         }
-        .size-16{
+        .size-16 {
             font-size: 16px;
             margin: 2rem 0;
         }
@@ -66,7 +64,7 @@
         flex: 1;
         justify-content: center;
         margin: 1rem;
-        margin-left:0;
+        margin-left: 0;
 
         .alert-bar-button {
             height: 60px;
@@ -100,17 +98,24 @@
     }
 }
 
-
 .mat-stroked-button {
-  border-color: #ffffff !important;
-  margin-top: 1rem;
+    border-color: #ffffff !important;
+    margin-top: 1rem;
 }
-
 
 :host ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
     background-color: transparent !important;
 }
 
 .flex-1 {
-    flex: 1
+    flex: 1;
+}
+
+.overflow-wrap {
+    overflow-wrap: break-word;
+    overflow: hidden;
+}
+
+.wrap {
+    flex-wrap: wrap;
 }
