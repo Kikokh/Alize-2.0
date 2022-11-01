@@ -40,7 +40,7 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(AssetsPageResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(Guid applicationId, [FromQuery] Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
         {
-            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.BlockchainFue));
+            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.Alastria));
 
             if (service is null)
                 return NotFound();
@@ -62,7 +62,7 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(AssetResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(Guid applicationId, string assetId)
         {
-            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.BlockchainFue));
+            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.Alastria));
 
             if (service is null)
                 return NotFound();
@@ -84,7 +84,7 @@ namespace Alize.Platform.Api.Controllers
         [ProducesResponseType(typeof(IEnumerable<AssetHistoryResponse>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetHistory(Guid applicationId, string assetId)
         {
-            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.BlockchainFue));
+            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.Alastria));
 
             if (service is null)
                 return NotFound();
@@ -108,7 +108,7 @@ namespace Alize.Platform.Api.Controllers
                 .GetAssetRepository(applicationId)
                 .CreateAssetAsync(asset);
 
-            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.BlockchainFue));
+            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.Alastria));
             await service.CreateAssetAsync(applicationId, asset);
 
             var user = await _securityService.GetUserAsync(User.GetUserId());
@@ -122,12 +122,40 @@ namespace Alize.Platform.Api.Controllers
             return CreatedAtAction(nameof(Get), new { applicationId, assetId = asset.Id }, asset);
         }
 
+        [HttpGet("{assetId}/metadata")]
+        [ProducesResponseType(typeof(AssetResponse), StatusCodes.Status201Created)]
+        public async Task<IActionResult> GetMetadata(Guid applicationId, string assetId)
+        {
+            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.Alastria));
+            var metadata = await service.GetAssetMetadataAsync(applicationId, assetId);
+
+            return Ok(metadata);
+        }
+
+        [HttpPost("{assetId}/metadata")]
+        [ProducesResponseType(typeof(AssetResponse), StatusCodes.Status201Created)]
+        public async Task<IActionResult> PostMetadata(Guid applicationId, string assetId, CreateAssetMetadataRequest createAssetRequest)
+        {
+            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.Alastria));
+            await service.CreateAssetMetadataAsync(applicationId, assetId, createAssetRequest.Data);
+
+            var user = await _securityService.GetUserAsync(User.GetUserId());
+            await _requestLogEntryRepository.AddRequestLogEntryAsync(new RequestLogEntry()
+            {
+                ApplicationId = applicationId,
+                UserId = user!.Id,
+                Action = RequestLogEntryActions.AddApplicationAsset
+            });
+
+            return CreatedAtAction(nameof(Get), new { applicationId, assetId }, createAssetRequest.Data);
+        }
+
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpPost("BackupBlockchain")]
         [ProducesResponseType(typeof(AssetResponse), StatusCodes.Status201Created)]
         public async Task<IActionResult> PostBatch(Guid applicationId)
         {
-            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.BlockchainFue));
+            var service = _blockchainFactory.Resolve(Guid.Parse(Blockchains.Alastria));
 
             var assets = await service.GetAssets(applicationId);
 

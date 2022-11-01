@@ -12,5 +12,8 @@ namespace Alize.Platform.Api.Requests.Applications
         public string? Description { get; set; }
 
         public string? DataType { get; set; }
+        
+        [Required]
+        public Guid BlockchainId { get; set; }
     }
 }

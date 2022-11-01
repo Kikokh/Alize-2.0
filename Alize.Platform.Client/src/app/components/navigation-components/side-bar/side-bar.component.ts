@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/pages/login/services/login.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { environment } from 'src/environments/environment';
 import { ModePopUpType } from '../../pop-up/models/entity-type.enum';
 import { PasswordUserPopUpComponent } from '../../pop-up/users/password-user-pop-up/password-user-pop-up.component';
 import { PasswordService } from '../../pop-up/users/services/password.service';
@@ -18,7 +19,7 @@ import { PasswordService } from '../../pop-up/users/services/password.service';
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss'],
 })
-export class SideBarComponent implements AfterViewInit, OnChanges {
+export class SideBarComponent implements AfterViewInit {
   @Input() user?: User;
   @Input() isSideBarExpanded?: boolean;
   firstChange = true;
@@ -27,12 +28,12 @@ export class SideBarComponent implements AfterViewInit, OnChanges {
   @ViewChild(MatAccordion) accordion: MatAccordion;
   @ViewChildren(MatExpansionPanel) matExpansionPanel: QueryList<MatExpansionPanel>;
 
+  postmanUrl = environment.postman;
+  swaggerUrl = environment.swagger
+
   private dialogRef: MatDialogRef<PasswordUserPopUpComponent>;
 
-  panelOpenStateAdm = false;
-  panelOpenStateManag = false;
   panelState = false;
-  homePanel = false;
   closeOptPanel = false;
   Modules = Modules;
 
@@ -50,35 +51,9 @@ export class SideBarComponent implements AfterViewInit, OnChanges {
     private _snackBarService: SnackBarService,
   ) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.isSideBarExpanded.currentValue === false) {
-      this.panelOpenStateManag = false;
-      this.panelOpenStateAdm = false;
-    }
-  }
-
   ngAfterViewInit(): void {
     this.accordion.closeAll();
   }
-
-
-  handleMenu(itemMenu: string) {
-    if (itemMenu === 'Home') {
-      this._router.navigate(['/home']);
-      this.panelOpenStateManag = false;
-      this.panelOpenStateAdm = false;
-      this.homePanel = true;
-    } else if (itemMenu === 'Administracion') {
-      this.panelOpenStateAdm = true;
-      this.panelOpenStateManag = false;
-      this.homePanel = false;
-    } else {
-      this.panelOpenStateManag = true;
-      this.panelOpenStateAdm = false;
-      this.homePanel = false;
-    }
-  }
-
 
   expandMenu() {
     this.isSideBarExpanded = true;
@@ -115,6 +90,10 @@ export class SideBarComponent implements AfterViewInit, OnChanges {
             .showSnackBar('Ups! Ha sucedido un error. Intentenlo nuevamente mas tarde');
         }
       });
+  }
+
+  navigate(route: string) {
+    this._router.navigate(['/' + route])
   }
 
   getMenuMargin(): string {

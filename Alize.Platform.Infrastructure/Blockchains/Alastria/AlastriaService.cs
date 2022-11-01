@@ -85,7 +85,7 @@ namespace Alize.Platform.Infrastructure.Alastria
             var response = await client.GetAsync(url);
             var result = await response.Content.GetResult<AlastriaResponse>();
 
-            return _mapper.Map<IEnumerable<AssetHistory>>(result);
+            return _mapper.Map<IEnumerable<AssetHistory>>(result.History);
         }
 
         public async Task<IDictionary<string, dynamic>?> GetAssetMetadataAsync(Guid applicationId, string assetId)
@@ -119,7 +119,7 @@ namespace Alize.Platform.Infrastructure.Alastria
 
         public async Task<AssetsPage?> GetAssetsPageAsync(Guid applicationId, Dictionary<string, string> queries, int pageSize = 10, int pageNumber = 1)
         {
-            var url = $"assets";
+            var url = $"assets/?limit={pageSize}&from={(pageNumber - 1)*pageSize}&sort=DESC";
 
             var applicationCredentials = await _applicationCredentialsRepository
                 .GetApplicationCredentialsAsync(applicationId, Guid.Parse(Blockchains.Alastria));
@@ -131,12 +131,12 @@ namespace Alize.Platform.Infrastructure.Alastria
             {
                 var result = await response.Content.GetResult<AlastriaResponse>();
 
-                var assets = _mapper.Map<IEnumerable<Asset>>(result.Assets?.Skip(pageNumber * pageSize).Take(pageSize));
+                var assets = _mapper.Map<IEnumerable<Asset>>(result.Assets);
 
                 return new AssetsPage()
                 {
                     Assets = assets,
-                    Total = result.Assets?.Count() ?? 0
+                    Total = result.Pagination.TotalAssets
                 };
             }
 
@@ -206,7 +206,7 @@ namespace Alize.Platform.Infrastructure.Alastria
 
             var result = await response.Content.GetResult<AlastriaLoginResponse>();
 
-            httpClient.DefaultRequestHeaders.Add("Authorization", result?.AccessToken);
+            httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + result?.AccessToken);
 
             return httpClient;
         }
@@ -222,6 +222,20 @@ namespace Alize.Platform.Infrastructure.Alastria
             return httpClient;
         }
 
-        
+        public async Task<IDictionary<string, dynamic>> CreateAssetMetadataAsync(Guid applicationId, string assetId, IDictionary<string, dynamic> data)
+        {
+            var url = $"assets";
+
+            var applicationCredentials = await _applicationCredentialsRepository
+                .GetApplicationCredentialsAsync(applicationId, Guid.Parse(Blockchains.Alastria));
+
+            using var client = await AppLoginAsync(applicationCredentials);
+
+            var content = new StringContent(JsonConvert.SerializeObject(data));
+
+            var response = await client.PostAsync($"{url}/{assetId}/metadata", content);
+
+            return data;
+        }
     }
 }

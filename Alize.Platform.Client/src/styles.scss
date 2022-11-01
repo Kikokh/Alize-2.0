@@ -1,3 +1,6 @@
+// regular style toast
+@import '~ngx-toastr/toastr';
+
 html,
 body,
 app-root,
@@ -134,15 +137,19 @@ mat-dialog-container.mat-dialog-container {
   &-center {
     justify-content: center;
   }
+
   &-space-evenly {
     justify-content: space-evenly;
   }
+
   &-space-between {
     justify-content: space-between;
   }
+
   &-center {
     justify-content: center;
   }
+
   &-end {
     justify-content: end;
   }
@@ -161,7 +168,7 @@ mat-dialog-container.mat-dialog-container {
     color: #54b1d4;
     text-transform: uppercase;
   }
-  
+
   input,
   textarea,
   select,
@@ -187,6 +194,7 @@ mat-dialog-container.mat-dialog-container {
     &[type="file"] {
       flex: 1;
       opacity: 0;
+
       &:not(:disabled) {
         cursor: pointer;
       }
@@ -207,10 +215,6 @@ mat-dialog-container.mat-dialog-container {
 
 .flex-1 {
   flex: 1;
-}
-
-.form-error {
-  position: fixed;
 }
 
 .mat-slide-toggle {
@@ -254,4 +258,33 @@ mat-dialog-container.mat-dialog-container {
   &.mat-disabled {
     opacity: 0.6;
   }
+}
+
+.toast-success {
+  background-color: #3EEBBE !important;
+  border: 2px solid #68FCD6 !important;
+  color: #803943 !important;
+  background-image: url("assets/success-icon.svg") !important;
+}
+
+.toast-error {
+  background-color: #FF7387 !important;
+  border: 2px solid #FF96A5 !important;
+  color: #803943 !important;
+  background-image: url("assets/error_icon.svg") !important;
+}
+
+.toast-info {
+  background-color: #2F96B4;
+}
+
+.toast-warning {
+  background-color: #F89406;
+}
+
+.toast-container .ngx-toastr {
+  box-shadow: 0px 12px 16px rgba(0, 0, 0, 0.3) !important;
+  border-radius: 12px !important;
+  width: fit-content !important;
+  margin: 2rem !important;
 }

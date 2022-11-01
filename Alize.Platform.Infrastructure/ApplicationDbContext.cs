@@ -77,7 +77,7 @@ namespace Alize.Platform.Infrastructure
                  {
                      Id = Guid.Parse(Core.Constants.Blockchains.Alastria),
                      Name = "Alastria",
-                     ApiUrl = "https://20.73.2.29:443/api/",
+                     ApiUrl = "https://20.216.158.33/api/",
                      RootUserName = "root",
                      RootEncryptedPassword = "hfnqSR5BhccxGBclgTzR2Q=="
                  }
@@ -121,36 +121,6 @@ namespace Alize.Platform.Infrastructure
                       IsActive = true,
                       CreationDate = new DateTime(2020, 10, 10),
                       CompanyId = Guid.Parse("e8528a43-2a9d-44dd-b1c9-e37777ad0644")
-                },
-                // Huella carbono XPANDER
-                new Application
-                {
-                    Id = Guid.Parse("8a0573a2-4573-45a1-96eb-4b0233c1e0b3"),
-                    Name = "Huella carbono",
-                    Description = "Huella de carbono en proceso de montaje parabrisas",
-                    IsActive = true,
-                    CreationDate = new DateTime(2020, 10, 10),
-                    CompanyId = Guid.Parse("554bc4f7-46a9-4a87-a52e-6ca79e24986c")
-                },
-                // Montaje parabrisas Nunsys
-                new Application
-                {
-                    Id = Guid.Parse("892494ab-f4f5-4b76-a2f8-aa1e042e6b86"),
-                    Name = "Montaje parabrisas",
-                    Description = "Secuenciación parabrisas ford",
-                    IsActive = true,
-                    CreationDate = new DateTime(2020, 10, 10),
-                    CompanyId = Guid.Parse("2f3e3858-4a59-4f0a-a54f-1830e47a9dfe")
-                },
-                // Trazabilidad Racks Patatas Lazaro
-                new Application
-                {
-                    Id = Guid.Parse("0f5bc658-7223-4c5a-b272-31e878f181d5"),
-                    Name = "Trazabilidad Racks",
-                    Description = "Registro trazabilidad de racks secuencia",
-                    IsActive = true,
-                    CreationDate = new DateTime(2020, 10, 10),
-                    CompanyId = Guid.Parse("f20a5162-ebe9-48d0-92ae-d3cca917fc43")
                 }
             );
         }
@@ -194,33 +164,6 @@ namespace Alize.Platform.Infrastructure
                     Username = "6155a34df2452452c3c75a1a",
                     EncryptedPassword = "1f893f83132b8b5946e4cb37d205fb0ba6314380020139b23e48e6c6f06037be"
                 },
-                // Trazabilidad Racks Patatas Lazaro
-                new ApplicationCredentials
-                {
-                    Id = Guid.Parse("86bbad1a-0653-44a0-8ca7-4b8458f80fd5"),
-                    ApplicationId = Guid.Parse("0f5bc658-7223-4c5a-b272-31e878f181d5"),
-                    BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
-                    Username = "6155a34df2452452c3c75a1a",
-                    EncryptedPassword = "1f893f83132b8b5946e4cb37d205fb0ba6314380020139b23e48e6c6f06037be"
-                },
-                // Huella carbono XPANDER
-                new ApplicationCredentials
-                {
-                    Id = Guid.Parse("26bbad1a-0653-44a0-8ca7-4b8458f80fae"),
-                    ApplicationId = Guid.Parse("8a0573a2-4573-45a1-96eb-4b0233c1e0b3"),
-                    BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
-                    Username = "61e844e4f245240292cf8641",
-                    EncryptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d"
-                },
-                // Montaje parabrisas Nunsys
-                new ApplicationCredentials
-                {
-                    Id = Guid.Parse("76053ad3-d72b-46c3-b4a0-691ed4d13ca5"),
-                    ApplicationId = Guid.Parse("892494ab-f4f5-4b76-a2f8-aa1e042e6b86"),
-                    BlockchainId = Guid.Parse("56eab269-09ce-4332-b395-7dfcb17b073d"),
-                    Username = "61e844e4f245240292cf8641",
-                    EncryptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d"
-                },
                 // Alastria
                 // Calidad Mapex
                 new ApplicationCredentials
@@ -254,33 +197,6 @@ namespace Alize.Platform.Infrastructure
                 {
                     Id = Guid.Parse("26bbad1a-0653-44a0-8ca7-4b8458f80fde"),
                     ApplicationId = Guid.Parse("0f5bc658-7223-4c5a-b272-31e878f181d6"),
-                    BlockchainId = Guid.Parse(Core.Constants.Blockchains.Alastria),
-                    Username = "admin_kh_racks",
-                    EncryptedPassword = "TLC+5AObeVZds5qQktvujQ=="
-                },
-                // Huella carbono XPANDER
-                new ApplicationCredentials
-                {
-                    Id = Guid.Parse("26bbad1a-0653-44a0-8ca7-4b8458f80fbe"),
-                    ApplicationId = Guid.Parse("8a0573a2-4573-45a1-96eb-4b0233c1e0b3"),
-                    BlockchainId = Guid.Parse(Core.Constants.Blockchains.Alastria),
-                    Username = "admin_kh_trazabilidad_ws",
-                    EncryptedPassword = "iC4glPRztsdBn/u1Ll6txQ=="
-                },
-                // Montaje parabrisas Nunsys
-                new ApplicationCredentials
-                {
-                    Id = Guid.Parse("26053ad3-d72b-46c3-b4a0-691ed4d13ca5"),
-                    ApplicationId = Guid.Parse("892494ab-f4f5-4b76-a2f8-aa1e042e6b86"),
-                    BlockchainId = Guid.Parse(Core.Constants.Blockchains.Alastria),
-                    Username = "admin_kh_trazabilidad_ws",
-                    EncryptedPassword = "iC4glPRztsdBn/u1Ll6txQ=="
-                },
-                // Trazabilidad Racks Patatas Lazaro
-                new ApplicationCredentials
-                {
-                    Id = Guid.Parse("26bbad1a-0653-44a0-8ca7-4b8458f80fd4"),
-                    ApplicationId = Guid.Parse("0f5bc658-7223-4c5a-b272-31e878f181d5"),
                     BlockchainId = Guid.Parse(Core.Constants.Blockchains.Alastria),
                     Username = "admin_kh_racks",
                     EncryptedPassword = "TLC+5AObeVZds5qQktvujQ=="

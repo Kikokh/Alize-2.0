@@ -1,46 +1,51 @@
+<div class="container" *ngIf="assetTemplate">
+    <app-breadcrumb [application]="application" [asset]="asset"></app-breadcrumb>
+    <div class="flex wrap">
+        <div *ngIf="asset" class="details flex flex-column">
+            <h1 class="header">{{ 'Asset Detail' | translate}}</h1>
+            <h1 class="date">
+                <span class="day">{{ day }} </span>
+                <span class="month"> {{ month | uppercase }} </span>
+                <span class="year"> {{ year }}</span>
+            </h1>
+            <div class="properties">
+                <h4 class="size-16 overflow-wrap">{{ asset?.id}}</h4>
+                <span *ngIf="blockNumber">Blocknumber:
+                    <a [href]="'https://blkexplorer1.telsius.alastria.io/block/' + blockNumber"
+                        target="_blank">{{blockNumber}}</a>
+                </span>
+                <span class="size-14 overflow-wrap" *ngFor="let field of assetTemplate?.fields">
+                    {{ field.header | translate }} : {{ resolve(field.property, asset) }}
+                </span>
+            </div>
+            <button mat-stroked-button *ngIf="assetTemplate?.hasVideo" (click)="tableClick()">
+                {{buttonText |translate}}
+            </button>
+        </div>
+        <div *ngIf="assetTemplate?.hasVideo">
+            <app-video-load [url]="videoUri"></app-video-load>
+        </div>
+        <div>
+            <app-asset-detail-stepper *ngIf="assetTemplate?.steps && assetTemplate?.steps?.length"
+                [stepperTemplate]="assetTemplate?.steps ?? []" [assetHistory]="assetHistory">
+            </app-asset-detail-stepper>
+        </div>
+    </div>
+    <div *ngIf="showTable">
+        <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length"
+            [tableTemplate]="assetTemplate?.columns ?? []" [assetHistory]="assetHistory">
+        </app-asset-detail-table>
 
-    <div class="container" *ngIf="assetTemplate">
-        <app-breadcrumb [application]="application" [asset]="asset"></app-breadcrumb>
-        <div class="flex">
-            <div *ngIf="asset" class="details flex flex-column">
-                <h1 class="header">Asset Detail</h1>
-                <h1 class="date">
-                    <span class="day">{{ day }} </span>
-                    <span class="month"> {{ month | uppercase }} </span>
-                    <span class="year"> {{ year }}</span>
-                </h1>
-                <div class="properties">
-                    <h4 class="size-16" >{{ asset?.id }}</h4>
-                    <span class="size-14" *ngFor="let field of assetTemplate?.fields">
-                        {{ field.header }}: {{ resolve(field.property, asset) }}
-                    </span>
-                </div>
-                <button mat-stroked-button *ngIf="assetTemplate?.hasVideo" (click)="tableClick()">{{buttonText | translate}}</button>
-                <div class="alert-container">
-                    <button mat-raised-button class="alert-bar-button">
-                        <div class="button-container">
-                            <mat-icon>info</mat-icon>
-                            <span [title]="'alertBlockchain' | translate" class="alert-text">
-                                {{ 'alertBlockchain' | translate }}
-                            </span>
-                            <mat-icon (click)="openEncryptedPopUp()">file_download_done</mat-icon>
-                        </div>
-                    </button>
-                </div>
+    </div>
+    <div class="alert-container">
+        <button mat-raised-button class="alert-bar-button" (click)="openEncryptedPopUp()">
+            <div class="button-container">
+                <mat-icon>info</mat-icon>
+                <span [title]="'alertBlockchain' | translate" class="alert-text">
+                    {{ 'alertBlockchain' | translate }}
+                </span>
+                <mat-icon>file_download_done</mat-icon>
             </div>
-            <div *ngIf="assetTemplate?.hasVideo">
-                <app-video-load [url]="videoUri"></app-video-load>
-            </div>
-            <div>
-                <app-asset-detail-stepper *ngIf="assetTemplate?.steps && assetTemplate?.steps?.length"
-                [stepperTemplate]="assetTemplate?.steps ?? []">
-                </app-asset-detail-stepper>
-            </div>
-        </div>
-        <div *ngIf="showTable">
-          <app-asset-detail-table *ngIf="assetTemplate?.columns && assetTemplate?.columns?.length"
-            [tableTemplate]="assetTemplate?.columns ?? []">
-            </app-asset-detail-table>
-            
-        </div>
-    </div> 
+        </button>
+    </div>
+</div>

@@ -19,10 +19,11 @@
         align-items: center;
         justify-content: center;
         padding: 50px 50px 50px 50px;
-        border-radius: 8px 8px 8px 8px;
+        border-radius: 10px 10px 10px 10px;
 
         .example-full-width {
-            width: 80%;
+            width: 400px;
+            height: 68px;
         }
 
         mat-card-header {
@@ -30,7 +31,8 @@
             flex-direction: column;
 
             img {
-                width: 500px;
+                width: 443px;
+                height: 157px;
             }
         }
 
@@ -40,13 +42,26 @@
             mat-card-content {
                 margin-top: 20px;
                 width: 100%;
-
                 display: flex;
                 flex-direction: column;
+                justify-content: center;
+                align-items: center;
 
                 mat-form-field {
                     margin-top: 40px;
-                    width: 100%;
+                    width: 400px;
+                    height: 68px;
+                    font-size: 15px;
+                    span {
+                        font-size: 40px;
+                        width: 40px;
+                        height: 35px;
+                    }
+
+                    input {
+                        height: 35px;
+                        margin-left: 10px;
+                    }
                 }
             }
 
@@ -58,17 +73,20 @@
 
                 button {
                     margin-top: 10px;
-                    width: 223px;
-                    height: 43px;
+                    width: 282px;
+                    height: Hug(48px);
                     font-family: 'Poppins';
                     font-style: normal;
                     font-weight: 400;
                     font-size: 20px;
-                    line-height: 30px;
                     color: #FFFFFF;
-                    border-radius: 30px 30px 30px 30px;
-                    background: #142636;
-                    border-bottom: 1px solid #FFFFFF;
+                    border-radius: 12px;
+                    padding: 12px 32px 12px 32px;
+                    gap: 8px;
+                    background: linear-gradient(rgba(37, 117, 124, 1), rgba(64, 147, 150, 1));
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                 }
 
                 a {
@@ -105,7 +123,7 @@
     .mat-focused {
         /*change color of label*/
         color: transparent;
-        background-color:  red;
+        background-color: red;
     }
 
 }
@@ -116,6 +134,6 @@
 }
 
 //mat-input focused color
-:host  ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: transparent!important;
+:host ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+    color: transparent !important;
 }

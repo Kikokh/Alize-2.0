@@ -4,6 +4,7 @@ using Alize.Platform.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Alize.Platform.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220805131256_EditAlastriaUrl")]
+    partial class EditAlastriaUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,6 +90,33 @@ namespace Alize.Platform.Infrastructure.Migrations
                             Description = "Registro trazabilidad de racks secuencia",
                             IsActive = true,
                             Name = "Trazabilidad Racks"
+                        },
+                        new
+                        {
+                            Id = new Guid("8a0573a2-4573-45a1-96eb-4b0233c1e0b3"),
+                            CompanyId = new Guid("554bc4f7-46a9-4a87-a52e-6ca79e24986c"),
+                            CreationDate = new DateTime(2020, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Huella de carbono en proceso de montaje parabrisas",
+                            IsActive = true,
+                            Name = "Huella carbono"
+                        },
+                        new
+                        {
+                            Id = new Guid("892494ab-f4f5-4b76-a2f8-aa1e042e6b86"),
+                            CompanyId = new Guid("2f3e3858-4a59-4f0a-a54f-1830e47a9dfe"),
+                            CreationDate = new DateTime(2020, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Secuenciación parabrisas ford",
+                            IsActive = true,
+                            Name = "Montaje parabrisas"
+                        },
+                        new
+                        {
+                            Id = new Guid("0f5bc658-7223-4c5a-b272-31e878f181d5"),
+                            CompanyId = new Guid("f20a5162-ebe9-48d0-92ae-d3cca917fc43"),
+                            CreationDate = new DateTime(2020, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Registro trazabilidad de racks secuencia",
+                            IsActive = true,
+                            Name = "Trazabilidad Racks"
                         });
                 });
 
@@ -113,8 +142,7 @@ namespace Alize.Platform.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationId")
-                        .IsUnique();
+                    b.HasIndex("ApplicationId");
 
                     b.HasIndex("BlockchainId");
 
@@ -155,6 +183,30 @@ namespace Alize.Platform.Infrastructure.Migrations
                         },
                         new
                         {
+                            Id = new Guid("86bbad1a-0653-44a0-8ca7-4b8458f80fd5"),
+                            ApplicationId = new Guid("0f5bc658-7223-4c5a-b272-31e878f181d5"),
+                            BlockchainId = new Guid("56eab269-09ce-4332-b395-7dfcb17b073d"),
+                            EncryptedPassword = "1f893f83132b8b5946e4cb37d205fb0ba6314380020139b23e48e6c6f06037be",
+                            Username = "6155a34df2452452c3c75a1a"
+                        },
+                        new
+                        {
+                            Id = new Guid("26bbad1a-0653-44a0-8ca7-4b8458f80fae"),
+                            ApplicationId = new Guid("8a0573a2-4573-45a1-96eb-4b0233c1e0b3"),
+                            BlockchainId = new Guid("56eab269-09ce-4332-b395-7dfcb17b073d"),
+                            EncryptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d",
+                            Username = "61e844e4f245240292cf8641"
+                        },
+                        new
+                        {
+                            Id = new Guid("76053ad3-d72b-46c3-b4a0-691ed4d13ca5"),
+                            ApplicationId = new Guid("892494ab-f4f5-4b76-a2f8-aa1e042e6b86"),
+                            BlockchainId = new Guid("56eab269-09ce-4332-b395-7dfcb17b073d"),
+                            EncryptedPassword = "7b12c0e83055b12924509de76d14c2ee5aca90367f7938973e49e650e3b9579d",
+                            Username = "61e844e4f245240292cf8641"
+                        },
+                        new
+                        {
                             Id = new Guid("0af7dff5-9b0f-448a-994a-ef8b54a68708"),
                             ApplicationId = new Guid("8a0573a2-4573-45a1-96eb-4b0233c1e0a3"),
                             BlockchainId = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
@@ -181,6 +233,30 @@ namespace Alize.Platform.Infrastructure.Migrations
                         {
                             Id = new Guid("26bbad1a-0653-44a0-8ca7-4b8458f80fde"),
                             ApplicationId = new Guid("0f5bc658-7223-4c5a-b272-31e878f181d6"),
+                            BlockchainId = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
+                            EncryptedPassword = "TLC+5AObeVZds5qQktvujQ==",
+                            Username = "admin_kh_racks"
+                        },
+                        new
+                        {
+                            Id = new Guid("26bbad1a-0653-44a0-8ca7-4b8458f80fbe"),
+                            ApplicationId = new Guid("8a0573a2-4573-45a1-96eb-4b0233c1e0b3"),
+                            BlockchainId = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
+                            EncryptedPassword = "iC4glPRztsdBn/u1Ll6txQ==",
+                            Username = "admin_kh_trazabilidad_ws"
+                        },
+                        new
+                        {
+                            Id = new Guid("26053ad3-d72b-46c3-b4a0-691ed4d13ca5"),
+                            ApplicationId = new Guid("892494ab-f4f5-4b76-a2f8-aa1e042e6b86"),
+                            BlockchainId = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
+                            EncryptedPassword = "iC4glPRztsdBn/u1Ll6txQ==",
+                            Username = "admin_kh_trazabilidad_ws"
+                        },
+                        new
+                        {
+                            Id = new Guid("26bbad1a-0653-44a0-8ca7-4b8458f80fd4"),
+                            ApplicationId = new Guid("0f5bc658-7223-4c5a-b272-31e878f181d5"),
                             BlockchainId = new Guid("ba959be5-0b32-443e-a2f9-98a0f3c8a7e1"),
                             EncryptedPassword = "TLC+5AObeVZds5qQktvujQ==",
                             Username = "admin_kh_racks"
@@ -746,7 +822,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMINPRO.COM",
                             NormalizedUserName = "TESTADMINPRO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG5Xdz2aFq4zxdtdsTPJ6nyG42ENcvx2ZVfIubBbX6QLlIlVNs5/cjexd+tFovFdUQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK9epr800lNuYaDEr1mgCHr/y5GV8G6ODzr7G9oVSxlapMINVEg4gom98WuZEPodkg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "840411eb-2f77-4444-8f29-76c094834b56",
                             TwoFactorEnabled = false,
@@ -766,7 +842,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@DISTRIBUTOR.COM",
                             NormalizedUserName = "TESTDESTRIBUTOR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOuX2M6kjEZVzkTYcA74JxykyQiFqblH9s+v/Bytu/ZZL40TTkE6Q1m6FTeqJ26q9Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECQghetDal7L1lesb7HWyIz6oNFMaN7YkeGUjvgG5vwDIxjUkiu9xfTwKRNRggaPTw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "004286d4-a835-45c7-8f36-1f9359d7d955",
                             TwoFactorEnabled = false,
@@ -786,7 +862,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMIN.COM",
                             NormalizedUserName = "TESTADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG3sHmpXwgWzXf9xprgBrDQ7Ih+gHL182vBdzpNw2Ex6eQzcALSrrzvPXACeJmt/AQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKJMkCvWteMdZwuljm2w+fLL56Wnt/5r1EUzbtvpES52O7mmEpo5qVm+UZ2Mk7xHZA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "1c822965-eb67-4092-9cf7-cf62806d5395",
                             TwoFactorEnabled = false,
@@ -806,7 +882,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@USER.COM",
                             NormalizedUserName = "TESTUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMSwWG0rNH9o9W63NxXB4piwHoLYyS/HKBS7hgVjw738CnZtaBvgh5AJm+/fvORmxg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMpTQ7kQtGdhp3a22btuL/eKxKQZyiJHpbK6AEeVR1FbTXHuDe0JARN/nUo3RJIdWw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "95ada776-f3e1-42db-aa39-382f91b74cd4",
                             TwoFactorEnabled = false,
@@ -826,7 +902,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@GUEST.COM",
                             NormalizedUserName = "TESTGUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOylzuBbtST/o2iRxN2SP9/JDfydF7BvXR82n4HGND+bNE2SygsoGP2ZJLAMw2uzWQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFEtkG79VTED42UPSQR9xx57DjOCDgdx7+X54UiiGAtPvkfnDcQVjNwe83Wl8atKJQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "b6091148-6b17-4e26-9dc7-97d1b34fb025",
                             TwoFactorEnabled = false,
@@ -1147,8 +1223,8 @@ namespace Alize.Platform.Infrastructure.Migrations
             modelBuilder.Entity("Alize.Platform.Core.Models.ApplicationCredentials", b =>
                 {
                     b.HasOne("Alize.Platform.Core.Models.Application", "Application")
-                        .WithOne("ApplicationCredentials")
-                        .HasForeignKey("Alize.Platform.Core.Models.ApplicationCredentials", "ApplicationId")
+                        .WithMany()
+                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1263,12 +1339,6 @@ namespace Alize.Platform.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Alize.Platform.Core.Models.Application", b =>
-                {
-                    b.Navigation("ApplicationCredentials")
                         .IsRequired();
                 });
 

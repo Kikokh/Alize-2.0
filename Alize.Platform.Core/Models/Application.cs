@@ -24,6 +24,8 @@ namespace Alize.Platform.Core.Models
 
         public bool IsActive { get; set; } = false;
 
+        public ApplicationCredentials ApplicationCredentials { get; set; }
+
         public ICollection<User>? Users { get; set; }
     }
 }

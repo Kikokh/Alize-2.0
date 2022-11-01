@@ -14,11 +14,11 @@
                 <label>{{"Descripcion" | translate}}</label>
                 <input name="description" formControlName="description">
             </div>
-            <mat-slide-toggle color="accent" formControlName="active">Activo</mat-slide-toggle>
+            <mat-slide-toggle color="accent" formControlName="active">{{'Activo' | translate}}</mat-slide-toggle>
             <div *ngIf="data.mode !== 'ADD'" style="margin-top: 30px; display: flex; flex-direction: column;">
                 <h1 class="modules" mat-dialog-title>{{availableModules | translate}}</h1>
                 <ng-container *ngFor="let module of moduleList">
-                    <mat-checkbox [disabled]="true" class="example-margin" [checked]="modules.includes(module.id)">{{module.name}}</mat-checkbox>
+                    <mat-checkbox [disabled]="true" class="example-margin" [checked]="modules.includes(module.id)">{{module.name | translate}}</mat-checkbox>
                 </ng-container>
             </div>
 
@@ -28,8 +28,8 @@
     <div class="mat-dialog-actions" mat-dialog-actions>
         <div class="fill"></div>
         <div class="buttons">
-            <button mat-raised-button (click)="close()">Close</button>
-            <button mat-raised-button color="accent" (click)="onClick()">Guardar</button>
+            <button mat-raised-button (click)="close()">{{ 'Cerrar' | translate}}</button>
+            <button mat-raised-button color="accent" (click)="onClick()">{{ 'Guardar' | translate}}</button>
         </div>
     </div>
 </div>

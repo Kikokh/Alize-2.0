@@ -7,6 +7,9 @@ namespace Alize.Platform.Core.Models
         [JsonPropertyName("id")]
         public string TransactionId { get; set; }
 
+        [JsonPropertyName("blockNumber")]
+        public long BlockNumber { get; set; }
+
         [JsonPropertyName("metadata")]
         public Dictionary<string, dynamic> Metadata { get; set; }
     }

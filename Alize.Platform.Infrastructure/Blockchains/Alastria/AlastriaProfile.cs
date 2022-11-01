@@ -9,7 +9,8 @@ namespace Alize.Platform.Infrastructure.Alastria
         public AlastriaMappingProfile()
         {
             CreateMap<AlastriaAsset, Asset>()
-                .ForMember(d => d.CreatedAt, o => o.MapFrom(s => s.Data["CreatedAt"]));
+                .ForMember(d => d.Data, o => o.MapFrom(s => s.Data.BlockchainData))
+                .ForMember(d => d.CreatedAt, o => o.MapFrom(s => s.Data.CreatedAt));
 
             CreateMap<AlastriaAssetHistory, AssetHistory>()
                 .ForMember(d => d.TransactionId, o => o.MapFrom(s => s.TransacctionHash));

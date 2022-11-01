@@ -12,7 +12,7 @@ namespace Alize.Platform.Infrastructure.Alastria.Models
         public bool Found { get; set; }
 
         [JsonProperty("message")]
-        public bool Message { get; set; }
+        public string Message { get; set; }
 
         [JsonProperty("assets")]
         public IEnumerable<AlastriaAsset>? Assets { get; set; }
@@ -22,6 +22,9 @@ namespace Alize.Platform.Infrastructure.Alastria.Models
 
         [JsonProperty("asset")]
         public AlastriaAsset? Asset { get; set; }
+
+        [JsonProperty("_pagination")]
+        public AlastriaPagination Pagination { get; set; }
 
         [JsonProperty("metadata")]
         public IDictionary<string, dynamic>? Metadata { get; set; }

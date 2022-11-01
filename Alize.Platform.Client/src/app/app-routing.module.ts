@@ -18,7 +18,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/administration/administration.module').then(m => m.AdministrationModule)
       },
       {
-        path: 'management',
+        path: 'applications',
         loadChildren: () => import('./pages/management/management.module').then(m => m.ManagmentModule)
       },
     ]

@@ -28,6 +28,7 @@ export class OpenPopUpService {
 
   open(entity: EntityType, mode: ModePopUpType, data?: any): Observable<any> {
     const matDialogConfigModel = this.resolveComponentToOpen(entity, mode, data);
+    console.log('a', data)
     this.dialogRef = this.dialog.open(matDialogConfigModel.component, {
       data: matDialogConfigModel.data,
     });

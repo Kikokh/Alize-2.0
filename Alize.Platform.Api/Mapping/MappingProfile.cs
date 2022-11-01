@@ -60,7 +60,8 @@ namespace Alize.Platform.Api.Mapping
             CreateMap<CreateApplicationRequest, Application>();
             CreateMap<UpdateApplicationRequest, Application>();
             CreateMap<Application, ApplicationResponse>()
-                .ForMember(d => d.CompanyName, o => o.MapFrom(s => s.Company != null ? s.Company.Name : string.Empty));
+                .ForMember(d => d.CompanyName, o => o.MapFrom(s => s.Company != null ? s.Company.Name : string.Empty))
+                .ForMember(d => d.Blockchain, o => o.MapFrom(s => s.ApplicationCredentials != null ? s.ApplicationCredentials.Blockchain : null));
         }
 
         private void UserMappings()

@@ -1,4 +1,4 @@
 <mat-form-field [ngClass]="cssClass" appearance="fill" color="accent">
-    <mat-label>{{text}}</mat-label>
+    <mat-label>{{text | translate}}</mat-label>
     <input [(ngModel)]="value" matInput type="text" (change)="changeFn($event)">
 </mat-form-field>

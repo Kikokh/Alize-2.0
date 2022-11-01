@@ -3,8 +3,8 @@
         <img src="../../../../../assets/logo-alice-blanco.png" alt="">
     </div>
 
-    <mat-accordion [ngClass]="getMenuMargin()" displayMode="flat" multi>
-        <mat-expansion-panel class="nav-menu" [expanded]="homePanel" hideToggle (click)="handleMenu('Home')">
+    <mat-accordion [ngClass]="getMenuMargin()" displayMode="flat">
+        <mat-expansion-panel class="nav-menu" hideToggle (click)="navigate('home')">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
@@ -15,26 +15,19 @@
             </mat-expansion-panel-header>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="panelOpenStateManag && isSideBarExpanded" (click)="handleMenu('Gestion')"
-            class="nav-menu flex" [hideToggle]="!isSideBarExpanded">
+        <mat-expansion-panel class="nav-menu flex" hideToggle (click)="navigate('applications')">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
                         edit_note
                     </span>
-                    <span [hidden]="!isSideBarExpanded">{{"Gestion" | translate }}</span>
+                    <span [hidden]="!isSideBarExpanded">{{"Aplicaciones" | translate }}</span>
                 </mat-panel-title>
             </mat-expansion-panel-header>
-            <div class="opt-menu">
-                <a class="nav-option flex" routerLinkActive="active-link" [routerLink]="['/management/queries']"
-                    (click)="closePanelOpt()">
-                    <button mat-button class="buttonText"> {{"Consultas" | translate }}</button>
-                </a>
-            </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="panelOpenStateAdm && isSideBarExpanded" (click)="handleMenu('Administracion')"
-            *ngIf="userCanAccessAdministration() | async" class="nav-menu flex" [hideToggle]="!isSideBarExpanded">
+        <mat-expansion-panel *ngIf="userCanAccessAdministration() | async" class="nav-menu flex"
+            [hideToggle]="!isSideBarExpanded">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span class="material-symbols-rounded">
@@ -69,15 +62,26 @@
             </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel (click)="expandMenu()" class="nav-menu flex" *ngIf="!isSideBarExpanded"
+        <mat-expansion-panel *ngIf="userCanAccessAdministration() | async" class="nav-menu flex"
             [hideToggle]="!isSideBarExpanded">
-            <mat-expansion-panel-header class="expand-menu">
+            <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <span class="material-symbols-outlined">
-                        chevron_right
+                    <span class="material-symbols-rounded">
+                        build
                     </span>
+                    <span [hidden]="!isSideBarExpanded">{{"developmentsTools" | translate}}</span>
                 </mat-panel-title>
             </mat-expansion-panel-header>
+            <div class="opt-menu">
+                <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link" [href]="swaggerUrl"
+                    target="_blank">
+                    <button mat-button class="buttonText">Swagger</button>
+                </a>
+                <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link" [href]="postmanUrl"
+                    target="_blank">
+                    <button mat-button class="buttonText">Postman</button>
+                </a>
+            </div>
         </mat-expansion-panel>
 
         <button mat-button class="nav-menu user_nav_menu" [matMenuTriggerFor]="menu">
@@ -94,10 +98,10 @@
             </div>
         </button>
         <mat-menu #menu="matMenu" yPosition="above">
-            <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">Cerrar
-                Sesion</button>
-            <button (click)="showPasswordPopUp(user?.firstName)" id="myPanelId" mat-menu-item
-                class="user-menu-items">Cambiar contraseña</button>
+            <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">
+                {{"CloseSession" | translate }}</button>
+            <button (click)="showPasswordPopUp(user?.firstName)" id="myPanelId" mat-menu-item class="user-menu-items">
+                {{"CambiarContraseña" | translate }}</button>
         </mat-menu>
 
     </mat-accordion>
