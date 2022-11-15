@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'https://alize-platform-api-staging.azurewebsites.net/api',
   // apiUrl: 'https://localhost:7228/api',
-  swagger: 'https://alize-platform-api-dev.azurewebsites.net/index.html',
+  swagger: 'https://alize-platform-api-staging.azurewebsites.net/index.html',
   postman: 'https://www.postman.com/bold-meadow-604881/workspace/alize/overview'
 };
 
