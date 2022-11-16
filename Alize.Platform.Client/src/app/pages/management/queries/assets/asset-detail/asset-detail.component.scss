@@ -46,6 +46,11 @@
         .properties {
             display: grid;
             padding-right: 1rem;
+            span a{
+                color: #fff;
+                text-decoration: none;
+                font-weight: 700;
+            }
         }
 
         .size-14 {
