@@ -82,4 +82,12 @@ export class LoginService {
       map(user => user.modules.some(m => administrationModules.includes(m.id.toUpperCase())))
     );
   }
+
+  recoverUserPassword(email: string) {
+    return this._http.post<any>(`${this._baseUrl}/Users/Me/Password/Recover`, { email });
+  }
+
+  resetUserPassword(email: string, token: string, password: string) {
+    return this._http.post<any>(`${this._baseUrl}/Users/Me/Password/Reset`, { email, token, newPassword: password });
+  }
 }

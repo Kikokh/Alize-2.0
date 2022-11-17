@@ -5,12 +5,14 @@ using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure;
 using Alize.Platform.Infrastructure.Alastria;
 using Alize.Platform.Infrastructure.Extensions;
+using Alize.Platform.Infrastructure.Options;
 using Alize.Platform.Infrastructure.Repositories;
 using Alize.Platform.Infrastructure.Services;
 using Alize.Platform.Infrastructure.Services.BlockchainFue;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -22,10 +24,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(EmailOptions.Email));
+
 builder.Services.AddSqlServer<ApplicationDbContext>(connectionString)
     .AddIdentityCore<User>()
     .AddRoles<Role>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddCors(options =>
 {

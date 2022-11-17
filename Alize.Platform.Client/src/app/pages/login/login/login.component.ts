@@ -94,4 +94,21 @@ export class LoginComponent implements OnInit {
       );
     }
   }
+
+  passwordReset() {
+    this.isLoading = true;
+    this._loginService.recoverUserPassword(this.emailFormControls?.value).subscribe(
+      success => {
+        this._router.navigate(['/home']) 
+        const successMsg = (this.lang === 'en') ? 'Email has been sent to your address' : 'Se ha enviado un correo a su dirección'; 
+        this.toastr.success(successMsg);
+      },
+      err => {
+        this.isLoading = false;
+        const erroMsg = (this.lang === 'en') ? 'User does not exist' : 'Usuario inexistente'; 
+        this.toastr.error(erroMsg);
+      },
+      () => this.isLoading = false
+    )
+  }
 }

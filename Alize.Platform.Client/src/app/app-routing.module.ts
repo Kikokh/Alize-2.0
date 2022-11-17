@@ -4,6 +4,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './pages/home/home/home.component';
 import { LayoutComponent } from './pages/layout/layout/layout.component';
 import { LoginComponent } from './pages/login/login/login.component';
+import { PasswordResetComponent } from './pages/login/password-reset/password-reset.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'password-reset',
+    component: PasswordResetComponent
   }
 ];
 

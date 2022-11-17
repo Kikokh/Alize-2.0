@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from 'src/app/pages/login/services/login.service';
 
@@ -7,9 +7,13 @@ import { LoginService } from 'src/app/pages/login/services/login.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivateChild {
-  constructor(private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService) { }
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    return !!this.loginService.isLoggedin;
+    if (this.loginService.isLoggedin) {
+      return true;
+    }
+    this.router.navigate(['/login']);
+    return false;
   }
 }
  
