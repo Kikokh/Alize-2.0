@@ -1,5 +1,5 @@
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,6 +14,11 @@ import { MatPaginatorIntlCro } from './mat-paginator-intl.service';
 import { MaterialModule } from './material.module';
 import { LayoutAppModule } from './pages/layout/layout.module';
 import { LoginModule } from './pages/login/login.module';
+import { LoginService } from './pages/login/services/login.service';
+
+function initLongRunningFactory(loginService: LoginService) {
+  return () => loginService.getUser().subscribe()
+}
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -46,7 +51,13 @@ export function HttpLoaderFactory(http: HttpClient) {
       useClass: AuthInterceptorService,
       multi: true
     },
-    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro}
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initLongRunningFactory,
+      deps: [LoginService],
+      multi: true
+    },
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }
   ],
   bootstrap: [AppComponent]
 })

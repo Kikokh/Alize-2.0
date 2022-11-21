@@ -1,6 +1,6 @@
 <div class="sidebar-container">
     <div class="logo" [ngClass]="{ 'foo': !isSideBarExpanded}">
-        <img src="../../../../../assets/logo-alice-blanco.png" alt="">
+        <img [src]="img | async" alt="">
     </div>
 
     <mat-accordion [ngClass]="getMenuMargin()" displayMode="flat">
@@ -86,13 +86,13 @@
 
         <button mat-button class="nav-menu user_nav_menu" [matMenuTriggerFor]="menu">
             <div class="login-container">
-                <img class="company-img" [src]="img">
+                <img class="company-img" [src]="img | async">
                 <div class="flex">
                     <div class="user_name_title" [ngClass]="{'info-user' : !isSideBarExpanded}">
-                        {{user?.firstName}} {{user?.lastName}}
+                        {{(user | async)?.firstName}} {{(user | async)?.lastName}}
                     </div>
                     <div class="user_role_subtitle" [ngClass]="{'info-user' : !isSideBarExpanded}">
-                        {{user?.roleName}}
+                        {{(user | async)?.roleName}}
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
         <mat-menu #menu="matMenu" yPosition="above">
             <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">
                 {{"CloseSession" | translate }}</button>
-            <button (click)="showPasswordPopUp(user?.firstName)" id="myPanelId" mat-menu-item class="user-menu-items">
+            <button *ngIf="user | async as _user" (click)="showPasswordPopUp(_user?.firstName)" id="myPanelId" mat-menu-item class="user-menu-items">
                 {{"CambiarContraseña" | translate }}</button>
         </mat-menu>
 

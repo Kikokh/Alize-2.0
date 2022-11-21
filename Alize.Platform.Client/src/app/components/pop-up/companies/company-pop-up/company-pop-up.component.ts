@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Company } from 'src/app/models/company.model';
@@ -37,6 +37,10 @@ export class CompanyPopUpComponent implements OnInit {
 
   get title(): string {
     return this.data.mode === ModePopUpType.ADD ? 'NuevaEmpresa' : this.data.mode === ModePopUpType.DISPLAY ? 'VerEmpresa' : 'EditarEmpresa';
+  }
+
+  get imageControl(): AbstractControl {
+    return this.form.controls['logo'];
   }
 
   constructor(public dialogRef: MatDialogRef<CompanyPopUpComponent>,
@@ -121,9 +125,11 @@ export class CompanyPopUpComponent implements OnInit {
     this.logo = file;
     const reader = new FileReader();
     reader.readAsDataURL(file);
+    // reader.readAsDataURL(file);
 
     reader.onload = () => {
-      this.logoSrc = reader.result as string;
+      var data = btoa(reader.result as string)
+      this.imageControl.setValue(reader.result as string);
     };
   }
 

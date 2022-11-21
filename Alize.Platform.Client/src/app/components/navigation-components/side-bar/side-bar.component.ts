@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatAccordion, MatExpansionPanel } from '@angular/material/expansion';
 import { Router } from '@angular/router';
 import { EMPTY, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { Modules } from 'src/app/constants/modules.constants';
 import { User } from 'src/app/models/user.model';
 import { LoginService } from 'src/app/pages/login/services/login.service';
@@ -20,7 +20,6 @@ import { PasswordService } from '../../pop-up/users/services/password.service';
   styleUrls: ['./side-bar.component.scss'],
 })
 export class SideBarComponent implements AfterViewInit {
-  @Input() user?: User;
   @Input() isSideBarExpanded?: boolean;
   firstChange = true;
   showSubMenuProp = false;
@@ -37,10 +36,15 @@ export class SideBarComponent implements AfterViewInit {
   closeOptPanel = false;
   Modules = Modules;
 
-  get img(): string {
-    return this.user ? this.user.companyLogo : '';
+  get img(): Observable<string> {
+    return this.user.pipe(
+      map(user => user?.companyLogo ?? '../../../../../assets/logo-alice-blanco.png')
+    )
   }
 
+  get user(): Observable<User> {
+    return this._loginService.$me;
+  }
 
   constructor(
     private _router: Router,

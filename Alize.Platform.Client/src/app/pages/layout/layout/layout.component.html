@@ -1,11 +1,11 @@
 <div class="app-container mat-typography">
     <mat-drawer-container autosize>
         <mat-drawer #drawer [ngClass]="getSideBarStyles()" mode="side">
-            <app-side-bar (openSideBarExpanded)="openSideBarExpanded($event)" [isSideBarExpanded]="isSideBarExpandedProp" [user]="user"></app-side-bar>
+            <app-side-bar (openSideBarExpanded)="openSideBarExpanded($event)" [isSideBarExpanded]="isSideBarExpandedProp"></app-side-bar>
         </mat-drawer>
 
         <mat-drawer-content [ngClass]="getContentStyles()">
-            <app-nav-bar [SideBarExpanded]="isSideBarExpanded" (isSideBarExpanded)="handlerSideBarToggle($event)" [user]="user"></app-nav-bar>
+            <app-nav-bar [SideBarExpanded]="isSideBarExpanded" (isSideBarExpanded)="handlerSideBarToggle($event)"></app-nav-bar>
             <div class="main-container-page">
                 <router-outlet></router-outlet>
             </div>

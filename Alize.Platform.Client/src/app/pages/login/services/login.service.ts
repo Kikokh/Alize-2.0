@@ -26,9 +26,11 @@ export interface ILoginData {
 export class LoginService {
   private _baseUrl = environment.apiUrl;
   private _me = new BehaviorSubject<User>(JSON.parse(this._localStorageService.getItem('user')) as User);
+  private _userCompany = new Subject<User>();
 
   $me: Observable<User> = this._me.asObservable();
   $roleName = this.$me.pipe(map(user => user?.roleName))
+  $userCompany = this._userCompany.asObservable();
 
   get isLoggedin() {
     return this._localStorageService.getItem('token')
@@ -49,14 +51,16 @@ export class LoginService {
 
     return this._http.post<any>(`${this._baseUrl}/Users/Login`, loginData, httpOptions).pipe(
       tap(data => this._localStorageService.addItem('token', data.accessToken)),
-      switchMap(() => this._http.get<User>(`${this._baseUrl}/Users/Me`, httpOptions)),
-      tap(user => {
-        this._me.next(user);
-        this._localStorageService.addItem('user', JSON.stringify(user))
-      }),
+      switchMap(() => this.getUser()),
       finalize(() => {
         isLoading = false;
       })
+    );
+  }
+
+  getUser(): Observable<User> {
+    return this._http.get<User>(`${this._baseUrl}/Users/Me`).pipe(
+      tap(user => this._me.next(user))
     );
   }
 
