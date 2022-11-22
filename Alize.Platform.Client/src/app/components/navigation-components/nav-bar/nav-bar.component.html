@@ -8,14 +8,14 @@
   </button>
   <span class="example-spacer"></span>
 
-  <button color="accent" class="lang-button" mat-button [matMenuTriggerFor]="menuLang">
+  <button color="accent" class="lang-button nav-button" mat-button [matMenuTriggerFor]="menuLang" [ngClass]="{'expanded': !isExpanded}">
     {{currentLang | uppercase}} <mat-icon>keyboard_arrow_down</mat-icon>
   </button>
   <mat-menu color="accent" #menuLang="matMenu" xPosition="before">
     <button (click)="ChangeLanguaje('es')" mat-menu-item class="lang-button">{{"Espanol" | translate}}</button>
     <button (click)="ChangeLanguaje('en')" mat-menu-item class="lang-button">{{"Ingles" | translate}}</button>
   </mat-menu>
-  <button color="accent" class="lang-button" mat-button>
+  <button color="accent" class="lang-button nav-button" mat-button [ngClass]="{'expanded': !isExpanded}">
     <span class="material-symbols-rounded">
       notifications
     </span>
