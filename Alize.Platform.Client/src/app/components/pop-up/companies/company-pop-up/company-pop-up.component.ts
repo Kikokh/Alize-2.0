@@ -16,7 +16,6 @@ export class CompanyPopUpComponent implements OnInit {
   form: FormGroup;
   selectedIndex = 0;
   mode: ModePopUpType;
-  logo?: File;
   logoSrc?: string;
 
   public get _modePopUpType(): typeof ModePopUpType {
@@ -39,34 +38,16 @@ export class CompanyPopUpComponent implements OnInit {
     return this.data.mode === ModePopUpType.ADD ? 'NuevaEmpresa' : this.data.mode === ModePopUpType.DISPLAY ? 'VerEmpresa' : 'EditarEmpresa';
   }
 
-  get imageControl(): AbstractControl {
+  get logoControl(): AbstractControl {
     return this.form.controls['logo'];
   }
 
+  get backgroundImageControl(): AbstractControl {
+    return this.form.controls['backgroundImage'];
+  }
+
   constructor(public dialogRef: MatDialogRef<CompanyPopUpComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      id: string;
-      name: string;
-      description: string;
-      isActive: boolean;
-      activity: string;
-      businessName: string;
-      cif: string;
-      comments: string;
-      language: string;
-      phoneNumber: string;
-      email: string;
-      web: string;
-      contactName: string;
-      logo: string;
-      imageTypeMime: string;
-      address: string;
-      zip: string;
-      city: string;
-      province: string;
-      country: string;
-      mode: ModePopUpType;
-    },
+    @Inject(MAT_DIALOG_DATA) public data: Company & { mode: ModePopUpType },
     private _companiesService: CompaniesService,
     public translate: TranslateService) {
   }
@@ -94,7 +75,8 @@ export class CompanyPopUpComponent implements OnInit {
       zip: new FormControl({ value: this.data.zip, disabled: this.isView }),
       city: new FormControl({ value: this.data.city, disabled: this.isView }),
       province: new FormControl({ value: this.data.province, disabled: this.isView }),
-      country: new FormControl({ value: this.data.country, disabled: this.isView })
+      country: new FormControl({ value: this.data.country, disabled: this.isView }),
+      backgroundImage: new FormControl({ value: this.data.backgroundImage, disabled: this.isView })
     });
   }
 
@@ -115,34 +97,31 @@ export class CompanyPopUpComponent implements OnInit {
     const result = new DialogResult();
 
     result.action = ModePopUpType.DELETE;
-    result.id = this.data.id;
+    result.id = this.data.id!;
 
     this.dialogRef.close(result);
   }
 
-  onFileChanged(event: any) {
-    const [file] = event.target.files;
-    this.logo = file;
+  onFileChanged(event: any, control: AbstractControl) {
+    const [file] = event.target.files as Blob[];
+
+    console.log(file.size)
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    // reader.readAsDataURL(file);
 
     reader.onload = () => {
-      var data = btoa(reader.result as string)
-      this.imageControl.setValue(reader.result as string);
+      control.setValue(reader.result as string);
     };
   }
 
   buildCompany(): Company {
-    console.log(this.isEdit)
-    if (this.isEdit) return {
+    return this.isEdit ? {
       id: this.data.id,
       ...this.form.value,
       action: ModePopUpType.EDIT
-    }
-    else return {
+    } : {
       ...this.form.value,
-      action: ModePopUpType.ADD 
+      action: ModePopUpType.ADD
     }
   }
 }

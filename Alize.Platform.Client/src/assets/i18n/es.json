@@ -58,6 +58,7 @@
   "BreadcrumbConsultas": "Gestión > Consultas",
   "DisplayTitulo": "Ver Aplicación",
   "EditTitulo": "Editar Aplicación",
+  "Theme": "Tema",
   "GrupoPopUpTitulo": "Usuarios con permiso de consulta",
   "GrupoPopUpSubTitulo": "Selecciona los usuarios que tendrán acceso a la consulta Calidad mapex",
   "GrupoPopUpInfoText": "Los administradores tienen permiso implicito a la consulta",

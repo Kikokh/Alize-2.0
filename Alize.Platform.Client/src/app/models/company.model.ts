@@ -24,4 +24,5 @@ export class Company {
     zip: string;
     description: string;
     action: ModePopUpType;
+    backgroundImage: string;
 }

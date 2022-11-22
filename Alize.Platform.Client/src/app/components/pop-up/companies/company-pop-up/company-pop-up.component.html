@@ -15,14 +15,15 @@
 
     <div class="mat-dialog-content" mat-dialog-content>
         <form [formGroup]="form">
-            <mat-tab-group [(selectedIndex)]="selectedIndex" >
+            <mat-tab-group [(selectedIndex)]="selectedIndex">
                 <mat-tab class="data-group text-white" [label]="'Datos' | translate ">
                     <div class="information-tab grid">
                         <div class="control name" appearance="outline">
                             <label class="text-light-blue">{{"Nombre" | translate }}*</label>
                             <input name="name" formControlName="name" class="text-input">
                             <mat-error>
-                                <app-form-error [form]="form" field="name" [errors]="form.get('name')?.errors"></app-form-error>
+                                <app-form-error [form]="form" field="name" [errors]="form.get('name')?.errors">
+                                </app-form-error>
                             </mat-error>
                         </div>
                         <div class="control activity" appearance="outline">
@@ -37,25 +38,29 @@
                             <label class="text-light-blue">{{"Cif" | translate }}*</label>
                             <input name="cif" formControlName="cif" class="text-input">
                             <mat-error>
-                                <app-form-error [form]="form" field="cif" [errors]="form.get('cif')?.errors"></app-form-error>
+                                <app-form-error [form]="form" field="cif" [errors]="form.get('cif')?.errors">
+                                </app-form-error>
                             </mat-error>
                         </div>
                         <div class="control image">
                             <label class="text-light-blue">Logo</label>
-                            <img (click)="imageInput.click()" class="image-logo" [src]="imageControl.value ?? '/assets/upload-image.svg'" alt="">
-                            <input #imageInput type="file" [disabled]="isView" (change)="onFileChanged($event)" class="flex-1 text-input">
+                            <img (click)="imageInput.click()" class="image-logo"
+                                [src]="logoControl.value ?? '/assets/upload-image.svg'" alt="">
+                            <input #imageInput type="file" [disabled]="isView" (change)="onFileChanged($event, logoControl)"
+                                class="flex-1 text-input">
                         </div>
                         <div class="control active">
                             <label class="text-light-blue">{{"Active" | translate }}</label>
-                            <mat-slide-toggle class="active-toggle" color="accent" formControlName="isActive"></mat-slide-toggle>
+                            <mat-slide-toggle class="active-toggle" color="accent" formControlName="isActive">
+                            </mat-slide-toggle>
                         </div>
-                        
+
                         <div class="control description" appearance="outline">
                             <label class="text-light-blue">{{"Descripcion" | translate }}</label>
                             <textarea name="description" formControlName="description" class="text-input"></textarea>
                         </div>
                     </div>
-                        
+
                 </mat-tab>
                 <mat-tab class="data-group" [label]="'Localizacion' | translate">
                     <div class="grid ubication-tab">
@@ -86,8 +91,8 @@
                                 allowfullscreen webkitallowfullscreen mozallowfullscreen [src]="urlMap | safe">
                             </iframe>
                         </div>
-                        
-                    </div>                    
+
+                    </div>
                 </mat-tab>
                 <mat-tab class="data-group" [label]="'Contacto' | translate">
                     <div class="grid contact-tab">
@@ -103,7 +108,8 @@
                             <label>{{"Email" | translate}}*</label>
                             <input name="email" formControlName="email" class="text-input">
                             <mat-error>
-                                <app-form-error [form]="form" field="email" [errors]="form.get('email')?.errors"></app-form-error>
+                                <app-form-error [form]="form" field="email" [errors]="form.get('email')?.errors">
+                                </app-form-error>
                             </mat-error>
                         </div>
                         <div class="control web" appearance="outline">
@@ -114,8 +120,20 @@
                             <label>{{"NombreContacto" | translate}}*</label>
                             <input name="contactName" formControlName="contactName" class="text-input">
                             <mat-error>
-                                <app-form-error [form]="form" field="contactName" [errors]="form.get('contactName')?.errors"></app-form-error>
+                                <app-form-error [form]="form" field="contactName"
+                                    [errors]="form.get('contactName')?.errors"></app-form-error>
                             </mat-error>
+                        </div>
+                    </div>
+                </mat-tab>
+                <mat-tab class="data-group" [label]="'Theme' | translate">
+                    <div class="grid theme-tab">
+                        <div class="control image">
+                            <label class="text-light-blue">Background</label>
+                            <img (click)="backgroundInput.click()" class="background-image"
+                                [src]="backgroundImageControl.value ?? '/assets/upload-image.svg'" alt="">
+                            <input #backgroundInput type="file" [disabled]="isView" (change)="onFileChanged($event, backgroundImageControl)"
+                                class="flex-1 text-input">
                         </div>
                     </div>
                 </mat-tab>
@@ -127,6 +145,7 @@
             <span class="dot" (click)="selectedIndex = 0" [ngClass]="{'active': selectedIndex === 0}"></span>
             <span class="dot" (click)="selectedIndex = 1" [ngClass]="{'active': selectedIndex === 1}"></span>
             <span class="dot" (click)="selectedIndex = 2" [ngClass]="{'active': selectedIndex === 2}"></span>
+            <span class="dot" (click)="selectedIndex = 3" [ngClass]="{'active': selectedIndex === 3}"></span>
         </div>
         <div class="buttons">
             <button class="button success save-button" color="accent" (click)="submit()" [disabled]="form.invalid"

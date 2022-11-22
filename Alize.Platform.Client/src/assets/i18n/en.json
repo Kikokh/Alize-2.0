@@ -50,6 +50,7 @@
   "BreadcrumbConsultas": "Management > Requests",
   "DisplayTitulo": "View Application",
   "EditTitulo": "Edit Application",
+  "Theme": "Theme",
   "GrupoPopUpTitulo": "Users with requests permission",
   "GrupoPopUpSubTitulo": "Select the users who will have access to the Mapex Quality request",
   "GrupoPopUpInfoText": "Admins have implicit permission to request",

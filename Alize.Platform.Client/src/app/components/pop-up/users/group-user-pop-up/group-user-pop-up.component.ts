@@ -7,7 +7,7 @@ import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
 export class DialogResult {
-  id: string;
+  id!: string;
   roleId: string;
   action: ModePopUpType;
   constructor() { }

@@ -162,6 +162,21 @@
                 grid-row: 1;
             }
         }
+
+        .theme-tab {
+            .background-image {
+                background-color: white;
+                border: 0.5px solid #7b8794;
+                border-radius: 8px;
+                cursor: pointer;
+                max-width: 100%;
+
+                &.disabled {
+                    background-color: lightgray;
+                    cursor: auto;
+                }
+            }
+        }
     }
 }
 

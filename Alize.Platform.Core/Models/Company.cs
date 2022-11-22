@@ -52,6 +52,8 @@ namespace Alize.Platform.Core.Models
         //Imagen empresa
         public string? Logo { get; set; }
 
+        public string? BackgroundImage { get; set; }
+
         [StringLength(50)]
         public string? ImageTypeMime { get; set; }
 

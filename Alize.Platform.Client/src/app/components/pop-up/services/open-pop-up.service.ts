@@ -28,7 +28,6 @@ export class OpenPopUpService {
 
   open(entity: EntityType, mode: ModePopUpType, data?: any): Observable<any> {
     const matDialogConfigModel = this.resolveComponentToOpen(entity, mode, data);
-    console.log('a', data)
     this.dialogRef = this.dialog.open(matDialogConfigModel.component, {
       data: matDialogConfigModel.data,
     });
@@ -266,26 +265,7 @@ export class OpenPopUpService {
       case ModePopUpType.DISPLAY:
         matDialogConfigModel.component = CompanyPopUpComponent;
         matDialogConfigModel.data = {
-          id: data?.id,
-          name: data?.name,
-          description: data?.description,
-          isActive: data?.isActive,
-          activity: data?.activity,
-          businessName: data?.businessName,
-          cif: data?.cif,
-          comments: data?.comments,
-          language: data?.language,
-          phoneNumber: data?.phoneNumber,
-          email: data?.email,
-          web: data?.web,
-          contactName: data?.contactName,
-          logo: data?.logo,
-          imageTypeMime: data?.imageTypeMime,
-          address: data?.address,
-          zip: data?.zip,
-          city: data?.city,
-          province: data?.province,
-          country: data?.country,
+          ...data,
           mode: mode
         }
         break;

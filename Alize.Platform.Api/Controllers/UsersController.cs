@@ -1,5 +1,6 @@
 ﻿using Alize.Platform.Api.Requests;
 using Alize.Platform.Api.Requests.Users;
+using Alize.Platform.Api.Responses;
 using Alize.Platform.Core.Constants;
 using Alize.Platform.Core.Exceptions;
 using Alize.Platform.Core.Models;
@@ -39,12 +40,12 @@ namespace Alize.Platform.Api.Controllers
 
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("Me")]
-        [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CurrentUserResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMe()
         {
             var user = await _securityService.GetUserAsync(User.GetUserId());
 
-            return Ok(_mapper.Map<UserResponse>(user));
+            return Ok(_mapper.Map<CurrentUserResponse>(user));
         }
 
         [HttpGet("{id}")]
