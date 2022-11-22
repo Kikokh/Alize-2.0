@@ -80,6 +80,7 @@
                 align-items: center;
                 position: relative;
                 bottom: 1rem;
+                gap: 1rem;
 
                 button {
                     width: 60%;
@@ -185,5 +186,32 @@
     mat-card-footer {
         font-size: 0.6rem;
         padding: 0 !important;
+    }
+}
+
+@media screen and (orientation:landscape)
+and (min-device-width: 319px) 
+and (max-device-width: 915px) {
+    .login-form{
+        height: auto;
+        mat-card{
+            mat-card-header{
+                img{
+                    max-width: 40%;
+                }
+            }
+        form{
+            mat-card-content{
+                margin-top: 1rem;
+            }
+            mat-card-actions{
+                flex-direction: row;
+                
+            }
+        }
+        mat-card-footer{
+            padding: 0;
+        }
+        }
     }
 }

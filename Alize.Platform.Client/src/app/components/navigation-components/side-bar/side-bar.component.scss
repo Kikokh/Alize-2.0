@@ -222,3 +222,14 @@
         flex-direction: column;
     }
 }
+
+@media screen and (orientation:landscape)
+and (min-device-width: 319px) 
+and (max-device-width: 780px) {
+    .logo{
+        visibility: hidden;
+    }
+    .mat-accordion-expanded, .mat-accordion-collapsed {
+        margin-top: 20px !important;
+    }
+}
