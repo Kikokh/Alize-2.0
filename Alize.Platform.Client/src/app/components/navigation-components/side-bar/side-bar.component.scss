@@ -212,3 +212,13 @@
 .logo.foo {
   display: none;
 }
+
+
+@media screen and (max-width: 860px){
+    .sidebar-container{
+        align-items: center;
+    }
+    .login-container{
+        flex-direction: column;
+    }
+}

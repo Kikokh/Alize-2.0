@@ -39,3 +39,10 @@
 .main-theme-sidebar {
     background: $blue-background;
 }
+
+@media screen and (max-width: 480px){
+    .side-bar-expanded {
+        width: 60%;
+    }
+}
+

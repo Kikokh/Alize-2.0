@@ -6,7 +6,7 @@
     transition: transform 300ms;
 
     &.expanded {
-        margin-left: 180px;
+        margin-left: 11rem;
         transform: rotateY(0.5turn);
     }
 }
@@ -45,7 +45,7 @@ mat-toolbar {
 
 
 .external-logo {
-  height: 60px;
+    height: 4rem;
     margin: 40px;
     position: absolute;
     overflow: visible;
@@ -56,4 +56,37 @@ mat-toolbar {
 
 img.external-logo.expanded {
   display: inherit;
+}
+
+@media screen and (max-width: 860px){
+    .external-logo {
+        height: 3rem;
+    }
+    .arrow {
+        &.expanded {
+            margin-left: 8rem;
+        }
+    }
+}
+
+@media screen and (max-width: 480px){
+    .external-logo {
+        visibility: hidden;
+    }
+    mat-toolbar {   
+        .button-expand-menu {
+            margin-left: 0;
+        }
+    }
+    button.nav-button{
+        visibility: hidden;
+        &.expanded{
+            visibility: inherit;
+        }
+    }
+    .arrow {
+        &.expanded {
+            margin-left: 0rem;
+        }
+    }
 }
