@@ -215,8 +215,8 @@ namespace Alize.Platform.Infrastructure.Services
             var port = _emailSettings.Port;
 
             var mail = new MailMessage();
-            mail.From = new MailAddress("admin@alize.es");
-            mail.To.Add(new MailAddress("isi.garciaj@gmail.com"));
+            mail.From = new MailAddress(_emailSettings.SenderEmail);
+            mail.To.Add(new MailAddress(email));
             mail.Subject = "Recover Password";
             mail.IsBodyHtml = true;
             mail.Body = $@"
