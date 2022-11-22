@@ -67,6 +67,9 @@
             {{ role.name }}
           </mat-option>
         </mat-select>
+        <mat-error>
+          <app-form-error [form]="userForm" field="role" [errors]="userForm.get('role')?.errors"></app-form-error>
+        </mat-error>
       </div>
 
       <mat-slide-toggle color="accent" formControlName="isActive">{{
@@ -78,7 +81,7 @@
   <div class="mat-dialog-actions" mat-dialog-actions>
     <div class="fill"></div>
     <div class="buttons">
-      <button mat-raised-button color="accent" (click)="onClick()">
+      <button mat-raised-button color="accent" (click)="onClick()" [disabled]="userForm.invalid">
         {{ "Guardar" | translate }}
       </button>
       <button mat-raised-button (click)="close()">

@@ -124,11 +124,15 @@ export class UserPopUpComponent implements OnInit, OnDestroy {
           [Validators.required, Validators.maxLength(100), Validators.email]
         ),
         company: new FormControl(
-          { value: this.data?.empresaId, disabled: this.data.mode === ModePopUpType.DISPLAY },
+          { value: this.data?.empresaId || null,
+            disabled: this.data.mode === ModePopUpType.DISPLAY,
+          },
           [Validators.required]
         ),
         role: new FormControl(
-          { value: this.data?.roleId, disabled: this.data.mode === ModePopUpType.DISPLAY },
+          { value: this.data?.roleId || null,
+            disabled: this.data.mode === ModePopUpType.DISPLAY,
+          },
           [Validators.required]
         ),
         password: new FormControl(
