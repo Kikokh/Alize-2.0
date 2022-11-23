@@ -58,6 +58,7 @@
   "AddSubTitulo": "Explain briefly what the application you want consists of, we will contact you as soon as possible to make it a reality.",
   "ListadoAplicaciones": "Application List",
   "ListadoEmpresas": "Company List",
+  "FileSizeError": "File is too large, max size is:",
   "ListadoUsuarios": "User List",
   "ListadoRoles": "Roles List",
   "ListadoModulos": "Module List",

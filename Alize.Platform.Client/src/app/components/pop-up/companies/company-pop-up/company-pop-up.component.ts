@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { Company } from 'src/app/models/company.model';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
@@ -49,7 +50,8 @@ export class CompanyPopUpComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<CompanyPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Company & { mode: ModePopUpType },
     private _companiesService: CompaniesService,
-    public translate: TranslateService) {
+    public translate: TranslateService,
+    private _toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -104,14 +106,19 @@ export class CompanyPopUpComponent implements OnInit {
 
   onFileChanged(event: any, control: AbstractControl) {
     const [file] = event.target.files as Blob[];
+    
+    if (file.size / 1024 < 512) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-    console.log(file.size)
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = () => {
-      control.setValue(reader.result as string);
-    };
+      reader.onload = () => {
+        control.setValue(reader.result as string);
+      };
+    } else {
+      this.translate.get('FileSizeError').subscribe(
+        (msg: string) => this._toastr.error(msg + ' 512KB')
+      )
+    }
   }
 
   buildCompany(): Company {

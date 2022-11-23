@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { LoginService } from '../login/services/login.service';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent {
   public innerHeight: string;
-  constructor() { 
+  get backgroundImage$() {
+    return this._loginService.$me.pipe(
+      map(user => user.companyBackgroundImage)
+    )
+  }
+  
+  constructor(private _loginService: LoginService) { 
     // this.innerHeight = (window.innerHeight - 70).toString() + 'px';
   }
 

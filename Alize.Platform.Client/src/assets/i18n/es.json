@@ -66,6 +66,7 @@
   "AddSubTitulo": "Explicanos brevemente en que consiste la aplicación que quieres, nos pondremos en contacto contigo tan pronto sea posible para hacerla realidad.",
   "ListadoAplicaciones": "Listado de aplicaciones",
   "ListadoEmpresas": "Listado de empresas",
+  "FileSizeError": "El archivo es demasiado grande el tamaño máximo es:",
   "ListadoUsuarios": "Listado de Usuarios",
   "ListadoModulos": "Listado de Módulos",
   "ListadoRoles": "Listado de Roles",

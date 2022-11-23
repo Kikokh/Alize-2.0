@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
@@ -12,12 +13,22 @@ import { SharedModule } from './components/shared.module';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service ';
 import { MatPaginatorIntlCro } from './mat-paginator-intl.service';
 import { MaterialModule } from './material.module';
+import { AdministrationModule } from './pages/administration/administration.module';
+import { HomeComponent } from './pages/home/home.component';
 import { LayoutAppModule } from './pages/layout/layout.module';
 import { LoginModule } from './pages/login/login.module';
 import { LoginService } from './pages/login/services/login.service';
+import { ManagmentModule } from './pages/management/management.module';
 
 function initLongRunningFactory(loginService: LoginService) {
-  return () => loginService.getUser().subscribe()
+  return () => {
+    if (loginService.isLoggedin) {
+      loginService.getUser().subscribe(
+        _user => {},
+        _err => loginService.logout()
+      )
+    }
+  }
 }
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -26,10 +37,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent
   ],
   imports: [
+    AdministrationModule,
+    ManagmentModule,
     BrowserModule,
     MaterialModule,
+    CommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
