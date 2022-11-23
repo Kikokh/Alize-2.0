@@ -29,6 +29,7 @@ export class AssetDetailComponent implements OnInit {
   blockNumber?: number;
   application: Application;
   assetHistory: AssetHistory[];
+  assetSteps: any[];
 
   get day(): number {
     return new Date(this.asset?.createdAt).getDate();
@@ -71,7 +72,10 @@ export class AssetDetailComponent implements OnInit {
         this.asset = responses[1];
         this.videoUri = responses[2];
         this.application = responses[3];
-        this.assetHistory = responses[4];
+        this.assetHistory = responses[1].data['Steps'] ? JSON.parse(responses[1].data['Steps']) : responses[4];
+        if (responses[1].data['Steps']) {
+          this.assetSteps = JSON.parse(responses[1].data['Steps']);
+        }
         this.blockNumber = this.assetHistory.shift()?.blockNumber;
         this.isLoading = false;
         if (!this.assetTemplate || !this.assetTemplate?.hasVideo) {
