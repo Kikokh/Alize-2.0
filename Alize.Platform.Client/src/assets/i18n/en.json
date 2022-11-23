@@ -132,6 +132,7 @@
       "repassword_mismatch": "passwords are not equals"
     }
   },
+  "Charts": "Charts",
   "TraceabilityHash": "Traceability Hash",
   "TraceabilityData": "Traceability Data",
   "EncryptionDescOne": "To validate the traceability information that you can see in the table, copy the content of the field.",

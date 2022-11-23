@@ -6,6 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./charts.component.scss']
 })
 export class ChartsComponent {
+  barCharts: [
+    {
+      // xAxisLabel: 'Country',
+      // yAxisLabel: 'Country',
+      
+    }
+  ]
 
   constructor() { }
 }

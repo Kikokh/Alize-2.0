@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import { DialogResult } from '../../users/group-user-pop-up/group-user-pop-up.co
   styleUrls: ['./company-pop-up.component.scss']
 })
 export class CompanyPopUpComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   selectedIndex = 0;
   mode: ModePopUpType;
   logoSrc?: string;
@@ -60,25 +60,25 @@ export class CompanyPopUpComponent implements OnInit {
   }
 
   createForm() {
-    this.form = new FormGroup({
-      name: new FormControl({ value: this.data.name, disabled: this.isView }, Validators.required),
-      description: new FormControl({ value: this.data.description, disabled: this.isView }),
-      isActive: new FormControl({ value: this.data.isActive, disabled: this.isView }),
-      activity: new FormControl({ value: this.data.activity, disabled: this.isView }),
-      businessName: new FormControl({ value: this.data.businessName, disabled: this.isView }),
-      cif: new FormControl({ value: this.data.cif, disabled: this.isView }, Validators.required),
-      language: new FormControl({ value: this.data.language, disabled: this.isView }),
-      phoneNumber: new FormControl({ value: this.data.phoneNumber, disabled: this.isView }),
-      email: new FormControl({ value: this.data.email, disabled: this.isView }, Validators.required),
-      web: new FormControl({ value: this.data.web, disabled: this.isView }, Validators.pattern(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)),
-      contactName: new FormControl({ value: this.data.contactName, disabled: this.isView }, Validators.required),
-      logo: new FormControl({ value: this.data.logo, disabled: this.isView }),
-      address: new FormControl({ value: this.data.address, disabled: this.isView }),
-      zip: new FormControl({ value: this.data.zip, disabled: this.isView }),
-      city: new FormControl({ value: this.data.city, disabled: this.isView }),
-      province: new FormControl({ value: this.data.province, disabled: this.isView }),
-      country: new FormControl({ value: this.data.country, disabled: this.isView }),
-      backgroundImage: new FormControl({ value: this.data.backgroundImage, disabled: this.isView })
+    this.form = new UntypedFormGroup({
+      name: new UntypedFormControl({ value: this.data.name, disabled: this.isView }, Validators.required),
+      description: new UntypedFormControl({ value: this.data.description, disabled: this.isView }),
+      isActive: new UntypedFormControl({ value: this.data.isActive, disabled: this.isView }),
+      activity: new UntypedFormControl({ value: this.data.activity, disabled: this.isView }),
+      businessName: new UntypedFormControl({ value: this.data.businessName, disabled: this.isView }),
+      cif: new UntypedFormControl({ value: this.data.cif, disabled: this.isView }, Validators.required),
+      language: new UntypedFormControl({ value: this.data.language, disabled: this.isView }),
+      phoneNumber: new UntypedFormControl({ value: this.data.phoneNumber, disabled: this.isView }),
+      email: new UntypedFormControl({ value: this.data.email, disabled: this.isView }, Validators.required),
+      web: new UntypedFormControl({ value: this.data.web, disabled: this.isView }, Validators.pattern(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)),
+      contactName: new UntypedFormControl({ value: this.data.contactName, disabled: this.isView }, Validators.required),
+      logo: new UntypedFormControl({ value: this.data.logo, disabled: this.isView }),
+      address: new UntypedFormControl({ value: this.data.address, disabled: this.isView }),
+      zip: new UntypedFormControl({ value: this.data.zip, disabled: this.isView }),
+      city: new UntypedFormControl({ value: this.data.city, disabled: this.isView }),
+      province: new UntypedFormControl({ value: this.data.province, disabled: this.isView }),
+      country: new UntypedFormControl({ value: this.data.country, disabled: this.isView }),
+      backgroundImage: new UntypedFormControl({ value: this.data.backgroundImage, disabled: this.isView })
     });
   }
 

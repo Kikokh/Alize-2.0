@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Application } from 'src/app/models/application.model';
 import { Dialog } from 'src/app/models/dialog.model';
@@ -13,19 +13,19 @@ import { UsersService } from 'src/app/pages/administration/users/users.service';
 })
 export class ApplicationGroupPopUpComponent implements OnInit {
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   title = '';
   subtitle = '';
   infoText = '';
   userList: User[];
 
   get users() {
-    return this.form?.get('users') as FormArray;
+    return this.form?.get('users') as UntypedFormArray;
   }
 
   constructor(
     private _userService: UsersService,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private dialogRef: MatDialogRef<ApplicationGroupPopUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Dialog<Application>,
     private _applicationServices: ApplicationsService
@@ -56,7 +56,7 @@ export class ApplicationGroupPopUpComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  private createForm(): FormGroup {
+  private createForm(): UntypedFormGroup {
     return this._fb.group({
       users: this._fb.array([])
     });

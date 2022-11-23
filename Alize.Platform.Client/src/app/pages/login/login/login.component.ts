@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
   isLoading: boolean;
   materialTheme = new MaterialTheme();
 
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', Validators.required),
+  loginForm = new UntypedFormGroup({
+    email: new UntypedFormControl('', [Validators.required]),
+    password: new UntypedFormControl('', Validators.required),
   })
 
   lang: string | null;

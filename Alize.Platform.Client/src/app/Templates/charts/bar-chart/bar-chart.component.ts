@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Color, ScaleType } from '@swimlane/ngx-charts';
 import { single } from '../../../models/data-bar-chart';
 
@@ -8,32 +8,55 @@ import { single } from '../../../models/data-bar-chart';
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent {
-
+  @Input() xAxisLabel: string = '';
+  @Input() yAxisLabel: string = '';
+  @Input() data: any[];
+   
   single: any[];
   multi: any[];
 
   view: [number, number] = [700, 400];
-
+  scheme = {
+    name: 'teal',
+    selectable: false,
+    group: ScaleType.Linear,
+    domain: ['#26B99A']
+  }
   // options
-  showXAxis = true;
-  showYAxis = true;
   gradient = false;
   showLegend = true;
-  showXAxisLabel = true;
-  xAxisLabel = 'Country';
-  showYAxisLabel = true;
-  yAxisLabel = 'Population';
-
-  colorScheme: Color = {
-    name: 'myScheme',
-    selectable: true,
-    group: ScaleType.Ordinal,
-    // domain: ['#f00', '#0f0', '#0ff'],
-    domain: ['#f00', '#0f0', '#0ff'],
-  };
 
   constructor() {
-    Object.assign(this, { single })
+    this.data = [
+      {
+        "name": "Lunes",
+        "value": 0
+      },
+      {
+        "name": "Martes",
+        "value": 0
+      },
+      {
+        "name": "Miercoles",
+        "value": 9000
+      },
+      {
+        "name": "Jueves",
+        "value": 2000
+      },
+      {
+        "name": "Viernes",
+        "value": 2000
+      },
+      {
+        "name": "Sábado",
+        "value": 0
+      },
+      {
+        "name": "Domingo",
+        "value": 0
+      }
+    ]
   }
 
   onResize(event: any) {

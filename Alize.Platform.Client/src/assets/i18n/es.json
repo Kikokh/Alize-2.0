@@ -140,6 +140,7 @@
       "repassword_mismatch": "Las contraseñas no son iguales"
     }
   },
+  "Charts": "Gráficos",
   "TraceabilityHash": "Hash de trazabilidad",
   "TraceabilityData": "Datos de trazabilidad",
   "EncryptionDescOne": "Para Validar la informacion de trazabilidad que puede ver en la tabla copie el contenido del campo. ",

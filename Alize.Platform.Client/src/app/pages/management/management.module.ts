@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/components/shared.module';
 import { MaterialModule } from 'src/app/material.module';
@@ -19,6 +20,7 @@ import { QueryCardComponent } from './queries/query-card/query-card.component';
     SharedModule,
     TranslateModule,
     TemplatesModule,
+    RouterModule
   ]
 })
 

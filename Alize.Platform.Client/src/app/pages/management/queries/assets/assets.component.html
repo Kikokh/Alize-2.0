@@ -5,7 +5,7 @@
             <h1 class="title">{{ application?.company?.name }} | {{ application?.name }}</h1>
             <h3 class="description">{{ application.description | translate }}</h3>
         </div>
-        <div class="formContainer">
+        <div class="form-container">
             <mat-form-field class="search-by-id" color="accent" floatLabel="never">
                 <button mat-icon-button matPrefix mat-raised (click)="showDetails(assetId)">
                     <img src="/assets/search.svg">
@@ -13,6 +13,11 @@
                 <input class="search-input" matInput type="text" matInput [(ngModel)]="assetId">
                 <mat-label class="placeholder">{{ 'searchById' | translate }}</mat-label>
             </mat-form-field>
+            <button routerLink="../charts" mat-flat-button color="accent"
+                *ngIf="template?.stats && template?.stats?.length && dataSource.data">
+                <mat-icon>show_chart</mat-icon>
+                <span>{{"Charts" | translate }}</span>
+            </button>
         </div>
     </div>
     <app-asset-stats *ngIf="template?.stats && template?.stats?.length && dataSource.data"
@@ -47,6 +52,6 @@
             </table>
         </div>
 
-        <mat-paginator  [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
     </div>
 </div>

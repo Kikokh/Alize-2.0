@@ -17,7 +17,7 @@ app-select {
     justify-content: space-between;
     padding-top: 1.5rem;
 
-    .formContainer{
+    .form-container{
       position: inherit;
       width: 211px;
       height: 40px;
@@ -25,6 +25,7 @@ app-select {
       background-color: rgba(176, 212, 244, 0.4);
       border-radius: 6px;
       box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+
       .search-by-id{
         width: 100%;
         height: 40px;
@@ -66,6 +67,11 @@ app-select {
           margin-right: 10px;
         };
       };
+
+      .mat-flat-button.mat-accent {
+        margin-top: 10px;
+        background-color: #217280;
+      }
     };
   };
 

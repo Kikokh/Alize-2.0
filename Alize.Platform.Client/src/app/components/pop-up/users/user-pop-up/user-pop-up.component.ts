@@ -1,9 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -26,7 +26,7 @@ import { ModePopUpType } from '../../models/entity-type.enum';
 })
 export class UserPopUpComponent implements OnInit, OnDestroy {
   title = 'NuevoUsuario';
-  userForm: FormGroup;
+  userForm: UntypedFormGroup;
 
   private unsubscribeAll = new Subject<any>();
 
@@ -61,7 +61,7 @@ export class UserPopUpComponent implements OnInit, OnDestroy {
       mode: ModePopUpType;
     },
     public translate: TranslateService,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     public snackBar: SnackbarService,
     private _loginService: LoginService
   ) {
@@ -102,40 +102,40 @@ export class UserPopUpComponent implements OnInit, OnDestroy {
   buildForm() {
     this.userForm = this.fb.group(
       {
-        firstName: new FormControl(
+        firstName: new UntypedFormControl(
           {
             value: this.data?.nombre || null,
             disabled: this.data.mode === ModePopUpType.DISPLAY,
           },
           [Validators.required, Validators.maxLength(100)]
         ),
-        lastName: new FormControl(
+        lastName: new UntypedFormControl(
           {
             value: this.data?.apellidos || null,
             disabled: this.data.mode === ModePopUpType.DISPLAY,
           },
           [Validators.required, Validators.maxLength(100)]
         ),
-        email: new FormControl(
+        email: new UntypedFormControl(
           {
             value: this.data?.email || null,
             disabled: this.data.mode === ModePopUpType.DISPLAY,
           },
           [Validators.required, Validators.maxLength(100), Validators.email]
         ),
-        company: new FormControl(
+        company: new UntypedFormControl(
           { value: this.data?.empresaId || null,
             disabled: this.data.mode === ModePopUpType.DISPLAY,
           },
           [Validators.required]
         ),
-        role: new FormControl(
+        role: new UntypedFormControl(
           { value: this.data?.roleId || null,
             disabled: this.data.mode === ModePopUpType.DISPLAY,
           },
           [Validators.required]
         ),
-        password: new FormControl(
+        password: new UntypedFormControl(
           {
             value: null,
             disabled: this.data.mode === ModePopUpType.DISPLAY,
@@ -148,12 +148,12 @@ export class UserPopUpComponent implements OnInit, OnDestroy {
             ),
           ]
         ),
-        repassword: new FormControl({
+        repassword: new UntypedFormControl({
           value: null,
           disabled: this.data.mode === ModePopUpType.DISPLAY,
         }),
-        groups: new FormControl({ value: this.data?.grupos, disabled: true }),
-        isActive: new FormControl({
+        groups: new UntypedFormControl({ value: this.data?.grupos, disabled: true }),
+        isActive: new UntypedFormControl({
           value: this.data?.isActive,
           disabled: this.data.mode === ModePopUpType.DISPLAY,
         }),

@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { FormGroup, ValidationErrors } from '@angular/forms';
+import { UntypedFormGroup, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-form-error',
@@ -7,7 +7,7 @@ import { FormGroup, ValidationErrors } from '@angular/forms';
   styleUrls: ['./form-error.component.scss']
 })
 export class FormErrorComponent implements OnChanges {
-  @Input() form:FormGroup | null;
+  @Input() form:UntypedFormGroup | null;
   @Input() field:string;
   @Input() errors:ValidationErrors | null | undefined;
   fieldError:string = '';
