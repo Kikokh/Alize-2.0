@@ -127,6 +127,7 @@
       "maxlength": "Max. {{length}} characters",
       "minlength": "Min. {{length}} characters",
       "email": "Email invalid",
+      "web_pattern": "URL format is invalid",
       "password_pattern": "Password must contain more than 8 characters, 1 upper case letter, and 1 special character",
       "repassword_mismatch": "passwords are not equals"
     }

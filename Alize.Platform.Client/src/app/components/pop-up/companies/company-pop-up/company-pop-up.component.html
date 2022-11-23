@@ -115,6 +115,10 @@
                         <div class="control web" appearance="outline">
                             <label>{{"Web" | translate}}</label>
                             <input name="web" formControlName="web" class="text-input">
+                            <mat-error>                                
+                                <app-form-error [form]="form" field="web" [errors]="form.get('web')?.errors">
+                                </app-form-error>
+                            </mat-error>
                         </div>
                         <div class="control contactName" appearance="outline">
                             <label>{{"NombreContacto" | translate}}*</label>

@@ -70,7 +70,7 @@ export class CompanyPopUpComponent implements OnInit {
       language: new FormControl({ value: this.data.language, disabled: this.isView }),
       phoneNumber: new FormControl({ value: this.data.phoneNumber, disabled: this.isView }),
       email: new FormControl({ value: this.data.email, disabled: this.isView }, Validators.required),
-      web: new FormControl({ value: this.data.web, disabled: this.isView }),
+      web: new FormControl({ value: this.data.web, disabled: this.isView }, Validators.pattern(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)),
       contactName: new FormControl({ value: this.data.contactName, disabled: this.isView }, Validators.required),
       logo: new FormControl({ value: this.data.logo, disabled: this.isView }),
       address: new FormControl({ value: this.data.address, disabled: this.isView }),

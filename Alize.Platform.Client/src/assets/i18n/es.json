@@ -135,6 +135,7 @@
       "maxlength": "Max. {{length}} caracteres",
       "minlength": "Min. {{length}} caracteres",
       "email": "Email invalido",
+      "web_pattern": "El formato de la URL es incorrecto",
       "password_pattern": "La contraseña debe contener más que 8 caracteres, 1 letra mayúscula y un caracter especial",
       "repassword_mismatch": "Las contraseñas no son iguales"
     }
