@@ -2,7 +2,7 @@
     <app-breadcrumb [application]="application"></app-breadcrumb>
     <div class="header">
         <div class="titles">
-            <h1 class="title">{{ application?.company?.name }} | {{ application?.name }}</h1>
+            <h1 class="title">{{ application.company?.name }} | {{ application.name }}</h1>
             <h3 class="description">{{ application.description | translate }}</h3>
         </div>
         <div class="form-container">
@@ -21,10 +21,10 @@
         </div>
     </div>
     <app-asset-stats *ngIf="template?.stats && template?.stats?.length && dataSource.data"
-        [stats]="template?.stats ?? []" [assets]="dataSource.data">
+        [stats]="template.stats" [assets]="dataSource.data">
     </app-asset-stats>
     <div class="table">
-        <h2 class="title">{{ 'UltimosActivosPublicados' | translate}} <i>{{ application?.name }}</i></h2>
+        <h2 class="title">{{ 'UltimosActivosPublicados' | translate}} <i>{{ application.name }}</i></h2>
         <div class="filters">
             <ng-template appDynamicHost></ng-template>
             <button mat-raised-button color="accent" class="search-button" (click)="getData()">{{ 'search' |

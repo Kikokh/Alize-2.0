@@ -1,8 +1,14 @@
 <div class="main">
-    <!-- <div class="line-chart">
-        <app-line-chart></app-line-chart>
-    </div> -->
-    <div class="bar-chart">
-        <app-bar-chart></app-bar-chart>
+    <div #lineChartContainer class="line-chart-0">
+        <h2><b>Evolución media por días</b> Últimos 30 días</h2>
+        <app-line-chart [width]="lineChartContainer.offsetWidth" [data]="dailyEvolution"></app-line-chart>
+    </div>
+    <div #barChartContainer class="bar-chart-1">
+        <h2><b>Totales g de CO2 día</b> Semana 44</h2>
+        <app-bar-chart [width]="barChartContainer.offsetWidth" [data]="carbonPerDay"></app-bar-chart>
+    </div>
+    <div class="bar-chart-2">
+        <h2><b>Totales g de CO2 últimas semanas</b></h2>
+        <app-bar-chart [width]="barChartContainer.offsetWidth" [data]="carbonPerWeek"></app-bar-chart>
     </div>
 </div>

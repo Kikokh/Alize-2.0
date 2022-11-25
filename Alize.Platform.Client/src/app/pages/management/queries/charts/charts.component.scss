@@ -1,23 +1,28 @@
 .main {
-    width: 90%;
-    height: 500px;
-    margin: 40px auto;
-    padding: 10px 10px 10px 10px;
+    margin: 2rem;
+    padding: 2rem;
     border-radius: 8px 8px 8px 8px;
     background: #fff;
-    display: flex;
-    justify-content: center;
 
-    .line-chart {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    div {
+        display: inline-block;
+        height: 400px;
+        min-width: 400px;
+        margin-bottom: 20px;
     }
 
-    .bar-chart {
-        margin-left: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .line-chart-0 {
+        width: 100%;
+    }
+
+    .bar-chart-1 , .bar-chart-2 {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main {
+        margin-inline: 0;
+        display: inline-block;
     }
 }
