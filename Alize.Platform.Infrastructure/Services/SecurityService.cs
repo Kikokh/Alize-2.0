@@ -735,7 +735,7 @@ namespace Alize.Platform.Infrastructure.Services
         public async Task ResetUserPasswordAsync(string email, string token, string newPassword)
         {
             var user = await _userManager.FindByEmailAsync(email);
-            await _userManager.ResetPasswordAsync(user, token, newPassword);
+            await _userManager.ResetPasswordAsync(user, token.Replace(' ', '+'), newPassword);
         }
     }
 }
