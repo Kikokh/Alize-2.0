@@ -12,7 +12,7 @@
 
 // Primery default material styles
 
-@import '~@angular/material/theming';
+@import '@angular/material/theming';
 
 $custom-typography: mat-typography-config(
     $font-family: 'Poppins',
