@@ -36,9 +36,10 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.sideBar.toggle();
-    this._loginService.$me.subscribe(
-      user => this.backgroundImage = user?.companyBackgroundImage
-    );
+    this._loginService.getUser().subscribe(
+      user => this.backgroundImage = user?.companyBackgroundImage,
+      _err => this._loginService.logout()
+    )
   }
 
   handlerSideBarToggle(isSideBarExpanded: boolean) {

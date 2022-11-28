@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,19 +17,7 @@ import { AdministrationModule } from './pages/administration/administration.modu
 import { HomeComponent } from './pages/home/home.component';
 import { LayoutAppModule } from './pages/layout/layout.module';
 import { LoginModule } from './pages/login/login.module';
-import { LoginService } from './pages/login/services/login.service';
 import { ManagmentModule } from './pages/management/management.module';
-
-function initLongRunningFactory(loginService: LoginService) {
-  return () => {
-    if (loginService.isLoggedin) {
-      loginService.getUser().subscribe(
-        _user => {},
-        _err => loginService.logout()
-      )
-    }
-  }
-}
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -64,12 +52,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initLongRunningFactory,
-      deps: [LoginService],
       multi: true
     },
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }
