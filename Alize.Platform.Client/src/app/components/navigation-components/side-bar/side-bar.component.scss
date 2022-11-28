@@ -225,11 +225,23 @@
 
 @media screen and (orientation:landscape)
 and (min-device-width: 319px) 
-and (max-device-width: 780px) {
+and (max-device-width: 915px) {
+
     .logo{
         visibility: hidden;
     }
     .mat-accordion-expanded, .mat-accordion-collapsed {
         margin-top: 20px !important;
+    }
+    .mat-accordion-collapsed {
+        .nav-menu{
+            .opt-menu{
+                .nav-option {
+                    height: 20px !important;
+                    display: flex;
+                    justify-content: center;
+                }  
+            }
+        }
     }
 }
