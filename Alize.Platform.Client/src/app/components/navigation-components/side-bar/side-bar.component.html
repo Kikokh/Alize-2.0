@@ -84,6 +84,19 @@
             </div>
         </mat-expansion-panel>
 
+        <mat-expansion-panel class="nav-menu" hideToggle (click)="navigate('home')">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <a class="nav-option flex" routerLinkActive="active-link" [href]="zendeskUrl" target="_blank">                        
+                        <span class="material-symbols-rounded">
+                            help
+                        </span>
+                        <span [hidden]="!isSideBarExpanded">{{"HelpDesk" | translate }}</span>
+                    </a>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+        </mat-expansion-panel>
+
         <button mat-button class="nav-menu user_nav_menu" [matMenuTriggerFor]="menu">
             <div class="login-container">
                 <img class="company-img" [src]="img | async">
