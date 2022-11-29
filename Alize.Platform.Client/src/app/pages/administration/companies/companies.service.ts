@@ -24,52 +24,10 @@ export class CompaniesService {
   }
   
   addCompany(company: Company) {
-    const body = {
-      id: company.id,
-      name: company.name,
-      description: company.description,
-      cif: company.cif,
-      isActive: company.isActive,
-      activity: company.activity,
-      businessName: company.businessName,
-      language: company.language,
-      phoneNumber: company.phoneNumber,
-      email: company.email,
-      web: company.web,
-      contactName: company.contactName,
-      logo: company.logo,
-      address: company.address,
-      zip: company.zip,
-      city: company.city,
-      province: company.province,
-      country: company.country,
-    }
-
-    return this._http.post<any>(`${this._baseUrl}`, body);
+    return this._http.post<any>(`${this._baseUrl}`, company);
   }
 
   updateCompany(company: Company) {
-    const body = {
-      id: company.id,
-      name: company.name,
-      description: company.description,
-      cif: company.cif,
-      isActive: company.isActive,
-      activity: company.activity,
-      businessName: company.businessName,
-      language: company.language,
-      phoneNumber: company.phoneNumber,
-      email: company.email,
-      web: company.web,
-      contactName: company.contactName,
-      logo: company.logo,
-      address: company.address,
-      zip: company.zip,
-      city: company.city,
-      province: company.province,
-      country: company.country,
-    }
-
-    return this._http.put<any>(`${this._baseUrl}/${company.id}`, body);
+    return this._http.put<any>(`${this._baseUrl}/${company.id}`, company);
   }
 }

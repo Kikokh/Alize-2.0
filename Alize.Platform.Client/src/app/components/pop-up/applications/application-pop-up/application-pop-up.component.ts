@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Application } from 'src/app/models/application.model';
 import { Blockchain } from 'src/app/models/blockchain.model';
@@ -21,7 +21,7 @@ export class ApplicationPopUpComponent implements OnInit {
   companies: Company[];
   blockchains: Blockchain[];
 
-  applicationForm: FormGroup;
+  applicationForm: UntypedFormGroup;
 
   public get _modePopUpType(): typeof ModePopUpType {
     return ModePopUpType;
@@ -43,14 +43,14 @@ export class ApplicationPopUpComponent implements OnInit {
     private _blockchainService: BlockchainService
   ) {
 
-    this.applicationForm = new FormGroup({
-      name: new FormControl({ value: (this.data.name) ? this.data.name : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
-      description: new FormControl({ value: (this.data.description) ? this.data.description : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      company: new FormControl({ value: this.data.company?.id, disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
-      importantInfo: new FormControl({ value: (this.data.importantInfo) ? this.data.importantInfo : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      date: new FormControl({ value: this.data.creationDate, disabled: true }),
-      active: new FormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-      blockchain: new FormControl({ valur: null, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+    this.applicationForm = new UntypedFormGroup({
+      name: new UntypedFormControl({ value: (this.data.name) ? this.data.name : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
+      description: new UntypedFormControl({ value: (this.data.description) ? this.data.description : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      company: new UntypedFormControl({ value: this.data.company?.id, disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
+      importantInfo: new UntypedFormControl({ value: (this.data.importantInfo) ? this.data.importantInfo : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      date: new UntypedFormControl({ value: this.data.creationDate, disabled: true }),
+      active: new UntypedFormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      blockchain: new UntypedFormControl({ valur: null, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
     });
 
     if (data.mode === ModePopUpType.DISPLAY) {

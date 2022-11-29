@@ -1,4 +1,4 @@
-@import "~@angular/material/theming";
+@import "@angular/material/theming";
 @import "../../../scss-variables/variables.scss";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
@@ -10,6 +10,7 @@
         margin: 40px;
         position: fixed;
         overflow: visible;
+        align-self: center;
 
         &.foo {
             margin-left: 100px;
@@ -192,6 +193,8 @@
 
 .company-img {
     width: 50px;
+    height: 50px;
+    object-fit: cover;
     border-radius: 50%;
 }
 
@@ -208,4 +211,37 @@
 
 .logo.foo {
   display: none;
+}
+
+
+@media screen and (max-width: 860px){
+    .sidebar-container{
+        align-items: center;
+    }
+    .login-container{
+        flex-direction: column;
+    }
+}
+
+@media screen and (orientation:landscape)
+and (min-device-width: 319px) 
+and (max-device-width: 915px) {
+
+    .logo{
+        visibility: hidden;
+    }
+    .mat-accordion-expanded, .mat-accordion-collapsed {
+        margin-top: 20px !important;
+    }
+    .mat-accordion-collapsed {
+        .nav-menu{
+            .opt-menu{
+                .nav-option {
+                    height: 20px !important;
+                    display: flex;
+                    justify-content: center;
+                }  
+            }
+        }
+    }
 }

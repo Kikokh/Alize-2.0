@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { ModePopUpType } from '../../models/entity-type.enum';
@@ -11,7 +11,7 @@ import { ModePopUpType } from '../../models/entity-type.enum';
 })
 export class ModulesPopUpComponent {
   title = 'VerModulo';
-  modulesForm: FormGroup;
+  modulesForm: UntypedFormGroup;
 
   constructor( 
     public dialogRef: MatDialogRef<ModulesPopUpComponent>,
@@ -30,12 +30,12 @@ export class ModulesPopUpComponent {
         this.translate.setDefaultLang('en');
       }
       
-      this.modulesForm = new FormGroup({
-        name: new FormControl({ value: this.data.nombre, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-        description: new FormControl({ value: this.data.description, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-        grupo: new FormControl({ value: this.data.grupo, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
-        controlador: new FormControl({value: 'Alerts', disabled: (this.data.mode === ModePopUpType.DISPLAY)}),
-        active: new FormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+      this.modulesForm = new UntypedFormGroup({
+        name: new UntypedFormControl({ value: this.data.nombre, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+        description: new UntypedFormControl({ value: this.data.description, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+        grupo: new UntypedFormControl({ value: this.data.grupo, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
+        controlador: new UntypedFormControl({value: 'Alerts', disabled: (this.data.mode === ModePopUpType.DISPLAY)}),
+        active: new UntypedFormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       });
     }
   

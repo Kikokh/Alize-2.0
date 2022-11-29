@@ -39,7 +39,6 @@ export class AssetsComponent implements OnInit {
     private _route: ActivatedRoute,
     private _assetService: AssetService,
     private _templateService: TemplatesService,
-    private _componentFactoryResolver: ComponentFactoryResolver,
     private _changeDetector: ChangeDetectorRef,
     private _router: Router,
     private _filterService: FilterService,
@@ -71,14 +70,12 @@ export class AssetsComponent implements OnInit {
     this.template.columns.forEach(column => {
       if (column.hasFilter) {
         if (column.filterOption && column.filterOption.length) {
-          const factory = this._componentFactoryResolver.resolveComponentFactory(SelectComponent);
-          const ref = this.dynamicHost.viewContainerRef.createComponent(factory);
+          const ref = this.dynamicHost.viewContainerRef.createComponent(SelectComponent);
           ref.instance.dropdownValues = column.filterOption.map(option => new DropdownValues('', option));
           ref.instance.text = column.header;
           ref.instance.key = column.property;
         } else {
-          const factory = this._componentFactoryResolver.resolveComponentFactory(TextBoxComponent);
-          const ref = this.dynamicHost.viewContainerRef.createComponent(factory);
+          const ref = this.dynamicHost.viewContainerRef.createComponent(TextBoxComponent);
           ref.instance.text = column.header;
           ref.instance.key = column.property;
         }

@@ -2,13 +2,14 @@
 using Alize.Platform.Api.Requests.Users;
 using Alize.Platform.Api.Responses;
 using Alize.Platform.Core.Constants;
+using Alize.Platform.Core.Exceptions;
 using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure;
 using Alize.Platform.Infrastructure.Extensions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
+using UserResponse = Alize.Platform.Api.Responses.UserResponse;
 
 namespace Alize.Platform.Api.Controllers
 {
@@ -39,12 +40,12 @@ namespace Alize.Platform.Api.Controllers
 
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpGet("Me")]
-        [ProducesResponseType(typeof(UserResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CurrentUserResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetMe()
         {
             var user = await _securityService.GetUserAsync(User.GetUserId());
 
-            return Ok(_mapper.Map<UserResponse>(user));
+            return Ok(_mapper.Map<CurrentUserResponse>(user));
         }
 
         [HttpGet("{id}")]
@@ -192,6 +193,36 @@ namespace Alize.Platform.Api.Controllers
         public async Task<IActionResult> UpdateCurrentUserPassword(UserUpdatePasswordRequest userPasswordUpdate)
         {
             return await UpdateUserPassword(User.GetUserId(), userPasswordUpdate);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Me/Password/Recover")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<IActionResult> RecoverUserPassword(RecoverUserPasswordRequest recoverUserPasswordRequest)
+        {
+            await _securityService.RecoverUserPasswordAsync(recoverUserPasswordRequest.Email);
+            return NoContent();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("Me/Password/Reset")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<IActionResult> ResetUserPassword(ResetUserPasswordRequest resetRequest)
+        {
+            try
+            {
+                await _securityService.ResetUserPasswordAsync(resetRequest.Email, resetRequest.Token, resetRequest.NewPassword);
+            }
+            catch (NotFountException<User>)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
         }
 
         [HttpDelete("{id}")]

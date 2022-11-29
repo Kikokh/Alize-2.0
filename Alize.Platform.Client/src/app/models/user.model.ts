@@ -4,6 +4,7 @@ import { Module } from "./module.model";
 
 export class User {
     companyLogo: string;
+    companyBackgroundImage: string;
     companyName: string;
     email: string;
     firstName: string;

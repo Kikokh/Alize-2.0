@@ -1,42 +1,34 @@
-import { Component } from '@angular/core';
-import { Color, ScaleType } from '@swimlane/ngx-charts';
-import { single } from '../../../models/data-bar-chart';
+import { Component, Input, OnChanges } from '@angular/core';
+import { ScaleType } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss']
 })
-export class BarChartComponent {
-
-  single: any[];
-  multi: any[];
-
-  view: [number, number] = [700, 400];
+export class BarChartComponent implements OnChanges {
+  @Input() xAxisLabel: string = '';
+  @Input() yAxisLabel: string = '';
+  @Input() data: any[];
+  @Input() width: number;
 
   // options
   showXAxis = true;
   showYAxis = true;
   gradient = false;
-  showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Country';
   showYAxisLabel = true;
-  yAxisLabel = 'Population';
 
-  colorScheme: Color = {
-    name: 'myScheme',
+  colorScheme = {
+    name: 'Color',
     selectable: true,
-    group: ScaleType.Ordinal,
-    // domain: ['#f00', '#0f0', '#0ff'],
-    domain: ['#f00', '#0f0', '#0ff'],
+    group: ScaleType.Linear,
+    domain: ['#26B99A']
   };
 
-  constructor() {
-    Object.assign(this, { single })
-  }
+  view: [number, number];
 
-  onResize(event: any) {
-    this.view = [event.target.innerWidth / 5, 500];
+  ngOnChanges(): void {
+    this.view = [this.width, 300];
   }
 }

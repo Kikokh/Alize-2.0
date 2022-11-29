@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -19,9 +19,9 @@ export class LoginComponent implements OnInit {
   isLoading: boolean;
   materialTheme = new MaterialTheme();
 
-  loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', Validators.required),
+  loginForm = new UntypedFormGroup({
+    email: new UntypedFormControl('', [Validators.required]),
+    password: new UntypedFormControl('', Validators.required),
   })
 
   lang: string | null;
@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const height = this._el.nativeElement.offsetHeight;
     this._globalStylesService.changeColor('red');
 
     this._globalStylesService.theme.subscribe(theme => {
@@ -85,13 +84,28 @@ export class LoginComponent implements OnInit {
           });
         },
         err => {
-          this.isLoading = false;
           const erroMsg = (this.lang === 'en') ? 'Invalid credentials' : 'Credenciales invalidas'; 
           this.toastr.error(erroMsg, '', {
             timeOut: 5000
           });
-        }
+        },
+        () => this.isLoading = false
       );
     }
+  }
+
+  passwordReset() {
+    this.isLoading = true;
+    this._loginService.recoverUserPassword(this.emailFormControls?.value).subscribe(
+      success => {
+        const successMsg = (this.lang === 'en') ? 'Email has been sent to your address' : 'Se ha enviado un correo a su dirección'; 
+        this.toastr.success(successMsg);
+      },
+      err => {
+        const erroMsg = (this.lang === 'en') ? 'User does not exist' : 'Usuario inexistente'; 
+        this.toastr.error(erroMsg);
+      },
+      () => this.isLoading = false
+    )
   }
 }

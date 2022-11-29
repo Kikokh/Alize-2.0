@@ -18,6 +18,7 @@ namespace Alize.Platform.Api.Responses.Companies
         public string? Web { get; set; }
         public string? ContactName { get; set; }
         public string? Logo { get; set; }
+        public string? BackgroundImage { get; set; }
         public string? ImageTypeMime { get; set; }
         public string? Address { get; set; }
         public string? Zip { get; set; }

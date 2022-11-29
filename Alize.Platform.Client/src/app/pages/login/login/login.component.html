@@ -25,10 +25,13 @@
                     {{"PasswordVacio" | translate}}
                 </div>
             </mat-card-content>
+            <mat-spinner *ngIf="isLoading" style="margin-inline: auto;" [diameter]="50"></mat-spinner>
             <mat-card-actions>
-                <button type="submit" [disabled]="!loginForm.valid" class="login-btn" mat-raised-button>
-                    <span *ngIf="!isLoading">{{"IniciarSesion" | translate }}</span>
-                    <mat-spinner *ngIf="isLoading" [diameter]="50"></mat-spinner>
+                <button type="submit" [disabled]="isLoading || !loginForm.valid" class="login-btn" mat-raised-button>
+                    <span>{{"IniciarSesion" | translate }}</span>
+                </button>
+                <button type="button" class="login-btn" [disabled]="isLoading || !emailFormControls?.valid" mat-raised-button (click)="passwordReset()">
+                    <span>{{"RecoverPassword" | translate }}</span>
                 </button>
                 <div class="error-form-message" *ngIf="loginError">
                     {{"EmailPassIncorrecto" | translate}}
@@ -36,7 +39,7 @@
             </mat-card-actions>
         </form>
 
-        <hr width=434>
+        <hr width=90%>
 
 
         <mat-card-footer>

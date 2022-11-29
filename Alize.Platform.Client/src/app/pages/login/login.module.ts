@@ -6,9 +6,13 @@ import { SharedModule } from 'src/app/components/shared.module';
 import { MaterialModule } from 'src/app/material.module';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login/login.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [
+    LoginComponent,
+    PasswordResetComponent
+  ],
   imports: [
     CommonModule,
     LoginRoutingModule,
@@ -18,7 +22,8 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     TranslateModule,
   ], exports: [
-    LoginComponent
+    LoginComponent,
+    PasswordResetComponent
   ]
 })
 

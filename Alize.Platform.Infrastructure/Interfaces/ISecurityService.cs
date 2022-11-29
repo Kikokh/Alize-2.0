@@ -19,5 +19,7 @@ namespace Alize.Platform.Infrastructure
         bool VerifyRolePermit(string currentRole, string toChangeRole);
         Task DeleteUserAsync(User user);
         Task<IEnumerable<Role>> GetRolesAsync();
+        Task RecoverUserPasswordAsync(string email);
+        Task ResetUserPasswordAsync(string email, string token, string newPassword);
     }
 }

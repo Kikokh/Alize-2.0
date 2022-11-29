@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { RolesService } from 'src/app/pages/administration/roles/roles.service';
@@ -7,7 +7,7 @@ import { UsersService } from 'src/app/pages/administration/users/users.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
 
 export class DialogResult {
-  id: string;
+  id!: string;
   roleId: string;
   action: ModePopUpType;
   constructor() { }
@@ -20,7 +20,7 @@ export class DialogResult {
 export class GroupUserPopUpComponent {
   title = 'GrupoUserPopUpTitulo';
   subtitle = 'GrupoUserPopUpSubTitulo';
-  userForm: FormGroup;
+  userForm: UntypedFormGroup;
   roles: any;
 
   constructor(
@@ -32,7 +32,7 @@ export class GroupUserPopUpComponent {
       grupos: string;
       mode: ModePopUpType;
     },
-    fb: FormBuilder,
+    fb: UntypedFormBuilder,
     public translate: TranslateService
   ) {
     const lang = localStorage.getItem('lang');

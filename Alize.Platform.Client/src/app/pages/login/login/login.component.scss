@@ -12,76 +12,83 @@
     mat-card {
         background-color: transparent;
         background: #1E4A64;
-        width: 570px;
-        height: 680px;
+        width: 30%;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 50px 50px 50px 50px;
+        padding: 2rem 2.5rem;
         border-radius: 10px 10px 10px 10px;
 
-        .example-full-width {
-            width: 400px;
-            height: 68px;
-        }
 
         mat-card-header {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
 
-            img {
-                width: 443px;
-                height: 157px;
+            a{
+                display:flex;
+                justify-content: center;
+                position: relative;
+                right: 16px;
             }
+            img {
+                max-width: 80%;
+                justify-self: center;
+            }
+
         }
 
         form {
             width: 100%;
 
             mat-card-content {
-                margin-top: 20px;
+                margin-top: 2rem;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
                 align-items: center;
 
                 mat-form-field {
-                    margin-top: 40px;
-                    width: 400px;
-                    height: 68px;
+                    width: 80%;
                     font-size: 15px;
+                    padding: none;
+                   
                     span {
-                        font-size: 40px;
-                        width: 40px;
-                        height: 35px;
+                        font-size:1.5; 
+                        position: relative !important;
+                        bottom: 0.7rem !important;
                     }
-
+                    
                     input {
                         height: 35px;
                         margin-left: 10px;
+                        position: relative !important;
+                        bottom: 0.3rem !important;
                     }
+                }
+
+                .error-form-message{
+                    color: #F78181;
+                    position: relative;
+                    bottom: 1rem;
+                    text-align: center;
+                    font-size: 0.8rem;
                 }
             }
 
             mat-card-actions {
-                width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                position: relative;
+                bottom: 1rem;
+                gap: 1rem;
 
                 button {
-                    margin-top: 10px;
-                    width: 282px;
-                    height: Hug(48px);
+                    width: 60%;
                     font-family: 'Poppins';
                     font-style: normal;
                     font-weight: 400;
-                    font-size: 20px;
                     color: #FFFFFF;
-                    border-radius: 12px;
-                    padding: 12px 32px 12px 32px;
+                    border-radius: 12px !important;
                     gap: 8px;
                     background: linear-gradient(rgba(37, 117, 124, 1), rgba(64, 147, 150, 1));
                     display: flex;
@@ -96,15 +103,15 @@
             }
         }
 
+        hr{
+            margin-top: -1rem;
+        }
+
         mat-card-footer {
             text-align: center;
-            font-family: 'Poppins';
-            font-style: normal;
-            font-weight: 300;
-            font-size: 21.4506px;
-            line-height: 32px;
             color: #FFFFFF;
-            margin-top: 30px;
+            margin-top: 1rem;
+            padding: 0 1.6rem;
         }
     }
 }
@@ -136,4 +143,75 @@
 //mat-input focused color
 :host ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
     color: transparent !important;
+}
+
+
+@media screen and (max-width: 1210px){
+    mat-card{
+        width: 40% !important;
+    }
+    mat-card-footer {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 910px){
+    mat-card-footer {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 768px){
+    mat-card{
+        width: 70% !important;
+    }
+}
+
+@media screen and (max-width: 480px){
+    mat-card-content {
+        mat-form-field {
+            width: 100% !important;
+        }
+        .error-form-message{
+            font-size: 0.6rem !important;
+        }
+    }
+
+    mat-card-actions {
+        button {
+            width: 80%;
+        }
+    }
+
+    mat-card-footer {
+        font-size: 0.6rem;
+        padding: 0 !important;
+    }
+}
+
+@media screen and (orientation:landscape)
+and (min-device-width: 319px) 
+and (max-device-width: 915px) {
+    .login-form{
+        height: auto;
+        mat-card{
+            mat-card-header{
+                img{
+                    max-width: 40%;
+                }
+            }
+        form{
+            mat-card-content{
+                margin-top: 1rem;
+            }
+            mat-card-actions{
+                flex-direction: row;
+                
+            }
+        }
+        mat-card-footer{
+            padding: 0;
+        }
+        }
+    }
 }

@@ -242,6 +242,9 @@ namespace Alize.Platform.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("BackgroundImage")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("BusinessName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -746,7 +749,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMINPRO.COM",
                             NormalizedUserName = "TESTADMINPRO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG5Xdz2aFq4zxdtdsTPJ6nyG42ENcvx2ZVfIubBbX6QLlIlVNs5/cjexd+tFovFdUQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGc3QvxW6Xr9er5xE1Kj4AD1WiTbWPp96BFMV1Mpz4um71patytHNejX92uGEn/5dQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "840411eb-2f77-4444-8f29-76c094834b56",
                             TwoFactorEnabled = false,
@@ -766,7 +769,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@DISTRIBUTOR.COM",
                             NormalizedUserName = "TESTDESTRIBUTOR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOuX2M6kjEZVzkTYcA74JxykyQiFqblH9s+v/Bytu/ZZL40TTkE6Q1m6FTeqJ26q9Q==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELJBs+dVfp+sVQVJpXNzvDGlP0ZUbJmNCjs8vWgfXXZXsrHWD8yq3urgsjFr2xwcKw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "004286d4-a835-45c7-8f36-1f9359d7d955",
                             TwoFactorEnabled = false,
@@ -786,7 +789,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@ADMIN.COM",
                             NormalizedUserName = "TESTADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEG3sHmpXwgWzXf9xprgBrDQ7Ih+gHL182vBdzpNw2Ex6eQzcALSrrzvPXACeJmt/AQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOyMecanl/RK8BMtG6ZaEnX46DVc26m9RhpdpRVPX7skt1ttFFic4SSkfiBnffsI0A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "1c822965-eb67-4092-9cf7-cf62806d5395",
                             TwoFactorEnabled = false,
@@ -806,7 +809,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@USER.COM",
                             NormalizedUserName = "TESTUSER",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMSwWG0rNH9o9W63NxXB4piwHoLYyS/HKBS7hgVjw738CnZtaBvgh5AJm+/fvORmxg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECaCMr5PD24bO1euvqkwq3X9xCaawBjgLLRj5y8z5HmescgSeb50I5HF/LvJj0sUpg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "95ada776-f3e1-42db-aa39-382f91b74cd4",
                             TwoFactorEnabled = false,
@@ -826,7 +829,7 @@ namespace Alize.Platform.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@GUEST.COM",
                             NormalizedUserName = "TESTGUEST",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOylzuBbtST/o2iRxN2SP9/JDfydF7BvXR82n4HGND+bNE2SygsoGP2ZJLAMw2uzWQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHPTdlTyWD62hppWsIxD5+0ST1N1OjqCaW4dZrq/tNtTg+r0MoUX4nTY6LIBJS9q5w==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "b6091148-6b17-4e26-9dc7-97d1b34fb025",
                             TwoFactorEnabled = false,

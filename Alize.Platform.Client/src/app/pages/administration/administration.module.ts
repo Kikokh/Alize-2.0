@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminitrationRoutingModule } from './adminitration-routing.module';
 import { SharedModule } from 'src/app/components/shared.module';
 import { ApplicationsComponent } from './applications/applications.component';
 import { CompaniesComponent } from './companies/companies.component';
@@ -21,7 +20,6 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
   imports: [
     CommonModule,
-    AdminitrationRoutingModule,
     SharedModule,
     TranslateModule
   ],

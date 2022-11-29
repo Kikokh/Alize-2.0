@@ -14,6 +14,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 export class AssetDetailTableComponent {
   @Input() assetHistory: AssetHistory[];
   @Input() tableTemplate: TemplateColumn[];
+  @Input() steps?: any[];
 
   get rowDefs(): string[] {
     return this.tableTemplate.map(c => c.property) ?? [];

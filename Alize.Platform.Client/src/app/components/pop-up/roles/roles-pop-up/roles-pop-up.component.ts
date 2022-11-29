@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
@@ -29,7 +29,7 @@ export interface IAvailablesModules {
 export class RolesPopUpComponent implements OnInit, OnDestroy {
   title = 'RolesPopUpTitulo';
   availableModules = 'GruposModulosHabilitados';
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   public moduleList: Module[];
   public modules: string[];
@@ -69,16 +69,16 @@ export class RolesPopUpComponent implements OnInit, OnDestroy {
     this.modules = this.data.modulos.map((mod) => mod.id);
     this.modulesToSend = this.data.modulos;
 
-    this.form = new FormGroup({
-      name: new FormControl({
+    this.form = new UntypedFormGroup({
+      name: new UntypedFormControl({
         value: this.data.nombre ? this.data.nombre : '',
         disabled: this.data.mode === ModePopUpType.DISPLAY,
       }),
-      description: new FormControl({
+      description: new UntypedFormControl({
         value: this.data.descripcion ? this.data.descripcion : '',
         disabled: this.data.mode === ModePopUpType.DISPLAY,
       }),
-      active: new FormControl({
+      active: new UntypedFormControl({
         value: this.data.activo ? this.data.activo : '',
         disabled: false,
       }),

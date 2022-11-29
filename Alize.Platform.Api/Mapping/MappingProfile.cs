@@ -74,9 +74,12 @@ namespace Alize.Platform.Api.Mapping
             CreateMap<User, UserResponse>()
                 .ForMember(d => d.RoleId, o => o.MapFrom(s => s.Role != null ? s.Role.Id : default))
                 .ForMember(d => d.CompanyName, o => o.MapFrom(s => s.Company != null ? s.Company.Name : string.Empty))
-                .ForMember(d => d.CompanyLogo, o => o.MapFrom(s => s.Company != null ? s.Company.Logo : string.Empty))
                 .ForMember(d => d.RoleName, o => o.MapFrom(s => s.Role != null ? s.Role.Name : string.Empty))
                 .ForMember(d => d.Modules, o => o.MapFrom(s => s.Role != null ? s.Role.Modules : Enumerable.Empty<Module>()));
+            CreateMap<User, CurrentUserResponse>()
+                .IncludeBase<User, UserResponse>()
+                .ForMember(d => d.CompanyLogo, o => o.MapFrom(s => s.Company != null ? s.Company.Logo : string.Empty))
+                .ForMember(d => d.CompanyBackgroundImage, o => o.MapFrom(s => s.Company != null ? s.Company.BackgroundImage : string.Empty));
         }
 
         private void AssetMappings()

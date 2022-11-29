@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { FormValidation } from 'src/app/models/validation.model';
@@ -16,7 +16,7 @@ export class PasswordUserPopUpComponent {
   formValidation = new FormValidation();
   title = 'PasswordPopUpTitulo';
   subtitle = 'PasswordPopUpSubTitulo';
-  passwordForm: FormGroup;
+  passwordForm: UntypedFormGroup;
   showInvalidPassword = false;
   // passwordMatch = true;
   get passwordControls() {
@@ -45,9 +45,9 @@ export class PasswordUserPopUpComponent {
     } else {
       this.translate.setDefaultLang('en');
     }
-    this.passwordForm = new FormGroup({
-      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]),
-      repeatPassword: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)])
+    this.passwordForm = new UntypedFormGroup({
+      password: new UntypedFormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]),
+      repeatPassword: new UntypedFormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)])
     });
   }
 

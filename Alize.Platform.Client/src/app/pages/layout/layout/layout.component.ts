@@ -1,9 +1,9 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { TranslateService } from '@ngx-translate/core';
-import { User } from 'src/app/models/user.model';
-import { GlobalStylesService } from 'src/app/scss-variables/services/global-styles.service';
+import { Observable } from 'rxjs';
+import { filter, map, startWith } from 'rxjs/operators';
 import { LoginService } from '../../login/services/login.service';
 
 @Component({
@@ -13,8 +13,8 @@ import { LoginService } from '../../login/services/login.service';
 })
 export class LayoutComponent implements OnInit {
   @ViewChild('drawer', { static: true }) public sideBar!: MatDrawer;
-  user: User;
   isSideBarExpanded: boolean = true;
+  backgroundImage?: string;
 
   get isSideBarExpandedProp() {
     return this.isSideBarExpanded;
@@ -36,15 +36,10 @@ export class LayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.sideBar.toggle();
-
-    this._loginService.$me.subscribe(user => {
-      if (!user) {
-        this._loginService.logout()
-        location.reload()
-        return
-      }
-      this.user = user;
-    });
+    this._loginService.getUser().subscribe(
+      user => this.backgroundImage = user?.companyBackgroundImage,
+      _err => this._loginService.logout()
+    )
   }
 
   handlerSideBarToggle(isSideBarExpanded: boolean) {

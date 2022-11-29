@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
@@ -12,8 +13,11 @@ import { SharedModule } from './components/shared.module';
 import { AuthInterceptorService } from './interceptors/auth-interceptor.service ';
 import { MatPaginatorIntlCro } from './mat-paginator-intl.service';
 import { MaterialModule } from './material.module';
+import { AdministrationModule } from './pages/administration/administration.module';
+import { HomeComponent } from './pages/home/home.component';
 import { LayoutAppModule } from './pages/layout/layout.module';
 import { LoginModule } from './pages/login/login.module';
+import { ManagmentModule } from './pages/management/management.module';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -21,10 +25,14 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
+    HomeComponent
   ],
   imports: [
+    AdministrationModule,
+    ManagmentModule,
     BrowserModule,
     MaterialModule,
+    CommonModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     SharedModule,
@@ -46,7 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       useClass: AuthInterceptorService,
       multi: true
     },
-    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro}
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCro }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { Company } from 'src/app/models/company.model';
 import { CompaniesService } from 'src/app/pages/administration/companies/companies.service';
 import { ModePopUpType } from '../../models/entity-type.enum';
@@ -13,10 +14,9 @@ import { DialogResult } from '../../users/group-user-pop-up/group-user-pop-up.co
   styleUrls: ['./company-pop-up.component.scss']
 })
 export class CompanyPopUpComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   selectedIndex = 0;
   mode: ModePopUpType;
-  logo?: File;
   logoSrc?: string;
 
   public get _modePopUpType(): typeof ModePopUpType {
@@ -39,32 +39,19 @@ export class CompanyPopUpComponent implements OnInit {
     return this.data.mode === ModePopUpType.ADD ? 'NuevaEmpresa' : this.data.mode === ModePopUpType.DISPLAY ? 'VerEmpresa' : 'EditarEmpresa';
   }
 
+  get logoControl(): AbstractControl {
+    return this.form.controls['logo'];
+  }
+
+  get backgroundImageControl(): AbstractControl {
+    return this.form.controls['backgroundImage'];
+  }
+
   constructor(public dialogRef: MatDialogRef<CompanyPopUpComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      id: string;
-      name: string;
-      description: string;
-      isActive: boolean;
-      activity: string;
-      businessName: string;
-      cif: string;
-      comments: string;
-      language: string;
-      phoneNumber: string;
-      email: string;
-      web: string;
-      contactName: string;
-      logo: string;
-      imageTypeMime: string;
-      address: string;
-      zip: string;
-      city: string;
-      province: string;
-      country: string;
-      mode: ModePopUpType;
-    },
+    @Inject(MAT_DIALOG_DATA) public data: Company & { mode: ModePopUpType },
     private _companiesService: CompaniesService,
-    public translate: TranslateService) {
+    public translate: TranslateService,
+    private _toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -73,24 +60,25 @@ export class CompanyPopUpComponent implements OnInit {
   }
 
   createForm() {
-    this.form = new FormGroup({
-      name: new FormControl({ value: this.data.name, disabled: this.isView }, Validators.required),
-      description: new FormControl({ value: this.data.description, disabled: this.isView }),
-      isActive: new FormControl({ value: this.data.isActive, disabled: this.isView }),
-      activity: new FormControl({ value: this.data.activity, disabled: this.isView }),
-      businessName: new FormControl({ value: this.data.businessName, disabled: this.isView }),
-      cif: new FormControl({ value: this.data.cif, disabled: this.isView }, Validators.required),
-      language: new FormControl({ value: this.data.language, disabled: this.isView }),
-      phoneNumber: new FormControl({ value: this.data.phoneNumber, disabled: this.isView }),
-      email: new FormControl({ value: this.data.email, disabled: this.isView }, Validators.required),
-      web: new FormControl({ value: this.data.web, disabled: this.isView }),
-      contactName: new FormControl({ value: this.data.contactName, disabled: this.isView }, Validators.required),
-      logo: new FormControl({ value: this.data.logo, disabled: this.isView }),
-      address: new FormControl({ value: this.data.address, disabled: this.isView }),
-      zip: new FormControl({ value: this.data.zip, disabled: this.isView }),
-      city: new FormControl({ value: this.data.city, disabled: this.isView }),
-      province: new FormControl({ value: this.data.province, disabled: this.isView }),
-      country: new FormControl({ value: this.data.country, disabled: this.isView })
+    this.form = new UntypedFormGroup({
+      name: new UntypedFormControl({ value: this.data.name, disabled: this.isView }, Validators.required),
+      description: new UntypedFormControl({ value: this.data.description, disabled: this.isView }),
+      isActive: new UntypedFormControl({ value: this.data.isActive, disabled: this.isView }),
+      activity: new UntypedFormControl({ value: this.data.activity, disabled: this.isView }),
+      businessName: new UntypedFormControl({ value: this.data.businessName, disabled: this.isView }),
+      cif: new UntypedFormControl({ value: this.data.cif, disabled: this.isView }, Validators.required),
+      language: new UntypedFormControl({ value: this.data.language, disabled: this.isView }),
+      phoneNumber: new UntypedFormControl({ value: this.data.phoneNumber, disabled: this.isView }),
+      email: new UntypedFormControl({ value: this.data.email, disabled: this.isView }, Validators.required),
+      web: new UntypedFormControl({ value: this.data.web, disabled: this.isView }, Validators.pattern(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)),
+      contactName: new UntypedFormControl({ value: this.data.contactName, disabled: this.isView }, Validators.required),
+      logo: new UntypedFormControl({ value: this.data.logo, disabled: this.isView }),
+      address: new UntypedFormControl({ value: this.data.address, disabled: this.isView }),
+      zip: new UntypedFormControl({ value: this.data.zip, disabled: this.isView }),
+      city: new UntypedFormControl({ value: this.data.city, disabled: this.isView }),
+      province: new UntypedFormControl({ value: this.data.province, disabled: this.isView }),
+      country: new UntypedFormControl({ value: this.data.country, disabled: this.isView }),
+      backgroundImage: new UntypedFormControl({ value: this.data.backgroundImage, disabled: this.isView })
     });
   }
 
@@ -111,32 +99,36 @@ export class CompanyPopUpComponent implements OnInit {
     const result = new DialogResult();
 
     result.action = ModePopUpType.DELETE;
-    result.id = this.data.id;
+    result.id = this.data.id!;
 
     this.dialogRef.close(result);
   }
 
-  onFileChanged(event: any) {
-    const [file] = event.target.files;
-    this.logo = file;
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+  onFileChanged(event: any, control: AbstractControl) {
+    const [file] = event.target.files as Blob[];
+    
+    if (file.size / 1024 < 512) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
 
-    reader.onload = () => {
-      this.logoSrc = reader.result as string;
-    };
+      reader.onload = () => {
+        control.setValue(reader.result as string);
+      };
+    } else {
+      this.translate.get('FileSizeError').subscribe(
+        (msg: string) => this._toastr.error(msg + ' 512KB')
+      )
+    }
   }
 
   buildCompany(): Company {
-    console.log(this.isEdit)
-    if (this.isEdit) return {
+    return this.isEdit ? {
       id: this.data.id,
       ...this.form.value,
       action: ModePopUpType.EDIT
-    }
-    else return {
+    } : {
       ...this.form.value,
-      action: ModePopUpType.ADD 
+      action: ModePopUpType.ADD
     }
   }
 }
