@@ -52,9 +52,6 @@ namespace Alize.Platform.Infrastructure.Repositories
             return user.Role?.Name switch
             {
                 Roles.AdminPro => await applicationsQuery.SingleOrDefaultAsync(a => a.Id == id),
-                Roles.Distributor => await applicationsQuery
-                        .Where(a => a.CompanyId == user.CompanyId || a.Company.ParentCompanyId == user.CompanyId)
-                        .SingleOrDefaultAsync(a => a.Id == id),
                 Roles.Admin => await applicationsQuery
                         .Where(a => a.CompanyId == user.CompanyId)
                         .SingleOrDefaultAsync(a => a.Id == id),
