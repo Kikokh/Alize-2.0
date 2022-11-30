@@ -2,30 +2,19 @@
     <h2 class="title text-center">
         <span>{{ 'asset.records' | translate }}</span>
     </h2>
-    
     <div class="flex flex-column content-space-evenly">
-        <div class="flex flex-1 flex-row text-center step items-left relative"
-            *ngFor="let step of stepperTemplate; let i = index">
-            <span class="material-symbols-rounded">check_box_outline_blank</span>
+        <div *ngFor="let step of stepperTemplate; let i = index"
+            class="flex flex-1 flex-row text-center step items-left relative">
+            <span class="material-symbols-rounded">
+                {{ hasDoneStep(step.fields[1].property) ? 'check_box' : 'check_box_outline_blank'}}
+            </span>
             <div class="vl"></div>
-            <div class="step-box flex-row">
+            <div class="step-box flex-row" [ngClass]="{active: hasDoneStep(step.fields[1].property)}">
                 <div>
                     <span class="step-num">{{ i+1 }}</span>
                     <span class="step-name">{{ step.name }}</span>
                 </div>
             </div>
-            <div *ngIf="assetHistory && assetHistory[i]" class="properties flex flex-column">
-                <span *ngFor="let field of step.fields" [ngSwitch]="field.dataType">
-                    <ng-template ngSwitchCase="date">
-                        {{ assetHistory[i].metadata.bc_metadata[field.property] | date: 'short' }}
-                    </ng-template>
-                    <ng-template ngSwitchDefault>
-                        {{ assetHistory[i].metadata.bc_metadata[field.property] }}
-                    </ng-template>
-                </span>
-            </div>
         </div>
     </div>
 </div>
-
-
