@@ -3,10 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  apiUrl: 'https://alize-platform-api-dev.azurewebsites.net/api',
-  // apiUrl: 'https://localhost:7228/api',
-  swagger: 'https://alize-platform-api-dev.azurewebsites.net/index.html',
+  production: true,
+  apiUrl: 'https://alize-platform-api-staging.azurewebsites.net/api',
+  swagger: 'https://alize-platform-api-staging.azurewebsites.net/index.html',
   postman: 'https://www.postman.com/bold-meadow-604881/workspace/alize/overview',
   zendesk: 'https://soporte.alize.es/hc/es/categories/7761941736349-Inicio'
 };
