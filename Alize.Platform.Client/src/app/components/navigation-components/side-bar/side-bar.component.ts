@@ -28,7 +28,8 @@ export class SideBarComponent implements AfterViewInit {
   @ViewChildren(MatExpansionPanel) matExpansionPanel: QueryList<MatExpansionPanel>;
 
   postmanUrl = environment.postman;
-  swaggerUrl = environment.swagger
+  swaggerUrl = environment.swagger;
+  zendeskUrl = environment.zendesk;  
 
   private dialogRef: MatDialogRef<PasswordUserPopUpComponent>;
 

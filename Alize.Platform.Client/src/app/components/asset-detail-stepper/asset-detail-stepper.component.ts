@@ -28,4 +28,8 @@ export class AssetDetailStepperComponent implements OnInit {
   ngOnInit(): void {
     this.steps = this._fb.array(this.stepperTemplate.map(step => [step.name]));
   }
+
+  hasDoneStep(property: string): boolean {
+    return this.assetHistory[this.assetHistory.length - 1]?.metadata && this.assetHistory[this.assetHistory.length - 1].metadata[property];
+  }
 }

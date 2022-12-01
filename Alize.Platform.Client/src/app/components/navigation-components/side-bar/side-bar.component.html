@@ -84,6 +84,23 @@
             </div>
         </mat-expansion-panel>
 
+        <mat-expansion-panel class="nav-menu flex" [hideToggle]="!isSideBarExpanded">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <span class="material-symbols-rounded">
+                        help
+                    </span>
+                    <span [hidden]="!isSideBarExpanded">{{"HelpDesk" | translate }}</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="opt-menu">
+                <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link" [href]="zendeskUrl"
+                    target="_blank">
+                    <button mat-button class="buttonText">Wiki</button>
+                </a>
+            </div>
+        </mat-expansion-panel>
+
         <button mat-button class="nav-menu user_nav_menu" [matMenuTriggerFor]="menu">
             <div class="login-container">
                 <img class="company-img" [src]="img | async">
@@ -100,7 +117,8 @@
         <mat-menu #menu="matMenu" yPosition="above">
             <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">
                 {{"CloseSession" | translate }}</button>
-            <button *ngIf="user | async as _user" (click)="showPasswordPopUp(_user?.firstName)" id="myPanelId" mat-menu-item class="user-menu-items">
+            <button *ngIf="user | async as _user" (click)="showPasswordPopUp(_user?.firstName)" id="myPanelId"
+                mat-menu-item class="user-menu-items">
                 {{"CambiarContraseña" | translate }}</button>
         </mat-menu>
 
