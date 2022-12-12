@@ -5,8 +5,14 @@
     <div class="sub-header">
         <p class="title">{{ 'Administration' | translate }}</p>
         <p class="sub-title">{{ 'ListadoAplicaciones' | translate }}</p>
+        <span class="material-symbols-rounded info-button" (click)="toggle()">
+            info
+        </span>
     </div>
     <div class="grid">
+        <ng-container *ngIf="show"  style="background-color: #fff;">
+            <span class="info-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
+        </ng-container>
         <div *ngIf="!isLoading; else gridSkeleton">
             <app-grid (add)="add($event)" (update)="update($event)" (delete)="delete($event)" [columns]="displayedColumns"
             [elementData]="elementData" [entity]="entity" [actions]="actions" [canInsert]="canInsert | async"></app-grid>

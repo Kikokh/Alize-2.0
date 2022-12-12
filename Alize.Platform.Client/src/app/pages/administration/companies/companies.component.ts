@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./companies.component.scss', '../../layout-main.scss']
 })
 export class CompaniesComponent implements OnInit {
+  public show:boolean = false;
   displayedColumns: IColumnDef[] = [
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: Company) => `${element.name}` },
     { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: Company) => (element.description) ? `${element.description}` : '' },
@@ -48,6 +49,10 @@ export class CompaniesComponent implements OnInit {
     });   
 
     this._loginService.$me.pipe(map(user => user.roleName))
+  }
+
+  toggle() {
+    this.show = !this.show;
   }
 
   updateCompanies() {

@@ -18,6 +18,7 @@ export class UsersComponent implements OnInit {
   userSelected: User;
   elementData: User[];
   isLoading = true;
+  public show:boolean = false;
   displayedColumns: IColumnDef[] = [
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: User) => `${element.firstName + ' ' + element.lastName}` },
     { columnDef: 'Email', header: 'Email', cell: (element: User) => `${element.email}` },
@@ -62,6 +63,10 @@ export class UsersComponent implements OnInit {
         this.elementData = users;
         this.isLoading = false;
       });
+  }
+
+  toggle() {
+    this.show = !this.show;
   }
 
   updateUsers() {
