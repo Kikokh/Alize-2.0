@@ -29,5 +29,6 @@ namespace Alize.Platform.Core.Models
         public ICollection<Role> Roles { get; set; }
 
         public ICollection<Application> Applications { get; set; }
+        public long? ZendeskUserId { get; set; }
     }
 }

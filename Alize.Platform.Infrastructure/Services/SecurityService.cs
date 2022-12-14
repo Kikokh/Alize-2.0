@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 
@@ -20,13 +19,15 @@ namespace Alize.Platform.Infrastructure.Services
         private readonly IConfiguration _configuration;
         private readonly IModuleRepository _moduleRepository;
         private readonly IEmailService _emailService;
+        private readonly IZendeskService _zendeskService;
 
         public SecurityService(
             UserManager<User> userManager,
             RoleManager<Role> roleManager,
             IModuleRepository moduleRepository,
             IConfiguration configuration,
-            IEmailService emailService
+            IEmailService emailService,
+            IZendeskService zendeskService 
             )
         {
             _userManager = userManager;
@@ -34,6 +35,7 @@ namespace Alize.Platform.Infrastructure.Services
             _configuration = configuration;
             _moduleRepository = moduleRepository;
             _emailService = emailService;
+            _zendeskService = zendeskService;
         }
 
         public async Task SetUserRoleAsync(string userId, string roleId)
@@ -128,9 +130,10 @@ namespace Alize.Platform.Infrastructure.Services
 
         public async Task<User?> GetUserAsync(Guid id) => await this.GetUserAsync(id.ToString());
 
-        public async Task<User> RegisterUserAsync(User user, string password)
+        public async Task<User> RegisterUserAsync(User user, Guid roleId, string password)
         {
             var result = await _userManager.CreateAsync(user);
+            await SetUserRoleAsync(user.Id.ToString(), roleId.ToString());
 
             if (result.Succeeded)
             {
@@ -138,6 +141,8 @@ namespace Alize.Platform.Infrastructure.Services
 
                 if (result.Succeeded)
                 {
+                    await _zendeskService.CreateZendeskUserAsync(user);
+
                     return user;
                 }
 

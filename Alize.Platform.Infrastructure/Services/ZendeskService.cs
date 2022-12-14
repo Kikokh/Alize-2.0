@@ -28,31 +28,37 @@ namespace Alize.Platform.Infrastructure.Services
         public string Email { get; set; }
 
         [JsonPropertyName("id")]
-        public int Id { get; set; }
+        public long? Id { get; set; }
 
         [JsonPropertyName("external_id")]
-        public int ExternalId { get; set; }
+        public long? ExternalId { get; set; }
 
         [JsonPropertyName("name")]
         public string Name { get; set; }
 
         [JsonPropertyName("organization_id")]
-        public int OrganizationId { get; set; }
+        public long? OrganizationId { get; set; }
 
         [JsonPropertyName("role")]
         public string? Role { get; set; }
 
         [JsonPropertyName("role_type")]
-        public int RoleType { get; set; }
-        
+        public long? RoleType { get; set; }
+
         [JsonPropertyName("identities")]
         public IEnumerable<ZendeskIdentity> Identities { get; set; }
 
         [JsonPropertyName("organization")]
-        public ZendeskOrganiation Organization { get; set; }
+        public ZendeskOrganiation? Organization { get; set; }
     }
 
-    public class ZendeskService
+    internal class ZendeskUserResponse
+    {
+        [JsonPropertyName("user")]
+        public ZendeskUser User { get; set; }
+    }
+
+    public class ZendeskService : IZendeskService
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
@@ -61,35 +67,36 @@ namespace Alize.Platform.Infrastructure.Services
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task CreateZendeskUser(User user)
+        public async Task CreateZendeskUserAsync(User user)
         {
             var zendeskApiKey = "ylSfDj8DzPbkgzoFVlBIvqHzINs9WY3zQdn0tHIo";
             var zendeskApiEmail = "sistemas@xpander.es";
             var zendeskApiUrl = "https://soporte.alize.es/api/v2/users";
 
-            var zendeskUser = new ZendeskUser
+            var zendeskUser = new
             {
-                Email = user.Email,
-                Name = user.FirstName + " " + user.LastName,
-                Role = user.Role?.Name
+                user = new
+                {
+                    email = user.Email,
+                    name = user.FirstName + " " + user.LastName
+                }
+
             };
 
             var body = new StringContent(JsonSerializer.Serialize(zendeskUser), Encoding.UTF8, Application.Json);
 
             var httpClient = _httpClientFactory.CreateClient();
-            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{zendeskApiEmail}:{zendeskApiKey}"));
+            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{zendeskApiEmail}/token:{zendeskApiKey}"));
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", credentials);
             var httpResponseMessage = await httpClient.PostAsync(zendeskApiUrl, body);
 
             if (httpResponseMessage.IsSuccessStatusCode)
             {
-                using var contentStream = await httpResponseMessage.Content.ReadAsStreamAsync();
+                var content = await httpResponseMessage.Content.ReadAsStringAsync();
 
-                var result = await JsonSerializer.DeserializeAsync<ZendeskUser>(contentStream);
+                var result = JsonSerializer.Deserialize<ZendeskUserResponse>(content);
 
-                var result2 = await JsonSerializer.DeserializeAsync<dynamic>(contentStream);
-
-                return;
+                user.ZendeskUserId = result?.User.Id;
             }
         }
     }

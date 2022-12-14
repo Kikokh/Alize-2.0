@@ -11,7 +11,7 @@ namespace Alize.Platform.Infrastructure
         Task<User?> GetUserAsync(Guid id);
         Task<IEnumerable<User>> GetUserListForUserAsync(Guid userId);
         Task<string> LoginUserWithEmail(string email, string password);
-        Task<User> RegisterUserAsync(User user, string password);
+        Task<User> RegisterUserAsync(User user, Guid roleId, string password);
         Task SetUserRoleAsync(string userId, string roleId);
         Task UpdateUserAsync(User user);
         Task UpdateUserPasswordAsync(User user, string newPassword);

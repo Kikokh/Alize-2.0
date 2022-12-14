@@ -109,6 +109,7 @@ builder.Services.AddScoped<IRequestLogEntryRepository, RequestLogEntryRepository
 builder.Services.AddScoped<ICosmosRepositoryFactory, CosmosRepositoryFactory>();
 builder.Services.AddScoped<IBlockchainService, AlastriaService>();
 builder.Services.AddScoped<IBlockchainService, BlockchainFueService>();
+builder.Services.AddScoped<IZendeskService, ZendeskService>();
 builder.Services.AddScoped<ISecurityService, SecurityService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<ICryptographyService, CryptographyService>();
