@@ -15,4 +15,5 @@ export class User {
     userName: string;
     modules: Module[];
     applications: Application[];
+    zendeskUserId?: number;
 }

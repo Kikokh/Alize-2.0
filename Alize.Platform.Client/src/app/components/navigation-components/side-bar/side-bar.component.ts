@@ -38,12 +38,12 @@ export class SideBarComponent implements AfterViewInit {
   Modules = Modules;
 
   get img(): Observable<string> {
-    return this.user.pipe(
+    return this.$user.pipe(
       map(user => user?.companyLogo ?? '../../../../../assets/logo-alice-blanco.png')
     )
   }
 
-  get user(): Observable<User> {
+  get $user(): Observable<User> {
     return this._loginService.$me;
   }
 

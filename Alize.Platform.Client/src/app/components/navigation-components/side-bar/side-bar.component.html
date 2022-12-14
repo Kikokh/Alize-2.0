@@ -1,4 +1,4 @@
-<div class="sidebar-container">
+<div class="sidebar-container" *ngIf="$user | async as user">
     <div class="logo" [ngClass]="{ 'foo': !isSideBarExpanded}">
         <img [src]="img | async" alt="">
     </div>
@@ -98,6 +98,10 @@
                     target="_blank">
                     <button mat-button class="buttonText">Wiki</button>
                 </a>
+                <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link" href="https://soporte.alize.es/hc/es/profiles/{{user.zendeskUserId}}"
+                    target="_blank">
+                    <button mat-button class="buttonText">{{"MyHelpCenter" | translate }}</button>
+                </a>
             </div>
         </mat-expansion-panel>
 
@@ -106,10 +110,10 @@
                 <img class="company-img" [src]="img | async">
                 <div class="flex">
                     <div class="user_name_title" [ngClass]="{'info-user' : !isSideBarExpanded}">
-                        {{(user | async)?.firstName}} {{(user | async)?.lastName}}
+                        {{user?.firstName}} {{user?.lastName}}
                     </div>
                     <div class="user_role_subtitle" [ngClass]="{'info-user' : !isSideBarExpanded}">
-                        {{(user | async)?.roleName}}
+                        {{user?.roleName}}
                     </div>
                 </div>
             </div>
@@ -117,7 +121,7 @@
         <mat-menu #menu="matMenu" yPosition="above">
             <button (click)="closeSession()" id="myPanelId" mat-menu-item class="user-menu-items">
                 {{"CloseSession" | translate }}</button>
-            <button *ngIf="user | async as _user" (click)="showPasswordPopUp(_user?.firstName)" id="myPanelId"
+            <button (click)="showPasswordPopUp(user?.firstName)" id="myPanelId"
                 mat-menu-item class="user-menu-items">
                 {{"CambiarContraseña" | translate }}</button>
         </mat-menu>

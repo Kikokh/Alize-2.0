@@ -28,5 +28,7 @@ namespace Alize.Platform.Api.Responses
         public string CompanyId { get; set; }
 
         public Guid? RoleId { get; set; }
+
+        public long? ZendeskUserId { get; set; }
     }
 }
