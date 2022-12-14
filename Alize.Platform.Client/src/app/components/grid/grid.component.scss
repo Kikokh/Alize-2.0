@@ -138,14 +138,16 @@
 
 :host ::ng-deep .mat-paginator-container {
     .mat-paginator-page-size-label {
-        color: #217280;
-        font-size: 18px;
-
+    display: none;
     }
 
     .mat-form-field-infix {
         border: 2px solid #217280;
-        padding: 10px 10px 10px 10px !important;
+        padding: 5px !important;
+    }
+    
+    .mat-paginator-page-size{
+        margin-top: 0.5rem;
     }
 
     .mat-paginator-range-actions {

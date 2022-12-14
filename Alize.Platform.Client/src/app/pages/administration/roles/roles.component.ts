@@ -12,7 +12,7 @@ import { RolesService } from "./roles.service";
 
 
 export class RolesComponent implements OnInit {
-
+  public show:boolean = false;
   displayedColumns: IColumnDef[] = [
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: any) => `${element.name}` },
     { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: any) => `${element.description}` },
@@ -42,5 +42,8 @@ export class RolesComponent implements OnInit {
       }
     )
   }
-
+  
+  toggle() {
+    this.show = !this.show;
+  }
 }
