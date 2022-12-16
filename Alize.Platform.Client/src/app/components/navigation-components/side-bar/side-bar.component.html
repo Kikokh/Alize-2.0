@@ -73,12 +73,11 @@
                 </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="opt-menu">
-                <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link" [href]="swaggerUrl"
-                    target="_blank">
+                <a class="nav-option flex" [routerLink]="['/swagger']">
                     <button mat-button class="buttonText">Swagger</button>
                 </a>
                 <a class="nav-option flex" (click)="closePanelOpt()" routerLinkActive="active-link" [href]="postmanUrl"
-                    target="_blank">
+                target="_blank">
                     <button mat-button class="buttonText">Postman</button>
                 </a>
             </div>
