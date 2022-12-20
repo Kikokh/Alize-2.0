@@ -14,6 +14,7 @@ import { AuthInterceptorService } from './interceptors/auth-interceptor.service 
 import { MatPaginatorIntlCro } from './mat-paginator-intl.service';
 import { MaterialModule } from './material.module';
 import { AdministrationModule } from './pages/administration/administration.module';
+import { DevelopmentComponent } from './pages/developments-tools/development.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LayoutAppModule } from './pages/layout/layout.module';
 import { LoginModule } from './pages/login/login.module';
@@ -25,7 +26,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    DevelopmentComponent
   ],
   imports: [
     AdministrationModule,

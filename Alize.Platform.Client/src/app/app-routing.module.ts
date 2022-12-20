@@ -16,6 +16,8 @@ import { AssetDetailComponent } from './pages/management/queries/assets/asset-de
 import { AssetsComponent } from './pages/management/queries/assets/assets.component';
 import { ChartsComponent } from './pages/management/queries/charts/charts.component';
 import { QueriesComponent } from './pages/management/queries/queries.component';
+import { DevelopmentComponent } from './pages/developments-tools/development.component';
+import { environment } from 'src/environments/environment';
 
 const routes: Routes = [
   {
@@ -32,37 +34,37 @@ const routes: Routes = [
             path: 'applications',
             component: ApplicationsComponent,
             canActivate: [ModuleGuard],
-            data: { module: Modules.Applications }
+            data: { module: Modules.Applications },
           },
           {
             path: 'companies',
             component: CompaniesComponent,
             canActivate: [ModuleGuard],
-            data: { module: Modules.Companies }
+            data: { module: Modules.Companies },
           },
           {
             path: 'roles',
             component: RolesComponent,
             canActivate: [ModuleGuard],
-            data: { module: Modules.Roles }
+            data: { module: Modules.Roles },
           },
           {
             path: 'modules',
             component: ModulesComponent,
             canActivate: [ModuleGuard],
-            data: { module: Modules.Modules }
+            data: { module: Modules.Modules },
           },
           {
             path: 'users',
             component: UsersComponent,
             canActivate: [ModuleGuard],
-            data: { module: Modules.Users }
+            data: { module: Modules.Users },
           },
           {
             path: '**',
-            redirectTo: 'applications'
-          }
-        ]
+            redirectTo: 'applications',
+          },
+        ],
       },
       {
         path: 'applications',
@@ -70,26 +72,48 @@ const routes: Routes = [
           { path: '', component: QueriesComponent },
           { path: ':applicationId/charts', component: ChartsComponent },
           { path: ':applicationId/assets', component: AssetsComponent },
-          { path: ':applicationId/assets/:assetId', component: AssetDetailComponent }
-        ]
+          {
+            path: ':applicationId/assets/:assetId',
+            component: AssetDetailComponent,
+          },
+        ],
       },
-    ]
+      {
+        path: 'swagger',
+        component: DevelopmentComponent,
+        data: {
+          url: environment.swagger,
+        },
+      },
+      {
+        path: 'postman',
+        component: DevelopmentComponent,
+        data: {
+          url: environment.postman,
+        },
+      },
+      {
+        path: 'zendesk',
+        component: DevelopmentComponent,
+        data: {
+          url: environment.zendesk,
+        },
+      },
+    ],
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'password-reset',
-    component: PasswordResetComponent
-  }
+    component: PasswordResetComponent,
+  },
 ];
 
 @NgModule({
   declarations: [],
-  imports: [
-    RouterModule.forRoot(routes)
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
