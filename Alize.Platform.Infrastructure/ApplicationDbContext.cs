@@ -77,9 +77,7 @@ namespace Alize.Platform.Infrastructure
                  {
                      Id = Guid.Parse(Core.Constants.Blockchains.Alastria),
                      Name = "Alastria",
-                     ApiUrl = "https://20.216.158.33/api/",
-                     RootUserName = "root",
-                     RootEncryptedPassword = "hfnqSR5BhccxGBclgTzR2Q=="
+                     ApiUrl = "https://20.216.158.33/api/"
                  }
             );
         }

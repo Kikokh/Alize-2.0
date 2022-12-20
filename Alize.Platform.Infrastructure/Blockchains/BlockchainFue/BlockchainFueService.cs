@@ -18,7 +18,7 @@ namespace Alize.Platform.Infrastructure.Services.BlockchainFue
             _httpClientFactory = httpClientFactory;
         }
 
-        public Task<ApplicationCredentials> CreateApplicationAsync(Application application, string password)
+        public Task<ApplicationCredentials> CreateApplicationAsync(Application application)
         {
             throw new NotImplementedException();
         }

@@ -29,16 +29,7 @@ export class ApplicationPopUpComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<ApplicationPopUpComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {
-      id: string;
-      name: string;
-      description: string;
-      importantInfo: string;
-      mode: string;
-      creationDate: Date;
-      company: Company;
-      isActive: boolean;
-    },
+    @Inject(MAT_DIALOG_DATA) public data: Application & { mode: ModePopUpType },
     private _companiesService: CompaniesService,
     private _blockchainService: BlockchainService
   ) {
@@ -47,7 +38,6 @@ export class ApplicationPopUpComponent implements OnInit {
       name: new UntypedFormControl({ value: (this.data.name) ? this.data.name : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
       description: new UntypedFormControl({ value: (this.data.description) ? this.data.description : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       company: new UntypedFormControl({ value: this.data.company?.id, disabled: (this.data.mode === ModePopUpType.DISPLAY) }, Validators.required),
-      importantInfo: new UntypedFormControl({ value: (this.data.importantInfo) ? this.data.importantInfo : '', disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       date: new UntypedFormControl({ value: this.data.creationDate, disabled: true }),
       active: new UntypedFormControl({ value: this.data.isActive, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),
       blockchain: new UntypedFormControl({ valur: null, disabled: (this.data.mode === ModePopUpType.DISPLAY) }),

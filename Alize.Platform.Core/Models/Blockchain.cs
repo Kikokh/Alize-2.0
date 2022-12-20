@@ -10,9 +10,5 @@ namespace Alize.Platform.Core.Models
         public string Name { get; set; }
 
         public string ApiUrl { get; set; }
-
-        public string? RootUserName { get; set; }
-
-        public string? RootEncryptedPassword { get; set; }
     }
 }
