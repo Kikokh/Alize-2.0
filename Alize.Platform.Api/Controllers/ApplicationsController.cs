@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Alize.Platform.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiExplorerSettings(IgnoreApi = true)]
     [ApiController]
     [Authorize(Policy = Modules.Applications)]
     [Produces("application/json")]
@@ -20,15 +19,25 @@ namespace Alize.Platform.Api.Controllers
     {
         private readonly IApplicationRepository _applicationRepository;
         private readonly ISecurityService _securityService;
+        private readonly IBlockchainFactory _blockchainFactory;
         private readonly IMapper _mapper;
         private readonly ICosmosRepositoryFactory _templateRepositoryFactory;
+        private readonly IWebHostEnvironment _environment;
 
-        public ApplicationsController(IApplicationRepository applicationRepository, ISecurityService securityService, IMapper mapper, ICosmosRepositoryFactory templateRepositoryFactory)
+        public ApplicationsController(
+            IApplicationRepository applicationRepository, 
+            ISecurityService securityService,
+            IBlockchainFactory blockchainFactory,
+            IMapper mapper,
+            ICosmosRepositoryFactory templateRepositoryFactory,
+            IWebHostEnvironment environment)
         {
             _applicationRepository = applicationRepository;
             _securityService = securityService;
+            _blockchainFactory = blockchainFactory;
             _mapper = mapper;
             _templateRepositoryFactory = templateRepositoryFactory;
+            _environment = environment;
         }
 
         // GET: api/<ApplicationsController>
@@ -80,7 +89,23 @@ namespace Alize.Platform.Api.Controllers
             newApp.CompanyId = user.CompanyId;
 
             await _applicationRepository.AddApplicationAsync(newApp);
-            await _templateRepositoryFactory.CreateApplicationContainerAsync(newApp.Id);
+
+            if(!_environment.IsDevelopment())
+            {
+                try
+                {
+                    var service = _blockchainFactory.Resolve(request.BlockchainId);
+                    await service.CreateApplicationAsync(newApp);
+
+                    await _templateRepositoryFactory.CreateApplicationContainerAsync(newApp.Id);
+
+                }
+                catch (Exception)
+                {
+                    await _applicationRepository.DeleteApplicationAsync(newApp);
+                    return UnprocessableEntity();
+                }
+            }
 
             return CreatedAtAction(nameof(Get), new { id = newApp.Id }, _mapper.Map<ApplicationResponse>(newApp));
         }

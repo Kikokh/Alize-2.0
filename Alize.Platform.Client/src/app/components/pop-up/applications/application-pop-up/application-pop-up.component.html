@@ -33,11 +33,6 @@
           </app-form-error>
         </mat-error>
       </div>
-      <div class="control" appearance="outline" *ngIf="data.mode === 'ADD'">
-        <label>{{"DatosRelevantes" | translate}}</label>
-        <textarea cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
-          formControlName="importantInfo" name="importantInfo"></textarea>
-      </div>
       <div *ngIf="data.mode ===  _modePopUpType.ADD" class="control" appearance="outline">
         <label>Blockchain</label>
         <select formControlName="blockchain">

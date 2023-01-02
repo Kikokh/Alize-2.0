@@ -9,7 +9,7 @@ namespace Alize.Platform.Infrastructure
         Task<IEnumerable<AssetHistory>> GetAssetHistoryAsync(Guid applicationId, string assetId);
         Task<IDictionary<string, dynamic>?> GetAssetMetadataAsync(Guid applicationId, string assetId);
         Task UpdateAssetMetadataAsync(Guid applicationId, string assetId, IDictionary<string, dynamic> metadata);
-        Task<ApplicationCredentials> CreateApplicationAsync(Application application, string password);
+        Task<ApplicationCredentials> CreateApplicationAsync(Application application);
         Task<IEnumerable<Asset>> GetAssets(Guid applicationId);
         Task<Asset> CreateAssetAsync(Guid applicationId, Asset asset);
         Task<IDictionary<string, dynamic>> CreateAssetMetadataAsync(Guid applicationId, string assetId, IDictionary<string, dynamic> data);

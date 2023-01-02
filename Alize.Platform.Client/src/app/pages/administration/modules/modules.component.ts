@@ -9,6 +9,7 @@ import { ModulesService } from './modules.service';
   styleUrls: ['./modules.component.scss', '../../layout-main.scss']
 })
 export class ModulesComponent implements OnInit {
+  public show:boolean = false;
   displayedColumns: IColumnDef[] = [
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: Module) => `${element.name}` },
     { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: Module) => `${element.description}` },
@@ -34,5 +35,9 @@ export class ModulesComponent implements OnInit {
         this.elementData = modules; 
       }
     );
+  }
+  
+  toggle() {
+    this.show = !this.show;
   }
 }

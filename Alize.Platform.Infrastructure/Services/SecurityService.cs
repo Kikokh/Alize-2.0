@@ -1,4 +1,6 @@
-﻿using Alize.Platform.Core.Models;
+﻿using Alize.Platform.Core.Constants;
+using Alize.Platform.Core.Exceptions;
+using Alize.Platform.Core.Models;
 using Alize.Platform.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,14 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Alize.Platform.Core.Constants;
-using System.Net.Mail;
-using System.Net;
-using Microsoft.Extensions.Options;
-using Alize.Platform.Infrastructure.Options;
-using Newtonsoft.Json.Linq;
-using System;
-using Alize.Platform.Core.Exceptions;
 
 namespace Alize.Platform.Infrastructure.Services
 {
@@ -24,15 +18,24 @@ namespace Alize.Platform.Infrastructure.Services
         private readonly RoleManager<Role> _roleManager;
         private readonly IConfiguration _configuration;
         private readonly IModuleRepository _moduleRepository;
-        private readonly EmailOptions _emailSettings;
+        private readonly IEmailService _emailService;
+        private readonly IZendeskService _zendeskService;
 
-        public SecurityService(UserManager<User> userManager, RoleManager<Role> roleManager, IModuleRepository moduleRepository, IConfiguration configuration, IOptions<EmailOptions> emailSettings)
+        public SecurityService(
+            UserManager<User> userManager,
+            RoleManager<Role> roleManager,
+            IModuleRepository moduleRepository,
+            IConfiguration configuration,
+            IEmailService emailService,
+            IZendeskService zendeskService 
+            )
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
             _moduleRepository = moduleRepository;
-            _emailSettings = emailSettings.Value;
+            _emailService = emailService;
+            _zendeskService = zendeskService;
         }
 
         public async Task SetUserRoleAsync(string userId, string roleId)
@@ -127,9 +130,10 @@ namespace Alize.Platform.Infrastructure.Services
 
         public async Task<User?> GetUserAsync(Guid id) => await this.GetUserAsync(id.ToString());
 
-        public async Task<User> RegisterUserAsync(User user, string password)
+        public async Task<User> RegisterUserAsync(User user, Guid roleId, string password)
         {
             var result = await _userManager.CreateAsync(user);
+            await SetUserRoleAsync(user.Id.ToString(), roleId.ToString());
 
             if (result.Succeeded)
             {
@@ -137,6 +141,8 @@ namespace Alize.Platform.Infrastructure.Services
 
                 if (result.Succeeded)
                 {
+                    await _zendeskService.CreateZendeskUserAsync(user);
+
                     return user;
                 }
 
@@ -161,7 +167,7 @@ namespace Alize.Platform.Infrastructure.Services
 
             var rolesQuery = _roleManager.Roles;
 
-            return user.Role?.Name switch
+            return user.Role!.Name switch
             {
                 Roles.AdminPro => await rolesQuery.ToListAsync(),
                 Roles.Distributor or
@@ -203,23 +209,13 @@ namespace Alize.Platform.Infrastructure.Services
         {
             var user = await _userManager.FindByEmailAsync(email);
 
-            if (user is null) 
+            if (user is null)
                 throw new NotFountException<User>();
 
             var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
 
-            var username = _emailSettings.Username;
-            var password = _emailSettings.Password;
-
-            var host = _emailSettings.Host;
-            var port = _emailSettings.Port;
-
-            var mail = new MailMessage();
-            mail.From = new MailAddress(_emailSettings.SenderEmail);
-            mail.To.Add(new MailAddress(email));
-            mail.Subject = "Recover Password";
-            mail.IsBodyHtml = true;
-            mail.Body = $@"
+            var subject = "Recover Password";
+            var body = $@"
                 <!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Transitional//EN"" ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"">
                 <html xmlns=""http://www.w3.org/1999/xhtml"">
                     <head>
@@ -666,7 +662,7 @@ namespace Alize.Platform.Infrastructure.Services
                             <table class=""email-content"" width=""100%"" cellpadding=""0"" cellspacing=""0"" role=""presentation"">
                             <tr>
                                 <td class=""email-masthead"">
-                                <a href=""{_emailSettings.Client}"" class=""f-fallback email-masthead_name"">
+                                <a href=""{_configuration["Client"]}"" class=""f-fallback email-masthead_name"">
                                 Alize
                                 </a>
                                 </td>
@@ -685,19 +681,18 @@ namespace Alize.Platform.Infrastructure.Services
                                         <table class=""body-action"" align=""center"" width=""100%"" cellpadding=""0"" cellspacing=""0"" role=""presentation"">
                                             <tr>
                                             <td align=""center"">
-                                                <!-- Border based button
-                            https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
+                                                <!-- Border based button https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
                                                 <table width=""100%"" border=""0"" cellspacing=""0"" cellpadding=""0"" role=""presentation"">
                                                 <tr>
                                                     <td align=""center"">
-                                                    <a href=""{_emailSettings.Client}/password-reset?email={email}&token={resetToken}"" class=""f-fallback button button--green"" target=""_blank"">Reset your password</a>
+                                                    <a href=""{_configuration["Client"]}/password-reset?email={email}&token={resetToken}"" class=""f-fallback button button--green"" target=""_blank"">Reset your password</a>
                                                     </td>
                                                 </tr>
                                                 </table>
                                             </td>
                                             </tr>
                                         </table>
-                                        <p>If you did not request a password reset, please ignore this email or <a href=""{{{{support_url}}}}"">contact support</a> if you have questions.</p>
+                                        <p>If you did not request a password reset, please ignore this email.</p>
                                         <p>Thanks,
                                             <br>The Alize team</p>
                                         <!-- Sub copy -->
@@ -705,7 +700,7 @@ namespace Alize.Platform.Infrastructure.Services
                                             <tr>
                                             <td>
                                                 <p class=""f-fallback sub"">If you’re having trouble with the button above, copy and paste the URL below into your web browser.</p>
-                                                <p class=""f-fallback sub"">{_emailSettings.Client}/password-reset?email={email}&token={resetToken}</p>
+                                                <p class=""f-fallback sub"">{_configuration["Client"]}/password-reset?email={email}&token={resetToken}</p>
                                             </td>
                                             </tr>
                                         </table>
@@ -723,13 +718,7 @@ namespace Alize.Platform.Infrastructure.Services
                 </html>
             ";
 
-            using var client = new SmtpClient(host, port)
-            {
-                Credentials = new NetworkCredential(username, password),
-                EnableSsl = true
-            };            
-
-            client.Send(mail);
+            await _emailService.SendEmail(email, subject, body, true);
         }
 
         public async Task ResetUserPasswordAsync(string email, string token, string newPassword)

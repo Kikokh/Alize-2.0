@@ -98,7 +98,7 @@ namespace Alize.Platform.Api.Controllers
 
             try
             {
-                await _securityService.RegisterUserAsync(user, request.Password);
+                await _securityService.RegisterUserAsync(user, request.RoleId, request.Password);
                 await _securityService.SetUserRoleAsync(user.Id.ToString(), request.RoleId.ToString());
             }
             catch (ApplicationException)
@@ -238,7 +238,7 @@ namespace Alize.Platform.Api.Controllers
 
             var currentRole = User.GetUserRole();
 
-            if (!_securityService.VerifyRolePermit(currentRole, user.Role.Name))
+            if (!_securityService.VerifyRolePermit(currentRole, user.Role?.Name))
                 return Forbid();            
 
             await _securityService.DeleteUserAsync(user);

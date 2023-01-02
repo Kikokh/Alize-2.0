@@ -4,7 +4,9 @@ using Alize.Platform.Infrastructure.Alastria.Models;
 using Alize.Platform.Infrastructure.Extensions;
 using Alize.Platform.Infrastructure.Repositories;
 using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.Configuration;
 using System.Text;
 
 namespace Alize.Platform.Infrastructure.Alastria
@@ -16,30 +18,35 @@ namespace Alize.Platform.Infrastructure.Alastria
         private readonly IBlockchainRepository _blockchainRepository;
         private readonly ICryptographyService _cryptographyService;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _configuration;
 
         public AlastriaService(
             IHttpClientFactory httpClientFactory,
             IApplicationCredentialsRepository applicationCredentialsRepository,
             IBlockchainRepository blockchainRepository,
             ICryptographyService cryptographyService,
-            IMapper mapper)
+            IMapper mapper,
+            IConfiguration configuration)
         {
             _httpClientFactory = httpClientFactory;
             _applicationCredentialsRepository = applicationCredentialsRepository;
             _blockchainRepository = blockchainRepository;
             _cryptographyService = cryptographyService;
             _mapper = mapper;
+            _configuration = configuration;
         }
 
-        public async Task<ApplicationCredentials> CreateApplicationAsync(Application application, string password)
+        public async Task<ApplicationCredentials> CreateApplicationAsync(Application application)
         {
-            var url = "bc_applications";
+            var url = "bc-applications";
 
             using var client = await RootLoginAsync();
 
             var alastriaApplication = _mapper.Map<AlastriaApplication>(application);
-
-            alastriaApplication.Password = password;
+            alastriaApplication.Password = _cryptographyService.DecryptString(_configuration["BlockchainCredentials:Alastria:Password"]);
+            alastriaApplication.Roles = new[] { "APP_ADMINISTRATOR" };
+            alastriaApplication.AdminUser = $"admin_{application.Id}";
+            alastriaApplication.Email = $"{application.Id}@alize.es";
 
             var body = JsonConvert.SerializeObject(alastriaApplication);
             var content = new StringContent(body, Encoding.UTF8, "application/json");
@@ -51,8 +58,8 @@ namespace Alize.Platform.Infrastructure.Alastria
             {
                 ApplicationId = application.Id,
                 BlockchainId = Guid.Parse(Blockchains.Alastria),
-                Username = $"admin_{result.ApplicationName}",
-                EncryptedPassword = _cryptographyService.EncryptString(result.Password)
+                Username = result.AdminUser,
+                EncryptedPassword = _cryptographyService.EncryptString(alastriaApplication.Password)
             };
 
             await _applicationCredentialsRepository.CreateApplicationCredentialsAsync(credentials);
@@ -177,10 +184,11 @@ namespace Alize.Platform.Infrastructure.Alastria
         {
             var httpClient = await GetHttpClient();
 
-            var blockchain = await _blockchainRepository.GetBlockchainAsync(Guid.Parse(Blockchains.Alastria));
-            var password = _cryptographyService.DecryptString(blockchain.RootEncryptedPassword);
+            var user = _configuration["BlockchainCredentials:Alastria:User"];
+            var password = _cryptographyService.DecryptString(_configuration["BlockchainCredentials:Alastria:Password"]);
+            var body = JsonConvert.SerializeObject(new { username = user, password });
 
-            var content = new StringContent(JsonConvert.SerializeObject(new { username = blockchain.RootUserName, password }));
+            var content = new StringContent(body, Encoding.UTF8, "application/json");
 
             var response = await httpClient.PostAsync("oauth/token", content);
 
@@ -188,7 +196,7 @@ namespace Alize.Platform.Infrastructure.Alastria
 
             var alastriaLoginResponse = JsonConvert.DeserializeObject<AlastriaLoginResponse>(result);
 
-            httpClient.DefaultRequestHeaders.Add("Authorization", alastriaLoginResponse.AccessToken);
+            httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {alastriaLoginResponse.AccessToken}");
 
             return httpClient;
         }

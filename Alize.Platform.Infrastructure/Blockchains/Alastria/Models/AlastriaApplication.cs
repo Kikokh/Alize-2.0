@@ -5,7 +5,7 @@ namespace Alize.Platform.Infrastructure.Alastria.Models
     public class AlastriaApplication
     {
         [JsonProperty("_id")]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         [JsonProperty("app_name")]
         public string ApplicationName { get; set; }
@@ -23,6 +23,6 @@ namespace Alize.Platform.Infrastructure.Alastria.Models
         public bool Revoked { get; set; }
 
         [JsonProperty("roles")]
-        public IEnumerable<string> Roles { get; set; }
+        public ICollection<string> Roles { get; set; }
     }
 }

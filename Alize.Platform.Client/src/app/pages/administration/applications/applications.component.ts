@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./applications.component.scss', '../../layout-main.scss']
 })
 export class ApplicationsComponent implements OnInit {
+  public show:boolean = false;
   displayedColumns: IColumnDef[] = [
     { columnDef: 'Nombre', header: 'Nombre', cell: (element: Application) => `${element.name}` },
     { columnDef: 'Descripcion', header: 'Descripcion', cell: (element: Application) => `${element.description}` },
@@ -51,6 +52,10 @@ export class ApplicationsComponent implements OnInit {
         this.elementData = applications;
       }
     );
+  }
+  
+  toggle() {
+    this.show = !this.show;
   }
 
   add(app: Application) {
