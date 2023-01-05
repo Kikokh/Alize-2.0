@@ -44,7 +44,7 @@ namespace Alize.Platform.Infrastructure
                         .WithMany()
                         .HasForeignKey("UserId")
                         .HasConstraintName("FK_ApplicationUser_AspNetUsers_UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                 );
 
             builder.Entity<User>()
