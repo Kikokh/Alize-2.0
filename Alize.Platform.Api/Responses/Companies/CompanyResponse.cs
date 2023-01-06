@@ -26,5 +26,6 @@ namespace Alize.Platform.Api.Responses.Companies
         public string? Province { get; set; }
         public string? Country { get; set; }
         public string? GoogleMapsUrl { get; set; }
+        public Guid? ParentCompanyId { get; set; }
     }
 }

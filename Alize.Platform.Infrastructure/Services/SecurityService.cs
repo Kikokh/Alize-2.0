@@ -96,6 +96,7 @@ namespace Alize.Platform.Infrastructure.Services
         {
             var user = await _userManager.Users
                 .Include(u => u.Roles)
+                .Include(u => u.Company)
                 .SingleAsync(u => u.Id == userId);
 
             var usersQuery = _userManager.Users
@@ -111,7 +112,7 @@ namespace Alize.Platform.Infrastructure.Services
                         .Where(u => u.Roles.All(r => r.Name != Roles.AdminPro))
                         .ToListAsync(),
                 Roles.Admin => await usersQuery
-                        .Where(u => u.CompanyId == user.CompanyId)
+                        .Where(u => u.CompanyId == user.CompanyId || user.Company.ParentCompanyId == u.CompanyId)
                         .Where(u => u.Roles.All(r => r.Name != Roles.AdminPro))
                         .ToListAsync(),
                 _ => new List<User>() { user }
